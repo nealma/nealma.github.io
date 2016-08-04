@@ -68,7 +68,7 @@
 <link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="elastic,search," />
 
 
 
@@ -86,15 +86,25 @@
 
 
 
-<meta name="description" content="Follow your heart, just do it.">
-<meta property="og:type" content="website">
-<meta property="og:title" content="neal.ma">
-<meta property="og:url" content="http://yoursite.com/index.html">
+<meta name="description" content="ElasticSearch作为分布式搜索引擎，给我们带来了方便。
+Quick StartGet elasticsearch &amp;amp; jdbcelasticsearch-rtf: branch 2.1.1elasticsearch-jdbc: branch 2.1.1.2
+Run1$ ./bin/elasticsearch &amp;amp;
+If do not have lib1$ mvn packa">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ElasticSearch">
+<meta property="og:url" content="http://yoursite.com/2015/12/18/elasticsearch/index.html">
 <meta property="og:site_name" content="neal.ma">
-<meta property="og:description" content="Follow your heart, just do it.">
+<meta property="og:description" content="ElasticSearch作为分布式搜索引擎，给我们带来了方便。
+Quick StartGet elasticsearch &amp;amp; jdbcelasticsearch-rtf: branch 2.1.1elasticsearch-jdbc: branch 2.1.1.2
+Run1$ ./bin/elasticsearch &amp;amp;
+If do not have lib1$ mvn packa">
+<meta property="og:updated_time" content="2016-08-04T08:21:39.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="neal.ma">
-<meta name="twitter:description" content="Follow your heart, just do it.">
+<meta name="twitter:title" content="ElasticSearch">
+<meta name="twitter:description" content="ElasticSearch作为分布式搜索引擎，给我们带来了方便。
+Quick StartGet elasticsearch &amp;amp; jdbcelasticsearch-rtf: branch 2.1.1elasticsearch-jdbc: branch 2.1.1.2
+Run1$ ./bin/elasticsearch &amp;amp;
+If do not have lib1$ mvn packa">
 
 
 
@@ -115,9 +125,9 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/"/>
+  <link rel="canonical" href="http://yoursite.com/2015/12/18/elasticsearch/"/>
 
-  <title> neal.ma </title>
+  <title> ElasticSearch | neal.ma </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="en">
@@ -138,9 +148,7 @@
     
   
 
-  <div class="container one-collumn sidebar-position-left 
-   page-home 
- ">
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -237,9 +245,9 @@
         <div class="content-wrap">
           <div id="content" class="content">
             
-  <section id="posts" class="posts-expand">
+
+  <div id="posts" class="posts-expand">
     
-      
 
   
   
@@ -259,10 +267,7 @@
             
             
               
-                
-                <a class="post-title-link" href="/2015/12/18/elasticsearch/" itemprop="url">
-                  ElasticSearch
-                </a>
+                ElasticSearch
               
             
           </h1>
@@ -302,9 +307,7 @@
       
 
       
-        
-          
-            <p>ElasticSearch作为分布式搜索引擎，给我们带来了方便。</p>
+        <p>ElasticSearch作为分布式搜索引擎，给我们带来了方便。</p>
 <h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Get-elasticsearch-amp-jdbc"><a href="#Get-elasticsearch-amp-jdbc" class="headerlink" title="Get elasticsearch &amp; jdbc"></a>Get elasticsearch &amp; jdbc</h3><p>elasticsearch-rtf: <a href="https://github.com/medcl/elasticsearch-rtf/archive/2.1.1.zip" target="_blank" rel="external">branch 2.1.1</a><br>elasticsearch-jdbc: <a href="https://github.com/jprante/elasticsearch-jdbc/archive/2.1.1.2.zip" target="_blank" rel="external">branch 2.1.1.2</a></p>
 <h3 id="Run"><a href="#Run" class="headerlink" title="Run"></a>Run</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ ./bin/elasticsearch &amp;</div></pre></td></tr></table></figure>
 <h3 id="If-do-not-have-lib"><a href="#If-do-not-have-lib" class="headerlink" title="If do not have lib"></a>If do not have lib</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ mvn package</div></pre></td></tr></table></figure>
@@ -314,36 +317,45 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div></pre></td><td class="code"><pre><div class="line">#body.json</div><div class="line">&#123;</div><div class="line">  &quot;settings&quot;: &#123;</div><div class="line">     &quot;refresh_interval&quot;: &quot;5s&quot;,</div><div class="line">     &quot;number_of_shards&quot; :   1,</div><div class="line">     &quot;number_of_replicas&quot; : 0</div><div class="line">  &#125;,</div><div class="line">  &quot;mappings&quot;: &#123;</div><div class="line">    &quot;_default_&quot;:&#123;</div><div class="line">      &quot;_all&quot;: &#123; &quot;enabled&quot;:  false &#125;</div><div class="line">    &#125;,</div><div class="line">    &quot;articles&quot;: &#123;</div><div class="line">      &quot;dynamic&quot;: false,</div><div class="line">      &quot;properties&quot;: &#123;</div><div class="line">        &quot;title&quot;: &#123;</div><div class="line">          &quot;type&quot;: &quot;string&quot;,</div><div class="line">          &quot;index&quot;: &quot;analyzed&quot;,</div><div class="line">          &quot;fields&quot;: &#123;</div><div class="line">            &quot;cn&quot;: &#123;</div><div class="line">              &quot;type&quot;: &quot;string&quot;,</div><div class="line">              &quot;analyzer&quot;: &quot;ik&quot;</div><div class="line">            &#125;,</div><div class="line">            &quot;en&quot;: &#123;</div><div class="line">              &quot;type&quot;: &quot;string&quot;,</div><div class="line">              &quot;analyzer&quot;: &quot;english&quot;</div><div class="line">            &#125;</div><div class="line">          &#125;</div><div class="line">        &#125;,</div><div class="line">        &quot;content&quot;: &#123;</div><div class="line">          &quot;type&quot;: &quot;string&quot;,</div><div class="line">          &quot;index&quot;: &quot;analyzed&quot;,</div><div class="line">          &quot;fields&quot;: &#123;</div><div class="line">            &quot;cn&quot;: &#123;</div><div class="line">              &quot;type&quot;: &quot;string&quot;,</div><div class="line">              &quot;analyzer&quot;: &quot;ik&quot;</div><div class="line">            &#125;,</div><div class="line">            &quot;en&quot;: &#123;</div><div class="line">              &quot;type&quot;: &quot;string&quot;,</div><div class="line">              &quot;analyzer&quot;: &quot;english&quot;</div><div class="line">            &#125;</div><div class="line">          &#125;</div><div class="line">        &#125;</div><div class="line">      &#125;</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <h3 id="Show-all-index-info-of-recovery-…"><a href="#Show-all-index-info-of-recovery-…" class="headerlink" title="Show all index info of recovery …."></a>Show all index info of recovery ….</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ curl -XGET http://localhost:9200/_recovery?pretty=<span class="literal">true</span>&amp;detailed=<span class="literal">true</span></div></pre></td></tr></table></figure>
 
-          
+      
+    </div>
+
+    <div>
+      
         
+
       
     </div>
 
     <div>
       
-    </div>
+        
 
-    <div>
       
     </div>
 
     <footer class="post-footer">
       
-
+        <div class="post-tags">
+          
+            <a href="/tags/elastic-search/" rel="tag">#elastic,search</a>
+          
+        </div>
       
 
       
+
       
-        <div class="post-eof"></div>
       
     </footer>
   </article>
 
 
-    
-  </section>
 
-  
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -351,6 +363,10 @@
 
 
           
+  <div class="comments" id="comments">
+    
+  </div>
+
 
         </div>
         
@@ -370,8 +386,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel  sidebar-panel-active ">
+      <section class="site-overview sidebar-panel ">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="http://upload.jianshu.io/users/upload_avatars/2649507/b9d8c309bcda.jpg"
@@ -421,6 +446,17 @@
 
       </section>
 
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Quick-Start"><span class="nav-number">1.</span> <span class="nav-text">Quick Start</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Get-elasticsearch-amp-jdbc"><span class="nav-number">1.1.</span> <span class="nav-text">Get elasticsearch & jdbc</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Run"><span class="nav-number">1.2.</span> <span class="nav-text">Run</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#If-do-not-have-lib"><span class="nav-number">1.3.</span> <span class="nav-text">If do not have lib</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Bind-ip"><span class="nav-number">1.4.</span> <span class="nav-text">Bind ip</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Base-command"><span class="nav-number">1.5.</span> <span class="nav-text">Base command</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Create-index-by-mapping-file"><span class="nav-number">1.6.</span> <span class="nav-text">Create index by mapping file</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Show-all-index-info-of-recovery-…"><span class="nav-number">1.7.</span> <span class="nav-text">Show all index info of recovery ….</span></a></li></ol></li></ol></div>
+            
+          </div>
+        </section>
       
 
     </div>
@@ -517,6 +553,10 @@
   
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
 
   
 
