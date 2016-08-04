@@ -4,9 +4,9 @@
   
   <link href="/atom.xml" rel="self"/>
   
-  <link href="http://yoursite.com/"/>
+  <link href="http://www.nealma.com/"/>
   <updated>2016-08-04T08:21:39.000Z</updated>
-  <id>http://yoursite.com/</id>
+  <id>http://www.nealma.com/</id>
   
   <author>
     <name>neal.ma</name>
@@ -17,8 +17,8 @@
   
   <entry>
     <title>ElasticSearch</title>
-    <link href="http://yoursite.com/2015/12/18/elasticsearch/"/>
-    <id>http://yoursite.com/2015/12/18/elasticsearch/</id>
+    <link href="http://www.nealma.com/2015/12/18/elasticsearch/"/>
+    <id>http://www.nealma.com/2015/12/18/elasticsearch/</id>
     <published>2015-12-18T07:46:45.000Z</published>
     <updated>2016-08-04T08:21:39.000Z</updated>
     
@@ -41,7 +41,7 @@
     </summary>
     
     
-      <category term="elastic,search" scheme="http://yoursite.com/tags/elastic-search/"/>
+      <category term="elastic,search" scheme="http://www.nealma.com/tags/elastic-search/"/>
     
   </entry>
   
