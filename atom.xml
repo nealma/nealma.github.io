@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://www.nealma.com/"/>
-  <updated>2016-08-04T10:20:53.000Z</updated>
+  <updated>2016-08-05T04:30:28.000Z</updated>
   <id>http://www.nealma.com/</id>
   
   <author>
@@ -16,11 +16,63 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>Hexo使用攻略</title>
+    <link href="http://www.nealma.com/2016/03/18/hexo-how-to-use/"/>
+    <id>http://www.nealma.com/2016/03/18/hexo-how-to-use/</id>
+    <published>2016-03-18T03:46:45.000Z</published>
+    <updated>2016-08-05T04:30:28.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>对生活、学习或者工作中，遇到的问题以及解决的方案，已blog的形式存于互联网，共享给需要帮助的人。<br>但是从各大博客网站辗转于免费空间，最后落脚在github，hexo给我们提供了方便的blog模版，<br>让我们可以安心的写内容了，hexo使用过程中的一些记录，便于后来人。</p>
+<h3 id="1-安装"><a href="#1-安装" class="headerlink" title="1 安装"></a>1 安装</h3><p>nodejs、git、hero,具体步骤，请Google。</p>
+<h3 id="2-1-创建分类页面-新建一个页面-命名为-categories-关于、标签类似"><a href="#2-1-创建分类页面-新建一个页面-命名为-categories-关于、标签类似" class="headerlink" title="2.1 创建分类页面, 新建一个页面, 命名为 categories, 关于、标签类似"></a>2.1 创建分类页面, 新建一个页面, 命名为 categories, 关于、标签类似</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo new page categories</div></pre></td></tr></table></figure>
+<h3 id="2-2-编辑categories页面-内容"><a href="#2-2-编辑categories页面-内容" class="headerlink" title="2.2 编辑categories页面, 内容:"></a>2.2 编辑categories页面, 内容:</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">---</div><div class="line">title: 分类</div><div class="line">type: categories</div><div class="line">comments: false</div><div class="line">---</div></pre></td></tr></table></figure>
+<h3 id="2-3-设置分类列表"><a href="#2-3-设置分类列表" class="headerlink" title="2.3 设置分类列表"></a>2.3 设置分类列表</h3><p>不需要特别的配置，只需要在写文章的时候，加上<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">#eg. tech</div><div class="line">categories: tech</div></pre></td></tr></table></figure></p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;对生活、学习或者工作中，遇到的问题以及解决的方案，已blog的形式存于互联网，共享给需要帮助的人。&lt;br&gt;但是从各大博客网站辗转于免费空间，最后落脚在github，hexo给我们提供了方便的blog模版，&lt;br&gt;让我们可以安心的写内容了，hexo使用过程中的一些记录，便于后
+    
+    </summary>
+    
+      <category term="Tech" scheme="http://www.nealma.com/categories/Tech/"/>
+    
+    
+      <category term="hexo" scheme="http://www.nealma.com/tags/hexo/"/>
+    
+      <category term="blog" scheme="http://www.nealma.com/tags/blog/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>newrelic使用</title>
+    <link href="http://www.nealma.com/2015/12/18/newrelic/"/>
+    <id>http://www.nealma.com/2015/12/18/newrelic/</id>
+    <published>2015-12-18T07:46:45.000Z</published>
+    <updated>2016-08-04T12:11:40.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>对于Startup公司，在人员配备不足的情况下，集成各路云服务在所难免，newrelic在AMP领域走在前面，这里记录下相关使用。</p>
+<h3 id="Java-agent-for-web-server"><a href="#Java-agent-for-web-server" class="headerlink" title="Java agent for web server"></a>Java agent for web server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">$ unzip newrelic-java-xxx.zip <span class="_">-d</span> /path/to/appserver/</div><div class="line">$ <span class="built_in">cd</span> /path/to/appserver/newrelic</div><div class="line">$ java -jar newrelic.jar install</div></pre></td></tr></table></figure>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;对于Startup公司，在人员配备不足的情况下，集成各路云服务在所难免，newrelic在AMP领域走在前面，这里记录下相关使用。&lt;/p&gt;
+&lt;h3 id=&quot;Java-agent-for-web-server&quot;&gt;&lt;a href=&quot;#Java-agent-for-web-ser
+    
+    </summary>
+    
+    
+      <category term="newrelic" scheme="http://www.nealma.com/tags/newrelic/"/>
+    
+  </entry>
+  
+  <entry>
     <title>ElasticSearch</title>
     <link href="http://www.nealma.com/2015/12/18/elasticsearch/"/>
     <id>http://www.nealma.com/2015/12/18/elasticsearch/</id>
     <published>2015-12-18T07:46:45.000Z</published>
-    <updated>2016-08-04T10:20:53.000Z</updated>
+    <updated>2016-08-05T04:22:54.000Z</updated>
     
     <content type="html"><![CDATA[<p>ElasticSearch作为分布式搜索引擎，给我们带来了方便。</p>
 <h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Get-elasticsearch-amp-jdbc"><a href="#Get-elasticsearch-amp-jdbc" class="headerlink" title="Get elasticsearch &amp; jdbc"></a>Get elasticsearch &amp; jdbc</h3><p>elasticsearch-rtf: <a href="https://github.com/medcl/elasticsearch-rtf/archive/2.1.1.zip" target="_blank" rel="external">branch 2.1.1</a><br>elasticsearch-jdbc: <a href="https://github.com/jprante/elasticsearch-jdbc/archive/2.1.1.2.zip" target="_blank" rel="external">branch 2.1.1.2</a></p>
@@ -39,6 +91,8 @@
 &lt;h2 id=&quot;Quick-Start&quot;&gt;&lt;a href=&quot;#Quick-Start&quot; class=&quot;headerlink&quot; title=&quot;Quick Start&quot;&gt;&lt;/a&gt;Quick Start&lt;/
     
     </summary>
+    
+      <category term="Tools" scheme="http://www.nealma.com/categories/Tools/"/>
     
     
       <category term="搜索" scheme="http://www.nealma.com/tags/%E6%90%9C%E7%B4%A2/"/>
