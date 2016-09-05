@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://www.nealma.com/"/>
-  <updated>2016-08-05T04:30:28.000Z</updated>
+  <updated>2016-09-05T08:15:43.000Z</updated>
   <id>http://www.nealma.com/</id>
   
   <author>
@@ -16,17 +16,91 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>MyBatis Generator 改造</title>
+    <link href="http://www.nealma.com/2016/04/25/mybatis-generator-how-to-use/"/>
+    <id>http://www.nealma.com/2016/04/25/mybatis-generator-how-to-use/</id>
+    <published>2016-04-25T03:46:45.000Z</published>
+    <updated>2016-09-05T08:15:43.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>MyBatis在java的ORM地位一致保持，但是我们在写mapper的时候，也是头疼，关键是总是手误，所以呢，就有了mybatis-generator,<br>但是官方的工具又不符合我们自己的口味，像什么不能在pojo类中根据表的字段注释来自动加注释，<br>生成的mapper不够优雅,于是不安分的我们就开始各种改造…</p>
+<p>MyBatis Version : 1.3.4-SNAPSHOT</p>
+<h3 id="在POJO类上添加注释"><a href="#在POJO类上添加注释" class="headerlink" title="在POJO类上添加注释"></a>在POJO类上添加注释</h3><p>修改Field.java类</p>
+<p>＊ 添加remarks成员变量，同时完成setter和getter方法</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">private</span> String remarks;</div><div class="line"></div><div class="line">getter...</div><div class="line">setter...</div></pre></td></tr></table></figure>
+<ul>
+<li>修改getFormattedContent方法</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">sb.append(<span class="string">';'</span>);</div><div class="line"><span class="comment">//新增</span></div><div class="line"><span class="keyword">if</span> (remarks != <span class="keyword">null</span> &amp;&amp; remarks.length() &gt; <span class="number">1</span>)&#123;</div><div class="line">   sb.append(<span class="string">"//"</span>).append(remarks);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>＊ 给remarks赋值，修改JavaBeansUtil.getJavaBeansField方法</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">...</div><div class="line">field.setName(property);</div><div class="line"><span class="comment">//添加如下代码</span></div><div class="line">field.setRemarks(introspectedColumn.getRemarks());</div></pre></td></tr></table></figure>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;MyBatis在java的ORM地位一致保持，但是我们在写mapper的时候，也是头疼，关键是总是手误，所以呢，就有了mybatis-generator,&lt;br&gt;但是官方的工具又不符合我们自己的口味，像什么不能在pojo类中根据表的字段注释来自动加注释，&lt;br&gt;生成的map
+    
+    </summary>
+    
+      <category term="Tech" scheme="http://www.nealma.com/categories/Tech/"/>
+    
+    
+      <category term="MyBatis" scheme="http://www.nealma.com/tags/MyBatis/"/>
+    
+      <category term="Generator" scheme="http://www.nealma.com/tags/Generator/"/>
+    
+      <category term="Java" scheme="http://www.nealma.com/tags/Java/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Spring-Boot （一） 环境搭建</title>
+    <link href="http://www.nealma.com/2016/04/20/spring-boot-how-to-use/"/>
+    <id>http://www.nealma.com/2016/04/20/spring-boot-how-to-use/</id>
+    <published>2016-04-20T03:46:45.000Z</published>
+    <updated>2016-09-05T08:16:43.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>Spring发展到现在，在java框架中一直在坚守，也在不断的改进。<br>Spring-Boot的出现，并不是什么新技术，而是简化我们的开发步骤和配置，让我们愉快的玩耍吧。</p>
+<p>本记录使用的开发环境：<br>os: mac<br>ide: idea<br>build: maven</p>
+<h3 id="Run"><a href="#Run" class="headerlink" title="Run"></a>Run</h3><p>Spring-Boot是从run开始的，所以你的项目必须包含类似以下的一段代码<br>我习惯于放在com.domain.project包下</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@SpringBootApplication</span></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Application</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</div><div class="line">        SpringApplication.run(Application.class, args);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="POM依赖"><a href="#POM依赖" class="headerlink" title="POM依赖"></a>POM依赖</h3><figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="comment">&lt;!-- Inherit defaults from Spring Boot --&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">parent</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-parent<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.3.5.RELEASE<span class="tag">&lt;/<span class="name">version</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">parent</span>&gt;</span></div></pre></td></tr></table></figure>
+<p>当然也可以不依赖，使用scope=import</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">parent</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-parent<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.3.5.RELEASE<span class="tag">&lt;/<span class="name">version</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">type</span>&gt;</span>pom<span class="tag">&lt;/<span class="name">type</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">scope</span>&gt;</span>import<span class="tag">&lt;/<span class="name">scope</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">parent</span>&gt;</span></div></pre></td></tr></table></figure>
+<h3 id="使用Spring-Boot-Maven插件"><a href="#使用Spring-Boot-Maven插件" class="headerlink" title="使用Spring-Boot-Maven插件"></a>使用Spring-Boot-Maven插件</h3><p>将项目打包成“flat jars”，独立可执行jar包</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">plugin</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-maven-plugin<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">plugin</span>&gt;</span></div></pre></td></tr></table></figure>
+<h3 id="Starter-POMs"><a href="#Starter-POMs" class="headerlink" title="Starter POMs"></a>Starter POMs</h3><p>starts是开箱即用，方便的的依赖集合，不用在像spring那样一个一个的配置依赖了</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;Spring发展到现在，在java框架中一直在坚守，也在不断的改进。&lt;br&gt;Spring-Boot的出现，并不是什么新技术，而是简化我们的开发步骤和配置，让我们愉快的玩耍吧。&lt;/p&gt;
+&lt;p&gt;本记录使用的开发环境：&lt;br&gt;os: mac&lt;br&gt;ide: idea&lt;br&gt;bui
+    
+    </summary>
+    
+      <category term="Tech" scheme="http://www.nealma.com/categories/Tech/"/>
+    
+    
+      <category term="Java" scheme="http://www.nealma.com/tags/Java/"/>
+    
+      <category term="Spring" scheme="http://www.nealma.com/tags/Spring/"/>
+    
+      <category term="Spring-Boot" scheme="http://www.nealma.com/tags/Spring-Boot/"/>
+    
+  </entry>
+  
+  <entry>
     <title>Hexo使用攻略</title>
     <link href="http://www.nealma.com/2016/03/18/hexo-how-to-use/"/>
     <id>http://www.nealma.com/2016/03/18/hexo-how-to-use/</id>
     <published>2016-03-18T03:46:45.000Z</published>
-    <updated>2016-08-05T04:30:28.000Z</updated>
+    <updated>2016-09-05T08:23:13.000Z</updated>
     
     <content type="html"><![CDATA[<p>对生活、学习或者工作中，遇到的问题以及解决的方案，已blog的形式存于互联网，共享给需要帮助的人。<br>但是从各大博客网站辗转于免费空间，最后落脚在github，hexo给我们提供了方便的blog模版，<br>让我们可以安心的写内容了，hexo使用过程中的一些记录，便于后来人。</p>
-<h3 id="1-安装"><a href="#1-安装" class="headerlink" title="1 安装"></a>1 安装</h3><p>nodejs、git、hero,具体步骤，请Google。</p>
-<h3 id="2-1-创建分类页面-新建一个页面-命名为-categories-关于、标签类似"><a href="#2-1-创建分类页面-新建一个页面-命名为-categories-关于、标签类似" class="headerlink" title="2.1 创建分类页面, 新建一个页面, 命名为 categories, 关于、标签类似"></a>2.1 创建分类页面, 新建一个页面, 命名为 categories, 关于、标签类似</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo new page categories</div></pre></td></tr></table></figure>
-<h3 id="2-2-编辑categories页面-内容"><a href="#2-2-编辑categories页面-内容" class="headerlink" title="2.2 编辑categories页面, 内容:"></a>2.2 编辑categories页面, 内容:</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">---</div><div class="line">title: 分类</div><div class="line">type: categories</div><div class="line">comments: false</div><div class="line">---</div></pre></td></tr></table></figure>
-<h3 id="2-3-设置分类列表"><a href="#2-3-设置分类列表" class="headerlink" title="2.3 设置分类列表"></a>2.3 设置分类列表</h3><p>不需要特别的配置，只需要在写文章的时候，加上<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">#eg. tech</div><div class="line">categories: tech</div></pre></td></tr></table></figure></p>
+<h3 id="1-安装"><a href="#1-安装" class="headerlink" title="1 安装"></a>1 安装</h3><p>nodejs、git、hexo,具体步骤，请Google。<br>我的环境是Mac OS<br>so ：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">brew install npm（Node Packaged Modules）</div><div class="line">brew install n -g</div><div class="line">n ls</div><div class="line">n 6.5.0</div><div class="line">brew install git</div><div class="line">npm install hexo-cli -g</div><div class="line">npm install hexo --save</div><div class="line">hexo g</div><div class="line">hexo s</div><div class="line">hexo d</div></pre></td></tr></table></figure></p>
+<h3 id="2-创建分类页面-新建一个页面-命名为-categories-关于、标签类似"><a href="#2-创建分类页面-新建一个页面-命名为-categories-关于、标签类似" class="headerlink" title="2 创建分类页面, 新建一个页面, 命名为 categories, 关于、标签类似"></a>2 创建分类页面, 新建一个页面, 命名为 categories, 关于、标签类似</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo new page categories</div></pre></td></tr></table></figure>
+<h3 id="3-编辑categories页面-内容"><a href="#3-编辑categories页面-内容" class="headerlink" title="3 编辑categories页面, 内容:"></a>3 编辑categories页面, 内容:</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">---</div><div class="line">title: 分类</div><div class="line">type: categories</div><div class="line">comments: false</div><div class="line">---</div></pre></td></tr></table></figure>
+<h3 id="4-设置分类列表"><a href="#4-设置分类列表" class="headerlink" title="4 设置分类列表"></a>4 设置分类列表</h3><p>不需要特别的配置，只需要在写文章的时候，加上<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">#eg. tech</div><div class="line">categories: tech</div></pre></td></tr></table></figure></p>
 ]]></content>
     
     <summary type="html">
@@ -41,6 +115,79 @@
       <category term="hexo" scheme="http://www.nealma.com/tags/hexo/"/>
     
       <category term="blog" scheme="http://www.nealma.com/tags/blog/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Nginx Configuration</title>
+    <link href="http://www.nealma.com/2016/03/16/nginx-configuration/"/>
+    <id>http://www.nealma.com/2016/03/16/nginx-configuration/</id>
+    <published>2016-03-16T03:46:45.000Z</published>
+    <updated>2016-08-06T04:26:21.000Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id="Download-nginx"><a href="#Download-nginx" class="headerlink" title="Download nginx"></a>Download nginx</h3><p><a href="http://nginx.org/download/nginx-1.8.0.tar.gz" target="_blank" rel="external">1.8.0</a></p>
+<h3 id="Download-openssl"><a href="#Download-openssl" class="headerlink" title="Download openssl"></a>Download openssl</h3><p><a href="https://www.openssl.org/source/openssl-1.0.2h.tar.gz" target="_blank" rel="external">1.0.2h</a></p>
+<h3 id="Install"><a href="#Install" class="headerlink" title="Install"></a>Install</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">cd nginx_home</div><div class="line">./configure --prefix=/usr/local/nginx \</div><div class="line">            --with-http_ssl_module \</div><div class="line">            --with-openssl=//home/lingyitech/sw/openssl-1.0.2h \</div><div class="line">            --with-openssl-opt=&quot;enable-tlsext&quot;</div><div class="line">sudo make &amp;&amp; sudo make install</div></pre></td></tr></table></figure>
+<h3 id="Multiple-Host"><a href="#Multiple-Host" class="headerlink" title="Multiple Host"></a>Multiple Host</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line">server  &#123;</div><div class="line">        listen 443;</div><div class="line">        server_name   www.nealma.com;</div><div class="line">        index index.html index.htm index.php;</div><div class="line">        root  /data/wwwroot/www.nealma.com/webroot;</div><div class="line">        ssl on;</div><div class="line">        ssl_certificate &quot;/usr/local/nginx/conf/ssl/www.nealma.com.public.cer&quot;;</div><div class="line">        ssl_certificate_key &quot;/usr/local/nginx/conf/ssl/www.nealma.com.private.key&quot;;</div><div class="line">        ...</div><div class="line">&#125;</div><div class="line"></div><div class="line">server  &#123;</div><div class="line">        listen 443;</div><div class="line">        server_name   www.malingyi.com;</div><div class="line">        index index.html index.htm index.php;</div><div class="line">        root  /data/wwwroot/www.malingyi.com/webroot;</div><div class="line">        ssl on;</div><div class="line">        ssl_certificate 	  &quot;/usr/local/nginx/conf/ssl/www.malingyi.com.public.cer&quot;;</div><div class="line">        ssl_certificate_key &quot;/usr/local/nginx/conf/ssl/www.malingyi.com.private.key&quot;;</div><div class="line">        ...</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="可能会出现的问题"><a href="#可能会出现的问题" class="headerlink" title="可能会出现的问题"></a>可能会出现的问题</h3><ul>
+<li>却少gcc工具</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ sudo yum -y install gcc gcc-c++ autoconf automake make</div></pre></td></tr></table></figure>
+<ul>
+<li>新的服务器缺少pcre</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ sudo yum -y install pcre-devel</div></pre></td></tr></table></figure>
+<ul>
+<li>新的服务器缺少zlib</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ sudo yum -y install zlib-devel</div></pre></td></tr></table></figure>
+<ul>
+<li>ngnix 配置缺少</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">server_names_hash_bucket_size 32;</div></pre></td></tr></table></figure>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h3 id=&quot;Download-nginx&quot;&gt;&lt;a href=&quot;#Download-nginx&quot; class=&quot;headerlink&quot; title=&quot;Download nginx&quot;&gt;&lt;/a&gt;Download nginx&lt;/h3&gt;&lt;p&gt;&lt;a href=&quot;http://nginx.
+    
+    </summary>
+    
+      <category term="Tech" scheme="http://www.nealma.com/categories/Tech/"/>
+    
+    
+      <category term="Nginx" scheme="http://www.nealma.com/tags/Nginx/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>CentOS 添加用户</title>
+    <link href="http://www.nealma.com/2016/03/15/centos-65-add-user/"/>
+    <id>http://www.nealma.com/2016/03/15/centos-65-add-user/</id>
+    <published>2016-03-15T03:46:45.000Z</published>
+    <updated>2016-08-06T02:54:45.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>每次添加用户总是忘记，总是Google一下，没办法，只好记录下来。</p>
+<h3 id="添加普通用户-用户名为lingyitech"><a href="#添加普通用户-用户名为lingyitech" class="headerlink" title="添加普通用户,用户名为lingyitech"></a>添加普通用户,用户名为lingyitech</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ useradd lingyitech</div></pre></td></tr></table></figure>
+<h3 id="更新用户lingyitech密码"><a href="#更新用户lingyitech密码" class="headerlink" title="更新用户lingyitech密码"></a>更新用户lingyitech密码</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ password lingyitech</div></pre></td></tr></table></figure>
+<h3 id="更改lingyitech的用户组，属于root组"><a href="#更改lingyitech的用户组，属于root组" class="headerlink" title="更改lingyitech的用户组，属于root组"></a>更改lingyitech的用户组，属于root组</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ usermod -g root lingyitech</div></pre></td></tr></table></figure>
+<h3 id="也可以修改-etc-sudoers文件，添加一行"><a href="#也可以修改-etc-sudoers文件，添加一行" class="headerlink" title="也可以修改/etc/sudoers文件，添加一行"></a>也可以修改/etc/sudoers文件，添加一行</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">lingyitech    ALL=(ALL)       ALL</div></pre></td></tr></table></figure>
+<h3 id="还可以修改-etc-passwd文件，将lingyitech的id修改为0"><a href="#还可以修改-etc-passwd文件，将lingyitech的id修改为0" class="headerlink" title="还可以修改/etc/passwd文件，将lingyitech的id修改为0"></a>还可以修改/etc/passwd文件，将lingyitech的id修改为0</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">lingyitech:x:500:500::/home/lingyitech:/bin/bash</div><div class="line">             －－</div><div class="line">＃modify</div><div class="line">lingyitech:x:0:500::/home/lingyitech:/bin/bash</div><div class="line">           －</div></pre></td></tr></table></figure>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;每次添加用户总是忘记，总是Google一下，没办法，只好记录下来。&lt;/p&gt;
+&lt;h3 id=&quot;添加普通用户-用户名为lingyitech&quot;&gt;&lt;a href=&quot;#添加普通用户-用户名为lingyitech&quot; class=&quot;headerlink&quot; title=&quot;添加普通用户,用户
+    
+    </summary>
+    
+      <category term="Tech" scheme="http://www.nealma.com/categories/Tech/"/>
+    
+    
+      <category term="CentOS" scheme="http://www.nealma.com/tags/CentOS/"/>
+    
+      <category term="Linux" scheme="http://www.nealma.com/tags/Linux/"/>
     
   </entry>
   
@@ -81,15 +228,15 @@
     <link href="http://www.nealma.com/2015/12/18/newrelic/"/>
     <id>http://www.nealma.com/2015/12/18/newrelic/</id>
     <published>2015-12-18T07:46:45.000Z</published>
-    <updated>2016-08-05T04:43:43.000Z</updated>
+    <updated>2016-08-05T05:50:13.000Z</updated>
     
-    <content type="html"><![CDATA[<p>对于Startup公司，在人员配备不足的情况下，集成各路云服务在所难免，newrelic在AMP领域走在前面，这里记录下相关使用。</p>
+    <content type="html"><![CDATA[<p>对于Startup公司，在人员配备不足的情况下，集成各路云服务在所难免，newrelic在APM领域走在前面，这里记录下相关使用。</p>
 <h3 id="Java-agent-for-web-server"><a href="#Java-agent-for-web-server" class="headerlink" title="Java agent for web server"></a>Java agent for web server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">$ unzip newrelic-java-xxx.zip <span class="_">-d</span> /path/to/appserver/</div><div class="line">$ <span class="built_in">cd</span> /path/to/appserver/newrelic</div><div class="line">$ java -jar newrelic.jar install</div></pre></td></tr></table></figure>
 ]]></content>
     
     <summary type="html">
     
-      &lt;p&gt;对于Startup公司，在人员配备不足的情况下，集成各路云服务在所难免，newrelic在AMP领域走在前面，这里记录下相关使用。&lt;/p&gt;
+      &lt;p&gt;对于Startup公司，在人员配备不足的情况下，集成各路云服务在所难免，newrelic在APM领域走在前面，这里记录下相关使用。&lt;/p&gt;
 &lt;h3 id=&quot;Java-agent-for-web-server&quot;&gt;&lt;a href=&quot;#Java-agent-for-web-ser
     
     </summary>

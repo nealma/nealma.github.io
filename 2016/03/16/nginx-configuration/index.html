@@ -68,7 +68,7 @@
 <link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="搜索," />
+  <meta name="keywords" content="Nginx," />
 
 
 
@@ -86,25 +86,22 @@
 
 
 
-<meta name="description" content="ElasticSearch作为分布式搜索引擎，给我们带来了方便。
-Quick StartGet elasticsearch &amp;amp; jdbcelasticsearch-rtf: branch 2.1.1elasticsearch-jdbc: branch 2.1.1.2
-Run1$ ./bin/elasticsearch &amp;amp;
-If do not have lib1$ mvn packa">
+<meta name="description" content="Download nginx1.8.0
+Download openssl1.0.2h
+Install123456cd nginx_home./configure --prefix=/usr/local/nginx \            --with-http_ssl_module \            --with-openssl=//home/lingyitech/sw/openssl-">
 <meta property="og:type" content="article">
-<meta property="og:title" content="ElasticSearch">
-<meta property="og:url" content="http://www.nealma.com/2015/12/18/elasticsearch/index.html">
+<meta property="og:title" content="Nginx Configuration">
+<meta property="og:url" content="http://www.nealma.com/2016/03/16/nginx-configuration/index.html">
 <meta property="og:site_name" content="neal.ma">
-<meta property="og:description" content="ElasticSearch作为分布式搜索引擎，给我们带来了方便。
-Quick StartGet elasticsearch &amp;amp; jdbcelasticsearch-rtf: branch 2.1.1elasticsearch-jdbc: branch 2.1.1.2
-Run1$ ./bin/elasticsearch &amp;amp;
-If do not have lib1$ mvn packa">
-<meta property="og:updated_time" content="2016-08-05T04:22:54.000Z">
+<meta property="og:description" content="Download nginx1.8.0
+Download openssl1.0.2h
+Install123456cd nginx_home./configure --prefix=/usr/local/nginx \            --with-http_ssl_module \            --with-openssl=//home/lingyitech/sw/openssl-">
+<meta property="og:updated_time" content="2016-08-06T04:26:21.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="ElasticSearch">
-<meta name="twitter:description" content="ElasticSearch作为分布式搜索引擎，给我们带来了方便。
-Quick StartGet elasticsearch &amp;amp; jdbcelasticsearch-rtf: branch 2.1.1elasticsearch-jdbc: branch 2.1.1.2
-Run1$ ./bin/elasticsearch &amp;amp;
-If do not have lib1$ mvn packa">
+<meta name="twitter:title" content="Nginx Configuration">
+<meta name="twitter:description" content="Download nginx1.8.0
+Download openssl1.0.2h
+Install123456cd nginx_home./configure --prefix=/usr/local/nginx \            --with-http_ssl_module \            --with-openssl=//home/lingyitech/sw/openssl-">
 
 
 
@@ -125,9 +122,9 @@ If do not have lib1$ mvn packa">
 
 
 
-  <link rel="canonical" href="http://www.nealma.com/2015/12/18/elasticsearch/"/>
+  <link rel="canonical" href="http://www.nealma.com/2016/03/16/nginx-configuration/"/>
 
-  <title> ElasticSearch | neal.ma </title>
+  <title> Nginx Configuration | neal.ma </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -277,7 +274,7 @@ If do not have lib1$ mvn packa">
             
             
               
-                ElasticSearch
+                Nginx Configuration
               
             
           </h1>
@@ -289,8 +286,8 @@ If do not have lib1$ mvn packa">
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2015-12-18T15:46:45+08:00" content="2015-12-18">
-              2015-12-18
+            <time itemprop="dateCreated" datetime="2016-03-16T11:46:45+08:00" content="2016-03-16">
+              2016-03-16
             </time>
           </span>
 
@@ -303,8 +300,8 @@ If do not have lib1$ mvn packa">
               <span class="post-meta-item-text">分类于</span>
               
                 <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/Tools/" itemprop="url" rel="index">
-                    <span itemprop="name">Tools</span>
+                  <a href="/categories/Tech/" itemprop="url" rel="index">
+                    <span itemprop="name">Tech</span>
                   </a>
                 </span>
 
@@ -319,8 +316,8 @@ If do not have lib1$ mvn packa">
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2015/12/18/elasticsearch/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2015/12/18/elasticsearch/" itemprop="commentsCount"></span>
+                <a href="/2016/03/16/nginx-configuration/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2016/03/16/nginx-configuration/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -343,15 +340,26 @@ If do not have lib1$ mvn packa">
       
 
       
-        <p>ElasticSearch作为分布式搜索引擎，给我们带来了方便。</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Get-elasticsearch-amp-jdbc"><a href="#Get-elasticsearch-amp-jdbc" class="headerlink" title="Get elasticsearch &amp; jdbc"></a>Get elasticsearch &amp; jdbc</h3><p>elasticsearch-rtf: <a href="https://github.com/medcl/elasticsearch-rtf/archive/2.1.1.zip" target="_blank" rel="external">branch 2.1.1</a><br>elasticsearch-jdbc: <a href="https://github.com/jprante/elasticsearch-jdbc/archive/2.1.1.2.zip" target="_blank" rel="external">branch 2.1.1.2</a></p>
-<h3 id="Run"><a href="#Run" class="headerlink" title="Run"></a>Run</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ ./bin/elasticsearch &amp;</div></pre></td></tr></table></figure>
-<h3 id="If-do-not-have-lib"><a href="#If-do-not-have-lib" class="headerlink" title="If do not have lib"></a>If do not have lib</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ mvn package</div></pre></td></tr></table></figure>
-<h3 id="Bind-ip"><a href="#Bind-ip" class="headerlink" title="Bind ip"></a>Bind ip</h3><p>！！！！[import]</p>
-<h3 id="Base-command"><a href="#Base-command" class="headerlink" title="Base command"></a>Base command</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$ curl -i http://localhost:9200/</div><div class="line">$ curl -X DELETE http://localhost:9200/_all</div></pre></td></tr></table></figure>
-<h3 id="Create-index-by-mapping-file"><a href="#Create-index-by-mapping-file" class="headerlink" title="Create index by mapping file"></a>Create index by mapping file</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ curl -XPUT <span class="string">'http://localhost:9200/articles'</span> <span class="_">-d</span>  @/Users/nealpc/work/body.json</div></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div></pre></td><td class="code"><pre><div class="line">#body.json</div><div class="line">&#123;</div><div class="line">  &quot;settings&quot;: &#123;</div><div class="line">     &quot;refresh_interval&quot;: &quot;5s&quot;,</div><div class="line">     &quot;number_of_shards&quot; :   1,</div><div class="line">     &quot;number_of_replicas&quot; : 0</div><div class="line">  &#125;,</div><div class="line">  &quot;mappings&quot;: &#123;</div><div class="line">    &quot;_default_&quot;:&#123;</div><div class="line">      &quot;_all&quot;: &#123; &quot;enabled&quot;:  false &#125;</div><div class="line">    &#125;,</div><div class="line">    &quot;articles&quot;: &#123;</div><div class="line">      &quot;dynamic&quot;: false,</div><div class="line">      &quot;properties&quot;: &#123;</div><div class="line">        &quot;title&quot;: &#123;</div><div class="line">          &quot;type&quot;: &quot;string&quot;,</div><div class="line">          &quot;index&quot;: &quot;analyzed&quot;,</div><div class="line">          &quot;fields&quot;: &#123;</div><div class="line">            &quot;cn&quot;: &#123;</div><div class="line">              &quot;type&quot;: &quot;string&quot;,</div><div class="line">              &quot;analyzer&quot;: &quot;ik&quot;</div><div class="line">            &#125;,</div><div class="line">            &quot;en&quot;: &#123;</div><div class="line">              &quot;type&quot;: &quot;string&quot;,</div><div class="line">              &quot;analyzer&quot;: &quot;english&quot;</div><div class="line">            &#125;</div><div class="line">          &#125;</div><div class="line">        &#125;,</div><div class="line">        &quot;content&quot;: &#123;</div><div class="line">          &quot;type&quot;: &quot;string&quot;,</div><div class="line">          &quot;index&quot;: &quot;analyzed&quot;,</div><div class="line">          &quot;fields&quot;: &#123;</div><div class="line">            &quot;cn&quot;: &#123;</div><div class="line">              &quot;type&quot;: &quot;string&quot;,</div><div class="line">              &quot;analyzer&quot;: &quot;ik&quot;</div><div class="line">            &#125;,</div><div class="line">            &quot;en&quot;: &#123;</div><div class="line">              &quot;type&quot;: &quot;string&quot;,</div><div class="line">              &quot;analyzer&quot;: &quot;english&quot;</div><div class="line">            &#125;</div><div class="line">          &#125;</div><div class="line">        &#125;</div><div class="line">      &#125;</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h3 id="Show-all-index-info-of-recovery-…"><a href="#Show-all-index-info-of-recovery-…" class="headerlink" title="Show all index info of recovery …."></a>Show all index info of recovery ….</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ curl -XGET http://localhost:9200/_recovery?pretty=<span class="literal">true</span>&amp;detailed=<span class="literal">true</span></div></pre></td></tr></table></figure>
+        <h3 id="Download-nginx"><a href="#Download-nginx" class="headerlink" title="Download nginx"></a>Download nginx</h3><p><a href="http://nginx.org/download/nginx-1.8.0.tar.gz" target="_blank" rel="external">1.8.0</a></p>
+<h3 id="Download-openssl"><a href="#Download-openssl" class="headerlink" title="Download openssl"></a>Download openssl</h3><p><a href="https://www.openssl.org/source/openssl-1.0.2h.tar.gz" target="_blank" rel="external">1.0.2h</a></p>
+<h3 id="Install"><a href="#Install" class="headerlink" title="Install"></a>Install</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">cd nginx_home</div><div class="line">./configure --prefix=/usr/local/nginx \</div><div class="line">            --with-http_ssl_module \</div><div class="line">            --with-openssl=//home/lingyitech/sw/openssl-1.0.2h \</div><div class="line">            --with-openssl-opt=&quot;enable-tlsext&quot;</div><div class="line">sudo make &amp;&amp; sudo make install</div></pre></td></tr></table></figure>
+<h3 id="Multiple-Host"><a href="#Multiple-Host" class="headerlink" title="Multiple Host"></a>Multiple Host</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line">server  &#123;</div><div class="line">        listen 443;</div><div class="line">        server_name   www.nealma.com;</div><div class="line">        index index.html index.htm index.php;</div><div class="line">        root  /data/wwwroot/www.nealma.com/webroot;</div><div class="line">        ssl on;</div><div class="line">        ssl_certificate &quot;/usr/local/nginx/conf/ssl/www.nealma.com.public.cer&quot;;</div><div class="line">        ssl_certificate_key &quot;/usr/local/nginx/conf/ssl/www.nealma.com.private.key&quot;;</div><div class="line">        ...</div><div class="line">&#125;</div><div class="line"></div><div class="line">server  &#123;</div><div class="line">        listen 443;</div><div class="line">        server_name   www.malingyi.com;</div><div class="line">        index index.html index.htm index.php;</div><div class="line">        root  /data/wwwroot/www.malingyi.com/webroot;</div><div class="line">        ssl on;</div><div class="line">        ssl_certificate 	  &quot;/usr/local/nginx/conf/ssl/www.malingyi.com.public.cer&quot;;</div><div class="line">        ssl_certificate_key &quot;/usr/local/nginx/conf/ssl/www.malingyi.com.private.key&quot;;</div><div class="line">        ...</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="可能会出现的问题"><a href="#可能会出现的问题" class="headerlink" title="可能会出现的问题"></a>可能会出现的问题</h3><ul>
+<li>却少gcc工具</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ sudo yum -y install gcc gcc-c++ autoconf automake make</div></pre></td></tr></table></figure>
+<ul>
+<li>新的服务器缺少pcre</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ sudo yum -y install pcre-devel</div></pre></td></tr></table></figure>
+<ul>
+<li>新的服务器缺少zlib</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ sudo yum -y install zlib-devel</div></pre></td></tr></table></figure>
+<ul>
+<li>ngnix 配置缺少</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">server_names_hash_bucket_size 32;</div></pre></td></tr></table></figure>
 
       
     </div>
@@ -374,7 +382,7 @@ If do not have lib1$ mvn packa">
       
         <div class="post-tags">
           
-            <a href="/tags/搜索/" rel="tag">#搜索</a>
+            <a href="/tags/Nginx/" rel="tag">#Nginx</a>
           
         </div>
       
@@ -383,16 +391,16 @@ If do not have lib1$ mvn packa">
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2015/12/18/newrelic/" rel="next" title="newrelic使用">
-                <i class="fa fa-chevron-left"></i> newrelic使用
+              <a href="/2016/03/15/centos-65-add-user/" rel="next" title="CentOS 添加用户">
+                <i class="fa fa-chevron-left"></i> CentOS 添加用户
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2016/03/15/centos-65-add-user/" rel="prev" title="CentOS 添加用户">
-                CentOS 添加用户 <i class="fa fa-chevron-right"></i>
+              <a href="/2016/03/18/hexo-how-to-use/" rel="prev" title="Hexo使用攻略">
+                Hexo使用攻略 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -521,7 +529,7 @@ If do not have lib1$ mvn packa">
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Quick-Start"><span class="nav-number">1.</span> <span class="nav-text">Quick Start</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Get-elasticsearch-amp-jdbc"><span class="nav-number">1.1.</span> <span class="nav-text">Get elasticsearch & jdbc</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Run"><span class="nav-number">1.2.</span> <span class="nav-text">Run</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#If-do-not-have-lib"><span class="nav-number">1.3.</span> <span class="nav-text">If do not have lib</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Bind-ip"><span class="nav-number">1.4.</span> <span class="nav-text">Bind ip</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Base-command"><span class="nav-number">1.5.</span> <span class="nav-text">Base command</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Create-index-by-mapping-file"><span class="nav-number">1.6.</span> <span class="nav-text">Create index by mapping file</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Show-all-index-info-of-recovery-…"><span class="nav-number">1.7.</span> <span class="nav-text">Show all index info of recovery ….</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Download-nginx"><span class="nav-number">1.</span> <span class="nav-text">Download nginx</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Download-openssl"><span class="nav-number">2.</span> <span class="nav-text">Download openssl</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Install"><span class="nav-number">3.</span> <span class="nav-text">Install</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Multiple-Host"><span class="nav-number">4.</span> <span class="nav-text">Multiple Host</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#可能会出现的问题"><span class="nav-number">5.</span> <span class="nav-text">可能会出现的问题</span></a></li></ol></div>
             
           </div>
         </section>
@@ -641,9 +649,9 @@ If do not have lib1$ mvn packa">
 
     <script type="text/javascript">
       var disqus_shortname = 'nealma';
-      var disqus_identifier = '2015/12/18/elasticsearch/';
-      var disqus_title = "ElasticSearch";
-      var disqus_url = 'http://www.nealma.com/2015/12/18/elasticsearch/';
+      var disqus_identifier = '2016/03/16/nginx-configuration/';
+      var disqus_title = "Nginx Configuration";
+      var disqus_url = 'http://www.nealma.com/2016/03/16/nginx-configuration/';
 
       function run_disqus_script(disqus_script){
         var dsq = document.createElement('script');
