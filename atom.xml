@@ -39,13 +39,13 @@
       <category term="Tech" scheme="http://www.nealma.com/categories/Tech/"/>
     
     
-      <category term="Spring" scheme="http://www.nealma.com/tags/Spring/"/>
-    
-      <category term="Spring-Boot" scheme="http://www.nealma.com/tags/Spring-Boot/"/>
+      <category term="MyBatis" scheme="http://www.nealma.com/tags/MyBatis/"/>
     
       <category term="Java" scheme="http://www.nealma.com/tags/Java/"/>
     
-      <category term="MyBatis" scheme="http://www.nealma.com/tags/MyBatis/"/>
+      <category term="Spring" scheme="http://www.nealma.com/tags/Spring/"/>
+    
+      <category term="Spring-Boot" scheme="http://www.nealma.com/tags/Spring-Boot/"/>
     
   </entry>
   
@@ -73,13 +73,13 @@
       <category term="Tech" scheme="http://www.nealma.com/categories/Tech/"/>
     
     
-      <category term="Spring" scheme="http://www.nealma.com/tags/Spring/"/>
-    
-      <category term="Spring-Boot" scheme="http://www.nealma.com/tags/Spring-Boot/"/>
+      <category term="MyBatis" scheme="http://www.nealma.com/tags/MyBatis/"/>
     
       <category term="Java" scheme="http://www.nealma.com/tags/Java/"/>
     
-      <category term="MyBatis" scheme="http://www.nealma.com/tags/MyBatis/"/>
+      <category term="Spring" scheme="http://www.nealma.com/tags/Spring/"/>
+    
+      <category term="Spring-Boot" scheme="http://www.nealma.com/tags/Spring-Boot/"/>
     
   </entry>
   
@@ -112,11 +112,11 @@
       <category term="Tech" scheme="http://www.nealma.com/categories/Tech/"/>
     
     
-      <category term="Java" scheme="http://www.nealma.com/tags/Java/"/>
-    
       <category term="MyBatis" scheme="http://www.nealma.com/tags/MyBatis/"/>
     
       <category term="Generator" scheme="http://www.nealma.com/tags/Generator/"/>
+    
+      <category term="Java" scheme="http://www.nealma.com/tags/Java/"/>
     
   </entry>
   
@@ -151,11 +151,11 @@
       <category term="Tech" scheme="http://www.nealma.com/categories/Tech/"/>
     
     
+      <category term="Java" scheme="http://www.nealma.com/tags/Java/"/>
+    
       <category term="Spring" scheme="http://www.nealma.com/tags/Spring/"/>
     
       <category term="Spring-Boot" scheme="http://www.nealma.com/tags/Spring-Boot/"/>
-    
-      <category term="Java" scheme="http://www.nealma.com/tags/Java/"/>
     
   </entry>
   
