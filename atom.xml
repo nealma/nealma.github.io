@@ -39,13 +39,13 @@
       <category term="Tech" scheme="http://www.nealma.com/categories/Tech/"/>
     
     
-      <category term="MyBatis" scheme="http://www.nealma.com/tags/MyBatis/"/>
-    
-      <category term="Java" scheme="http://www.nealma.com/tags/Java/"/>
-    
       <category term="Spring" scheme="http://www.nealma.com/tags/Spring/"/>
     
       <category term="Spring-Boot" scheme="http://www.nealma.com/tags/Spring-Boot/"/>
+    
+      <category term="Java" scheme="http://www.nealma.com/tags/Java/"/>
+    
+      <category term="MyBatis" scheme="http://www.nealma.com/tags/MyBatis/"/>
     
   </entry>
   
@@ -73,13 +73,13 @@
       <category term="Tech" scheme="http://www.nealma.com/categories/Tech/"/>
     
     
-      <category term="MyBatis" scheme="http://www.nealma.com/tags/MyBatis/"/>
-    
-      <category term="Java" scheme="http://www.nealma.com/tags/Java/"/>
-    
       <category term="Spring" scheme="http://www.nealma.com/tags/Spring/"/>
     
       <category term="Spring-Boot" scheme="http://www.nealma.com/tags/Spring-Boot/"/>
+    
+      <category term="Java" scheme="http://www.nealma.com/tags/Java/"/>
+    
+      <category term="MyBatis" scheme="http://www.nealma.com/tags/MyBatis/"/>
     
   </entry>
   
@@ -112,11 +112,11 @@
       <category term="Tech" scheme="http://www.nealma.com/categories/Tech/"/>
     
     
+      <category term="Java" scheme="http://www.nealma.com/tags/Java/"/>
+    
       <category term="MyBatis" scheme="http://www.nealma.com/tags/MyBatis/"/>
     
       <category term="Generator" scheme="http://www.nealma.com/tags/Generator/"/>
-    
-      <category term="Java" scheme="http://www.nealma.com/tags/Java/"/>
     
   </entry>
   
@@ -151,11 +151,37 @@
       <category term="Tech" scheme="http://www.nealma.com/categories/Tech/"/>
     
     
-      <category term="Java" scheme="http://www.nealma.com/tags/Java/"/>
-    
       <category term="Spring" scheme="http://www.nealma.com/tags/Spring/"/>
     
       <category term="Spring-Boot" scheme="http://www.nealma.com/tags/Spring-Boot/"/>
+    
+      <category term="Java" scheme="http://www.nealma.com/tags/Java/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>我的 Mac OS 软件列表</title>
+    <link href="http://www.nealma.com/2016/03/29/mac-used-app/"/>
+    <id>http://www.nealma.com/2016/03/29/mac-used-app/</id>
+    <published>2016-03-29T03:46:45.000Z</published>
+    <updated>2016-09-05T12:00:07.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>自己在使用过程中积累的一些应用软件，推荐给大家。</p>
+<h3 id="Command-Line"><a href="#Command-Line" class="headerlink" title="Command Line"></a>Command Line</h3><p><a href="http://brew.sh/" target="_blank" rel="external">homebrew</a>                                应用程序管理工具<br><a href="https://github.com/robbyrussell/oh-my-zsh" target="_blank" rel="external">oh-my-zsh</a>    包装过的zsh<br><a href="https://github.com/wting/autojump" target="_blank" rel="external">autojump</a>            高效跳转到历史路径的命令行辅助工具</p>
+<h3 id="Dev-Tools"><a href="#Dev-Tools" class="headerlink" title="Dev Tools"></a>Dev Tools</h3><p><a href="https://www.jetbrains.com/idea/" target="_blank" rel="external">idea</a>                    IDE高效开发工具<br><a href="https://www.sublimetext.com/" target="_blank" rel="external">Sublime Text</a>            漂亮文本编辑器<br><a href="https://www.charlesproxy.com/" target="_blank" rel="external">Charles</a>                网络抓包工具<br><a href="https://www.mysql.com/products/workbench/" target="_blank" rel="external">MySQL Workbench</a>                                        数据库工具</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;自己在使用过程中积累的一些应用软件，推荐给大家。&lt;/p&gt;
+&lt;h3 id=&quot;Command-Line&quot;&gt;&lt;a href=&quot;#Command-Line&quot; class=&quot;headerlink&quot; title=&quot;Command Line&quot;&gt;&lt;/a&gt;Command Line&lt;/h3&gt;&lt;
+    
+    </summary>
+    
+      <category term="Tech" scheme="http://www.nealma.com/categories/Tech/"/>
+    
+    
+      <category term="Mac OS" scheme="http://www.nealma.com/tags/Mac-OS/"/>
     
   </entry>
   
