@@ -68,7 +68,7 @@
 <link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="MyBatis,Generator,Java," />
+  <meta name="keywords" content="MyBatis,Java,Spring,Spring-Boot," />
 
 
 
@@ -86,22 +86,22 @@
 
 
 
-<meta name="description" content="MyBatis在java的ORM地位一致保持，但是我们在写mapper的时候，也是头疼，关键是总是手误，所以呢，就有了mybatis-generator,但是官方的工具又不符合我们自己的口味，像什么不能在pojo类中根据表的字段注释来自动加注释，生成的mapper不够优雅,于是不安分的我们就开始各种改造…
-MyBatis Version : 1.3.4-SNAPSHOT
-在POJO类上添加注释修改">
+<meta name="description" content="我在开发的时候，总是会及时对自己的程序进行测试，总是频繁的重启web server，容器不烦我们都觉得烦了。福音来了，正好有springloaded，解决了我们的烦恼。
+本记录使用的开发环境：os: macide: ideabuild: mavenspring-boot-version: 1.4.0.RELEASE
+POM依赖123456789&amp;lt;dependency&amp;gt;    &amp;lt;g">
 <meta property="og:type" content="article">
-<meta property="og:title" content="MyBatis Generator 改造">
-<meta property="og:url" content="http://www.nealma.com/2016/04/25/mybatis-generator-how-to-use/index.html">
+<meta property="og:title" content="Spring-Boot （二） 集成springloaded">
+<meta property="og:url" content="http://www.nealma.com/2016/04/28/spring-boot-hot-swap/index.html">
 <meta property="og:site_name" content="neal.ma">
-<meta property="og:description" content="MyBatis在java的ORM地位一致保持，但是我们在写mapper的时候，也是头疼，关键是总是手误，所以呢，就有了mybatis-generator,但是官方的工具又不符合我们自己的口味，像什么不能在pojo类中根据表的字段注释来自动加注释，生成的mapper不够优雅,于是不安分的我们就开始各种改造…
-MyBatis Version : 1.3.4-SNAPSHOT
-在POJO类上添加注释修改">
-<meta property="og:updated_time" content="2016-09-05T08:15:43.000Z">
+<meta property="og:description" content="我在开发的时候，总是会及时对自己的程序进行测试，总是频繁的重启web server，容器不烦我们都觉得烦了。福音来了，正好有springloaded，解决了我们的烦恼。
+本记录使用的开发环境：os: macide: ideabuild: mavenspring-boot-version: 1.4.0.RELEASE
+POM依赖123456789&amp;lt;dependency&amp;gt;    &amp;lt;g">
+<meta property="og:updated_time" content="2016-09-05T09:53:33.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="MyBatis Generator 改造">
-<meta name="twitter:description" content="MyBatis在java的ORM地位一致保持，但是我们在写mapper的时候，也是头疼，关键是总是手误，所以呢，就有了mybatis-generator,但是官方的工具又不符合我们自己的口味，像什么不能在pojo类中根据表的字段注释来自动加注释，生成的mapper不够优雅,于是不安分的我们就开始各种改造…
-MyBatis Version : 1.3.4-SNAPSHOT
-在POJO类上添加注释修改">
+<meta name="twitter:title" content="Spring-Boot （二） 集成springloaded">
+<meta name="twitter:description" content="我在开发的时候，总是会及时对自己的程序进行测试，总是频繁的重启web server，容器不烦我们都觉得烦了。福音来了，正好有springloaded，解决了我们的烦恼。
+本记录使用的开发环境：os: macide: ideabuild: mavenspring-boot-version: 1.4.0.RELEASE
+POM依赖123456789&amp;lt;dependency&amp;gt;    &amp;lt;g">
 
 
 
@@ -122,9 +122,9 @@ MyBatis Version : 1.3.4-SNAPSHOT
 
 
 
-  <link rel="canonical" href="http://www.nealma.com/2016/04/25/mybatis-generator-how-to-use/"/>
+  <link rel="canonical" href="http://www.nealma.com/2016/04/28/spring-boot-hot-swap/"/>
 
-  <title> MyBatis Generator 改造 | neal.ma </title>
+  <title> Spring-Boot （二） 集成springloaded | neal.ma </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -274,7 +274,7 @@ MyBatis Version : 1.3.4-SNAPSHOT
             
             
               
-                MyBatis Generator 改造
+                Spring-Boot （二） 集成springloaded
               
             
           </h1>
@@ -286,8 +286,8 @@ MyBatis Version : 1.3.4-SNAPSHOT
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-04-25T11:46:45+08:00" content="2016-04-25">
-              2016-04-25
+            <time itemprop="dateCreated" datetime="2016-04-28T11:46:45+08:00" content="2016-04-28">
+              2016-04-28
             </time>
           </span>
 
@@ -316,8 +316,8 @@ MyBatis Version : 1.3.4-SNAPSHOT
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2016/04/25/mybatis-generator-how-to-use/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2016/04/25/mybatis-generator-how-to-use/" itemprop="commentsCount"></span>
+                <a href="/2016/04/28/spring-boot-hot-swap/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2016/04/28/spring-boot-hot-swap/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -340,17 +340,11 @@ MyBatis Version : 1.3.4-SNAPSHOT
       
 
       
-        <p>MyBatis在java的ORM地位一致保持，但是我们在写mapper的时候，也是头疼，关键是总是手误，所以呢，就有了mybatis-generator,<br>但是官方的工具又不符合我们自己的口味，像什么不能在pojo类中根据表的字段注释来自动加注释，<br>生成的mapper不够优雅,于是不安分的我们就开始各种改造…</p>
-<p>MyBatis Version : 1.3.4-SNAPSHOT</p>
-<h3 id="在POJO类上添加注释"><a href="#在POJO类上添加注释" class="headerlink" title="在POJO类上添加注释"></a>在POJO类上添加注释</h3><p>修改Field.java类</p>
-<p>＊ 添加remarks成员变量，同时完成setter和getter方法</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">private</span> String remarks;</div><div class="line"></div><div class="line">getter...</div><div class="line">setter...</div></pre></td></tr></table></figure>
-<ul>
-<li>修改getFormattedContent方法</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">sb.append(<span class="string">';'</span>);</div><div class="line"><span class="comment">//新增</span></div><div class="line"><span class="keyword">if</span> (remarks != <span class="keyword">null</span> &amp;&amp; remarks.length() &gt; <span class="number">1</span>)&#123;</div><div class="line">   sb.append(<span class="string">"//"</span>).append(remarks);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>＊ 给remarks赋值，修改JavaBeansUtil.getJavaBeansField方法</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">...</div><div class="line">field.setName(property);</div><div class="line"><span class="comment">//添加如下代码</span></div><div class="line">field.setRemarks(introspectedColumn.getRemarks());</div></pre></td></tr></table></figure>
+        <p>我在开发的时候，总是会及时对自己的程序进行测试，总是频繁的重启web server，容器不烦我们都觉得烦了。<br>福音来了，正好有springloaded，解决了我们的烦恼。</p>
+<p>本记录使用的开发环境：<br>os: mac<br>ide: idea<br>build: maven<br>spring-boot-version: 1.4.0.RELEASE</p>
+<h3 id="POM依赖"><a href="#POM依赖" class="headerlink" title="POM依赖"></a>POM依赖</h3><figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-devtools<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>springloaded<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.2.6.RELEASE<span class="tag">&lt;/<span class="name">version</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">dependency</span></span></div></pre></td></tr></table></figure>
+<h3 id="maven-plugin"><a href="#maven-plugin" class="headerlink" title="maven plugin"></a>maven plugin</h3><figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">plugin</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-maven-plugin<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">dependencies</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>springloaded<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.2.6.RELEASE<span class="tag">&lt;/<span class="name">version</span>&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">dependencies</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">plugin</span>&gt;</span></div></pre></td></tr></table></figure>
+<h3 id="结束"><a href="#结束" class="headerlink" title="结束"></a>结束</h3><p> 一开始以为直接在maven plugin中加入依赖就可以了，而在实际当中没有任何动静，直到把devtools和springloaded加入依赖，才能如愿以偿。</p>
 
       
     </div>
@@ -375,9 +369,11 @@ MyBatis Version : 1.3.4-SNAPSHOT
           
             <a href="/tags/MyBatis/" rel="tag">#MyBatis</a>
           
-            <a href="/tags/Generator/" rel="tag">#Generator</a>
-          
             <a href="/tags/Java/" rel="tag">#Java</a>
+          
+            <a href="/tags/Spring/" rel="tag">#Spring</a>
+          
+            <a href="/tags/Spring-Boot/" rel="tag">#Spring-Boot</a>
           
         </div>
       
@@ -386,16 +382,16 @@ MyBatis Version : 1.3.4-SNAPSHOT
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2016/04/20/spring-boot-how-to-use/" rel="next" title="Spring-Boot （一） 环境搭建">
-                <i class="fa fa-chevron-left"></i> Spring-Boot （一） 环境搭建
+              <a href="/2016/04/25/mybatis-generator-how-to-use/" rel="next" title="MyBatis Generator 改造">
+                <i class="fa fa-chevron-left"></i> MyBatis Generator 改造
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2016/04/28/spring-boot-hot-swap/" rel="prev" title="Spring-Boot （二） 集成springloaded">
-                Spring-Boot （二） 集成springloaded <i class="fa fa-chevron-right"></i>
+              <a href="/2016/04/28/spring-boot-mybatis/" rel="prev" title="Spring-Boot （二） 集成MyBatis">
+                Spring-Boot （二） 集成MyBatis <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -524,7 +520,7 @@ MyBatis Version : 1.3.4-SNAPSHOT
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#在POJO类上添加注释"><span class="nav-number">1.</span> <span class="nav-text">在POJO类上添加注释</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#POM依赖"><span class="nav-number">1.</span> <span class="nav-text">POM依赖</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#maven-plugin"><span class="nav-number">2.</span> <span class="nav-text">maven plugin</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#结束"><span class="nav-number">3.</span> <span class="nav-text">结束</span></a></li></ol></div>
             
           </div>
         </section>
@@ -644,9 +640,9 @@ MyBatis Version : 1.3.4-SNAPSHOT
 
     <script type="text/javascript">
       var disqus_shortname = 'nealma';
-      var disqus_identifier = '2016/04/25/mybatis-generator-how-to-use/';
-      var disqus_title = "MyBatis Generator 改造";
-      var disqus_url = 'http://www.nealma.com/2016/04/25/mybatis-generator-how-to-use/';
+      var disqus_identifier = '2016/04/28/spring-boot-hot-swap/';
+      var disqus_title = "Spring-Boot （二） 集成springloaded";
+      var disqus_url = 'http://www.nealma.com/2016/04/28/spring-boot-hot-swap/';
 
       function run_disqus_script(disqus_script){
         var dsq = document.createElement('script');
