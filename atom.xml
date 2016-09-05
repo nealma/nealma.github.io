@@ -262,31 +262,6 @@
   </entry>
   
   <entry>
-    <title>newrelic使用</title>
-    <link href="http://www.nealma.com/2015/12/18/newrelic/"/>
-    <id>http://www.nealma.com/2015/12/18/newrelic/</id>
-    <published>2015-12-18T07:46:45.000Z</published>
-    <updated>2016-08-05T05:50:13.000Z</updated>
-    
-    <content type="html"><![CDATA[<p>对于Startup公司，在人员配备不足的情况下，集成各路云服务在所难免，newrelic在APM领域走在前面，这里记录下相关使用。</p>
-<h3 id="Java-agent-for-web-server"><a href="#Java-agent-for-web-server" class="headerlink" title="Java agent for web server"></a>Java agent for web server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">$ unzip newrelic-java-xxx.zip <span class="_">-d</span> /path/to/appserver/</div><div class="line">$ <span class="built_in">cd</span> /path/to/appserver/newrelic</div><div class="line">$ java -jar newrelic.jar install</div></pre></td></tr></table></figure>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;对于Startup公司，在人员配备不足的情况下，集成各路云服务在所难免，newrelic在APM领域走在前面，这里记录下相关使用。&lt;/p&gt;
-&lt;h3 id=&quot;Java-agent-for-web-server&quot;&gt;&lt;a href=&quot;#Java-agent-for-web-ser
-    
-    </summary>
-    
-      <category term="Tools" scheme="http://www.nealma.com/categories/Tools/"/>
-    
-    
-      <category term="newrelic" scheme="http://www.nealma.com/tags/newrelic/"/>
-    
-  </entry>
-  
-  <entry>
     <title>ElasticSearch</title>
     <link href="http://www.nealma.com/2015/12/18/elasticsearch/"/>
     <id>http://www.nealma.com/2015/12/18/elasticsearch/</id>
@@ -315,6 +290,31 @@
     
     
       <category term="搜索" scheme="http://www.nealma.com/tags/%E6%90%9C%E7%B4%A2/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>newrelic使用</title>
+    <link href="http://www.nealma.com/2015/12/18/newrelic/"/>
+    <id>http://www.nealma.com/2015/12/18/newrelic/</id>
+    <published>2015-12-18T07:46:45.000Z</published>
+    <updated>2016-08-05T05:50:13.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>对于Startup公司，在人员配备不足的情况下，集成各路云服务在所难免，newrelic在APM领域走在前面，这里记录下相关使用。</p>
+<h3 id="Java-agent-for-web-server"><a href="#Java-agent-for-web-server" class="headerlink" title="Java agent for web server"></a>Java agent for web server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">$ unzip newrelic-java-xxx.zip <span class="_">-d</span> /path/to/appserver/</div><div class="line">$ <span class="built_in">cd</span> /path/to/appserver/newrelic</div><div class="line">$ java -jar newrelic.jar install</div></pre></td></tr></table></figure>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;对于Startup公司，在人员配备不足的情况下，集成各路云服务在所难免，newrelic在APM领域走在前面，这里记录下相关使用。&lt;/p&gt;
+&lt;h3 id=&quot;Java-agent-for-web-server&quot;&gt;&lt;a href=&quot;#Java-agent-for-web-ser
+    
+    </summary>
+    
+      <category term="Tools" scheme="http://www.nealma.com/categories/Tools/"/>
+    
+    
+      <category term="newrelic" scheme="http://www.nealma.com/tags/newrelic/"/>
     
   </entry>
   
