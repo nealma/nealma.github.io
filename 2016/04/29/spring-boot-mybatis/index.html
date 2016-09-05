@@ -68,7 +68,7 @@
 <link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Java,MyBatis,Generator," />
+  <meta name="keywords" content="Spring,Spring-Boot,Java,MyBatis," />
 
 
 
@@ -86,22 +86,22 @@
 
 
 
-<meta name="description" content="MyBatis在java的ORM地位一致保持，但是我们在写mapper的时候，也是头疼，关键是总是手误，所以呢，就有了mybatis-generator,但是官方的工具又不符合我们自己的口味，像什么不能在pojo类中根据表的字段注释来自动加注释，生成的mapper不够优雅,于是不安分的我们就开始各种改造…
-MyBatis Version : 1.3.4-SNAPSHOT
-在POJO类上添加注释修改">
+<meta name="description" content="MyBatis在国内一直很流行，在ORM框架中使用比例很高。由于MyBatis不是Spring的亲生儿子，所以依赖的版本很发麻，不像其他的依赖，直接引入就可以，还得看版本。经过几次尝试，下文给出的是可以正常使用的。
+本记录使用的开发环境：os: macide: ideabuild: maven
+POM依赖123456789101112131415161718&amp;lt;!-- properties -">
 <meta property="og:type" content="article">
-<meta property="og:title" content="MyBatis Generator 改造">
-<meta property="og:url" content="http://www.nealma.com/2016/04/25/mybatis-generator-how-to-use/index.html">
+<meta property="og:title" content="Spring-Boot （三） 集成MyBatis">
+<meta property="og:url" content="http://www.nealma.com/2016/04/29/spring-boot-mybatis/index.html">
 <meta property="og:site_name" content="neal.ma">
-<meta property="og:description" content="MyBatis在java的ORM地位一致保持，但是我们在写mapper的时候，也是头疼，关键是总是手误，所以呢，就有了mybatis-generator,但是官方的工具又不符合我们自己的口味，像什么不能在pojo类中根据表的字段注释来自动加注释，生成的mapper不够优雅,于是不安分的我们就开始各种改造…
-MyBatis Version : 1.3.4-SNAPSHOT
-在POJO类上添加注释修改">
-<meta property="og:updated_time" content="2016-09-05T08:15:43.000Z">
+<meta property="og:description" content="MyBatis在国内一直很流行，在ORM框架中使用比例很高。由于MyBatis不是Spring的亲生儿子，所以依赖的版本很发麻，不像其他的依赖，直接引入就可以，还得看版本。经过几次尝试，下文给出的是可以正常使用的。
+本记录使用的开发环境：os: macide: ideabuild: maven
+POM依赖123456789101112131415161718&amp;lt;!-- properties -">
+<meta property="og:updated_time" content="2016-09-05T09:55:08.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="MyBatis Generator 改造">
-<meta name="twitter:description" content="MyBatis在java的ORM地位一致保持，但是我们在写mapper的时候，也是头疼，关键是总是手误，所以呢，就有了mybatis-generator,但是官方的工具又不符合我们自己的口味，像什么不能在pojo类中根据表的字段注释来自动加注释，生成的mapper不够优雅,于是不安分的我们就开始各种改造…
-MyBatis Version : 1.3.4-SNAPSHOT
-在POJO类上添加注释修改">
+<meta name="twitter:title" content="Spring-Boot （三） 集成MyBatis">
+<meta name="twitter:description" content="MyBatis在国内一直很流行，在ORM框架中使用比例很高。由于MyBatis不是Spring的亲生儿子，所以依赖的版本很发麻，不像其他的依赖，直接引入就可以，还得看版本。经过几次尝试，下文给出的是可以正常使用的。
+本记录使用的开发环境：os: macide: ideabuild: maven
+POM依赖123456789101112131415161718&amp;lt;!-- properties -">
 
 
 
@@ -122,9 +122,9 @@ MyBatis Version : 1.3.4-SNAPSHOT
 
 
 
-  <link rel="canonical" href="http://www.nealma.com/2016/04/25/mybatis-generator-how-to-use/"/>
+  <link rel="canonical" href="http://www.nealma.com/2016/04/29/spring-boot-mybatis/"/>
 
-  <title> MyBatis Generator 改造 | neal.ma </title>
+  <title> Spring-Boot （三） 集成MyBatis | neal.ma </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -274,7 +274,7 @@ MyBatis Version : 1.3.4-SNAPSHOT
             
             
               
-                MyBatis Generator 改造
+                Spring-Boot （三） 集成MyBatis
               
             
           </h1>
@@ -286,8 +286,8 @@ MyBatis Version : 1.3.4-SNAPSHOT
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-04-25T11:46:45+08:00" content="2016-04-25">
-              2016-04-25
+            <time itemprop="dateCreated" datetime="2016-04-29T11:46:45+08:00" content="2016-04-29">
+              2016-04-29
             </time>
           </span>
 
@@ -316,8 +316,8 @@ MyBatis Version : 1.3.4-SNAPSHOT
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2016/04/25/mybatis-generator-how-to-use/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2016/04/25/mybatis-generator-how-to-use/" itemprop="commentsCount"></span>
+                <a href="/2016/04/29/spring-boot-mybatis/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2016/04/29/spring-boot-mybatis/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -340,17 +340,11 @@ MyBatis Version : 1.3.4-SNAPSHOT
       
 
       
-        <p>MyBatis在java的ORM地位一致保持，但是我们在写mapper的时候，也是头疼，关键是总是手误，所以呢，就有了mybatis-generator,<br>但是官方的工具又不符合我们自己的口味，像什么不能在pojo类中根据表的字段注释来自动加注释，<br>生成的mapper不够优雅,于是不安分的我们就开始各种改造…</p>
-<p>MyBatis Version : 1.3.4-SNAPSHOT</p>
-<h3 id="在POJO类上添加注释"><a href="#在POJO类上添加注释" class="headerlink" title="在POJO类上添加注释"></a>在POJO类上添加注释</h3><p>修改Field.java类</p>
-<p>＊ 添加remarks成员变量，同时完成setter和getter方法</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">private</span> String remarks;</div><div class="line"></div><div class="line">getter...</div><div class="line">setter...</div></pre></td></tr></table></figure>
-<ul>
-<li>修改getFormattedContent方法</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">sb.append(<span class="string">';'</span>);</div><div class="line"><span class="comment">//新增</span></div><div class="line"><span class="keyword">if</span> (remarks != <span class="keyword">null</span> &amp;&amp; remarks.length() &gt; <span class="number">1</span>)&#123;</div><div class="line">   sb.append(<span class="string">"//"</span>).append(remarks);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>＊ 给remarks赋值，修改JavaBeansUtil.getJavaBeansField方法</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">...</div><div class="line">field.setName(property);</div><div class="line"><span class="comment">//添加如下代码</span></div><div class="line">field.setRemarks(introspectedColumn.getRemarks());</div></pre></td></tr></table></figure>
+        <p>MyBatis在国内一直很流行，在ORM框架中使用比例很高。<br>由于MyBatis不是Spring的亲生儿子，所以依赖的版本很发麻，不像其他的依赖，直接引入就可以，还得看版本。<br>经过几次尝试，下文给出的是可以正常使用的。</p>
+<p>本记录使用的开发环境：<br>os: mac<br>ide: idea<br>build: maven</p>
+<h3 id="POM依赖"><a href="#POM依赖" class="headerlink" title="POM依赖"></a>POM依赖</h3><figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">&lt;!-- properties --&gt;</div><div class="line">&lt;properties&gt;</div><div class="line">    &lt;spring.boot.mybatis&gt;1.0.2&lt;/spring.boot.mybatis&gt;</div><div class="line">    &lt;mybatis.version&gt;3.4.1&lt;/mybatis.version&gt;</div><div class="line">    &lt;mybatis.spring.version&gt;1.3.0&lt;/mybatis.spring.version&gt;</div><div class="line">&lt;/properties</div><div class="line">&lt;!-- mybatis --&gt;</div><div class="line">&lt;dependency&gt;</div><div class="line">    &lt;groupId&gt;org.mybatis&lt;/groupId&gt;</div><div class="line">    &lt;artifactId&gt;mybatis&lt;/artifactId&gt;</div><div class="line">    &lt;version&gt;$&#123;mybatis.version&#125;&lt;/version&gt;</div><div class="line">&lt;/dependency&gt;</div><div class="line">&lt;!-- mybatis-spring --&gt;</div><div class="line">&lt;dependency&gt;</div><div class="line">    &lt;groupId&gt;org.mybatis&lt;/groupId&gt;</div><div class="line">    &lt;artifactId&gt;mybatis-spring&lt;/artifactId&gt;</div><div class="line">    &lt;version&gt;$&#123;mybatis.spring.version&#125;&lt;/version&gt;</div><div class="line">&lt;/dependency</div></pre></td></tr></table></figure>
+<h3 id="属性配置application-properties"><a href="#属性配置application-properties" class="headerlink" title="属性配置application.properties"></a>属性配置application.properties</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">#datasource</div><div class="line">spring.datasource.url=jdbc:mysql://localhost:3306/db_name?useUnicode=true&amp;characterEncoding=utf-8&amp;useSSL=false</div><div class="line">spring.datasource.username=******</div><div class="line">spring.datasource.password=******</div><div class="line">spring.datasource.driver-class-name=com.mysql.jdbc.Driver</div><div class="line"></div><div class="line">#mybatis</div><div class="line">#mapper路径</div><div class="line">mybatis.mapperLocations=classpath*:**/mappers/*.xml</div><div class="line">#model包</div><div class="line">mybatis.typeAliasesPackage=com.xxxx.domain</div></pre></td></tr></table></figure>
+<h3 id="结束"><a href="#结束" class="headerlink" title="结束"></a>结束</h3><p>是不是很简单，没有太多的配置，清爽多了。</p>
 
       
     </div>
@@ -373,11 +367,13 @@ MyBatis Version : 1.3.4-SNAPSHOT
       
         <div class="post-tags">
           
+            <a href="/tags/Spring/" rel="tag">#Spring</a>
+          
+            <a href="/tags/Spring-Boot/" rel="tag">#Spring-Boot</a>
+          
             <a href="/tags/Java/" rel="tag">#Java</a>
           
             <a href="/tags/MyBatis/" rel="tag">#MyBatis</a>
-          
-            <a href="/tags/Generator/" rel="tag">#Generator</a>
           
         </div>
       
@@ -386,17 +382,13 @@ MyBatis Version : 1.3.4-SNAPSHOT
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2016/04/20/spring-boot-how-to-use/" rel="next" title="Spring-Boot （一） 环境搭建">
-                <i class="fa fa-chevron-left"></i> Spring-Boot （一） 环境搭建
+              <a href="/2016/04/28/spring-boot-hot-swap/" rel="next" title="Spring-Boot （二） 集成springloaded">
+                <i class="fa fa-chevron-left"></i> Spring-Boot （二） 集成springloaded
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2016/04/28/spring-boot-hot-swap/" rel="prev" title="Spring-Boot （二） 集成springloaded">
-                Spring-Boot （二） 集成springloaded <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -524,7 +516,7 @@ MyBatis Version : 1.3.4-SNAPSHOT
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#在POJO类上添加注释"><span class="nav-number">1.</span> <span class="nav-text">在POJO类上添加注释</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#POM依赖"><span class="nav-number">1.</span> <span class="nav-text">POM依赖</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#属性配置application-properties"><span class="nav-number">2.</span> <span class="nav-text">属性配置application.properties</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#结束"><span class="nav-number">3.</span> <span class="nav-text">结束</span></a></li></ol></div>
             
           </div>
         </section>
@@ -644,9 +636,9 @@ MyBatis Version : 1.3.4-SNAPSHOT
 
     <script type="text/javascript">
       var disqus_shortname = 'nealma';
-      var disqus_identifier = '2016/04/25/mybatis-generator-how-to-use/';
-      var disqus_title = "MyBatis Generator 改造";
-      var disqus_url = 'http://www.nealma.com/2016/04/25/mybatis-generator-how-to-use/';
+      var disqus_identifier = '2016/04/29/spring-boot-mybatis/';
+      var disqus_title = "Spring-Boot （三） 集成MyBatis";
+      var disqus_url = 'http://www.nealma.com/2016/04/29/spring-boot-mybatis/';
 
       function run_disqus_script(disqus_script){
         var dsq = document.createElement('script');
