@@ -68,7 +68,7 @@
 <link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Java,MyBatis,Generator," />
+  <meta name="keywords" content="MyBatis,Generator,Java," />
 
 
 
@@ -96,7 +96,7 @@ MyBatis Version : 1.3.4-SNAPSHOT
 <meta property="og:description" content="MyBatis在java的ORM地位一致保持，但是我们在写mapper的时候，也是头疼，关键是总是手误，所以呢，就有了mybatis-generator,但是官方的工具又不符合我们自己的口味，像什么不能在pojo类中根据表的字段注释来自动加注释，生成的mapper不够优雅,于是不安分的我们就开始各种改造…
 MyBatis Version : 1.3.4-SNAPSHOT
 在POJO类上添加注释修改">
-<meta property="og:updated_time" content="2016-09-05T08:15:43.000Z">
+<meta property="og:updated_time" content="2016-09-20T04:15:42.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="MyBatis Generator 改造">
 <meta name="twitter:description" content="MyBatis在java的ORM地位一致保持，但是我们在写mapper的时候，也是头疼，关键是总是手误，所以呢，就有了mybatis-generator,但是官方的工具又不符合我们自己的口味，像什么不能在pojo类中根据表的字段注释来自动加注释，生成的mapper不够优雅,于是不安分的我们就开始各种改造…
@@ -351,7 +351,7 @@ MyBatis Version : 1.3.4-SNAPSHOT
 <figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">sb.append(<span class="string">';'</span>);</div><div class="line"><span class="comment">//新增</span></div><div class="line"><span class="keyword">if</span> (remarks != <span class="keyword">null</span> &amp;&amp; remarks.length() &gt; <span class="number">1</span>)&#123;</div><div class="line">   sb.append(<span class="string">"//"</span>).append(remarks);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <p>＊ 给remarks赋值，修改JavaBeansUtil.getJavaBeansField方法</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">...</div><div class="line">field.setName(property);</div><div class="line"><span class="comment">//添加如下代码</span></div><div class="line">field.setRemarks(introspectedColumn.getRemarks());</div></pre></td></tr></table></figure>
-
+<h3 id="mavne配置"><a href="#mavne配置" class="headerlink" title="mavne配置"></a>mavne配置</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div></pre></td><td class="code"><pre><div class="line">&lt;plugin&gt;</div><div class="line">    &lt;groupId&gt;org.mybatis.generator&lt;/groupId&gt;</div><div class="line">    &lt;artifactId&gt;mybatis-generator-maven-plugin&lt;/artifactId&gt;</div><div class="line">    &lt;version&gt;1.3.4-SNAPSHOT&lt;/version&gt;</div><div class="line">    &lt;configuration&gt;</div><div class="line">        &lt;configurationFile&gt;src/main/resources/mybatis/mybatis-generator-config.xml&lt;/configurationFile&gt;</div><div class="line">        &lt;!--允许移动生成的文件--&gt;</div><div class="line">        &lt;verbose&gt;true&lt;/verbose&gt;</div><div class="line">        &lt;!--允许覆盖生成的文件--&gt;</div><div class="line">        &lt;overwrite&gt;true&lt;/overwrite&gt;</div><div class="line">    &lt;/configuration&gt;</div><div class="line">    &lt;executions&gt;</div><div class="line">        &lt;execution&gt;</div><div class="line">            &lt;id&gt;Generate MyBatis Artifacts&lt;/id&gt;</div><div class="line">            &lt;goals&gt;</div><div class="line">                &lt;goal&gt;generate&lt;/goal&gt;</div><div class="line">            &lt;/goals&gt;</div><div class="line">        &lt;/execution&gt;</div><div class="line">    &lt;/executions&gt;</div><div class="line">    &lt;dependencies&gt;</div><div class="line">        &lt;!-- 数据库驱动  --&gt;</div><div class="line">        &lt;dependency&gt;</div><div class="line">            &lt;groupId&gt;mysql&lt;/groupId&gt;</div><div class="line">            &lt;artifactId&gt;mysql-connector-java&lt;/artifactId&gt;</div><div class="line">            &lt;version&gt;5.1.39&lt;/version&gt;</div><div class="line">        &lt;/dependency&gt;</div><div class="line">    &lt;/dependencies&gt;</div><div class="line">&lt;/plugin&gt;</div></pre></td></tr></table></figure>
       
     </div>
 
@@ -373,11 +373,11 @@ MyBatis Version : 1.3.4-SNAPSHOT
       
         <div class="post-tags">
           
-            <a href="/tags/Java/" rel="tag">#Java</a>
-          
             <a href="/tags/MyBatis/" rel="tag">#MyBatis</a>
           
             <a href="/tags/Generator/" rel="tag">#Generator</a>
+          
+            <a href="/tags/Java/" rel="tag">#Java</a>
           
         </div>
       
@@ -386,7 +386,7 @@ MyBatis Version : 1.3.4-SNAPSHOT
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2016/04/20/spring-boot-how-to-use/" rel="next" title="Spring-Boot （一） 环境搭建">
+              <a href="/2016/04/20/spring-boot-1-how-to-use/" rel="next" title="Spring-Boot （一） 环境搭建">
                 <i class="fa fa-chevron-left"></i> Spring-Boot （一） 环境搭建
               </a>
             
@@ -394,8 +394,8 @@ MyBatis Version : 1.3.4-SNAPSHOT
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2016/04/28/spring-boot-hot-swap/" rel="prev" title="Spring-Boot （二） 集成springloaded">
-                Spring-Boot （二） 集成springloaded <i class="fa fa-chevron-right"></i>
+              <a href="/2016/04/26/vim-plugin-enhance/" rel="prev" title="Vim 增强">
+                Vim 增强 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -468,7 +468,7 @@ MyBatis Version : 1.3.4-SNAPSHOT
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">10</span>
+              <span class="site-state-item-count">14</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -485,7 +485,7 @@ MyBatis Version : 1.3.4-SNAPSHOT
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">13</span>
+                <span class="site-state-item-count">17</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -521,7 +521,7 @@ MyBatis Version : 1.3.4-SNAPSHOT
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#在POJO类上添加注释"><span class="nav-number">1.</span> <span class="nav-text">在POJO类上添加注释</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#在POJO类上添加注释"><span class="nav-number">1.</span> <span class="nav-text">在POJO类上添加注释</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#mavne配置"><span class="nav-number">2.</span> <span class="nav-text">mavne配置</span></a></li></ol></div>
             
           </div>
         </section>
