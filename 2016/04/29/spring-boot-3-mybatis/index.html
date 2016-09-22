@@ -90,15 +90,15 @@
 本记录使用的开发环境：os: macide: ideabuild: maven
 POM依赖123456789101112131415161718&amp;lt;!-- properties -">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Spring-Boot （三） 集成MyBatis">
+<meta property="og:title" content="Spring-Boot（三） 集成MyBatis">
 <meta property="og:url" content="http://www.nealma.com/2016/04/29/spring-boot-3-mybatis/index.html">
 <meta property="og:site_name" content="neal.ma">
 <meta property="og:description" content="MyBatis在国内一直很流行，在ORM框架中使用比例很高。由于MyBatis不是Spring的亲生儿子，所以依赖的版本很发麻，不像其他的依赖，直接引入就可以，还得看版本。经过几次尝试，下文给出的是可以正常使用的。
 本记录使用的开发环境：os: macide: ideabuild: maven
 POM依赖123456789101112131415161718&amp;lt;!-- properties -">
-<meta property="og:updated_time" content="2016-09-05T09:55:08.000Z">
+<meta property="og:updated_time" content="2016-09-20T07:25:13.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Spring-Boot （三） 集成MyBatis">
+<meta name="twitter:title" content="Spring-Boot（三） 集成MyBatis">
 <meta name="twitter:description" content="MyBatis在国内一直很流行，在ORM框架中使用比例很高。由于MyBatis不是Spring的亲生儿子，所以依赖的版本很发麻，不像其他的依赖，直接引入就可以，还得看版本。经过几次尝试，下文给出的是可以正常使用的。
 本记录使用的开发环境：os: macide: ideabuild: maven
 POM依赖123456789101112131415161718&amp;lt;!-- properties -">
@@ -124,7 +124,7 @@ POM依赖123456789101112131415161718&amp;lt;!-- properties -">
 
   <link rel="canonical" href="http://www.nealma.com/2016/04/29/spring-boot-3-mybatis/"/>
 
-  <title> Spring-Boot （三） 集成MyBatis | neal.ma </title>
+  <title> Spring-Boot（三） 集成MyBatis | neal.ma </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -274,7 +274,7 @@ POM依赖123456789101112131415161718&amp;lt;!-- properties -">
             
             
               
-                Spring-Boot （三） 集成MyBatis
+                Spring-Boot（三） 集成MyBatis
               
             
           </h1>
@@ -342,7 +342,7 @@ POM依赖123456789101112131415161718&amp;lt;!-- properties -">
       
         <p>MyBatis在国内一直很流行，在ORM框架中使用比例很高。<br>由于MyBatis不是Spring的亲生儿子，所以依赖的版本很发麻，不像其他的依赖，直接引入就可以，还得看版本。<br>经过几次尝试，下文给出的是可以正常使用的。</p>
 <p>本记录使用的开发环境：<br>os: mac<br>ide: idea<br>build: maven</p>
-<h3 id="POM依赖"><a href="#POM依赖" class="headerlink" title="POM依赖"></a>POM依赖</h3><figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">&lt;!-- properties --&gt;</div><div class="line">&lt;properties&gt;</div><div class="line">    &lt;spring.boot.mybatis&gt;1.0.2&lt;/spring.boot.mybatis&gt;</div><div class="line">    &lt;mybatis.version&gt;3.4.1&lt;/mybatis.version&gt;</div><div class="line">    &lt;mybatis.spring.version&gt;1.3.0&lt;/mybatis.spring.version&gt;</div><div class="line">&lt;/properties</div><div class="line">&lt;!-- mybatis --&gt;</div><div class="line">&lt;dependency&gt;</div><div class="line">    &lt;groupId&gt;org.mybatis&lt;/groupId&gt;</div><div class="line">    &lt;artifactId&gt;mybatis&lt;/artifactId&gt;</div><div class="line">    &lt;version&gt;$&#123;mybatis.version&#125;&lt;/version&gt;</div><div class="line">&lt;/dependency&gt;</div><div class="line">&lt;!-- mybatis-spring --&gt;</div><div class="line">&lt;dependency&gt;</div><div class="line">    &lt;groupId&gt;org.mybatis&lt;/groupId&gt;</div><div class="line">    &lt;artifactId&gt;mybatis-spring&lt;/artifactId&gt;</div><div class="line">    &lt;version&gt;$&#123;mybatis.spring.version&#125;&lt;/version&gt;</div><div class="line">&lt;/dependency</div></pre></td></tr></table></figure>
+<h3 id="POM依赖"><a href="#POM依赖" class="headerlink" title="POM依赖"></a>POM依赖</h3><figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">&lt;!-- properties --&gt;</div><div class="line">&lt;properties&gt;</div><div class="line">    &lt;spring.boot.mybatis&gt;1.0.2&lt;/spring.boot.mybatis&gt;</div><div class="line">    &lt;mybatis.version&gt;3.4.1&lt;/mybatis.version&gt;</div><div class="line">    &lt;mybatis.spring.version&gt;1.3.0&lt;/mybatis.spring.version&gt;</div><div class="line">&lt;/properties</div><div class="line">&lt;!-- mybatis --&gt;</div><div class="line">&lt;dependency&gt;</div><div class="line">    &lt;groupId&gt;org.mybatis&lt;/groupId&gt;</div><div class="line">    &lt;artifactId&gt;mybatis&lt;/artifactId&gt;</div><div class="line">    &lt;version&gt;$&#123;mybatis.version&#125;&lt;/version&gt;</div><div class="line">&lt;/dependency&gt;</div><div class="line">&lt;!-- mybatis-spring --&gt;</div><div class="line">&lt;dependency&gt;</div><div class="line">    &lt;groupId&gt;org.mybatis&lt;/groupId&gt;</div><div class="line">    &lt;artifactId&gt;mybatis-spring&lt;/artifactId&gt;</div><div class="line">    &lt;version&gt;$&#123;mybatis.spring.version&#125;&lt;/version&gt;</div><div class="line">&lt;/dependency&gt;</div></pre></td></tr></table></figure>
 <h3 id="属性配置application-properties"><a href="#属性配置application-properties" class="headerlink" title="属性配置application.properties"></a>属性配置application.properties</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">#datasource</div><div class="line">spring.datasource.url=jdbc:mysql://localhost:3306/db_name?useUnicode=true&amp;characterEncoding=utf-8&amp;useSSL=false</div><div class="line">spring.datasource.username=******</div><div class="line">spring.datasource.password=******</div><div class="line">spring.datasource.driver-class-name=com.mysql.jdbc.Driver</div><div class="line"></div><div class="line">#mybatis</div><div class="line">#mapper路径</div><div class="line">mybatis.mapperLocations=classpath*:**/mappers/*.xml</div><div class="line">#model包</div><div class="line">mybatis.typeAliasesPackage=com.xxxx.domain</div></pre></td></tr></table></figure>
 <h3 id="结束"><a href="#结束" class="headerlink" title="结束"></a>结束</h3><p>是不是很简单，没有太多的配置，清爽多了。</p>
 
@@ -382,8 +382,8 @@ POM依赖123456789101112131415161718&amp;lt;!-- properties -">
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2016/04/28/spring-boot-2-hot-swap/" rel="next" title="Spring-Boot （二） 集成springloaded">
-                <i class="fa fa-chevron-left"></i> Spring-Boot （二） 集成springloaded
+              <a href="/2016/04/28/spring-boot-2-hot-swap/" rel="next" title="Spring-Boot（二） 集成springloaded">
+                <i class="fa fa-chevron-left"></i> Spring-Boot（二） 集成springloaded
               </a>
             
           </div>
@@ -419,7 +419,7 @@ POM依赖123456789101112131415161718&amp;lt;!-- properties -">
   <div class="comments" id="comments">
     
       <div class="ds-thread" data-thread-key="2016/04/29/spring-boot-3-mybatis/"
-           data-title="Spring-Boot （三） 集成MyBatis" data-url="http://www.nealma.com/2016/04/29/spring-boot-3-mybatis/">
+           data-title="Spring-Boot（三） 集成MyBatis" data-url="http://www.nealma.com/2016/04/29/spring-boot-3-mybatis/">
       </div>
     
   </div>
@@ -464,7 +464,7 @@ POM依赖123456789101112131415161718&amp;lt;!-- properties -">
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">14</span>
+              <span class="site-state-item-count">15</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -481,7 +481,7 @@ POM依赖123456789101112131415161718&amp;lt;!-- properties -">
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">17</span>
+                <span class="site-state-item-count">18</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
