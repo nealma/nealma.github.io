@@ -68,7 +68,7 @@
 <link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="MyBatis,Java,Spring,Spring-Boot," />
+  <meta name="keywords" content="React-Native,RN," />
 
 
 
@@ -86,22 +86,34 @@
 
 
 
-<meta name="description" content="MyBatis在国内一直很流行，在ORM框架中使用比例很高。由于MyBatis不是Spring的亲生儿子，所以依赖的版本很发麻，不像其他的依赖，直接引入就可以，还得看版本。经过几次尝试，下文给出的是可以正常使用的。
-本记录使用的开发环境：os: macide: ideabuild: maven
-POM依赖123456789101112131415161718&amp;lt;!-- properties -">
+<meta name="description" content="前言对于人员缺少，功能又不复杂的app来说，使用RN这种方式效率还是很高的;
+在使用的过程中，即使你按照参考资料，一个代码一个代码的敲，最后还是报bug，
+总会让你头疼，这个过程中，记录了下遇到的问题，可以让看到的人少走些弯路。
+本记录使用的开发环境：os: mac 10.11.6xcode: Version 8.0 (8A218a)
+安装环境根据RN中文网的步骤来，都没啥问题。
+遇到的坑
+Fai">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Spring-Boot（三） 集成MyBatis">
-<meta property="og:url" content="http://www.nealma.com/2016/04/29/spring-boot-3-mybatis/index.html">
+<meta property="og:title" content="react-native (一) 环境搭建">
+<meta property="og:url" content="http://www.nealma.com/2016/06/26/react-native-1-envirment/index.html">
 <meta property="og:site_name" content="neal.ma">
-<meta property="og:description" content="MyBatis在国内一直很流行，在ORM框架中使用比例很高。由于MyBatis不是Spring的亲生儿子，所以依赖的版本很发麻，不像其他的依赖，直接引入就可以，还得看版本。经过几次尝试，下文给出的是可以正常使用的。
-本记录使用的开发环境：os: macide: ideabuild: maven
-POM依赖123456789101112131415161718&amp;lt;!-- properties -">
-<meta property="og:updated_time" content="2016-09-20T07:25:13.000Z">
+<meta property="og:description" content="前言对于人员缺少，功能又不复杂的app来说，使用RN这种方式效率还是很高的;
+在使用的过程中，即使你按照参考资料，一个代码一个代码的敲，最后还是报bug，
+总会让你头疼，这个过程中，记录了下遇到的问题，可以让看到的人少走些弯路。
+本记录使用的开发环境：os: mac 10.11.6xcode: Version 8.0 (8A218a)
+安装环境根据RN中文网的步骤来，都没啥问题。
+遇到的坑
+Fai">
+<meta property="og:updated_time" content="2016-09-29T23:36:45.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Spring-Boot（三） 集成MyBatis">
-<meta name="twitter:description" content="MyBatis在国内一直很流行，在ORM框架中使用比例很高。由于MyBatis不是Spring的亲生儿子，所以依赖的版本很发麻，不像其他的依赖，直接引入就可以，还得看版本。经过几次尝试，下文给出的是可以正常使用的。
-本记录使用的开发环境：os: macide: ideabuild: maven
-POM依赖123456789101112131415161718&amp;lt;!-- properties -">
+<meta name="twitter:title" content="react-native (一) 环境搭建">
+<meta name="twitter:description" content="前言对于人员缺少，功能又不复杂的app来说，使用RN这种方式效率还是很高的;
+在使用的过程中，即使你按照参考资料，一个代码一个代码的敲，最后还是报bug，
+总会让你头疼，这个过程中，记录了下遇到的问题，可以让看到的人少走些弯路。
+本记录使用的开发环境：os: mac 10.11.6xcode: Version 8.0 (8A218a)
+安装环境根据RN中文网的步骤来，都没啥问题。
+遇到的坑
+Fai">
 
 
 
@@ -122,9 +134,9 @@ POM依赖123456789101112131415161718&amp;lt;!-- properties -">
 
 
 
-  <link rel="canonical" href="http://www.nealma.com/2016/04/29/spring-boot-3-mybatis/"/>
+  <link rel="canonical" href="http://www.nealma.com/2016/06/26/react-native-1-envirment/"/>
 
-  <title> Spring-Boot（三） 集成MyBatis | neal.ma </title>
+  <title> react-native (一) 环境搭建 | neal.ma </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -274,7 +286,7 @@ POM依赖123456789101112131415161718&amp;lt;!-- properties -">
             
             
               
-                Spring-Boot（三） 集成MyBatis
+                react-native (一) 环境搭建
               
             
           </h1>
@@ -286,8 +298,8 @@ POM依赖123456789101112131415161718&amp;lt;!-- properties -">
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-04-29T11:46:45+08:00" content="2016-04-29">
-              2016-04-29
+            <time itemprop="dateCreated" datetime="2016-06-26T11:46:45+08:00" content="2016-06-26">
+              2016-06-26
             </time>
           </span>
 
@@ -316,8 +328,8 @@ POM依赖123456789101112131415161718&amp;lt;!-- properties -">
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2016/04/29/spring-boot-3-mybatis/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/04/29/spring-boot-3-mybatis/" itemprop="commentsCount"></span>
+                <a href="/2016/06/26/react-native-1-envirment/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/06/26/react-native-1-envirment/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -340,12 +352,44 @@ POM依赖123456789101112131415161718&amp;lt;!-- properties -">
       
 
       
-        <p>MyBatis在国内一直很流行，在ORM框架中使用比例很高。<br>由于MyBatis不是Spring的亲生儿子，所以依赖的版本很发麻，不像其他的依赖，直接引入就可以，还得看版本。<br>经过几次尝试，下文给出的是可以正常使用的。</p>
-<p>本记录使用的开发环境：<br>os: mac<br>ide: idea<br>build: maven</p>
-<h3 id="POM依赖"><a href="#POM依赖" class="headerlink" title="POM依赖"></a>POM依赖</h3><figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">&lt;!-- properties --&gt;</div><div class="line">&lt;properties&gt;</div><div class="line">    &lt;spring.boot.mybatis&gt;1.0.2&lt;/spring.boot.mybatis&gt;</div><div class="line">    &lt;mybatis.version&gt;3.4.1&lt;/mybatis.version&gt;</div><div class="line">    &lt;mybatis.spring.version&gt;1.3.0&lt;/mybatis.spring.version&gt;</div><div class="line">&lt;/properties</div><div class="line">&lt;!-- mybatis --&gt;</div><div class="line">&lt;dependency&gt;</div><div class="line">    &lt;groupId&gt;org.mybatis&lt;/groupId&gt;</div><div class="line">    &lt;artifactId&gt;mybatis&lt;/artifactId&gt;</div><div class="line">    &lt;version&gt;$&#123;mybatis.version&#125;&lt;/version&gt;</div><div class="line">&lt;/dependency&gt;</div><div class="line">&lt;!-- mybatis-spring --&gt;</div><div class="line">&lt;dependency&gt;</div><div class="line">    &lt;groupId&gt;org.mybatis&lt;/groupId&gt;</div><div class="line">    &lt;artifactId&gt;mybatis-spring&lt;/artifactId&gt;</div><div class="line">    &lt;version&gt;$&#123;mybatis.spring.version&#125;&lt;/version&gt;</div><div class="line">&lt;/dependency&gt;</div></pre></td></tr></table></figure>
-<h3 id="属性配置application-properties"><a href="#属性配置application-properties" class="headerlink" title="属性配置application.properties"></a>属性配置application.properties</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">#datasource</div><div class="line">spring.datasource.url=jdbc:mysql://localhost:3306/db_name?useUnicode=true&amp;characterEncoding=utf-8&amp;useSSL=false</div><div class="line">spring.datasource.username=******</div><div class="line">spring.datasource.password=******</div><div class="line">spring.datasource.driver-class-name=com.mysql.jdbc.Driver</div><div class="line"></div><div class="line">#mybatis</div><div class="line">#mapper路径</div><div class="line">mybatis.mapperLocations=classpath*:**/mappers/*.xml</div><div class="line">#model包</div><div class="line">mybatis.typeAliasesPackage=com.xxxx.domain</div></pre></td></tr></table></figure>
-<h3 id="结束"><a href="#结束" class="headerlink" title="结束"></a>结束</h3><p>是不是很简单，没有太多的配置，清爽多了。</p>
-
+        <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><pre><code>对于人员缺少，功能又不复杂的app来说，使用RN这种方式效率还是很高的;
+在使用的过程中，即使你按照参考资料，一个代码一个代码的敲，最后还是报bug，
+总会让你头疼，这个过程中，记录了下遇到的问题，可以让看到的人少走些弯路。
+</code></pre><p>本记录使用的开发环境：<br>os: mac 10.11.6<br>xcode: Version 8.0 (8A218a)</p>
+<h3 id="安装环境"><a href="#安装环境" class="headerlink" title="安装环境"></a>安装环境</h3><pre><code>根据RN中文网的步骤来，都没啥问题。
+</code></pre><h3 id="遇到的坑"><a href="#遇到的坑" class="headerlink" title="遇到的坑"></a>遇到的坑</h3><ul>
+<li>Failure to call AppRegistry.registerComponent</li>
+</ul>
+<p>解决办法：</p>
+<pre><code>可能是你打开了A又打开了B应用，会遇到这种情况；这时候你把所有的terminal窗口kill掉，
+在重新运行react-native run-xxx.
+</code></pre><ul>
+<li>xcrun can’t find Xcode path</li>
+</ul>
+<p>解决办法:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">DEVELOPER_DIR=<span class="string">"/Applications/Xcode.app/Contents/Developer/"</span></div><div class="line"><span class="built_in">export</span> DEVELOPER_DIR</div></pre></td></tr></table></figure>
+<p>最好是放到.bashrc文件中,如果安装了zsh，需要在.zshrc中加入如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">export DEVELOPER_DIR=/Applications/Xcode.app/Contents/Developer/</div></pre></td></tr></table></figure>
+<ul>
+<li>run-android时，总是停留在Download grandle的环节</li>
+</ul>
+<p>解决办法:</p>
+<p>将.properties文件总的URL换成下面的地址</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">http://mta.zttit.com:8080/images/gradle-2.4-all.zip</div></pre></td></tr></table></figure>
+<ul>
+<li>创建avd的时候，检查是否下载了image</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">android avd</div></pre></td></tr></table></figure>
+<ul>
+<li>Android Emulator 找不到Relaod按钮</li>
+</ul>
+<p>解决对策:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">adb shell input keyevent 82</div></pre></td></tr></table></figure>
+<ul>
+<li>Expected a component class, got [object, Object]<br>  自定义组件首字母要大写,<br>  在AppRegistry.registerComponent(‘AppName’, () =&gt; mainComponentName)中，<br>  mainComponentName可以是小写字母开头，其他自定义组件要注意<font color="red">大写字母开头</font></li>
+</ul>
+<h3 id="结束"><a href="#结束" class="headerlink" title="结束"></a>结束</h3><pre><code>还是很方便的吗
+</code></pre>
       
     </div>
 
@@ -367,13 +411,9 @@ POM依赖123456789101112131415161718&amp;lt;!-- properties -">
       
         <div class="post-tags">
           
-            <a href="/tags/MyBatis/" rel="tag">#MyBatis</a>
+            <a href="/tags/React-Native/" rel="tag">#React-Native</a>
           
-            <a href="/tags/Java/" rel="tag">#Java</a>
-          
-            <a href="/tags/Spring/" rel="tag">#Spring</a>
-          
-            <a href="/tags/Spring-Boot/" rel="tag">#Spring-Boot</a>
+            <a href="/tags/RN/" rel="tag">#RN</a>
           
         </div>
       
@@ -382,17 +422,13 @@ POM依赖123456789101112131415161718&amp;lt;!-- properties -">
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2016/04/28/spring-boot-2-hot-swap/" rel="next" title="Spring-Boot（二） 集成springloaded">
-                <i class="fa fa-chevron-left"></i> Spring-Boot（二） 集成springloaded
+              <a href="/2016/05/30/spring-boot-5-exception/" rel="next" title="Spring-Boot（五) 全局异常处理">
+                <i class="fa fa-chevron-left"></i> Spring-Boot（五) 全局异常处理
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2016/04/30/spring-boot-4-security/" rel="prev" title="Spring-Boot （四) 集成Spring Security">
-                Spring-Boot （四) 集成Spring Security <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -418,8 +454,8 @@ POM依赖123456789101112131415161718&amp;lt;!-- properties -">
           
   <div class="comments" id="comments">
     
-      <div class="ds-thread" data-thread-key="2016/04/29/spring-boot-3-mybatis/"
-           data-title="Spring-Boot（三） 集成MyBatis" data-url="http://www.nealma.com/2016/04/29/spring-boot-3-mybatis/">
+      <div class="ds-thread" data-thread-key="2016/06/26/react-native-1-envirment/"
+           data-title="react-native (一) 环境搭建" data-url="http://www.nealma.com/2016/06/26/react-native-1-envirment/">
       </div>
     
   </div>
@@ -517,7 +553,7 @@ POM依赖123456789101112131415161718&amp;lt;!-- properties -">
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#POM依赖"><span class="nav-number">1.</span> <span class="nav-text">POM依赖</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#属性配置application-properties"><span class="nav-number">2.</span> <span class="nav-text">属性配置application.properties</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#结束"><span class="nav-number">3.</span> <span class="nav-text">结束</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#安装环境"><span class="nav-number">2.</span> <span class="nav-text">安装环境</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#遇到的坑"><span class="nav-number">3.</span> <span class="nav-text">遇到的坑</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#结束"><span class="nav-number">4.</span> <span class="nav-text">结束</span></a></li></ol></div>
             
           </div>
         </section>
