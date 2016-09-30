@@ -68,7 +68,7 @@
 <link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="blog,ssh,github,git," />
+  <meta name="keywords" content="ssh,blog,github,git," />
 
 
 
@@ -96,7 +96,7 @@ Enter file in which to save the key (/Users/you/.ssh/id_rsa_s">
 <meta property="og:description" content="最近申请了两个github账号，可是我都是在一台Mac上操作，这时问题就出现了。两个账号不可能使用一个sshkey，只能另外再生成一个ssh-key了。
 创建新的ssh-key1$ssh-keygen -t rsa -C &quot;another_email@example.com&quot;
 Enter file in which to save the key (/Users/you/.ssh/id_rsa_s">
-<meta property="og:updated_time" content="2016-09-30T07:29:17.000Z">
+<meta property="og:updated_time" content="2016-09-30T07:41:49.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="一台Mac同时使用两个账号">
 <meta name="twitter:description" content="最近申请了两个github账号，可是我都是在一台Mac上操作，这时问题就出现了。两个账号不可能使用一个sshkey，只能另外再生成一个ssh-key了。
@@ -346,6 +346,8 @@ Enter file in which to save the key (/Users/you/.ssh/id_rsa_s">
 <p>[Please Enter]</p>
 <h3 id="添加新文件-ssh-config"><a href="#添加新文件-ssh-config" class="headerlink" title="添加新文件~/.ssh/config"></a>添加新文件~/.ssh/config</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">$ vim /Users/you/.ssh/config</div><div class="line"></div><div class="line">Host github.com</div><div class="line">  HostName github.com</div><div class="line">  IdentityFile ~/.ssh/id_rsa</div><div class="line"></div><div class="line">Host another.github.com (你自己定义的)</div><div class="line">  HostName github.com</div><div class="line">  IdentityFile ~/.ssh/id_rsa_second</div></pre></td></tr></table></figure>
 <h3 id="结束"><a href="#结束" class="headerlink" title="结束"></a>结束</h3><pre><code>好啦，就这么简单。
+然而这只是同一台设备push到两个github账号而已，但是pusher都是同一个帐号；
+如果要两个账号的话，你需要设置git config email=&quot;&quot;,具体请Google。
 </code></pre>
       
     </div>
@@ -368,9 +370,9 @@ Enter file in which to save the key (/Users/you/.ssh/id_rsa_s">
       
         <div class="post-tags">
           
-            <a href="/tags/blog/" rel="tag">#blog</a>
-          
             <a href="/tags/ssh/" rel="tag">#ssh</a>
+          
+            <a href="/tags/blog/" rel="tag">#blog</a>
           
             <a href="/tags/github/" rel="tag">#github</a>
           
@@ -387,8 +389,8 @@ Enter file in which to save the key (/Users/you/.ssh/id_rsa_s">
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2015/12/18/elasticsearch/" rel="prev" title="ElasticSearch">
-                ElasticSearch <i class="fa fa-chevron-right"></i>
+              <a href="/2015/12/18/newrelic/" rel="prev" title="newrelic使用">
+                newrelic使用 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>

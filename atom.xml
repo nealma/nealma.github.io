@@ -467,9 +467,9 @@ so，还是折腾下亲儿
       <category term="Tech" scheme="http://www.nealma.com/categories/Tech/"/>
     
     
-      <category term="hexo" scheme="http://www.nealma.com/tags/hexo/"/>
-    
       <category term="blog" scheme="http://www.nealma.com/tags/blog/"/>
+    
+      <category term="hexo" scheme="http://www.nealma.com/tags/hexo/"/>
     
   </entry>
   
@@ -547,31 +547,6 @@ so，还是折腾下亲儿
   </entry>
   
   <entry>
-    <title>newrelic使用</title>
-    <link href="http://www.nealma.com/2015/12/18/newrelic/"/>
-    <id>http://www.nealma.com/2015/12/18/newrelic/</id>
-    <published>2015-12-18T07:46:45.000Z</published>
-    <updated>2016-08-05T05:50:13.000Z</updated>
-    
-    <content type="html"><![CDATA[<p>对于Startup公司，在人员配备不足的情况下，集成各路云服务在所难免，newrelic在APM领域走在前面，这里记录下相关使用。</p>
-<h3 id="Java-agent-for-web-server"><a href="#Java-agent-for-web-server" class="headerlink" title="Java agent for web server"></a>Java agent for web server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">$ unzip newrelic-java-xxx.zip <span class="_">-d</span> /path/to/appserver/</div><div class="line">$ <span class="built_in">cd</span> /path/to/appserver/newrelic</div><div class="line">$ java -jar newrelic.jar install</div></pre></td></tr></table></figure>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;对于Startup公司，在人员配备不足的情况下，集成各路云服务在所难免，newrelic在APM领域走在前面，这里记录下相关使用。&lt;/p&gt;
-&lt;h3 id=&quot;Java-agent-for-web-server&quot;&gt;&lt;a href=&quot;#Java-agent-for-web-ser
-    
-    </summary>
-    
-      <category term="Tools" scheme="http://www.nealma.com/categories/Tools/"/>
-    
-    
-      <category term="newrelic" scheme="http://www.nealma.com/tags/newrelic/"/>
-    
-  </entry>
-  
-  <entry>
     <title>ElasticSearch</title>
     <link href="http://www.nealma.com/2015/12/18/elasticsearch/"/>
     <id>http://www.nealma.com/2015/12/18/elasticsearch/</id>
@@ -604,11 +579,36 @@ so，还是折腾下亲儿
   </entry>
   
   <entry>
+    <title>newrelic使用</title>
+    <link href="http://www.nealma.com/2015/12/18/newrelic/"/>
+    <id>http://www.nealma.com/2015/12/18/newrelic/</id>
+    <published>2015-12-18T07:46:45.000Z</published>
+    <updated>2016-08-05T05:50:13.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>对于Startup公司，在人员配备不足的情况下，集成各路云服务在所难免，newrelic在APM领域走在前面，这里记录下相关使用。</p>
+<h3 id="Java-agent-for-web-server"><a href="#Java-agent-for-web-server" class="headerlink" title="Java agent for web server"></a>Java agent for web server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">$ unzip newrelic-java-xxx.zip <span class="_">-d</span> /path/to/appserver/</div><div class="line">$ <span class="built_in">cd</span> /path/to/appserver/newrelic</div><div class="line">$ java -jar newrelic.jar install</div></pre></td></tr></table></figure>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;对于Startup公司，在人员配备不足的情况下，集成各路云服务在所难免，newrelic在APM领域走在前面，这里记录下相关使用。&lt;/p&gt;
+&lt;h3 id=&quot;Java-agent-for-web-server&quot;&gt;&lt;a href=&quot;#Java-agent-for-web-ser
+    
+    </summary>
+    
+      <category term="Tools" scheme="http://www.nealma.com/categories/Tools/"/>
+    
+    
+      <category term="newrelic" scheme="http://www.nealma.com/tags/newrelic/"/>
+    
+  </entry>
+  
+  <entry>
     <title>一台Mac同时使用两个账号</title>
     <link href="http://www.nealma.com/2015/03/18/github-one-mac-two-github-account/"/>
     <id>http://www.nealma.com/2015/03/18/github-one-mac-two-github-account/</id>
     <published>2015-03-18T03:46:45.000Z</published>
-    <updated>2016-09-30T07:29:17.000Z</updated>
+    <updated>2016-09-30T07:41:49.000Z</updated>
     
     <content type="html"><![CDATA[<p>最近申请了两个github账号，可是我都是在一台Mac上操作，这时问题就出现了。<br>两个账号不可能使用一个sshkey，只能另外再生成一个ssh-key了。</p>
 <h3 id="创建新的ssh-key"><a href="#创建新的ssh-key" class="headerlink" title="创建新的ssh-key"></a>创建新的ssh-key</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="variable">$ssh</span>-keygen -t rsa -C <span class="string">"another_email@example.com"</span></div></pre></td></tr></table></figure>
@@ -616,6 +616,8 @@ so，还是折腾下亲儿
 <p>[Please Enter]</p>
 <h3 id="添加新文件-ssh-config"><a href="#添加新文件-ssh-config" class="headerlink" title="添加新文件~/.ssh/config"></a>添加新文件~/.ssh/config</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">$ vim /Users/you/.ssh/config</div><div class="line"></div><div class="line">Host github.com</div><div class="line">  HostName github.com</div><div class="line">  IdentityFile ~/.ssh/id_rsa</div><div class="line"></div><div class="line">Host another.github.com (你自己定义的)</div><div class="line">  HostName github.com</div><div class="line">  IdentityFile ~/.ssh/id_rsa_second</div></pre></td></tr></table></figure>
 <h3 id="结束"><a href="#结束" class="headerlink" title="结束"></a>结束</h3><pre><code>好啦，就这么简单。
+然而这只是同一台设备push到两个github账号而已，但是pusher都是同一个帐号；
+如果要两个账号的话，你需要设置git config email=&quot;&quot;,具体请Google。
 </code></pre>]]></content>
     
     <summary type="html">
@@ -628,9 +630,9 @@ so，还是折腾下亲儿
       <category term="Tech" scheme="http://www.nealma.com/categories/Tech/"/>
     
     
-      <category term="blog" scheme="http://www.nealma.com/tags/blog/"/>
-    
       <category term="ssh" scheme="http://www.nealma.com/tags/ssh/"/>
+    
+      <category term="blog" scheme="http://www.nealma.com/tags/blog/"/>
     
       <category term="github" scheme="http://www.nealma.com/tags/github/"/>
     
