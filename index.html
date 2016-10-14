@@ -270,6 +270,540 @@
             
               
                 
+                <a class="post-title-link" href="/2016/07/28/react-native-5-listview/" itemprop="url">
+                  react-native (五) react-native-listview组件
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-07-28T12:46:45+08:00" content="2016-07-28">
+              2016-07-28
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Tech/" itemprop="url" rel="index">
+                    <span itemprop="name">Tech</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/07/28/react-native-5-listview/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/07/28/react-native-5-listview/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><pre><code>react-native-listview组件,
+因为同时支持ios和android，使用起来也很友好，就用了。
+</code></pre><p>本记录使用的开发环境：<br>os: mac 10.11.6<br>xcode: Version 8.0 (8A218a)</p>
+<h3 id="最简单的用例"><a href="#最简单的用例" class="headerlink" title="最简单的用例"></a>最简单的用例</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div></pre></td><td class="code"><pre><div class="line">import ListView from &apos;react-native-listview&apos;;</div><div class="line"></div><div class="line">...</div><div class="line"></div><div class="line">#constructor</div><div class="line">constructor(props) &#123;</div><div class="line">    super(props);</div><div class="line">    //数据源，即要显示的数据</div><div class="line">    const ds = new ListView.DataSource(&#123;rowHasChanged: (r1, r2) =&gt; r1 !== r2&#125;);</div><div class="line">    this.state = &#123;</div><div class="line">        dataSource: ds.cloneWithRows([&apos;row 1&apos;, &apos;row 2&apos;, &apos;row 1&apos;, &apos;row 2&apos;, &apos;row 1&apos;, &apos;row 2&apos;, &apos;row 1&apos;, &apos;row 2&apos;]),</div><div class="line">        loaded: false//4</div><div class="line">    &#125;;</div><div class="line"></div><div class="line">    this._onFetch(); //3</div><div class="line">&#125;</div><div class="line"></div><div class="line">...</div><div class="line"></div><div class="line">#render</div><div class="line"></div><div class="line">render() &#123;</div><div class="line">    return (</div><div class="line">        &lt;ListView</div><div class="line">            dataSource=&#123;this.state.dataSource&#125;</div><div class="line">            //行view，listview会根据datasource的每个数据进行渲染</div><div class="line">            renderRow=&#123;this._renderRowView&#125;</div><div class="line">        /&gt;</div><div class="line">    )</div><div class="line">&#125;</div><div class="line"></div><div class="line">/**</div><div class="line"> * When a row is touched</div><div class="line"> * @param &#123;object&#125; rowData Row data</div><div class="line"> */</div><div class="line">_onPress(rowData) &#123;</div><div class="line">    console.log(rowData+&apos; pressed&apos;);</div><div class="line">&#125;</div><div class="line"></div><div class="line">/**</div><div class="line"> * Render a row</div><div class="line"> * @param &#123;object&#125; rowData Row data</div><div class="line"> */</div><div class="line">_renderRowView(rowData) &#123;</div><div class="line">    return (</div><div class="line">        &lt;TouchableHighlight</div><div class="line">            style=&#123;styles.row&#125;</div><div class="line">            underlayColor=&apos;#c8c7cc&apos;</div><div class="line">        &gt;</div><div class="line">            &lt;Text&gt;&#123;rowData&#125;&lt;/Text&gt;</div><div class="line">        &lt;/TouchableHighlight&gt;</div><div class="line">    );</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="获取网络数据-Fetch"><a href="#获取网络数据-Fetch" class="headerlink" title="获取网络数据(Fetch)"></a>获取网络数据(Fetch)</h3><pre><code>这里只是简单的实现数据到列表的渲染，在实际项目里，list的数据必定都是从Server获取来的，
+我们以豆瓣音乐API为例, 通过网络数据渲染list
+</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">const API_URL = &apos;https://api.douban.com/v2/music/search?q=love&apos;;</div><div class="line"></div><div class="line">//把3处的注释去掉</div><div class="line"></div><div class="line">_onFetch() &#123;</div><div class="line">    fetch(API_URL)</div><div class="line">        .then(response =&gt; response.json())</div><div class="line">        .then(musics =&gt; &#123;</div><div class="line">            this.setState(&#123;</div><div class="line">                dataSource:this.state.dataSource.cloneWithRows(musics.musics),</div><div class="line">                loaded:true //4</div><div class="line">            &#125;)</div><div class="line">        &#125;)</div><div class="line">        .done();</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="添加loading状态"><a href="#添加loading状态" class="headerlink" title="添加loading状态"></a>添加loading状态</h3><pre><code>获取网络数据，必然会消耗时间。在等待的过程中，胃了给用户很好的提示，我们都会添加loading图标，
+如果什么都没有，让用户傻傻的干等，用户也不会对你的app有好的印象
+</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">...</div><div class="line">//去掉4处注解</div><div class="line">//修改render</div><div class="line">//在return之前添加如下</div><div class="line"></div><div class="line">if (!this.state.loaded) &#123;</div><div class="line">    return (</div><div class="line">        &lt;View style=&#123;styles.container&#125;&gt;</div><div class="line">            &lt;View style=&#123;styles.loading&#125;&gt;</div><div class="line">                &lt;ActivityIndicator</div><div class="line">                    size=&apos;large&apos;</div><div class="line">                    color=&apos;#eabb33&apos;/&gt;</div><div class="line">            &lt;/View&gt;</div><div class="line">        &lt;/View&gt;</div><div class="line">    )</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="列表中Item的onPress动作"><a href="#列表中Item的onPress动作" class="headerlink" title="列表中Item的onPress动作"></a>列表中Item的onPress动作</h3><pre><code>因为this的变更问题，_renderRowView做如下修改，onPress作为传递的处理函数
+这里如果你用this._onPress, 会抛出异常，就是this已经不是原来的this了，
+但是onPress还是原来的onPress。
+</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">/**</div><div class="line"> * Render a row</div><div class="line"> * @param &#123;object&#125; rowData Row data</div><div class="line"> */</div><div class="line">_renderRowView(rowData, onPress) &#123;</div><div class="line">    return (</div><div class="line">        &lt;TouchableHighlight</div><div class="line">            style=&#123;styles.row&#125;</div><div class="line">            underlayColor=&apos;#c8c7cc&apos;</div><div class="line">            onPress=&#123;(rowData) =&gt; onPress(rowData)&#125;&gt;</div><div class="line">            &lt;Text&gt;&#123;rowData.title&#125;&lt;/Text&gt;</div><div class="line">        &lt;/TouchableHighlight&gt;</div><div class="line">    );</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="下拉刷新"><a href="#下拉刷新" class="headerlink" title="下拉刷新"></a>下拉刷新</h3><pre><code>待续...
+</code></pre><h3 id="结束"><a href="#结束" class="headerlink" title="结束"></a>结束</h3><pre><code>：）～
+</code></pre>
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/07/28/react-native-4-slide-menu/" itemprop="url">
+                  react-native (四) react-native-jelly-side-menu组件
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-07-28T11:46:45+08:00" content="2016-07-28">
+              2016-07-28
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Tech/" itemprop="url" rel="index">
+                    <span itemprop="name">Tech</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/07/28/react-native-4-slide-menu/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/07/28/react-native-4-slide-menu/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><pre><code>react-native-jelly-side-menu组件,
+因为同时支持ios和android，使用起来也很友好，就用了。
+</code></pre><p>本记录使用的开发环境：<br>os: mac 10.11.6<br>xcode: Version 8.0 (8A218a)</p>
+<h3 id="Example"><a href="#Example" class="headerlink" title="Example"></a>Example</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line">import JellySideMenu from &apos;react-native-jelly-side-menu&apos;;</div><div class="line"></div><div class="line">...</div><div class="line"></div><div class="line">#render</div><div class="line"></div><div class="line">render() &#123;</div><div class="line">        return (</div><div class="line">            &lt;View style=&#123;&#123;flex: 1, backgroundColor: &apos;#FF6644&apos;&#125;&#125;&gt;</div><div class="line">                &lt;JellySideMenu</div><div class="line">                    ref=&#123;(view) =&gt; &#123;this.jsm = view&#125;&#125;</div><div class="line">                    fill=&#123;&quot;#FFF&quot;&#125; fillOpacity=&#123;1.0&#125;</div><div class="line">                    renderMenu=&#123;this.renderMenu&#125;&gt;</div><div class="line">                    &lt;TouchableOpacity onPress=&#123;() =&gt; &#123;this.jsm.toggleSideMenu(true)&#125;&#125;&gt;</div><div class="line">	                    &lt;Icon name=&quot;navicon&quot; size=&#123;30&#125; color=&quot;#4F8EF7&quot; style=&#123;&#123;marginTop: 20, marginLeft: 20&#125;&#125;/&gt;  //1</div><div class="line">	                &lt;/TouchableOpacity&gt;</div><div class="line">                &lt;/JellySideMenu&gt;</div><div class="line"></div><div class="line">                &lt;TouchableOpacity onPress=&#123;() =&gt; &#123;this.jsm.toggleSideMenu(true)&#125;&#125;&gt;</div><div class="line">                    &lt;Icon name=&quot;navicon&quot; size=&#123;30&#125; color=&quot;#4F8EF7&quot; style=&#123;&#123;marginTop: 20, marginLeft: 20&#125;&#125;/&gt;  //2</div><div class="line">                &lt;/TouchableOpacity&gt;</div><div class="line">            &lt;/View&gt;</div><div class="line">        )</div><div class="line">    &#125;</div></pre></td></tr></table></figure>
+<pre><code>如果按照官方的demo，即代码1处，当滑出左侧菜单，关闭，再次点击1处的button，此时事件失效。
+你可以把open menu放在2处，可以很好的工作。
+</code></pre><h3 id="结束"><a href="#结束" class="headerlink" title="结束"></a>结束</h3><pre><code>：）～
+</code></pre>
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/07/27/react-native-3-icons/" itemprop="url">
+                  react-native (三) react-native-vector-icons组件
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-07-27T11:46:45+08:00" content="2016-07-27">
+              2016-07-27
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Tech/" itemprop="url" rel="index">
+                    <span itemprop="name">Tech</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/07/27/react-native-3-icons/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/07/27/react-native-3-icons/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><pre><code>react-native-vector-icons组件,
+可以免费使用更多的icons资源
+</code></pre><p>本记录使用的开发环境：<br>os: mac 10.11.6<br>xcode: Version 8.0 (8A218a)</p>
+<h3 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">npm install react-native-vector-icons --save</div><div class="line">rnpm link</div></pre></td></tr></table></figure>
+<pre><code>之后会在Xcode中的info.plis里面看到如下键值信息：
+Fonts provided by application（item0-item7）
+</code></pre><h3 id="Example"><a href="#Example" class="headerlink" title="Example"></a>Example</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">import Icon from &apos;react-native-vector-icons/FontAwesome&apos;;</div><div class="line"></div><div class="line">&lt;Icon name=&quot;navicon&quot; size=&#123;30&#125; color=&quot;#4F8EF7&quot; style=&#123;&#123;marginTop: 20, marginLeft: 20&#125;&#125;/&gt;</div></pre></td></tr></table></figure>
+<pre><code>FontAwesome网站：http://fontawesome.io/icons/,其中name的值对应网站中每个icon的名字。
+</code></pre><h3 id="结束"><a href="#结束" class="headerlink" title="结束"></a>结束</h3><pre><code>：）～
+</code></pre>
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/07/26/react-native-2-image/" itemprop="url">
+                  react-native (二) Image图片组件
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-07-26T11:46:45+08:00" content="2016-07-26">
+              2016-07-26
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Tech/" itemprop="url" rel="index">
+                    <span itemprop="name">Tech</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/07/26/react-native-2-image/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/07/26/react-native-2-image/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><pre><code>在RN中使用Image组件，即使很简单，总会出现这个那个的问题。
+</code></pre><p>本记录使用的开发环境：<br>os: mac 10.11.6<br>xcode: Version 8.0 (8A218a)</p>
+<h3 id="使用方式"><a href="#使用方式" class="headerlink" title="使用方式"></a>使用方式</h3><ul>
+<li>require</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;Image source=&#123;<span class="built_in">require</span>(<span class="string">'./resources/ly.png'</span>)&#125; style=&#123;&#123;width: <span class="number">100</span>, height: <span class="number">100</span>&#125;&#125; /&gt;</div></pre></td></tr></table></figure>
+<pre><code>注意这里面一定要显示定义图片大小，否则一旦图片尺寸很大，会不显示。
+</code></pre><ul>
+<li>uri</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&lt;View style=&#123;&#123;width: <span class="number">100</span>, height: <span class="number">100</span>&#125;&#125;&gt;</div><div class="line">    &lt;Image source=&#123;&#123;uri: 'http://cdn.crunchify.com/wp-content/uploads/2013/01/html5-canvas.png'&#125;&#125; /&gt;</div><div class="line">    &lt;Image source=&#123;&#123;uri: 'https://facebook.github.io/react/img/logo_og.png'&#125;&#125; /&gt;</div><div class="line">&lt;/View&gt;</div></pre></td></tr></table></figure>
+<pre><code>注意如果是ios,http协议的uri会受到限制，可能什么也看不到，
+这是因为iOS9之后，默认Https请求，如需支持Http，
+修改info.plist文件添加键值对就
+
+需要在info.plist中设置
+
+App Transport Security Settings
+Allow Arbitrary Loads 设置为 YES
+
+设置好后，重新执行react-native run-ios
+</code></pre><h3 id="结束"><a href="#结束" class="headerlink" title="结束"></a>结束</h3><pre><code>切记下面的内容
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">style=&#123;&#123;width: 100, height: 100&#125;&#125;</div></pre></td></tr></table></figure>
+
+否则，你将看不到图片
+</code></pre>
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2016/06/26/react-native-1-envirment/" itemprop="url">
                   react-native (一) 环境搭建
                 </a>
@@ -522,6 +1056,126 @@
 不然如果校验失败 Spring 是不会抛出 MethodArgumentNotValidException 异常的，
 自然而然在我们的 GlobalExceptionHandler 就无法处理了。
 </code></pre>
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/05/30/nodejs-1-very-slow/" itemprop="url">
+                  npm 网络难以忍受
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-05-30T11:46:45+08:00" content="2016-05-30">
+              2016-05-30
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Tech/" itemprop="url" rel="index">
+                    <span itemprop="name">Tech</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/05/30/nodejs-1-very-slow/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/05/30/nodejs-1-very-slow/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="那就换成淘宝的吧"><a href="#那就换成淘宝的吧" class="headerlink" title="那就换成淘宝的吧"></a>那就换成淘宝的吧</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">npm --registry=https://registry.npm.taobao.org install cnpm -g</div></pre></td></tr></table></figure>
+<h3 id="或者改变registry"><a href="#或者改变registry" class="headerlink" title="或者改变registry"></a>或者改变registry</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">#vim ~/.npmrc</div><div class="line"></div><div class="line">registry = https://registry.npm.taobao.org</div></pre></td></tr></table></figure>
           
         
       
@@ -935,647 +1589,11 @@ so，还是折腾下亲儿子的东东吧
 
 
     
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/04/26/vim-plugin-install-youcompleteme/" itemprop="url">
-                  Vim Plugin 自动补全(YouCompleteMe)
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-04-26T12:46:45+08:00" content="2016-04-26">
-              2016-04-26
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/Tech/" itemprop="url" rel="index">
-                    <span itemprop="name">Tech</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2016/04/26/vim-plugin-install-youcompleteme/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/04/26/vim-plugin-install-youcompleteme/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>Vim在安装自动补全插件YouCompleteMe的时候，遇到了坑。</p>
-<p>本记录使用的开发环境：<br>os: mac</p>
-<h3 id="首先Vim版本过低，提示7-3"><a href="#首先Vim版本过低，提示7-3" class="headerlink" title="首先Vim版本过低，提示7.3+"></a>首先Vim版本过低，提示7.3+</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">brew install vim</div><div class="line"></div><div class="line">#安装完之后，查看版本还是7.3的，经过搜索解决办法，发现执行如下可以解决</div><div class="line">exec $SHELL</div><div class="line"></div><div class="line">#重启terminal</div></pre></td></tr></table></figure>
-<h3 id="再次抱错"><a href="#再次抱错" class="headerlink" title="再次抱错"></a>再次抱错</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">YouCompleteMe unavailable: No module named future</div></pre></td></tr></table></figure>
-<p>这次是因为python的问题，<br>于是进入YouCompleteMe目录，执行</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">./install.py -all</div></pre></td></tr></table></figure>
-<p>回车，这时提示你一些第三方依赖缺失，执行下面的命令,</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git submodule update --init --recursive</div></pre></td></tr></table></figure>
-<p>我的网速不给力，需要很长时间，耐心等待吧，要不就干别的去的</p>
-<p>完成之后，重新安装一遍</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">vim +PluginInstall</div></pre></td></tr></table></figure>
-<p>:D-</p>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/04/26/vim-plugin-install-nerttree/" itemprop="url">
-                  Vim Plugin 自动补全(NERDTree)
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-04-26T12:46:45+08:00" content="2016-04-26">
-              2016-04-26
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/Tech/" itemprop="url" rel="index">
-                    <span itemprop="name">Tech</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2016/04/26/vim-plugin-install-nerttree/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/04/26/vim-plugin-install-nerttree/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>Vim在安装目录工具NERDTree的时候，遇到了坑。</p>
-<p>本记录使用的开发环境：<br>os: mac</p>
-<h3 id="其实也没啥，就是不知道怎么启用，哈哈"><a href="#其实也没啥，就是不知道怎么启用，哈哈" class="headerlink" title="其实也没啥，就是不知道怎么启用，哈哈"></a>其实也没啥，就是不知道怎么启用，哈哈</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">#进入vim</div><div class="line"></div><div class="line">:NERDTree ＃回车，就看到啦</div><div class="line"></div><div class="line">#Crtl + w 是前缀唤醒组合</div><div class="line"></div><div class="line">#左右切换</div><div class="line">h l </div><div class="line"></div><div class="line">#退出</div><div class="line">q</div><div class="line"></div><div class="line">#每次都需要输入NERDTree是不是很麻烦，别怕，可以很省事的</div><div class="line"></div><div class="line">#vim ~/.vimrc 加入</div><div class="line">nnoremap &lt;silent&gt; &lt;F5&gt; :NERDTree&lt;CR&gt;</div></pre></td></tr></table></figure>
-<p>:D-</p>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/04/26/vim-plugin-enhance/" itemprop="url">
-                  Vim 增强
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-04-26T11:46:45+08:00" content="2016-04-26">
-              2016-04-26
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/Tech/" itemprop="url" rel="index">
-                    <span itemprop="name">Tech</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2016/04/26/vim-plugin-enhance/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/04/26/vim-plugin-enhance/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>vim我们在用的时候，没有插件和有插件那是天壤之别。<br>快来享受plugin的强大吧</p>
-<p>本记录使用的开发环境：<br>os: mac</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">set nocompatible              &quot; be iMproved, required</div><div class="line">filetype off                  &quot; required</div><div class="line"></div><div class="line">set rtp+=~/.vim/bundle/Vundle.vim</div><div class="line">call vundle#begin()</div><div class="line"></div><div class="line">Plugin &apos;VundleVim/Vundle.vim&apos;</div><div class="line">Plugin &apos;scrooloose/nerdtree&apos;</div><div class="line">Plugin &apos;godlygeek/tabular&apos;</div><div class="line">Plugin &apos;raimondi/delimitmate&apos;</div><div class="line">Plugin &apos;terryma/vim-multiple-cursors&apos;</div><div class="line">Plugin &apos;scrooloose/syntastic&apos;</div><div class="line">Plugin &apos;bling/vim-airline&apos;</div><div class="line">Plugin &apos;Valloric/YouCompleteMe&apos;</div><div class="line"></div><div class="line">call vundle#end()            &quot; required</div><div class="line">filetype plugin indent on    &quot; required</div></pre></td></tr></table></figure>
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/04/25/mybatis-generator-how-to-use/" itemprop="url">
-                  MyBatis Generator 改造
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-04-25T11:46:45+08:00" content="2016-04-25">
-              2016-04-25
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/Tech/" itemprop="url" rel="index">
-                    <span itemprop="name">Tech</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2016/04/25/mybatis-generator-how-to-use/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/04/25/mybatis-generator-how-to-use/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>MyBatis在java的ORM地位一致保持，但是我们在写mapper的时候，也是头疼，关键是总是手误，所以呢，就有了mybatis-generator,<br>但是官方的工具又不符合我们自己的口味，像什么不能在pojo类中根据表的字段注释来自动加注释，<br>生成的mapper不够优雅,于是不安分的我们就开始各种改造…</p>
-<p>MyBatis Version : 1.3.4-SNAPSHOT</p>
-<h3 id="在POJO类上添加注释"><a href="#在POJO类上添加注释" class="headerlink" title="在POJO类上添加注释"></a>在POJO类上添加注释</h3><p>修改Field.java类</p>
-<p>＊ 添加remarks成员变量，同时完成setter和getter方法</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">private</span> String remarks;</div><div class="line"></div><div class="line">getter...</div><div class="line">setter...</div></pre></td></tr></table></figure>
-<ul>
-<li>修改getFormattedContent方法</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">sb.append(<span class="string">';'</span>);</div><div class="line"><span class="comment">//新增</span></div><div class="line"><span class="keyword">if</span> (remarks != <span class="keyword">null</span> &amp;&amp; remarks.length() &gt; <span class="number">1</span>)&#123;</div><div class="line">   sb.append(<span class="string">"//"</span>).append(remarks);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>＊ 给remarks赋值，修改JavaBeansUtil.getJavaBeansField方法</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">...</div><div class="line">field.setName(property);</div><div class="line"><span class="comment">//添加如下代码</span></div><div class="line">field.setRemarks(introspectedColumn.getRemarks());</div></pre></td></tr></table></figure>
-<h3 id="mavne配置"><a href="#mavne配置" class="headerlink" title="mavne配置"></a>mavne配置</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div></pre></td><td class="code"><pre><div class="line">&lt;plugin&gt;</div><div class="line">    &lt;groupId&gt;org.mybatis.generator&lt;/groupId&gt;</div><div class="line">    &lt;artifactId&gt;mybatis-generator-maven-plugin&lt;/artifactId&gt;</div><div class="line">    &lt;version&gt;1.3.4-SNAPSHOT&lt;/version&gt;</div><div class="line">    &lt;configuration&gt;</div><div class="line">        &lt;configurationFile&gt;src/main/resources/mybatis/mybatis-generator-config.xml&lt;/configurationFile&gt;</div><div class="line">        &lt;!--允许移动生成的文件--&gt;</div><div class="line">        &lt;verbose&gt;true&lt;/verbose&gt;</div><div class="line">        &lt;!--允许覆盖生成的文件--&gt;</div><div class="line">        &lt;overwrite&gt;true&lt;/overwrite&gt;</div><div class="line">    &lt;/configuration&gt;</div><div class="line">    &lt;executions&gt;</div><div class="line">        &lt;execution&gt;</div><div class="line">            &lt;id&gt;Generate MyBatis Artifacts&lt;/id&gt;</div><div class="line">            &lt;goals&gt;</div><div class="line">                &lt;goal&gt;generate&lt;/goal&gt;</div><div class="line">            &lt;/goals&gt;</div><div class="line">        &lt;/execution&gt;</div><div class="line">    &lt;/executions&gt;</div><div class="line">    &lt;dependencies&gt;</div><div class="line">        &lt;!-- 数据库驱动  --&gt;</div><div class="line">        &lt;dependency&gt;</div><div class="line">            &lt;groupId&gt;mysql&lt;/groupId&gt;</div><div class="line">            &lt;artifactId&gt;mysql-connector-java&lt;/artifactId&gt;</div><div class="line">            &lt;version&gt;5.1.39&lt;/version&gt;</div><div class="line">        &lt;/dependency&gt;</div><div class="line">    &lt;/dependencies&gt;</div><div class="line">&lt;/plugin&gt;</div></pre></td></tr></table></figure>
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/04/20/spring-boot-1-how-to-use/" itemprop="url">
-                  Spring-Boot（一） 环境搭建
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-04-20T11:46:45+08:00" content="2016-04-20">
-              2016-04-20
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/Tech/" itemprop="url" rel="index">
-                    <span itemprop="name">Tech</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2016/04/20/spring-boot-1-how-to-use/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/04/20/spring-boot-1-how-to-use/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>Spring发展到现在，在java框架中一直在坚守，也在不断的改进。<br>Spring-Boot的出现，并不是什么新技术，而是简化我们的开发步骤和配置，让我们愉快的玩耍吧。</p>
-<p>本记录使用的开发环境：<br>os: mac<br>ide: idea<br>build: maven</p>
-<h3 id="Run"><a href="#Run" class="headerlink" title="Run"></a>Run</h3><p>Spring-Boot是从run开始的，所以你的项目必须包含类似以下的一段代码<br>我习惯于放在com.domain.project包下</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@SpringBootApplication</span></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Application</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</div><div class="line">        SpringApplication.run(Application.class, args);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h3 id="POM依赖"><a href="#POM依赖" class="headerlink" title="POM依赖"></a>POM依赖</h3><figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="comment">&lt;!-- Inherit defaults from Spring Boot --&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">parent</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-parent<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.3.5.RELEASE<span class="tag">&lt;/<span class="name">version</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">parent</span>&gt;</span></div></pre></td></tr></table></figure>
-<p>当然也可以不依赖，使用scope=import</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">parent</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-parent<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.3.5.RELEASE<span class="tag">&lt;/<span class="name">version</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">type</span>&gt;</span>pom<span class="tag">&lt;/<span class="name">type</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">scope</span>&gt;</span>import<span class="tag">&lt;/<span class="name">scope</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">parent</span>&gt;</span></div></pre></td></tr></table></figure>
-<h3 id="使用Spring-Boot-Maven插件"><a href="#使用Spring-Boot-Maven插件" class="headerlink" title="使用Spring-Boot-Maven插件"></a>使用Spring-Boot-Maven插件</h3><p>将项目打包成“flat jars”，独立可执行jar包</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">plugin</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-maven-plugin<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">plugin</span>&gt;</span></div></pre></td></tr></table></figure>
-<h3 id="Starter-POMs"><a href="#Starter-POMs" class="headerlink" title="Starter POMs"></a>Starter POMs</h3><p>starts是开箱即用，方便的的依赖集合，不用在像spring那样一个一个的配置依赖了<br>只需要引入如下就可以跑起来了</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">...</div><div class="line"></div><div class="line">    &lt;dependency&gt;</div><div class="line">        &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;</div><div class="line">        &lt;artifactId&gt;spring-boot-starter&lt;/artifactId&gt;</div><div class="line">    &lt;/dependency</div><div class="line"></div><div class="line">...</div></pre></td></tr></table></figure>
-<h3 id="跑起来"><a href="#跑起来" class="headerlink" title="跑起来"></a>跑起来</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">mvn clean spring-boot:run</div></pre></td></tr></table></figure>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
   <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right"></i></a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -1616,7 +1634,7 @@ so，还是折腾下亲儿子的东东吧
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">17</span>
+              <span class="site-state-item-count">22</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -1633,7 +1651,7 @@ so，还是折腾下亲儿子的东东吧
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">23</span>
+                <span class="site-state-item-count">28</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>

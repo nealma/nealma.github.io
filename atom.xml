@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://www.nealma.com/"/>
-  <updated>2016-09-29T23:36:45.000Z</updated>
+  <updated>2016-10-14T14:30:00.000Z</updated>
   <id>http://www.nealma.com/</id>
   
   <author>
@@ -16,11 +16,179 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>react-native (五) react-native-listview组件</title>
+    <link href="http://www.nealma.com/2016/07/28/react-native-5-listview/"/>
+    <id>http://www.nealma.com/2016/07/28/react-native-5-listview/</id>
+    <published>2016-07-28T04:46:45.000Z</published>
+    <updated>2016-10-14T14:30:00.000Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><pre><code>react-native-listview组件,
+因为同时支持ios和android，使用起来也很友好，就用了。
+</code></pre><p>本记录使用的开发环境：<br>os: mac 10.11.6<br>xcode: Version 8.0 (8A218a)</p>
+<h3 id="最简单的用例"><a href="#最简单的用例" class="headerlink" title="最简单的用例"></a>最简单的用例</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div></pre></td><td class="code"><pre><div class="line">import ListView from &apos;react-native-listview&apos;;</div><div class="line"></div><div class="line">...</div><div class="line"></div><div class="line">#constructor</div><div class="line">constructor(props) &#123;</div><div class="line">    super(props);</div><div class="line">    //数据源，即要显示的数据</div><div class="line">    const ds = new ListView.DataSource(&#123;rowHasChanged: (r1, r2) =&gt; r1 !== r2&#125;);</div><div class="line">    this.state = &#123;</div><div class="line">        dataSource: ds.cloneWithRows([&apos;row 1&apos;, &apos;row 2&apos;, &apos;row 1&apos;, &apos;row 2&apos;, &apos;row 1&apos;, &apos;row 2&apos;, &apos;row 1&apos;, &apos;row 2&apos;]),</div><div class="line">        loaded: false//4</div><div class="line">    &#125;;</div><div class="line"></div><div class="line">    this._onFetch(); //3</div><div class="line">&#125;</div><div class="line"></div><div class="line">...</div><div class="line"></div><div class="line">#render</div><div class="line"></div><div class="line">render() &#123;</div><div class="line">    return (</div><div class="line">        &lt;ListView</div><div class="line">            dataSource=&#123;this.state.dataSource&#125;</div><div class="line">            //行view，listview会根据datasource的每个数据进行渲染</div><div class="line">            renderRow=&#123;this._renderRowView&#125;</div><div class="line">        /&gt;</div><div class="line">    )</div><div class="line">&#125;</div><div class="line"></div><div class="line">/**</div><div class="line"> * When a row is touched</div><div class="line"> * @param &#123;object&#125; rowData Row data</div><div class="line"> */</div><div class="line">_onPress(rowData) &#123;</div><div class="line">    console.log(rowData+&apos; pressed&apos;);</div><div class="line">&#125;</div><div class="line"></div><div class="line">/**</div><div class="line"> * Render a row</div><div class="line"> * @param &#123;object&#125; rowData Row data</div><div class="line"> */</div><div class="line">_renderRowView(rowData) &#123;</div><div class="line">    return (</div><div class="line">        &lt;TouchableHighlight</div><div class="line">            style=&#123;styles.row&#125;</div><div class="line">            underlayColor=&apos;#c8c7cc&apos;</div><div class="line">        &gt;</div><div class="line">            &lt;Text&gt;&#123;rowData&#125;&lt;/Text&gt;</div><div class="line">        &lt;/TouchableHighlight&gt;</div><div class="line">    );</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="获取网络数据-Fetch"><a href="#获取网络数据-Fetch" class="headerlink" title="获取网络数据(Fetch)"></a>获取网络数据(Fetch)</h3><pre><code>这里只是简单的实现数据到列表的渲染，在实际项目里，list的数据必定都是从Server获取来的，
+我们以豆瓣音乐API为例, 通过网络数据渲染list
+</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">const API_URL = &apos;https://api.douban.com/v2/music/search?q=love&apos;;</div><div class="line"></div><div class="line">//把3处的注释去掉</div><div class="line"></div><div class="line">_onFetch() &#123;</div><div class="line">    fetch(API_URL)</div><div class="line">        .then(response =&gt; response.json())</div><div class="line">        .then(musics =&gt; &#123;</div><div class="line">            this.setState(&#123;</div><div class="line">                dataSource:this.state.dataSource.cloneWithRows(musics.musics),</div><div class="line">                loaded:true //4</div><div class="line">            &#125;)</div><div class="line">        &#125;)</div><div class="line">        .done();</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="添加loading状态"><a href="#添加loading状态" class="headerlink" title="添加loading状态"></a>添加loading状态</h3><pre><code>获取网络数据，必然会消耗时间。在等待的过程中，胃了给用户很好的提示，我们都会添加loading图标，
+如果什么都没有，让用户傻傻的干等，用户也不会对你的app有好的印象
+</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">...</div><div class="line">//去掉4处注解</div><div class="line">//修改render</div><div class="line">//在return之前添加如下</div><div class="line"></div><div class="line">if (!this.state.loaded) &#123;</div><div class="line">    return (</div><div class="line">        &lt;View style=&#123;styles.container&#125;&gt;</div><div class="line">            &lt;View style=&#123;styles.loading&#125;&gt;</div><div class="line">                &lt;ActivityIndicator</div><div class="line">                    size=&apos;large&apos;</div><div class="line">                    color=&apos;#eabb33&apos;/&gt;</div><div class="line">            &lt;/View&gt;</div><div class="line">        &lt;/View&gt;</div><div class="line">    )</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="列表中Item的onPress动作"><a href="#列表中Item的onPress动作" class="headerlink" title="列表中Item的onPress动作"></a>列表中Item的onPress动作</h3><pre><code>因为this的变更问题，_renderRowView做如下修改，onPress作为传递的处理函数
+这里如果你用this._onPress, 会抛出异常，就是this已经不是原来的this了，
+但是onPress还是原来的onPress。
+</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">/**</div><div class="line"> * Render a row</div><div class="line"> * @param &#123;object&#125; rowData Row data</div><div class="line"> */</div><div class="line">_renderRowView(rowData, onPress) &#123;</div><div class="line">    return (</div><div class="line">        &lt;TouchableHighlight</div><div class="line">            style=&#123;styles.row&#125;</div><div class="line">            underlayColor=&apos;#c8c7cc&apos;</div><div class="line">            onPress=&#123;(rowData) =&gt; onPress(rowData)&#125;&gt;</div><div class="line">            &lt;Text&gt;&#123;rowData.title&#125;&lt;/Text&gt;</div><div class="line">        &lt;/TouchableHighlight&gt;</div><div class="line">    );</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="下拉刷新"><a href="#下拉刷新" class="headerlink" title="下拉刷新"></a>下拉刷新</h3><pre><code>待续...
+</code></pre><h3 id="结束"><a href="#结束" class="headerlink" title="结束"></a>结束</h3><pre><code>：）～
+</code></pre>]]></content>
+    
+    <summary type="html">
+    
+      &lt;h3 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h3&gt;&lt;pre&gt;&lt;code&gt;react-native-listview组件,
+因为同时支持ios和android，使用起来也很友好，就用了。
+&lt;/cod
+    
+    </summary>
+    
+      <category term="Tech" scheme="http://www.nealma.com/categories/Tech/"/>
+    
+    
+      <category term="React-Native" scheme="http://www.nealma.com/tags/React-Native/"/>
+    
+      <category term="RN" scheme="http://www.nealma.com/tags/RN/"/>
+    
+      <category term="Listview" scheme="http://www.nealma.com/tags/Listview/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>react-native (四) react-native-jelly-side-menu组件</title>
+    <link href="http://www.nealma.com/2016/07/28/react-native-4-slide-menu/"/>
+    <id>http://www.nealma.com/2016/07/28/react-native-4-slide-menu/</id>
+    <published>2016-07-28T03:46:45.000Z</published>
+    <updated>2016-10-14T14:29:27.000Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><pre><code>react-native-jelly-side-menu组件,
+因为同时支持ios和android，使用起来也很友好，就用了。
+</code></pre><p>本记录使用的开发环境：<br>os: mac 10.11.6<br>xcode: Version 8.0 (8A218a)</p>
+<h3 id="Example"><a href="#Example" class="headerlink" title="Example"></a>Example</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line">import JellySideMenu from &apos;react-native-jelly-side-menu&apos;;</div><div class="line"></div><div class="line">...</div><div class="line"></div><div class="line">#render</div><div class="line"></div><div class="line">render() &#123;</div><div class="line">        return (</div><div class="line">            &lt;View style=&#123;&#123;flex: 1, backgroundColor: &apos;#FF6644&apos;&#125;&#125;&gt;</div><div class="line">                &lt;JellySideMenu</div><div class="line">                    ref=&#123;(view) =&gt; &#123;this.jsm = view&#125;&#125;</div><div class="line">                    fill=&#123;&quot;#FFF&quot;&#125; fillOpacity=&#123;1.0&#125;</div><div class="line">                    renderMenu=&#123;this.renderMenu&#125;&gt;</div><div class="line">                    &lt;TouchableOpacity onPress=&#123;() =&gt; &#123;this.jsm.toggleSideMenu(true)&#125;&#125;&gt;</div><div class="line">	                    &lt;Icon name=&quot;navicon&quot; size=&#123;30&#125; color=&quot;#4F8EF7&quot; style=&#123;&#123;marginTop: 20, marginLeft: 20&#125;&#125;/&gt;  //1</div><div class="line">	                &lt;/TouchableOpacity&gt;</div><div class="line">                &lt;/JellySideMenu&gt;</div><div class="line"></div><div class="line">                &lt;TouchableOpacity onPress=&#123;() =&gt; &#123;this.jsm.toggleSideMenu(true)&#125;&#125;&gt;</div><div class="line">                    &lt;Icon name=&quot;navicon&quot; size=&#123;30&#125; color=&quot;#4F8EF7&quot; style=&#123;&#123;marginTop: 20, marginLeft: 20&#125;&#125;/&gt;  //2</div><div class="line">                &lt;/TouchableOpacity&gt;</div><div class="line">            &lt;/View&gt;</div><div class="line">        )</div><div class="line">    &#125;</div></pre></td></tr></table></figure>
+<pre><code>如果按照官方的demo，即代码1处，当滑出左侧菜单，关闭，再次点击1处的button，此时事件失效。
+你可以把open menu放在2处，可以很好的工作。
+</code></pre><h3 id="结束"><a href="#结束" class="headerlink" title="结束"></a>结束</h3><pre><code>：）～
+</code></pre>]]></content>
+    
+    <summary type="html">
+    
+      &lt;h3 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h3&gt;&lt;pre&gt;&lt;code&gt;react-native-jelly-side-menu组件,
+因为同时支持ios和android，使用起来也很友好，就用了
+    
+    </summary>
+    
+      <category term="Tech" scheme="http://www.nealma.com/categories/Tech/"/>
+    
+    
+      <category term="React-Native" scheme="http://www.nealma.com/tags/React-Native/"/>
+    
+      <category term="RN" scheme="http://www.nealma.com/tags/RN/"/>
+    
+      <category term="Slide Menu" scheme="http://www.nealma.com/tags/Slide-Menu/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>react-native (三) react-native-vector-icons组件</title>
+    <link href="http://www.nealma.com/2016/07/27/react-native-3-icons/"/>
+    <id>http://www.nealma.com/2016/07/27/react-native-3-icons/</id>
+    <published>2016-07-27T03:46:45.000Z</published>
+    <updated>2016-10-13T07:02:28.000Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><pre><code>react-native-vector-icons组件,
+可以免费使用更多的icons资源
+</code></pre><p>本记录使用的开发环境：<br>os: mac 10.11.6<br>xcode: Version 8.0 (8A218a)</p>
+<h3 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">npm install react-native-vector-icons --save</div><div class="line">rnpm link</div></pre></td></tr></table></figure>
+<pre><code>之后会在Xcode中的info.plis里面看到如下键值信息：
+Fonts provided by application（item0-item7）
+</code></pre><h3 id="Example"><a href="#Example" class="headerlink" title="Example"></a>Example</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">import Icon from &apos;react-native-vector-icons/FontAwesome&apos;;</div><div class="line"></div><div class="line">&lt;Icon name=&quot;navicon&quot; size=&#123;30&#125; color=&quot;#4F8EF7&quot; style=&#123;&#123;marginTop: 20, marginLeft: 20&#125;&#125;/&gt;</div></pre></td></tr></table></figure>
+<pre><code>FontAwesome网站：http://fontawesome.io/icons/,其中name的值对应网站中每个icon的名字。
+</code></pre><h3 id="结束"><a href="#结束" class="headerlink" title="结束"></a>结束</h3><pre><code>：）～
+</code></pre>]]></content>
+    
+    <summary type="html">
+    
+      &lt;h3 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h3&gt;&lt;pre&gt;&lt;code&gt;react-native-vector-icons组件,
+可以免费使用更多的icons资源
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;
+    
+    </summary>
+    
+      <category term="Tech" scheme="http://www.nealma.com/categories/Tech/"/>
+    
+    
+      <category term="React-Native" scheme="http://www.nealma.com/tags/React-Native/"/>
+    
+      <category term="RN" scheme="http://www.nealma.com/tags/RN/"/>
+    
+      <category term="icons" scheme="http://www.nealma.com/tags/icons/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>react-native (二) Image图片组件</title>
+    <link href="http://www.nealma.com/2016/07/26/react-native-2-image/"/>
+    <id>http://www.nealma.com/2016/07/26/react-native-2-image/</id>
+    <published>2016-07-26T03:46:45.000Z</published>
+    <updated>2016-10-12T16:33:44.000Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><pre><code>在RN中使用Image组件，即使很简单，总会出现这个那个的问题。
+</code></pre><p>本记录使用的开发环境：<br>os: mac 10.11.6<br>xcode: Version 8.0 (8A218a)</p>
+<h3 id="使用方式"><a href="#使用方式" class="headerlink" title="使用方式"></a>使用方式</h3><ul>
+<li>require</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;Image source=&#123;<span class="built_in">require</span>(<span class="string">'./resources/ly.png'</span>)&#125; style=&#123;&#123;width: <span class="number">100</span>, height: <span class="number">100</span>&#125;&#125; /&gt;</div></pre></td></tr></table></figure>
+<pre><code>注意这里面一定要显示定义图片大小，否则一旦图片尺寸很大，会不显示。
+</code></pre><ul>
+<li>uri</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&lt;View style=&#123;&#123;width: <span class="number">100</span>, height: <span class="number">100</span>&#125;&#125;&gt;</div><div class="line">    &lt;Image source=&#123;&#123;uri: 'http://cdn.crunchify.com/wp-content/uploads/2013/01/html5-canvas.png'&#125;&#125; /&gt;</div><div class="line">    &lt;Image source=&#123;&#123;uri: 'https://facebook.github.io/react/img/logo_og.png'&#125;&#125; /&gt;</div><div class="line">&lt;/View&gt;</div></pre></td></tr></table></figure>
+<pre><code>注意如果是ios,http协议的uri会受到限制，可能什么也看不到，
+这是因为iOS9之后，默认Https请求，如需支持Http，
+修改info.plist文件添加键值对就
+
+需要在info.plist中设置
+
+App Transport Security Settings
+Allow Arbitrary Loads 设置为 YES
+
+设置好后，重新执行react-native run-ios
+</code></pre><h3 id="结束"><a href="#结束" class="headerlink" title="结束"></a>结束</h3><pre><code>切记下面的内容
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">style=&#123;&#123;width: 100, height: 100&#125;&#125;</div></pre></td></tr></table></figure>
+
+否则，你将看不到图片
+</code></pre>]]></content>
+    
+    <summary type="html">
+    
+      &lt;h3 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h3&gt;&lt;pre&gt;&lt;code&gt;在RN中使用Image组件，即使很简单，总会出现这个那个的问题。
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;本记录使用的开发环境：&lt;b
+    
+    </summary>
+    
+      <category term="Tech" scheme="http://www.nealma.com/categories/Tech/"/>
+    
+    
+      <category term="React-Native" scheme="http://www.nealma.com/tags/React-Native/"/>
+    
+      <category term="RN" scheme="http://www.nealma.com/tags/RN/"/>
+    
+      <category term="Image" scheme="http://www.nealma.com/tags/Image/"/>
+    
+  </entry>
+  
+  <entry>
     <title>react-native (一) 环境搭建</title>
     <link href="http://www.nealma.com/2016/06/26/react-native-1-envirment/"/>
     <id>http://www.nealma.com/2016/06/26/react-native-1-envirment/</id>
     <published>2016-06-26T03:46:45.000Z</published>
-    <updated>2016-09-29T23:36:45.000Z</updated>
+    <updated>2016-10-13T05:02:12.000Z</updated>
     
     <content type="html"><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><pre><code>对于人员缺少，功能又不复杂的app来说，使用RN这种方式效率还是很高的;
 在使用的过程中，即使你按照参考资料，一个代码一个代码的敲，最后还是报bug，
@@ -128,6 +296,29 @@
       <category term="Spring-Boot" scheme="http://www.nealma.com/tags/Spring-Boot/"/>
     
       <category term="Exception" scheme="http://www.nealma.com/tags/Exception/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>npm 网络难以忍受</title>
+    <link href="http://www.nealma.com/2016/05/30/nodejs-1-very-slow/"/>
+    <id>http://www.nealma.com/2016/05/30/nodejs-1-very-slow/</id>
+    <published>2016-05-30T03:46:45.000Z</published>
+    <updated>2016-10-01T15:45:39.000Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id="那就换成淘宝的吧"><a href="#那就换成淘宝的吧" class="headerlink" title="那就换成淘宝的吧"></a>那就换成淘宝的吧</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">npm --registry=https://registry.npm.taobao.org install cnpm -g</div></pre></td></tr></table></figure>
+<h3 id="或者改变registry"><a href="#或者改变registry" class="headerlink" title="或者改变registry"></a>或者改变registry</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">#vim ~/.npmrc</div><div class="line"></div><div class="line">registry = https://registry.npm.taobao.org</div></pre></td></tr></table></figure>]]></content>
+    
+    <summary type="html">
+    
+      &lt;h3 id=&quot;那就换成淘宝的吧&quot;&gt;&lt;a href=&quot;#那就换成淘宝的吧&quot; class=&quot;headerlink&quot; title=&quot;那就换成淘宝的吧&quot;&gt;&lt;/a&gt;那就换成淘宝的吧&lt;/h3&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td cl
+    
+    </summary>
+    
+      <category term="Tech" scheme="http://www.nealma.com/categories/Tech/"/>
+    
+    
+      <category term="nodejs" scheme="http://www.nealma.com/tags/nodejs/"/>
     
   </entry>
   
@@ -547,38 +738,6 @@ so，还是折腾下亲儿
   </entry>
   
   <entry>
-    <title>ElasticSearch</title>
-    <link href="http://www.nealma.com/2015/12/18/elasticsearch/"/>
-    <id>http://www.nealma.com/2015/12/18/elasticsearch/</id>
-    <published>2015-12-18T07:46:45.000Z</published>
-    <updated>2016-08-05T04:22:54.000Z</updated>
-    
-    <content type="html"><![CDATA[<p>ElasticSearch作为分布式搜索引擎，给我们带来了方便。</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Get-elasticsearch-amp-jdbc"><a href="#Get-elasticsearch-amp-jdbc" class="headerlink" title="Get elasticsearch &amp; jdbc"></a>Get elasticsearch &amp; jdbc</h3><p>elasticsearch-rtf: <a href="https://github.com/medcl/elasticsearch-rtf/archive/2.1.1.zip" target="_blank" rel="external">branch 2.1.1</a><br>elasticsearch-jdbc: <a href="https://github.com/jprante/elasticsearch-jdbc/archive/2.1.1.2.zip" target="_blank" rel="external">branch 2.1.1.2</a></p>
-<h3 id="Run"><a href="#Run" class="headerlink" title="Run"></a>Run</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ ./bin/elasticsearch &amp;</div></pre></td></tr></table></figure>
-<h3 id="If-do-not-have-lib"><a href="#If-do-not-have-lib" class="headerlink" title="If do not have lib"></a>If do not have lib</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ mvn package</div></pre></td></tr></table></figure>
-<h3 id="Bind-ip"><a href="#Bind-ip" class="headerlink" title="Bind ip"></a>Bind ip</h3><p>！！！！[import]</p>
-<h3 id="Base-command"><a href="#Base-command" class="headerlink" title="Base command"></a>Base command</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$ curl -i http://localhost:9200/</div><div class="line">$ curl -X DELETE http://localhost:9200/_all</div></pre></td></tr></table></figure>
-<h3 id="Create-index-by-mapping-file"><a href="#Create-index-by-mapping-file" class="headerlink" title="Create index by mapping file"></a>Create index by mapping file</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ curl -XPUT <span class="string">'http://localhost:9200/articles'</span> <span class="_">-d</span>  @/Users/nealpc/work/body.json</div></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div></pre></td><td class="code"><pre><div class="line">#body.json</div><div class="line">&#123;</div><div class="line">  &quot;settings&quot;: &#123;</div><div class="line">     &quot;refresh_interval&quot;: &quot;5s&quot;,</div><div class="line">     &quot;number_of_shards&quot; :   1,</div><div class="line">     &quot;number_of_replicas&quot; : 0</div><div class="line">  &#125;,</div><div class="line">  &quot;mappings&quot;: &#123;</div><div class="line">    &quot;_default_&quot;:&#123;</div><div class="line">      &quot;_all&quot;: &#123; &quot;enabled&quot;:  false &#125;</div><div class="line">    &#125;,</div><div class="line">    &quot;articles&quot;: &#123;</div><div class="line">      &quot;dynamic&quot;: false,</div><div class="line">      &quot;properties&quot;: &#123;</div><div class="line">        &quot;title&quot;: &#123;</div><div class="line">          &quot;type&quot;: &quot;string&quot;,</div><div class="line">          &quot;index&quot;: &quot;analyzed&quot;,</div><div class="line">          &quot;fields&quot;: &#123;</div><div class="line">            &quot;cn&quot;: &#123;</div><div class="line">              &quot;type&quot;: &quot;string&quot;,</div><div class="line">              &quot;analyzer&quot;: &quot;ik&quot;</div><div class="line">            &#125;,</div><div class="line">            &quot;en&quot;: &#123;</div><div class="line">              &quot;type&quot;: &quot;string&quot;,</div><div class="line">              &quot;analyzer&quot;: &quot;english&quot;</div><div class="line">            &#125;</div><div class="line">          &#125;</div><div class="line">        &#125;,</div><div class="line">        &quot;content&quot;: &#123;</div><div class="line">          &quot;type&quot;: &quot;string&quot;,</div><div class="line">          &quot;index&quot;: &quot;analyzed&quot;,</div><div class="line">          &quot;fields&quot;: &#123;</div><div class="line">            &quot;cn&quot;: &#123;</div><div class="line">              &quot;type&quot;: &quot;string&quot;,</div><div class="line">              &quot;analyzer&quot;: &quot;ik&quot;</div><div class="line">            &#125;,</div><div class="line">            &quot;en&quot;: &#123;</div><div class="line">              &quot;type&quot;: &quot;string&quot;,</div><div class="line">              &quot;analyzer&quot;: &quot;english&quot;</div><div class="line">            &#125;</div><div class="line">          &#125;</div><div class="line">        &#125;</div><div class="line">      &#125;</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h3 id="Show-all-index-info-of-recovery-…"><a href="#Show-all-index-info-of-recovery-…" class="headerlink" title="Show all index info of recovery …."></a>Show all index info of recovery ….</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ curl -XGET http://localhost:9200/_recovery?pretty=<span class="literal">true</span>&amp;detailed=<span class="literal">true</span></div></pre></td></tr></table></figure>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;ElasticSearch作为分布式搜索引擎，给我们带来了方便。&lt;/p&gt;
-&lt;h2 id=&quot;Quick-Start&quot;&gt;&lt;a href=&quot;#Quick-Start&quot; class=&quot;headerlink&quot; title=&quot;Quick Start&quot;&gt;&lt;/a&gt;Quick Start&lt;/
-    
-    </summary>
-    
-      <category term="Tools" scheme="http://www.nealma.com/categories/Tools/"/>
-    
-    
-      <category term="搜索" scheme="http://www.nealma.com/tags/%E6%90%9C%E7%B4%A2/"/>
-    
-  </entry>
-  
-  <entry>
     <title>newrelic使用</title>
     <link href="http://www.nealma.com/2015/12/18/newrelic/"/>
     <id>http://www.nealma.com/2015/12/18/newrelic/</id>
@@ -600,43 +759,6 @@ so，还是折腾下亲儿
     
     
       <category term="newrelic" scheme="http://www.nealma.com/tags/newrelic/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>一台Mac同时使用两个账号</title>
-    <link href="http://www.nealma.com/2015/03/18/github-one-mac-two-github-account/"/>
-    <id>http://www.nealma.com/2015/03/18/github-one-mac-two-github-account/</id>
-    <published>2015-03-18T03:46:45.000Z</published>
-    <updated>2016-09-30T07:41:49.000Z</updated>
-    
-    <content type="html"><![CDATA[<p>最近申请了两个github账号，可是我都是在一台Mac上操作，这时问题就出现了。<br>两个账号不可能使用一个sshkey，只能另外再生成一个ssh-key了。</p>
-<h3 id="创建新的ssh-key"><a href="#创建新的ssh-key" class="headerlink" title="创建新的ssh-key"></a>创建新的ssh-key</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="variable">$ssh</span>-keygen -t rsa -C <span class="string">"another_email@example.com"</span></div></pre></td></tr></table></figure>
-<p>Enter file in which to save the key (/Users/you/.ssh/id_rsa_second): <font color="red">/Users/username/.ssh/id_rsa_second</font></p>
-<p>[Please Enter]</p>
-<h3 id="添加新文件-ssh-config"><a href="#添加新文件-ssh-config" class="headerlink" title="添加新文件~/.ssh/config"></a>添加新文件~/.ssh/config</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">$ vim /Users/you/.ssh/config</div><div class="line"></div><div class="line">Host github.com</div><div class="line">  HostName github.com</div><div class="line">  IdentityFile ~/.ssh/id_rsa</div><div class="line"></div><div class="line">Host another.github.com (你自己定义的)</div><div class="line">  HostName github.com</div><div class="line">  IdentityFile ~/.ssh/id_rsa_second</div></pre></td></tr></table></figure>
-<h3 id="结束"><a href="#结束" class="headerlink" title="结束"></a>结束</h3><pre><code>好啦，就这么简单。
-然而这只是同一台设备push到两个github账号而已，但是pusher都是同一个帐号；
-如果要两个账号的话，你需要设置git config email=&quot;&quot;,具体请Google。
-</code></pre>]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;最近申请了两个github账号，可是我都是在一台Mac上操作，这时问题就出现了。&lt;br&gt;两个账号不可能使用一个sshkey，只能另外再生成一个ssh-key了。&lt;/p&gt;
-&lt;h3 id=&quot;创建新的ssh-key&quot;&gt;&lt;a href=&quot;#创建新的ssh-key&quot; class=&quot;h
-    
-    </summary>
-    
-      <category term="Tech" scheme="http://www.nealma.com/categories/Tech/"/>
-    
-    
-      <category term="ssh" scheme="http://www.nealma.com/tags/ssh/"/>
-    
-      <category term="blog" scheme="http://www.nealma.com/tags/blog/"/>
-    
-      <category term="github" scheme="http://www.nealma.com/tags/github/"/>
-    
-      <category term="git" scheme="http://www.nealma.com/tags/git/"/>
     
   </entry>
   
