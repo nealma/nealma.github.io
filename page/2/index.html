@@ -29,7 +29,7 @@
 
   
   
-  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+  <link href="../../vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
 
 
 
@@ -63,23 +63,23 @@
 
 
 
-<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+<link href="../../vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
 
-<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
-
-
-  <meta name="keywords" content="nealma.com, 老马, neal.ma" />
+<link href="../../css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
 
 
-
-
-
-  <link rel="alternate" href="/atom.xml" title="neal.ma" type="application/atom+xml" />
+  <meta name="keywords" content="nealma.com, 老马, neal.ma, 老马识途" />
 
 
 
 
-  <link rel="shortcut icon" type="image/x-icon" href="/favicon.png?v=5.0.1" />
+
+  <link rel="alternate" href="../../atom.xml" title="neal.ma" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="../../favicon.png?v=5.0.1" />
 
 
 
@@ -102,7 +102,7 @@
   var NexT = window.NexT || {};
   var CONFIG = {
     scheme: 'Mist',
-    sidebar: {"position":"left","＃ display":"post"},
+    sidebar: {"position":"right","display":"always"},
     fancybox: true,
     motion: true,
     duoshuo: {
@@ -148,7 +148,7 @@
     
   
 
-  <div class="container one-collumn sidebar-position-left 
+  <div class="container one-collumn sidebar-position-right 
    page-home 
  ">
     <div class="headband"></div>
@@ -270,7 +270,130 @@
             
               
                 
-                <a class="post-title-link" href="/2016/04/26/vim-plugin-install-youcompleteme/" itemprop="url">
+                <a class="post-title-link" href="../../2016/04/26/vim-plugin-install-nerttree/" itemprop="url">
+                  Vim Plugin 自动补全(NERDTree)
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-04-26T12:46:45+08:00" content="2016-04-26">
+              2016-04-26
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="../../categories/Tech/" itemprop="url" rel="index">
+                    <span itemprop="name">Tech</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="../../2016/04/26/vim-plugin-install-nerttree/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/04/26/vim-plugin-install-nerttree/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>Vim在安装目录工具NERDTree的时候，遇到了坑。</p>
+<p>本记录使用的开发环境：<br>os: mac</p>
+<h3 id="其实也没啥，就是不知道怎么启用，哈哈"><a href="#其实也没啥，就是不知道怎么启用，哈哈" class="headerlink" title="其实也没啥，就是不知道怎么启用，哈哈"></a>其实也没啥，就是不知道怎么启用，哈哈</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">#进入vim</div><div class="line"></div><div class="line">:NERDTree ＃回车，就看到啦</div><div class="line"></div><div class="line">#Crtl + w 是前缀唤醒组合</div><div class="line"></div><div class="line">#左右切换</div><div class="line">h l </div><div class="line"></div><div class="line">#退出</div><div class="line">q</div><div class="line"></div><div class="line">#每次都需要输入NERDTree是不是很麻烦，别怕，可以很省事的</div><div class="line"></div><div class="line">#vim ~/.vimrc 加入</div><div class="line">nnoremap &lt;silent&gt; &lt;F5&gt; :NERDTree&lt;CR&gt;</div></pre></td></tr></table></figure>
+<p>:D-</p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="../../2016/04/26/vim-plugin-install-youcompleteme/" itemprop="url">
                   Vim Plugin 自动补全(YouCompleteMe)
                 </a>
               
@@ -298,7 +421,7 @@
               <span class="post-meta-item-text">分类于</span>
               
                 <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/Tech/" itemprop="url" rel="index">
+                  <a href="../../categories/Tech/" itemprop="url" rel="index">
                     <span itemprop="name">Tech</span>
                   </a>
                 </span>
@@ -314,7 +437,7 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2016/04/26/vim-plugin-install-youcompleteme/#comments" itemprop="discussionUrl">
+                <a href="../../2016/04/26/vim-plugin-install-youcompleteme/#comments" itemprop="discussionUrl">
                   <span class="post-comments-count ds-thread-count" data-thread-key="2016/04/26/vim-plugin-install-youcompleteme/" itemprop="commentsCount"></span>
                 </a>
               </span>
@@ -401,130 +524,7 @@
             
               
                 
-                <a class="post-title-link" href="/2016/04/26/vim-plugin-install-nerttree/" itemprop="url">
-                  Vim Plugin 自动补全(NERDTree)
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-04-26T12:46:45+08:00" content="2016-04-26">
-              2016-04-26
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/Tech/" itemprop="url" rel="index">
-                    <span itemprop="name">Tech</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2016/04/26/vim-plugin-install-nerttree/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/04/26/vim-plugin-install-nerttree/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>Vim在安装目录工具NERDTree的时候，遇到了坑。</p>
-<p>本记录使用的开发环境：<br>os: mac</p>
-<h3 id="其实也没啥，就是不知道怎么启用，哈哈"><a href="#其实也没啥，就是不知道怎么启用，哈哈" class="headerlink" title="其实也没啥，就是不知道怎么启用，哈哈"></a>其实也没啥，就是不知道怎么启用，哈哈</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">#进入vim</div><div class="line"></div><div class="line">:NERDTree ＃回车，就看到啦</div><div class="line"></div><div class="line">#Crtl + w 是前缀唤醒组合</div><div class="line"></div><div class="line">#左右切换</div><div class="line">h l </div><div class="line"></div><div class="line">#退出</div><div class="line">q</div><div class="line"></div><div class="line">#每次都需要输入NERDTree是不是很麻烦，别怕，可以很省事的</div><div class="line"></div><div class="line">#vim ~/.vimrc 加入</div><div class="line">nnoremap &lt;silent&gt; &lt;F5&gt; :NERDTree&lt;CR&gt;</div></pre></td></tr></table></figure>
-<p>:D-</p>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/04/26/vim-plugin-enhance/" itemprop="url">
+                <a class="post-title-link" href="../../2016/04/26/vim-plugin-enhance/" itemprop="url">
                   Vim 增强
                 </a>
               
@@ -552,7 +552,7 @@
               <span class="post-meta-item-text">分类于</span>
               
                 <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/Tech/" itemprop="url" rel="index">
+                  <a href="../../categories/Tech/" itemprop="url" rel="index">
                     <span itemprop="name">Tech</span>
                   </a>
                 </span>
@@ -568,7 +568,7 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2016/04/26/vim-plugin-enhance/#comments" itemprop="discussionUrl">
+                <a href="../../2016/04/26/vim-plugin-enhance/#comments" itemprop="discussionUrl">
                   <span class="post-comments-count ds-thread-count" data-thread-key="2016/04/26/vim-plugin-enhance/" itemprop="commentsCount"></span>
                 </a>
               </span>
@@ -645,7 +645,7 @@
             
               
                 
-                <a class="post-title-link" href="/2016/04/25/mybatis-generator-how-to-use/" itemprop="url">
+                <a class="post-title-link" href="../../2016/04/25/mybatis-generator-how-to-use/" itemprop="url">
                   MyBatis Generator 改造
                 </a>
               
@@ -673,7 +673,7 @@
               <span class="post-meta-item-text">分类于</span>
               
                 <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/Tech/" itemprop="url" rel="index">
+                  <a href="../../categories/Tech/" itemprop="url" rel="index">
                     <span itemprop="name">Tech</span>
                   </a>
                 </span>
@@ -689,7 +689,7 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2016/04/25/mybatis-generator-how-to-use/#comments" itemprop="discussionUrl">
+                <a href="../../2016/04/25/mybatis-generator-how-to-use/#comments" itemprop="discussionUrl">
                   <span class="post-comments-count ds-thread-count" data-thread-key="2016/04/25/mybatis-generator-how-to-use/" itemprop="commentsCount"></span>
                 </a>
               </span>
@@ -775,7 +775,7 @@
             
               
                 
-                <a class="post-title-link" href="/2016/04/20/spring-boot-1-how-to-use/" itemprop="url">
+                <a class="post-title-link" href="../../2016/04/20/spring-boot-1-how-to-use/" itemprop="url">
                   Spring-Boot（一） 环境搭建
                 </a>
               
@@ -803,7 +803,7 @@
               <span class="post-meta-item-text">分类于</span>
               
                 <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/Tech/" itemprop="url" rel="index">
+                  <a href="../../categories/Tech/" itemprop="url" rel="index">
                     <span itemprop="name">Tech</span>
                   </a>
                 </span>
@@ -819,7 +819,7 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2016/04/20/spring-boot-1-how-to-use/#comments" itemprop="discussionUrl">
+                <a href="../../2016/04/20/spring-boot-1-how-to-use/#comments" itemprop="discussionUrl">
                   <span class="post-comments-count ds-thread-count" data-thread-key="2016/04/20/spring-boot-1-how-to-use/" itemprop="commentsCount"></span>
                 </a>
               </span>
@@ -906,7 +906,7 @@
             
               
                 
-                <a class="post-title-link" href="/2016/03/29/mac-used-app/" itemprop="url">
+                <a class="post-title-link" href="../../2016/03/29/mac-used-app/" itemprop="url">
                   我的 Mac OS 软件列表
                 </a>
               
@@ -934,7 +934,7 @@
               <span class="post-meta-item-text">分类于</span>
               
                 <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/Tech/" itemprop="url" rel="index">
+                  <a href="../../categories/Tech/" itemprop="url" rel="index">
                     <span itemprop="name">Tech</span>
                   </a>
                 </span>
@@ -950,7 +950,7 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2016/03/29/mac-used-app/#comments" itemprop="discussionUrl">
+                <a href="../../2016/03/29/mac-used-app/#comments" itemprop="discussionUrl">
                   <span class="post-comments-count ds-thread-count" data-thread-key="2016/03/29/mac-used-app/" itemprop="commentsCount"></span>
                 </a>
               </span>
@@ -1028,7 +1028,7 @@
             
               
                 
-                <a class="post-title-link" href="/2016/03/18/hexo-how-to-use/" itemprop="url">
+                <a class="post-title-link" href="../../2016/03/18/hexo-how-to-use/" itemprop="url">
                   Hexo使用攻略
                 </a>
               
@@ -1056,7 +1056,7 @@
               <span class="post-meta-item-text">分类于</span>
               
                 <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/Tech/" itemprop="url" rel="index">
+                  <a href="../../categories/Tech/" itemprop="url" rel="index">
                     <span itemprop="name">Tech</span>
                   </a>
                 </span>
@@ -1072,7 +1072,7 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2016/03/18/hexo-how-to-use/#comments" itemprop="discussionUrl">
+                <a href="../../2016/03/18/hexo-how-to-use/#comments" itemprop="discussionUrl">
                   <span class="post-comments-count ds-thread-count" data-thread-key="2016/03/18/hexo-how-to-use/" itemprop="commentsCount"></span>
                 </a>
               </span>
@@ -1153,7 +1153,7 @@
             
               
                 
-                <a class="post-title-link" href="/2016/03/16/nginx-configuration/" itemprop="url">
+                <a class="post-title-link" href="../../2016/03/16/nginx-configuration/" itemprop="url">
                   Nginx Configuration
                 </a>
               
@@ -1181,7 +1181,7 @@
               <span class="post-meta-item-text">分类于</span>
               
                 <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/Tech/" itemprop="url" rel="index">
+                  <a href="../../categories/Tech/" itemprop="url" rel="index">
                     <span itemprop="name">Tech</span>
                   </a>
                 </span>
@@ -1197,7 +1197,7 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2016/03/16/nginx-configuration/#comments" itemprop="discussionUrl">
+                <a href="../../2016/03/16/nginx-configuration/#comments" itemprop="discussionUrl">
                   <span class="post-comments-count ds-thread-count" data-thread-key="2016/03/16/nginx-configuration/" itemprop="commentsCount"></span>
                 </a>
               </span>
@@ -1292,7 +1292,7 @@
             
               
                 
-                <a class="post-title-link" href="/2016/03/15/centos-65-add-user/" itemprop="url">
+                <a class="post-title-link" href="../../2016/03/15/centos-65-add-user/" itemprop="url">
                   CentOS 添加用户
                 </a>
               
@@ -1320,7 +1320,7 @@
               <span class="post-meta-item-text">分类于</span>
               
                 <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/Tech/" itemprop="url" rel="index">
+                  <a href="../../categories/Tech/" itemprop="url" rel="index">
                     <span itemprop="name">Tech</span>
                   </a>
                 </span>
@@ -1336,7 +1336,7 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2016/03/15/centos-65-add-user/#comments" itemprop="discussionUrl">
+                <a href="../../2016/03/15/centos-65-add-user/#comments" itemprop="discussionUrl">
                   <span class="post-comments-count ds-thread-count" data-thread-key="2016/03/15/centos-65-add-user/" itemprop="commentsCount"></span>
                 </a>
               </span>
@@ -1417,8 +1417,8 @@
             
               
                 
-                <a class="post-title-link" href="/2015/12/18/newrelic/" itemprop="url">
-                  newrelic使用
+                <a class="post-title-link" href="../../2015/12/18/elasticsearch/" itemprop="url">
+                  ElasticSearch
                 </a>
               
             
@@ -1445,7 +1445,7 @@
               <span class="post-meta-item-text">分类于</span>
               
                 <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/Tools/" itemprop="url" rel="index">
+                  <a href="../../categories/Tools/" itemprop="url" rel="index">
                     <span itemprop="name">Tools</span>
                   </a>
                 </span>
@@ -1461,8 +1461,8 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2015/12/18/newrelic/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/12/18/newrelic/" itemprop="commentsCount"></span>
+                <a href="../../2015/12/18/elasticsearch/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/12/18/elasticsearch/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -1487,8 +1487,15 @@
       
         
           
-            <p>对于Startup公司，在人员配备不足的情况下，集成各路云服务在所难免，newrelic在APM领域走在前面，这里记录下相关使用。</p>
-<h3 id="Java-agent-for-web-server"><a href="#Java-agent-for-web-server" class="headerlink" title="Java agent for web server"></a>Java agent for web server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">$ unzip newrelic-java-xxx.zip <span class="_">-d</span> /path/to/appserver/</div><div class="line">$ <span class="built_in">cd</span> /path/to/appserver/newrelic</div><div class="line">$ java -jar newrelic.jar install</div></pre></td></tr></table></figure>
+            <p>ElasticSearch作为分布式搜索引擎，给我们带来了方便。</p>
+<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Get-elasticsearch-amp-jdbc"><a href="#Get-elasticsearch-amp-jdbc" class="headerlink" title="Get elasticsearch &amp; jdbc"></a>Get elasticsearch &amp; jdbc</h3><p>elasticsearch-rtf: <a href="https://github.com/medcl/elasticsearch-rtf/archive/2.1.1.zip" target="_blank" rel="external">branch 2.1.1</a><br>elasticsearch-jdbc: <a href="https://github.com/jprante/elasticsearch-jdbc/archive/2.1.1.2.zip" target="_blank" rel="external">branch 2.1.1.2</a></p>
+<h3 id="Run"><a href="#Run" class="headerlink" title="Run"></a>Run</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ ./bin/elasticsearch &amp;</div></pre></td></tr></table></figure>
+<h3 id="If-do-not-have-lib"><a href="#If-do-not-have-lib" class="headerlink" title="If do not have lib"></a>If do not have lib</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ mvn package</div></pre></td></tr></table></figure>
+<h3 id="Bind-ip"><a href="#Bind-ip" class="headerlink" title="Bind ip"></a>Bind ip</h3><p>！！！！[import]</p>
+<h3 id="Base-command"><a href="#Base-command" class="headerlink" title="Base command"></a>Base command</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$ curl -i http://localhost:9200/</div><div class="line">$ curl -X DELETE http://localhost:9200/_all</div></pre></td></tr></table></figure>
+<h3 id="Create-index-by-mapping-file"><a href="#Create-index-by-mapping-file" class="headerlink" title="Create index by mapping file"></a>Create index by mapping file</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ curl -XPUT <span class="string">'http://localhost:9200/articles'</span> <span class="_">-d</span>  @/Users/nealpc/work/body.json</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div></pre></td><td class="code"><pre><div class="line">#body.json</div><div class="line">&#123;</div><div class="line">  &quot;settings&quot;: &#123;</div><div class="line">     &quot;refresh_interval&quot;: &quot;5s&quot;,</div><div class="line">     &quot;number_of_shards&quot; :   1,</div><div class="line">     &quot;number_of_replicas&quot; : 0</div><div class="line">  &#125;,</div><div class="line">  &quot;mappings&quot;: &#123;</div><div class="line">    &quot;_default_&quot;:&#123;</div><div class="line">      &quot;_all&quot;: &#123; &quot;enabled&quot;:  false &#125;</div><div class="line">    &#125;,</div><div class="line">    &quot;articles&quot;: &#123;</div><div class="line">      &quot;dynamic&quot;: false,</div><div class="line">      &quot;properties&quot;: &#123;</div><div class="line">        &quot;title&quot;: &#123;</div><div class="line">          &quot;type&quot;: &quot;string&quot;,</div><div class="line">          &quot;index&quot;: &quot;analyzed&quot;,</div><div class="line">          &quot;fields&quot;: &#123;</div><div class="line">            &quot;cn&quot;: &#123;</div><div class="line">              &quot;type&quot;: &quot;string&quot;,</div><div class="line">              &quot;analyzer&quot;: &quot;ik&quot;</div><div class="line">            &#125;,</div><div class="line">            &quot;en&quot;: &#123;</div><div class="line">              &quot;type&quot;: &quot;string&quot;,</div><div class="line">              &quot;analyzer&quot;: &quot;english&quot;</div><div class="line">            &#125;</div><div class="line">          &#125;</div><div class="line">        &#125;,</div><div class="line">        &quot;content&quot;: &#123;</div><div class="line">          &quot;type&quot;: &quot;string&quot;,</div><div class="line">          &quot;index&quot;: &quot;analyzed&quot;,</div><div class="line">          &quot;fields&quot;: &#123;</div><div class="line">            &quot;cn&quot;: &#123;</div><div class="line">              &quot;type&quot;: &quot;string&quot;,</div><div class="line">              &quot;analyzer&quot;: &quot;ik&quot;</div><div class="line">            &#125;,</div><div class="line">            &quot;en&quot;: &#123;</div><div class="line">              &quot;type&quot;: &quot;string&quot;,</div><div class="line">              &quot;analyzer&quot;: &quot;english&quot;</div><div class="line">            &#125;</div><div class="line">          &#125;</div><div class="line">        &#125;</div><div class="line">      &#125;</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="Show-all-index-info-of-recovery-…"><a href="#Show-all-index-info-of-recovery-…" class="headerlink" title="Show all index info of recovery …."></a>Show all index info of recovery ….</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ curl -XGET http://localhost:9200/_recovery?pretty=<span class="literal">true</span>&amp;detailed=<span class="literal">true</span></div></pre></td></tr></table></figure>
 
           
         
@@ -1521,7 +1528,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/3/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="../../index.html"><i class="fa fa-angle-left"></i></a><a class="page-number" href="../../index.html">1</a><span class="page-number current">2</span><a class="page-number" href="../3/">3</a><a class="extend next" rel="next" href="../3/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -1554,14 +1561,14 @@
       <section class="site-overview sidebar-panel  sidebar-panel-active ">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
-               src="http://upload.jianshu.io/users/upload_avatars/2649507/b9d8c309bcda.jpg"
+               src="http://upload.jianshu.io/users/upload_avatars/2649507/df92b5ff1a68.jpeg"
                alt="neal.ma" />
           <p class="site-author-name" itemprop="name">neal.ma</p>
           <p class="site-description motion-element" itemprop="description">Follow your heart, just do it.</p>
         </div>
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
-            <a href="/archives">
+            <a href="../../archives">
               <span class="site-state-item-count">22</span>
               <span class="site-state-item-name">日志</span>
             </a>
@@ -1569,7 +1576,7 @@
 
           
             <div class="site-state-item site-state-categories">
-              <a href="/categories">
+              <a href="../../categories">
                 <span class="site-state-item-count">2</span>
                 <span class="site-state-item-name">分类</span>
               </a>
@@ -1578,7 +1585,7 @@
 
           
             <div class="site-state-item site-state-tags">
-              <a href="/tags">
+              <a href="../../tags">
                 <span class="site-state-item-count">28</span>
                 <span class="site-state-item-name">标签</span>
               </a>
@@ -1589,7 +1596,7 @@
 
         
           <div class="feed-link motion-element">
-            <a href="/atom.xml" rel="alternate">
+            <a href="../../atom.xml" rel="alternate">
               <i class="fa fa-rss"></i>
               RSS
             </a>
@@ -1604,6 +1611,24 @@
         
 
         
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              Links
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://github.com/nealma" title="GitHub" target="_blank">GitHub</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.jianshu.com/users/9772bc8f9aa0/latest_articles" title="简书" target="_blank">简书</a>
+                </li>
+              
+            </ul>
+          </div>
         
 
       </section>
@@ -1673,42 +1698,42 @@
 
 
   
-  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+  <script type="text/javascript" src="../../vendors/jquery/index.js?v=2.1.3"></script>
 
   
-  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  <script type="text/javascript" src="../../vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
 
   
-  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  <script type="text/javascript" src="../../vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
 
   
-  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+  <script type="text/javascript" src="../../vendors/velocity/velocity.min.js?v=1.2.1"></script>
 
   
-  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  <script type="text/javascript" src="../../vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
 
   
-  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  <script type="text/javascript" src="../../vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
 
-
-  
-
-
-  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
-
-  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
-
-
-
-  
-  
-
-  
 
   
 
 
-  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+  <script type="text/javascript" src="../../js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="../../js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+  
+
+  
+
+
+  <script type="text/javascript" src="../../js/src/bootstrap.js?v=5.0.1"></script>
 
 
 
@@ -1733,8 +1758,8 @@
 
   
     
-    <script src="/vendors/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
-    <script src="/js/src/hook-duoshuo.js"></script>
+    <script src="../../vendors/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="../../js/src/hook-duoshuo.js"></script>
   
 
 

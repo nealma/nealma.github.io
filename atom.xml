@@ -439,6 +439,36 @@ so，还是折腾下亲儿
   </entry>
   
   <entry>
+    <title>Vim Plugin 自动补全(NERDTree)</title>
+    <link href="http://www.nealma.com/2016/04/26/vim-plugin-install-nerttree/"/>
+    <id>http://www.nealma.com/2016/04/26/vim-plugin-install-nerttree/</id>
+    <published>2016-04-26T04:46:45.000Z</published>
+    <updated>2016-09-06T07:12:54.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>Vim在安装目录工具NERDTree的时候，遇到了坑。</p>
+<p>本记录使用的开发环境：<br>os: mac</p>
+<h3 id="其实也没啥，就是不知道怎么启用，哈哈"><a href="#其实也没啥，就是不知道怎么启用，哈哈" class="headerlink" title="其实也没啥，就是不知道怎么启用，哈哈"></a>其实也没啥，就是不知道怎么启用，哈哈</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">#进入vim</div><div class="line"></div><div class="line">:NERDTree ＃回车，就看到啦</div><div class="line"></div><div class="line">#Crtl + w 是前缀唤醒组合</div><div class="line"></div><div class="line">#左右切换</div><div class="line">h l </div><div class="line"></div><div class="line">#退出</div><div class="line">q</div><div class="line"></div><div class="line">#每次都需要输入NERDTree是不是很麻烦，别怕，可以很省事的</div><div class="line"></div><div class="line">#vim ~/.vimrc 加入</div><div class="line">nnoremap &lt;silent&gt; &lt;F5&gt; :NERDTree&lt;CR&gt;</div></pre></td></tr></table></figure>
+<p>:D-</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;Vim在安装目录工具NERDTree的时候，遇到了坑。&lt;/p&gt;
+&lt;p&gt;本记录使用的开发环境：&lt;br&gt;os: mac&lt;/p&gt;
+&lt;h3 id=&quot;其实也没啥，就是不知道怎么启用，哈哈&quot;&gt;&lt;a href=&quot;#其实也没啥，就是不知道怎么启用，哈哈&quot; class=&quot;headerlink
+    
+    </summary>
+    
+      <category term="Tech" scheme="http://www.nealma.com/categories/Tech/"/>
+    
+    
+      <category term="Vim" scheme="http://www.nealma.com/tags/Vim/"/>
+    
+      <category term="NERDTree" scheme="http://www.nealma.com/tags/NERDTree/"/>
+    
+  </entry>
+  
+  <entry>
     <title>Vim Plugin 自动补全(YouCompleteMe)</title>
     <link href="http://www.nealma.com/2016/04/26/vim-plugin-install-youcompleteme/"/>
     <id>http://www.nealma.com/2016/04/26/vim-plugin-install-youcompleteme/</id>
@@ -473,36 +503,6 @@ so，还是折腾下亲儿
       <category term="Vim" scheme="http://www.nealma.com/tags/Vim/"/>
     
       <category term="Plugin" scheme="http://www.nealma.com/tags/Plugin/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Vim Plugin 自动补全(NERDTree)</title>
-    <link href="http://www.nealma.com/2016/04/26/vim-plugin-install-nerttree/"/>
-    <id>http://www.nealma.com/2016/04/26/vim-plugin-install-nerttree/</id>
-    <published>2016-04-26T04:46:45.000Z</published>
-    <updated>2016-09-06T07:12:54.000Z</updated>
-    
-    <content type="html"><![CDATA[<p>Vim在安装目录工具NERDTree的时候，遇到了坑。</p>
-<p>本记录使用的开发环境：<br>os: mac</p>
-<h3 id="其实也没啥，就是不知道怎么启用，哈哈"><a href="#其实也没啥，就是不知道怎么启用，哈哈" class="headerlink" title="其实也没啥，就是不知道怎么启用，哈哈"></a>其实也没啥，就是不知道怎么启用，哈哈</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">#进入vim</div><div class="line"></div><div class="line">:NERDTree ＃回车，就看到啦</div><div class="line"></div><div class="line">#Crtl + w 是前缀唤醒组合</div><div class="line"></div><div class="line">#左右切换</div><div class="line">h l </div><div class="line"></div><div class="line">#退出</div><div class="line">q</div><div class="line"></div><div class="line">#每次都需要输入NERDTree是不是很麻烦，别怕，可以很省事的</div><div class="line"></div><div class="line">#vim ~/.vimrc 加入</div><div class="line">nnoremap &lt;silent&gt; &lt;F5&gt; :NERDTree&lt;CR&gt;</div></pre></td></tr></table></figure>
-<p>:D-</p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;Vim在安装目录工具NERDTree的时候，遇到了坑。&lt;/p&gt;
-&lt;p&gt;本记录使用的开发环境：&lt;br&gt;os: mac&lt;/p&gt;
-&lt;h3 id=&quot;其实也没啥，就是不知道怎么启用，哈哈&quot;&gt;&lt;a href=&quot;#其实也没啥，就是不知道怎么启用，哈哈&quot; class=&quot;headerlink
-    
-    </summary>
-    
-      <category term="Tech" scheme="http://www.nealma.com/categories/Tech/"/>
-    
-    
-      <category term="Vim" scheme="http://www.nealma.com/tags/Vim/"/>
-    
-      <category term="NERDTree" scheme="http://www.nealma.com/tags/NERDTree/"/>
     
   </entry>
   
@@ -738,27 +738,34 @@ so，还是折腾下亲儿
   </entry>
   
   <entry>
-    <title>newrelic使用</title>
-    <link href="http://www.nealma.com/2015/12/18/newrelic/"/>
-    <id>http://www.nealma.com/2015/12/18/newrelic/</id>
+    <title>ElasticSearch</title>
+    <link href="http://www.nealma.com/2015/12/18/elasticsearch/"/>
+    <id>http://www.nealma.com/2015/12/18/elasticsearch/</id>
     <published>2015-12-18T07:46:45.000Z</published>
-    <updated>2016-08-05T05:50:13.000Z</updated>
+    <updated>2016-08-05T04:22:54.000Z</updated>
     
-    <content type="html"><![CDATA[<p>对于Startup公司，在人员配备不足的情况下，集成各路云服务在所难免，newrelic在APM领域走在前面，这里记录下相关使用。</p>
-<h3 id="Java-agent-for-web-server"><a href="#Java-agent-for-web-server" class="headerlink" title="Java agent for web server"></a>Java agent for web server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">$ unzip newrelic-java-xxx.zip <span class="_">-d</span> /path/to/appserver/</div><div class="line">$ <span class="built_in">cd</span> /path/to/appserver/newrelic</div><div class="line">$ java -jar newrelic.jar install</div></pre></td></tr></table></figure>
+    <content type="html"><![CDATA[<p>ElasticSearch作为分布式搜索引擎，给我们带来了方便。</p>
+<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Get-elasticsearch-amp-jdbc"><a href="#Get-elasticsearch-amp-jdbc" class="headerlink" title="Get elasticsearch &amp; jdbc"></a>Get elasticsearch &amp; jdbc</h3><p>elasticsearch-rtf: <a href="https://github.com/medcl/elasticsearch-rtf/archive/2.1.1.zip" target="_blank" rel="external">branch 2.1.1</a><br>elasticsearch-jdbc: <a href="https://github.com/jprante/elasticsearch-jdbc/archive/2.1.1.2.zip" target="_blank" rel="external">branch 2.1.1.2</a></p>
+<h3 id="Run"><a href="#Run" class="headerlink" title="Run"></a>Run</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ ./bin/elasticsearch &amp;</div></pre></td></tr></table></figure>
+<h3 id="If-do-not-have-lib"><a href="#If-do-not-have-lib" class="headerlink" title="If do not have lib"></a>If do not have lib</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ mvn package</div></pre></td></tr></table></figure>
+<h3 id="Bind-ip"><a href="#Bind-ip" class="headerlink" title="Bind ip"></a>Bind ip</h3><p>！！！！[import]</p>
+<h3 id="Base-command"><a href="#Base-command" class="headerlink" title="Base command"></a>Base command</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$ curl -i http://localhost:9200/</div><div class="line">$ curl -X DELETE http://localhost:9200/_all</div></pre></td></tr></table></figure>
+<h3 id="Create-index-by-mapping-file"><a href="#Create-index-by-mapping-file" class="headerlink" title="Create index by mapping file"></a>Create index by mapping file</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ curl -XPUT <span class="string">'http://localhost:9200/articles'</span> <span class="_">-d</span>  @/Users/nealpc/work/body.json</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div></pre></td><td class="code"><pre><div class="line">#body.json</div><div class="line">&#123;</div><div class="line">  &quot;settings&quot;: &#123;</div><div class="line">     &quot;refresh_interval&quot;: &quot;5s&quot;,</div><div class="line">     &quot;number_of_shards&quot; :   1,</div><div class="line">     &quot;number_of_replicas&quot; : 0</div><div class="line">  &#125;,</div><div class="line">  &quot;mappings&quot;: &#123;</div><div class="line">    &quot;_default_&quot;:&#123;</div><div class="line">      &quot;_all&quot;: &#123; &quot;enabled&quot;:  false &#125;</div><div class="line">    &#125;,</div><div class="line">    &quot;articles&quot;: &#123;</div><div class="line">      &quot;dynamic&quot;: false,</div><div class="line">      &quot;properties&quot;: &#123;</div><div class="line">        &quot;title&quot;: &#123;</div><div class="line">          &quot;type&quot;: &quot;string&quot;,</div><div class="line">          &quot;index&quot;: &quot;analyzed&quot;,</div><div class="line">          &quot;fields&quot;: &#123;</div><div class="line">            &quot;cn&quot;: &#123;</div><div class="line">              &quot;type&quot;: &quot;string&quot;,</div><div class="line">              &quot;analyzer&quot;: &quot;ik&quot;</div><div class="line">            &#125;,</div><div class="line">            &quot;en&quot;: &#123;</div><div class="line">              &quot;type&quot;: &quot;string&quot;,</div><div class="line">              &quot;analyzer&quot;: &quot;english&quot;</div><div class="line">            &#125;</div><div class="line">          &#125;</div><div class="line">        &#125;,</div><div class="line">        &quot;content&quot;: &#123;</div><div class="line">          &quot;type&quot;: &quot;string&quot;,</div><div class="line">          &quot;index&quot;: &quot;analyzed&quot;,</div><div class="line">          &quot;fields&quot;: &#123;</div><div class="line">            &quot;cn&quot;: &#123;</div><div class="line">              &quot;type&quot;: &quot;string&quot;,</div><div class="line">              &quot;analyzer&quot;: &quot;ik&quot;</div><div class="line">            &#125;,</div><div class="line">            &quot;en&quot;: &#123;</div><div class="line">              &quot;type&quot;: &quot;string&quot;,</div><div class="line">              &quot;analyzer&quot;: &quot;english&quot;</div><div class="line">            &#125;</div><div class="line">          &#125;</div><div class="line">        &#125;</div><div class="line">      &#125;</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="Show-all-index-info-of-recovery-…"><a href="#Show-all-index-info-of-recovery-…" class="headerlink" title="Show all index info of recovery …."></a>Show all index info of recovery ….</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ curl -XGET http://localhost:9200/_recovery?pretty=<span class="literal">true</span>&amp;detailed=<span class="literal">true</span></div></pre></td></tr></table></figure>
 ]]></content>
     
     <summary type="html">
     
-      &lt;p&gt;对于Startup公司，在人员配备不足的情况下，集成各路云服务在所难免，newrelic在APM领域走在前面，这里记录下相关使用。&lt;/p&gt;
-&lt;h3 id=&quot;Java-agent-for-web-server&quot;&gt;&lt;a href=&quot;#Java-agent-for-web-ser
+      &lt;p&gt;ElasticSearch作为分布式搜索引擎，给我们带来了方便。&lt;/p&gt;
+&lt;h2 id=&quot;Quick-Start&quot;&gt;&lt;a href=&quot;#Quick-Start&quot; class=&quot;headerlink&quot; title=&quot;Quick Start&quot;&gt;&lt;/a&gt;Quick Start&lt;/
     
     </summary>
     
       <category term="Tools" scheme="http://www.nealma.com/categories/Tools/"/>
     
     
-      <category term="newrelic" scheme="http://www.nealma.com/tags/newrelic/"/>
+      <category term="搜索" scheme="http://www.nealma.com/tags/%E6%90%9C%E7%B4%A2/"/>
     
   </entry>
   
