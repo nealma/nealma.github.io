@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://www.nealma.com/"/>
-  <updated>2016-10-14T14:30:00.000Z</updated>
+  <updated>2016-10-15T14:16:42.000Z</updated>
   <id>http://www.nealma.com/</id>
   
   <author>
@@ -20,7 +20,7 @@
     <link href="http://www.nealma.com/2016/07/28/react-native-5-listview/"/>
     <id>http://www.nealma.com/2016/07/28/react-native-5-listview/</id>
     <published>2016-07-28T04:46:45.000Z</published>
-    <updated>2016-10-14T14:30:00.000Z</updated>
+    <updated>2016-10-15T14:16:42.000Z</updated>
     
     <content type="html"><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><pre><code>react-native-listview组件,
 因为同时支持ios和android，使用起来也很友好，就用了。
@@ -48,7 +48,7 @@
     
     </summary>
     
-      <category term="Tech" scheme="http://www.nealma.com/categories/Tech/"/>
+      <category term="React-Native" scheme="http://www.nealma.com/categories/React-Native/"/>
     
     
       <category term="React-Native" scheme="http://www.nealma.com/tags/React-Native/"/>
@@ -64,7 +64,7 @@
     <link href="http://www.nealma.com/2016/07/28/react-native-4-slide-menu/"/>
     <id>http://www.nealma.com/2016/07/28/react-native-4-slide-menu/</id>
     <published>2016-07-28T03:46:45.000Z</published>
-    <updated>2016-10-14T14:29:27.000Z</updated>
+    <updated>2016-10-15T14:16:36.000Z</updated>
     
     <content type="html"><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><pre><code>react-native-jelly-side-menu组件,
 因为同时支持ios和android，使用起来也很友好，就用了。
@@ -82,7 +82,7 @@
     
     </summary>
     
-      <category term="Tech" scheme="http://www.nealma.com/categories/Tech/"/>
+      <category term="React-Native" scheme="http://www.nealma.com/categories/React-Native/"/>
     
     
       <category term="React-Native" scheme="http://www.nealma.com/tags/React-Native/"/>
@@ -98,7 +98,7 @@
     <link href="http://www.nealma.com/2016/07/27/react-native-3-icons/"/>
     <id>http://www.nealma.com/2016/07/27/react-native-3-icons/</id>
     <published>2016-07-27T03:46:45.000Z</published>
-    <updated>2016-10-13T07:02:28.000Z</updated>
+    <updated>2016-10-15T14:16:30.000Z</updated>
     
     <content type="html"><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><pre><code>react-native-vector-icons组件,
 可以免费使用更多的icons资源
@@ -119,7 +119,7 @@ Fonts provided by application（item0-item7）
     
     </summary>
     
-      <category term="Tech" scheme="http://www.nealma.com/categories/Tech/"/>
+      <category term="React-Native" scheme="http://www.nealma.com/categories/React-Native/"/>
     
     
       <category term="React-Native" scheme="http://www.nealma.com/tags/React-Native/"/>
@@ -135,7 +135,7 @@ Fonts provided by application（item0-item7）
     <link href="http://www.nealma.com/2016/07/26/react-native-2-image/"/>
     <id>http://www.nealma.com/2016/07/26/react-native-2-image/</id>
     <published>2016-07-26T03:46:45.000Z</published>
-    <updated>2016-10-12T16:33:44.000Z</updated>
+    <updated>2016-10-15T14:16:23.000Z</updated>
     
     <content type="html"><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><pre><code>在RN中使用Image组件，即使很简单，总会出现这个那个的问题。
 </code></pre><p>本记录使用的开发环境：<br>os: mac 10.11.6<br>xcode: Version 8.0 (8A218a)</p>
@@ -172,7 +172,7 @@ Allow Arbitrary Loads 设置为 YES
     
     </summary>
     
-      <category term="Tech" scheme="http://www.nealma.com/categories/Tech/"/>
+      <category term="React-Native" scheme="http://www.nealma.com/categories/React-Native/"/>
     
     
       <category term="React-Native" scheme="http://www.nealma.com/tags/React-Native/"/>
@@ -188,7 +188,7 @@ Allow Arbitrary Loads 设置为 YES
     <link href="http://www.nealma.com/2016/06/26/react-native-1-envirment/"/>
     <id>http://www.nealma.com/2016/06/26/react-native-1-envirment/</id>
     <published>2016-06-26T03:46:45.000Z</published>
-    <updated>2016-10-13T05:02:12.000Z</updated>
+    <updated>2016-10-15T14:16:19.000Z</updated>
     
     <content type="html"><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><pre><code>对于人员缺少，功能又不复杂的app来说，使用RN这种方式效率还是很高的;
 在使用的过程中，即使你按照参考资料，一个代码一个代码的敲，最后还是报bug，
@@ -236,7 +236,7 @@ Allow Arbitrary Loads 设置为 YES
     
     </summary>
     
-      <category term="Tech" scheme="http://www.nealma.com/categories/Tech/"/>
+      <category term="React-Native" scheme="http://www.nealma.com/categories/React-Native/"/>
     
     
       <category term="React-Native" scheme="http://www.nealma.com/tags/React-Native/"/>
@@ -246,11 +246,34 @@ Allow Arbitrary Loads 设置为 YES
   </entry>
   
   <entry>
+    <title>npm 网络难以忍受</title>
+    <link href="http://www.nealma.com/2016/05/30/nodejs-1-very-slow/"/>
+    <id>http://www.nealma.com/2016/05/30/nodejs-1-very-slow/</id>
+    <published>2016-05-30T03:46:45.000Z</published>
+    <updated>2016-10-15T14:09:56.000Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id="那就换成淘宝的吧"><a href="#那就换成淘宝的吧" class="headerlink" title="那就换成淘宝的吧"></a>那就换成淘宝的吧</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">npm --registry=https://registry.npm.taobao.org install cnpm -g</div></pre></td></tr></table></figure>
+<h3 id="或者改变registry"><a href="#或者改变registry" class="headerlink" title="或者改变registry"></a>或者改变registry</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">#vim ~/.npmrc</div><div class="line"></div><div class="line">registry = https://registry.npm.taobao.org</div></pre></td></tr></table></figure>]]></content>
+    
+    <summary type="html">
+    
+      &lt;h3 id=&quot;那就换成淘宝的吧&quot;&gt;&lt;a href=&quot;#那就换成淘宝的吧&quot; class=&quot;headerlink&quot; title=&quot;那就换成淘宝的吧&quot;&gt;&lt;/a&gt;那就换成淘宝的吧&lt;/h3&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td cl
+    
+    </summary>
+    
+      <category term="NodeJS" scheme="http://www.nealma.com/categories/NodeJS/"/>
+    
+    
+      <category term="nodejs" scheme="http://www.nealma.com/tags/nodejs/"/>
+    
+  </entry>
+  
+  <entry>
     <title>Spring-Boot（五) 全局异常处理</title>
     <link href="http://www.nealma.com/2016/05/30/spring-boot-5-exception/"/>
     <id>http://www.nealma.com/2016/05/30/spring-boot-5-exception/</id>
     <published>2016-05-30T03:46:45.000Z</published>
-    <updated>2016-09-22T13:14:16.000Z</updated>
+    <updated>2016-10-15T14:11:18.000Z</updated>
     
     <content type="html"><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><pre><code>广大码农同胞在写程序的时候，总是会遇到处理各种Exception，神马空指针啦，
 再有就是处理DataBase的IO异常啦，反正哪都有他们的影子，真是阴魂不散啊。但是呢，
@@ -286,39 +309,16 @@ Allow Arbitrary Loads 设置为 YES
     
     </summary>
     
-      <category term="Tech" scheme="http://www.nealma.com/categories/Tech/"/>
+      <category term="Java" scheme="http://www.nealma.com/categories/Java/"/>
     
-    
-      <category term="Java" scheme="http://www.nealma.com/tags/Java/"/>
     
       <category term="Spring" scheme="http://www.nealma.com/tags/Spring/"/>
     
       <category term="Spring-Boot" scheme="http://www.nealma.com/tags/Spring-Boot/"/>
     
+      <category term="Java" scheme="http://www.nealma.com/tags/Java/"/>
+    
       <category term="Exception" scheme="http://www.nealma.com/tags/Exception/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>npm 网络难以忍受</title>
-    <link href="http://www.nealma.com/2016/05/30/nodejs-1-very-slow/"/>
-    <id>http://www.nealma.com/2016/05/30/nodejs-1-very-slow/</id>
-    <published>2016-05-30T03:46:45.000Z</published>
-    <updated>2016-10-01T15:45:39.000Z</updated>
-    
-    <content type="html"><![CDATA[<h3 id="那就换成淘宝的吧"><a href="#那就换成淘宝的吧" class="headerlink" title="那就换成淘宝的吧"></a>那就换成淘宝的吧</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">npm --registry=https://registry.npm.taobao.org install cnpm -g</div></pre></td></tr></table></figure>
-<h3 id="或者改变registry"><a href="#或者改变registry" class="headerlink" title="或者改变registry"></a>或者改变registry</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">#vim ~/.npmrc</div><div class="line"></div><div class="line">registry = https://registry.npm.taobao.org</div></pre></td></tr></table></figure>]]></content>
-    
-    <summary type="html">
-    
-      &lt;h3 id=&quot;那就换成淘宝的吧&quot;&gt;&lt;a href=&quot;#那就换成淘宝的吧&quot; class=&quot;headerlink&quot; title=&quot;那就换成淘宝的吧&quot;&gt;&lt;/a&gt;那就换成淘宝的吧&lt;/h3&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td cl
-    
-    </summary>
-    
-      <category term="Tech" scheme="http://www.nealma.com/categories/Tech/"/>
-    
-    
-      <category term="nodejs" scheme="http://www.nealma.com/tags/nodejs/"/>
     
   </entry>
   
@@ -327,7 +327,7 @@ Allow Arbitrary Loads 设置为 YES
     <link href="http://www.nealma.com/2016/04/30/spring-boot-4-security/"/>
     <id>http://www.nealma.com/2016/04/30/spring-boot-4-security/</id>
     <published>2016-04-30T03:46:45.000Z</published>
-    <updated>2016-09-22T13:11:37.000Z</updated>
+    <updated>2016-10-15T14:11:13.000Z</updated>
     
     <content type="html"><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><pre><code>shiro可以完全解决有关安全的问题，但是项目大多使用的是Spring框架，所以没必要在引入其他依赖，
 so，还是折腾下亲儿子的东东吧
@@ -357,14 +357,14 @@ so，还是折腾下亲儿
     
     </summary>
     
-      <category term="Tech" scheme="http://www.nealma.com/categories/Tech/"/>
+      <category term="Java" scheme="http://www.nealma.com/categories/Java/"/>
     
-    
-      <category term="Java" scheme="http://www.nealma.com/tags/Java/"/>
     
       <category term="Spring" scheme="http://www.nealma.com/tags/Spring/"/>
     
       <category term="Spring-Boot" scheme="http://www.nealma.com/tags/Spring-Boot/"/>
+    
+      <category term="Java" scheme="http://www.nealma.com/tags/Java/"/>
     
       <category term="Spring-Security" scheme="http://www.nealma.com/tags/Spring-Security/"/>
     
@@ -375,7 +375,7 @@ so，还是折腾下亲儿
     <link href="http://www.nealma.com/2016/04/29/spring-boot-3-mybatis/"/>
     <id>http://www.nealma.com/2016/04/29/spring-boot-3-mybatis/</id>
     <published>2016-04-29T03:46:45.000Z</published>
-    <updated>2016-09-20T07:25:13.000Z</updated>
+    <updated>2016-10-15T14:11:09.000Z</updated>
     
     <content type="html"><![CDATA[<p>MyBatis在国内一直很流行，在ORM框架中使用比例很高。<br>由于MyBatis不是Spring的亲生儿子，所以依赖的版本很发麻，不像其他的依赖，直接引入就可以，还得看版本。<br>经过几次尝试，下文给出的是可以正常使用的。</p>
 <p>本记录使用的开发环境：<br>os: mac<br>ide: idea<br>build: maven</p>
@@ -391,16 +391,16 @@ so，还是折腾下亲儿
     
     </summary>
     
-      <category term="Tech" scheme="http://www.nealma.com/categories/Tech/"/>
+      <category term="Java" scheme="http://www.nealma.com/categories/Java/"/>
     
-    
-      <category term="MyBatis" scheme="http://www.nealma.com/tags/MyBatis/"/>
-    
-      <category term="Java" scheme="http://www.nealma.com/tags/Java/"/>
     
       <category term="Spring" scheme="http://www.nealma.com/tags/Spring/"/>
     
       <category term="Spring-Boot" scheme="http://www.nealma.com/tags/Spring-Boot/"/>
+    
+      <category term="Java" scheme="http://www.nealma.com/tags/Java/"/>
+    
+      <category term="MyBatis" scheme="http://www.nealma.com/tags/MyBatis/"/>
     
   </entry>
   
@@ -409,7 +409,7 @@ so，还是折腾下亲儿
     <link href="http://www.nealma.com/2016/04/28/spring-boot-2-hot-swap/"/>
     <id>http://www.nealma.com/2016/04/28/spring-boot-2-hot-swap/</id>
     <published>2016-04-28T03:46:45.000Z</published>
-    <updated>2016-09-20T17:37:16.000Z</updated>
+    <updated>2016-10-15T14:11:04.000Z</updated>
     
     <content type="html"><![CDATA[<p>我在开发的时候，总是会及时对自己的程序进行测试，总是频繁的重启web server，容器不烦我们都觉得烦了。<br>福音来了，正好有springloaded，解决了我们的烦恼。</p>
 <p>本记录使用的开发环境：<br>os: mac<br>ide: idea<br>build: maven<br>spring-boot-version: 1.4.0.RELEASE</p>
@@ -425,16 +425,16 @@ so，还是折腾下亲儿
     
     </summary>
     
-      <category term="Tech" scheme="http://www.nealma.com/categories/Tech/"/>
+      <category term="Java" scheme="http://www.nealma.com/categories/Java/"/>
     
-    
-      <category term="MyBatis" scheme="http://www.nealma.com/tags/MyBatis/"/>
-    
-      <category term="Java" scheme="http://www.nealma.com/tags/Java/"/>
     
       <category term="Spring" scheme="http://www.nealma.com/tags/Spring/"/>
     
       <category term="Spring-Boot" scheme="http://www.nealma.com/tags/Spring-Boot/"/>
+    
+      <category term="Java" scheme="http://www.nealma.com/tags/Java/"/>
+    
+      <category term="MyBatis" scheme="http://www.nealma.com/tags/MyBatis/"/>
     
   </entry>
   
@@ -443,7 +443,7 @@ so，还是折腾下亲儿
     <link href="http://www.nealma.com/2016/04/26/vim-plugin-install-nerttree/"/>
     <id>http://www.nealma.com/2016/04/26/vim-plugin-install-nerttree/</id>
     <published>2016-04-26T04:46:45.000Z</published>
-    <updated>2016-09-06T07:12:54.000Z</updated>
+    <updated>2016-10-15T14:11:38.000Z</updated>
     
     <content type="html"><![CDATA[<p>Vim在安装目录工具NERDTree的时候，遇到了坑。</p>
 <p>本记录使用的开发环境：<br>os: mac</p>
@@ -459,7 +459,7 @@ so，还是折腾下亲儿
     
     </summary>
     
-      <category term="Tech" scheme="http://www.nealma.com/categories/Tech/"/>
+      <category term="Vim" scheme="http://www.nealma.com/categories/Vim/"/>
     
     
       <category term="Vim" scheme="http://www.nealma.com/tags/Vim/"/>
@@ -473,7 +473,7 @@ so，还是折腾下亲儿
     <link href="http://www.nealma.com/2016/04/26/vim-plugin-install-youcompleteme/"/>
     <id>http://www.nealma.com/2016/04/26/vim-plugin-install-youcompleteme/</id>
     <published>2016-04-26T04:46:45.000Z</published>
-    <updated>2016-09-06T06:41:42.000Z</updated>
+    <updated>2016-10-15T14:11:44.000Z</updated>
     
     <content type="html"><![CDATA[<p>Vim在安装自动补全插件YouCompleteMe的时候，遇到了坑。</p>
 <p>本记录使用的开发环境：<br>os: mac</p>
@@ -497,7 +497,7 @@ so，还是折腾下亲儿
     
     </summary>
     
-      <category term="Tech" scheme="http://www.nealma.com/categories/Tech/"/>
+      <category term="Vim" scheme="http://www.nealma.com/categories/Vim/"/>
     
     
       <category term="Vim" scheme="http://www.nealma.com/tags/Vim/"/>
@@ -511,7 +511,7 @@ so，还是折腾下亲儿
     <link href="http://www.nealma.com/2016/04/26/vim-plugin-enhance/"/>
     <id>http://www.nealma.com/2016/04/26/vim-plugin-enhance/</id>
     <published>2016-04-26T03:46:45.000Z</published>
-    <updated>2016-09-06T06:19:26.000Z</updated>
+    <updated>2016-10-15T14:11:28.000Z</updated>
     
     <content type="html"><![CDATA[<p>vim我们在用的时候，没有插件和有插件那是天壤之别。<br>快来享受plugin的强大吧</p>
 <p>本记录使用的开发环境：<br>os: mac</p>
@@ -525,7 +525,7 @@ so，还是折腾下亲儿
     
     </summary>
     
-      <category term="Tech" scheme="http://www.nealma.com/categories/Tech/"/>
+      <category term="Vim" scheme="http://www.nealma.com/categories/Vim/"/>
     
     
       <category term="Vim" scheme="http://www.nealma.com/tags/Vim/"/>
@@ -537,7 +537,7 @@ so，还是折腾下亲儿
     <link href="http://www.nealma.com/2016/04/25/mybatis-generator-how-to-use/"/>
     <id>http://www.nealma.com/2016/04/25/mybatis-generator-how-to-use/</id>
     <published>2016-04-25T03:46:45.000Z</published>
-    <updated>2016-09-20T04:15:42.000Z</updated>
+    <updated>2016-10-15T14:08:45.000Z</updated>
     
     <content type="html"><![CDATA[<p>MyBatis在java的ORM地位一致保持，但是我们在写mapper的时候，也是头疼，关键是总是手误，所以呢，就有了mybatis-generator,<br>但是官方的工具又不符合我们自己的口味，像什么不能在pojo类中根据表的字段注释来自动加注释，<br>生成的mapper不够优雅,于是不安分的我们就开始各种改造…</p>
 <p>MyBatis Version : 1.3.4-SNAPSHOT</p>
@@ -558,14 +558,14 @@ so，还是折腾下亲儿
     
     </summary>
     
-      <category term="Tech" scheme="http://www.nealma.com/categories/Tech/"/>
+      <category term="Java" scheme="http://www.nealma.com/categories/Java/"/>
     
+    
+      <category term="Java" scheme="http://www.nealma.com/tags/Java/"/>
     
       <category term="MyBatis" scheme="http://www.nealma.com/tags/MyBatis/"/>
     
       <category term="Generator" scheme="http://www.nealma.com/tags/Generator/"/>
-    
-      <category term="Java" scheme="http://www.nealma.com/tags/Java/"/>
     
   </entry>
   
@@ -574,7 +574,7 @@ so，还是折腾下亲儿
     <link href="http://www.nealma.com/2016/04/20/spring-boot-1-how-to-use/"/>
     <id>http://www.nealma.com/2016/04/20/spring-boot-1-how-to-use/</id>
     <published>2016-04-20T03:46:45.000Z</published>
-    <updated>2016-09-20T07:25:26.000Z</updated>
+    <updated>2016-10-15T14:10:57.000Z</updated>
     
     <content type="html"><![CDATA[<p>Spring发展到现在，在java框架中一直在坚守，也在不断的改进。<br>Spring-Boot的出现，并不是什么新技术，而是简化我们的开发步骤和配置，让我们愉快的玩耍吧。</p>
 <p>本记录使用的开发环境：<br>os: mac<br>ide: idea<br>build: maven</p>
@@ -597,14 +597,14 @@ so，还是折腾下亲儿
     
     </summary>
     
-      <category term="Tech" scheme="http://www.nealma.com/categories/Tech/"/>
+      <category term="Java" scheme="http://www.nealma.com/categories/Java/"/>
     
-    
-      <category term="Java" scheme="http://www.nealma.com/tags/Java/"/>
     
       <category term="Spring" scheme="http://www.nealma.com/tags/Spring/"/>
     
       <category term="Spring-Boot" scheme="http://www.nealma.com/tags/Spring-Boot/"/>
+    
+      <category term="Java" scheme="http://www.nealma.com/tags/Java/"/>
     
   </entry>
   
@@ -613,7 +613,7 @@ so，还是折腾下亲儿
     <link href="http://www.nealma.com/2016/03/29/mac-used-app/"/>
     <id>http://www.nealma.com/2016/03/29/mac-used-app/</id>
     <published>2016-03-29T03:46:45.000Z</published>
-    <updated>2016-09-06T02:01:10.000Z</updated>
+    <updated>2016-10-15T14:07:52.000Z</updated>
     
     <content type="html"><![CDATA[<p>自己在使用过程中积累的一些应用软件，推荐给大家。</p>
 <h3 id="Command-Line"><a href="#Command-Line" class="headerlink" title="Command Line"></a>Command Line</h3><p><a href="http://brew.sh/" target="_blank" rel="external">homebrew</a>                                应用程序管理工具<br><a href="https://github.com/robbyrussell/oh-my-zsh" target="_blank" rel="external">oh-my-zsh</a>    包装过的zsh<br><a href="https://github.com/wting/autojump" target="_blank" rel="external">autojump</a>            高效跳转到历史路径的命令行辅助工具<br><a href="https://tmux.github.io/" target="_blank" rel="external">tmux</a>                            终端加强工具</p>
@@ -627,7 +627,7 @@ so，还是折腾下亲儿
     
     </summary>
     
-      <category term="Tech" scheme="http://www.nealma.com/categories/Tech/"/>
+      <category term="Mac" scheme="http://www.nealma.com/categories/Mac/"/>
     
     
       <category term="Mac OS" scheme="http://www.nealma.com/tags/Mac-OS/"/>
@@ -639,7 +639,7 @@ so，还是折腾下亲儿
     <link href="http://www.nealma.com/2016/03/18/hexo-how-to-use/"/>
     <id>http://www.nealma.com/2016/03/18/hexo-how-to-use/</id>
     <published>2016-03-18T03:46:45.000Z</published>
-    <updated>2016-09-30T06:28:50.000Z</updated>
+    <updated>2016-10-15T14:07:42.000Z</updated>
     
     <content type="html"><![CDATA[<p>对生活、学习或者工作中，遇到的问题以及解决的方案，已blog的形式存于互联网，共享给需要帮助的人。<br>但是从各大博客网站辗转于免费空间，最后落脚在github，hexo给我们提供了方便的blog模版，<br>让我们可以安心的写内容了，hexo使用过程中的一些记录，便于后来人。</p>
 <h3 id="1-安装"><a href="#1-安装" class="headerlink" title="1 安装"></a>1 安装</h3><p>nodejs、git、hexo,具体步骤，请Google。<br>我的环境是Mac OS<br>so ：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">brew install npm（Node Packaged Modules）</div><div class="line">brew install n -g</div><div class="line">n ls</div><div class="line">n 6.5.0</div><div class="line">brew install git</div><div class="line">npm install hexo-cli -g</div><div class="line">npm install hexo --save</div><div class="line">hexo g</div><div class="line">hexo s</div><div class="line">hexo d</div><div class="line"></div><div class="line">#如果报错的话，执行</div><div class="line">npm install hexo --no-optional</div><div class="line"></div><div class="line">#如果还是报错</div><div class="line">rm -rf node_modules/ &amp;&amp; npm install --no-optional</div></pre></td></tr></table></figure></p>
@@ -655,7 +655,7 @@ so，还是折腾下亲儿
     
     </summary>
     
-      <category term="Tech" scheme="http://www.nealma.com/categories/Tech/"/>
+      <category term="Hexo" scheme="http://www.nealma.com/categories/Hexo/"/>
     
     
       <category term="blog" scheme="http://www.nealma.com/tags/blog/"/>
@@ -669,7 +669,7 @@ so，还是折腾下亲儿
     <link href="http://www.nealma.com/2016/03/16/nginx-configuration/"/>
     <id>http://www.nealma.com/2016/03/16/nginx-configuration/</id>
     <published>2016-03-16T03:46:45.000Z</published>
-    <updated>2016-08-06T04:26:21.000Z</updated>
+    <updated>2016-10-15T14:09:44.000Z</updated>
     
     <content type="html"><![CDATA[<h3 id="Download-nginx"><a href="#Download-nginx" class="headerlink" title="Download nginx"></a>Download nginx</h3><p><a href="http://nginx.org/download/nginx-1.8.0.tar.gz" target="_blank" rel="external">1.8.0</a></p>
 <h3 id="Download-openssl"><a href="#Download-openssl" class="headerlink" title="Download openssl"></a>Download openssl</h3><p><a href="https://www.openssl.org/source/openssl-1.0.2h.tar.gz" target="_blank" rel="external">1.0.2h</a></p>
@@ -699,7 +699,7 @@ so，还是折腾下亲儿
     
     </summary>
     
-      <category term="Tech" scheme="http://www.nealma.com/categories/Tech/"/>
+      <category term="Nginx" scheme="http://www.nealma.com/categories/Nginx/"/>
     
     
       <category term="Nginx" scheme="http://www.nealma.com/tags/Nginx/"/>
@@ -711,7 +711,7 @@ so，还是折腾下亲儿
     <link href="http://www.nealma.com/2016/03/15/centos-65-add-user/"/>
     <id>http://www.nealma.com/2016/03/15/centos-65-add-user/</id>
     <published>2016-03-15T03:46:45.000Z</published>
-    <updated>2016-08-06T02:54:45.000Z</updated>
+    <updated>2016-10-15T14:07:06.000Z</updated>
     
     <content type="html"><![CDATA[<p>每次添加用户总是忘记，总是Google一下，没办法，只好记录下来。</p>
 <h3 id="添加普通用户-用户名为lingyitech"><a href="#添加普通用户-用户名为lingyitech" class="headerlink" title="添加普通用户,用户名为lingyitech"></a>添加普通用户,用户名为lingyitech</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ useradd lingyitech</div></pre></td></tr></table></figure>
@@ -728,7 +728,7 @@ so，还是折腾下亲儿
     
     </summary>
     
-      <category term="Tech" scheme="http://www.nealma.com/categories/Tech/"/>
+      <category term="Linux" scheme="http://www.nealma.com/categories/Linux/"/>
     
     
       <category term="CentOS" scheme="http://www.nealma.com/tags/CentOS/"/>
@@ -742,7 +742,7 @@ so，还是折腾下亲儿
     <link href="http://www.nealma.com/2015/12/18/elasticsearch/"/>
     <id>http://www.nealma.com/2015/12/18/elasticsearch/</id>
     <published>2015-12-18T07:46:45.000Z</published>
-    <updated>2016-08-05T04:22:54.000Z</updated>
+    <updated>2016-10-15T14:07:16.000Z</updated>
     
     <content type="html"><![CDATA[<p>ElasticSearch作为分布式搜索引擎，给我们带来了方便。</p>
 <h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Get-elasticsearch-amp-jdbc"><a href="#Get-elasticsearch-amp-jdbc" class="headerlink" title="Get elasticsearch &amp; jdbc"></a>Get elasticsearch &amp; jdbc</h3><p>elasticsearch-rtf: <a href="https://github.com/medcl/elasticsearch-rtf/archive/2.1.1.zip" target="_blank" rel="external">branch 2.1.1</a><br>elasticsearch-jdbc: <a href="https://github.com/jprante/elasticsearch-jdbc/archive/2.1.1.2.zip" target="_blank" rel="external">branch 2.1.1.2</a></p>
@@ -762,7 +762,7 @@ so，还是折腾下亲儿
     
     </summary>
     
-      <category term="Tools" scheme="http://www.nealma.com/categories/Tools/"/>
+      <category term="ElasticSearch" scheme="http://www.nealma.com/categories/ElasticSearch/"/>
     
     
       <category term="搜索" scheme="http://www.nealma.com/tags/%E6%90%9C%E7%B4%A2/"/>
