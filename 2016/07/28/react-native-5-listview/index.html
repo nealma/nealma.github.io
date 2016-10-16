@@ -88,7 +88,7 @@
 
 <meta name="description" content="前言react-native-listview组件,
 因为同时支持ios和android，使用起来也很友好，就用了。
-本记录使用的开发环境：os: mac 10.11.6xcode: Version 8.0 (8A218a)
+本记录使用的开发环境：OS: Mac 10.11.6Xcode: Version 8.0 (8A218a)
 最简单的用例123456789101112131415161718192021222324252627282930313233343536373839404142434445">
 <meta property="og:type" content="article">
 <meta property="og:title" content="react-native (五) react-native-listview组件">
@@ -96,14 +96,14 @@
 <meta property="og:site_name" content="neal.ma">
 <meta property="og:description" content="前言react-native-listview组件,
 因为同时支持ios和android，使用起来也很友好，就用了。
-本记录使用的开发环境：os: mac 10.11.6xcode: Version 8.0 (8A218a)
+本记录使用的开发环境：OS: Mac 10.11.6Xcode: Version 8.0 (8A218a)
 最简单的用例123456789101112131415161718192021222324252627282930313233343536373839404142434445">
-<meta property="og:updated_time" content="2016-10-15T14:16:42.000Z">
+<meta property="og:updated_time" content="2016-10-16T10:45:15.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="react-native (五) react-native-listview组件">
 <meta name="twitter:description" content="前言react-native-listview组件,
 因为同时支持ios和android，使用起来也很友好，就用了。
-本记录使用的开发环境：os: mac 10.11.6xcode: Version 8.0 (8A218a)
+本记录使用的开发环境：OS: Mac 10.11.6Xcode: Version 8.0 (8A218a)
 最简单的用例123456789101112131415161718192021222324252627282930313233343536373839404142434445">
 
 
@@ -345,7 +345,7 @@
       
         <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><pre><code>react-native-listview组件,
 因为同时支持ios和android，使用起来也很友好，就用了。
-</code></pre><p>本记录使用的开发环境：<br>os: mac 10.11.6<br>xcode: Version 8.0 (8A218a)</p>
+</code></pre><p>本记录使用的开发环境：<br>OS: Mac 10.11.6<br>Xcode: Version 8.0 (8A218a)</p>
 <h3 id="最简单的用例"><a href="#最简单的用例" class="headerlink" title="最简单的用例"></a>最简单的用例</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div></pre></td><td class="code"><pre><div class="line">import ListView from &apos;react-native-listview&apos;;</div><div class="line"></div><div class="line">...</div><div class="line"></div><div class="line">#constructor</div><div class="line">constructor(props) &#123;</div><div class="line">    super(props);</div><div class="line">    //数据源，即要显示的数据</div><div class="line">    const ds = new ListView.DataSource(&#123;rowHasChanged: (r1, r2) =&gt; r1 !== r2&#125;);</div><div class="line">    this.state = &#123;</div><div class="line">        dataSource: ds.cloneWithRows([&apos;row 1&apos;, &apos;row 2&apos;, &apos;row 1&apos;, &apos;row 2&apos;, &apos;row 1&apos;, &apos;row 2&apos;, &apos;row 1&apos;, &apos;row 2&apos;]),</div><div class="line">        loaded: false//4</div><div class="line">    &#125;;</div><div class="line"></div><div class="line">    this._onFetch(); //3</div><div class="line">&#125;</div><div class="line"></div><div class="line">...</div><div class="line"></div><div class="line">#render</div><div class="line"></div><div class="line">render() &#123;</div><div class="line">    return (</div><div class="line">        &lt;ListView</div><div class="line">            dataSource=&#123;this.state.dataSource&#125;</div><div class="line">            //行view，listview会根据datasource的每个数据进行渲染</div><div class="line">            renderRow=&#123;this._renderRowView&#125;</div><div class="line">        /&gt;</div><div class="line">    )</div><div class="line">&#125;</div><div class="line"></div><div class="line">/**</div><div class="line"> * When a row is touched</div><div class="line"> * @param &#123;object&#125; rowData Row data</div><div class="line"> */</div><div class="line">_onPress(rowData) &#123;</div><div class="line">    console.log(rowData+&apos; pressed&apos;);</div><div class="line">&#125;</div><div class="line"></div><div class="line">/**</div><div class="line"> * Render a row</div><div class="line"> * @param &#123;object&#125; rowData Row data</div><div class="line"> */</div><div class="line">_renderRowView(rowData) &#123;</div><div class="line">    return (</div><div class="line">        &lt;TouchableHighlight</div><div class="line">            style=&#123;styles.row&#125;</div><div class="line">            underlayColor=&apos;#c8c7cc&apos;</div><div class="line">        &gt;</div><div class="line">            &lt;Text&gt;&#123;rowData&#125;&lt;/Text&gt;</div><div class="line">        &lt;/TouchableHighlight&gt;</div><div class="line">    );</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <h3 id="获取网络数据-Fetch"><a href="#获取网络数据-Fetch" class="headerlink" title="获取网络数据(Fetch)"></a>获取网络数据(Fetch)</h3><pre><code>这里只是简单的实现数据到列表的渲染，在实际项目里，list的数据必定都是从Server获取来的，
 我们以豆瓣音乐API为例, 通过网络数据渲染list
@@ -472,7 +472,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="../../../../archives">
-              <span class="site-state-item-count">22</span>
+              <span class="site-state-item-count">23</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -480,7 +480,7 @@
           
             <div class="site-state-item site-state-categories">
               <a href="../../../../categories">
-                <span class="site-state-item-count">13</span>
+                <span class="site-state-item-count">10</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -489,7 +489,7 @@
           
             <div class="site-state-item site-state-tags">
               <a href="../../../../tags">
-                <span class="site-state-item-count">28</span>
+                <span class="site-state-item-count">30</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>

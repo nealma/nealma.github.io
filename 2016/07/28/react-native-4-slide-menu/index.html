@@ -88,7 +88,7 @@
 
 <meta name="description" content="前言react-native-jelly-side-menu组件,
 因为同时支持ios和android，使用起来也很友好，就用了。
-本记录使用的开发环境：os: mac 10.11.6xcode: Version 8.0 (8A218a)
+本记录使用的开发环境：OS: Mac 10.11.6Xcode: Version 8.0 (8A218a)
 Example123456789101112131415161718192021222324import JellySideMenu from &amp;apos;re">
 <meta property="og:type" content="article">
 <meta property="og:title" content="react-native (四) react-native-jelly-side-menu组件">
@@ -96,14 +96,14 @@ Example123456789101112131415161718192021222324import JellySideMenu from &amp;apo
 <meta property="og:site_name" content="neal.ma">
 <meta property="og:description" content="前言react-native-jelly-side-menu组件,
 因为同时支持ios和android，使用起来也很友好，就用了。
-本记录使用的开发环境：os: mac 10.11.6xcode: Version 8.0 (8A218a)
+本记录使用的开发环境：OS: Mac 10.11.6Xcode: Version 8.0 (8A218a)
 Example123456789101112131415161718192021222324import JellySideMenu from &amp;apos;re">
-<meta property="og:updated_time" content="2016-10-15T14:16:36.000Z">
+<meta property="og:updated_time" content="2016-10-16T10:45:10.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="react-native (四) react-native-jelly-side-menu组件">
 <meta name="twitter:description" content="前言react-native-jelly-side-menu组件,
 因为同时支持ios和android，使用起来也很友好，就用了。
-本记录使用的开发环境：os: mac 10.11.6xcode: Version 8.0 (8A218a)
+本记录使用的开发环境：OS: Mac 10.11.6Xcode: Version 8.0 (8A218a)
 Example123456789101112131415161718192021222324import JellySideMenu from &amp;apos;re">
 
 
@@ -345,7 +345,7 @@ Example123456789101112131415161718192021222324import JellySideMenu from &amp;apo
       
         <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><pre><code>react-native-jelly-side-menu组件,
 因为同时支持ios和android，使用起来也很友好，就用了。
-</code></pre><p>本记录使用的开发环境：<br>os: mac 10.11.6<br>xcode: Version 8.0 (8A218a)</p>
+</code></pre><p>本记录使用的开发环境：<br>OS: Mac 10.11.6<br>Xcode: Version 8.0 (8A218a)</p>
 <h3 id="Example"><a href="#Example" class="headerlink" title="Example"></a>Example</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line">import JellySideMenu from &apos;react-native-jelly-side-menu&apos;;</div><div class="line"></div><div class="line">...</div><div class="line"></div><div class="line">#render</div><div class="line"></div><div class="line">render() &#123;</div><div class="line">        return (</div><div class="line">            &lt;View style=&#123;&#123;flex: 1, backgroundColor: &apos;#FF6644&apos;&#125;&#125;&gt;</div><div class="line">                &lt;JellySideMenu</div><div class="line">                    ref=&#123;(view) =&gt; &#123;this.jsm = view&#125;&#125;</div><div class="line">                    fill=&#123;&quot;#FFF&quot;&#125; fillOpacity=&#123;1.0&#125;</div><div class="line">                    renderMenu=&#123;this.renderMenu&#125;&gt;</div><div class="line">                    &lt;TouchableOpacity onPress=&#123;() =&gt; &#123;this.jsm.toggleSideMenu(true)&#125;&#125;&gt;</div><div class="line">	                    &lt;Icon name=&quot;navicon&quot; size=&#123;30&#125; color=&quot;#4F8EF7&quot; style=&#123;&#123;marginTop: 20, marginLeft: 20&#125;&#125;/&gt;  //1</div><div class="line">	                &lt;/TouchableOpacity&gt;</div><div class="line">                &lt;/JellySideMenu&gt;</div><div class="line"></div><div class="line">                &lt;TouchableOpacity onPress=&#123;() =&gt; &#123;this.jsm.toggleSideMenu(true)&#125;&#125;&gt;</div><div class="line">                    &lt;Icon name=&quot;navicon&quot; size=&#123;30&#125; color=&quot;#4F8EF7&quot; style=&#123;&#123;marginTop: 20, marginLeft: 20&#125;&#125;/&gt;  //2</div><div class="line">                &lt;/TouchableOpacity&gt;</div><div class="line">            &lt;/View&gt;</div><div class="line">        )</div><div class="line">    &#125;</div></pre></td></tr></table></figure>
 <pre><code>如果按照官方的demo，即代码1处，当滑出左侧菜单，关闭，再次点击1处的button，此时事件失效。
 你可以把open menu放在2处，可以很好的工作。
@@ -467,7 +467,7 @@ Example123456789101112131415161718192021222324import JellySideMenu from &amp;apo
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="../../../../archives">
-              <span class="site-state-item-count">22</span>
+              <span class="site-state-item-count">23</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -475,7 +475,7 @@ Example123456789101112131415161718192021222324import JellySideMenu from &amp;apo
           
             <div class="site-state-item site-state-categories">
               <a href="../../../../categories">
-                <span class="site-state-item-count">13</span>
+                <span class="site-state-item-count">10</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -484,7 +484,7 @@ Example123456789101112131415161718192021222324import JellySideMenu from &amp;apo
           
             <div class="site-state-item site-state-tags">
               <a href="../../../../tags">
-                <span class="site-state-item-count">28</span>
+                <span class="site-state-item-count">30</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
