@@ -68,7 +68,7 @@
 <link href="../../../../css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="React-Native,RN,Slide Menu," />
+  <meta name="keywords" content="React-Native,RN,CameraRoll," />
 
 
 
@@ -86,25 +86,28 @@
 
 
 
-<meta name="description" content="前言react-native-jelly-side-menu组件,
-因为同时支持ios和android，使用起来也很友好，就用了。
-本记录使用的开发环境：OS: Mac 10.11.6Xcode: Version 8.0 (8A218a)
-Example123456789101112131415161718192021222324import JellySideMenu from &amp;apos;re">
+<meta name="description" content="前言CameraRoll模块提供了访问本地相册的功能。
+开发环境：OS: Mac 10.11.6Xcode: Version 8.0 (8A218a)
+最简单的用例踩到的坑
+解决ReactNative使用CameraRoll时undefined错误
+  1, 将 node_modules/react-native/Libraries/CameraRoll/RCTCameraRoll.xcodepr">
 <meta property="og:type" content="article">
-<meta property="og:title" content="react-native (四) react-native-jelly-side-menu组件">
-<meta property="og:url" content="http://www.nealma.com/2016/07/28/react-native-4-slide-menu/index.html">
+<meta property="og:title" content="React Native (六) CameraRoll 相册组件">
+<meta property="og:url" content="http://www.nealma.com/2016/07/29/react-native-6-cameraroll/index.html">
 <meta property="og:site_name" content="neal.ma">
-<meta property="og:description" content="前言react-native-jelly-side-menu组件,
-因为同时支持ios和android，使用起来也很友好，就用了。
-本记录使用的开发环境：OS: Mac 10.11.6Xcode: Version 8.0 (8A218a)
-Example123456789101112131415161718192021222324import JellySideMenu from &amp;apos;re">
-<meta property="og:updated_time" content="2016-10-16T10:45:10.000Z">
+<meta property="og:description" content="前言CameraRoll模块提供了访问本地相册的功能。
+开发环境：OS: Mac 10.11.6Xcode: Version 8.0 (8A218a)
+最简单的用例踩到的坑
+解决ReactNative使用CameraRoll时undefined错误
+  1, 将 node_modules/react-native/Libraries/CameraRoll/RCTCameraRoll.xcodepr">
+<meta property="og:updated_time" content="2016-10-21T09:21:28.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="react-native (四) react-native-jelly-side-menu组件">
-<meta name="twitter:description" content="前言react-native-jelly-side-menu组件,
-因为同时支持ios和android，使用起来也很友好，就用了。
-本记录使用的开发环境：OS: Mac 10.11.6Xcode: Version 8.0 (8A218a)
-Example123456789101112131415161718192021222324import JellySideMenu from &amp;apos;re">
+<meta name="twitter:title" content="React Native (六) CameraRoll 相册组件">
+<meta name="twitter:description" content="前言CameraRoll模块提供了访问本地相册的功能。
+开发环境：OS: Mac 10.11.6Xcode: Version 8.0 (8A218a)
+最简单的用例踩到的坑
+解决ReactNative使用CameraRoll时undefined错误
+  1, 将 node_modules/react-native/Libraries/CameraRoll/RCTCameraRoll.xcodepr">
 
 
 
@@ -125,9 +128,9 @@ Example123456789101112131415161718192021222324import JellySideMenu from &amp;apo
 
 
 
-  <link rel="canonical" href="http://www.nealma.com/2016/07/28/react-native-4-slide-menu/"/>
+  <link rel="canonical" href="http://www.nealma.com/2016/07/29/react-native-6-cameraroll/"/>
 
-  <title> react-native (四) react-native-jelly-side-menu组件 | neal.ma </title>
+  <title> React Native (六) CameraRoll 相册组件 | neal.ma </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -277,7 +280,7 @@ Example123456789101112131415161718192021222324import JellySideMenu from &amp;apo
             
             
               
-                react-native (四) react-native-jelly-side-menu组件
+                React Native (六) CameraRoll 相册组件
               
             
           </h1>
@@ -289,8 +292,8 @@ Example123456789101112131415161718192021222324import JellySideMenu from &amp;apo
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-07-28T11:46:45+08:00" content="2016-07-28">
-              2016-07-28
+            <time itemprop="dateCreated" datetime="2016-07-29T12:46:45+08:00" content="2016-07-29">
+              2016-07-29
             </time>
           </span>
 
@@ -320,7 +323,7 @@ Example123456789101112131415161718192021222324import JellySideMenu from &amp;apo
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
                 <a href="#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/07/28/react-native-4-slide-menu/" itemprop="commentsCount"></span>
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/07/29/react-native-6-cameraroll/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -343,13 +346,19 @@ Example123456789101112131415161718192021222324import JellySideMenu from &amp;apo
       
 
       
-        <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><pre><code>react-native-jelly-side-menu组件,
-因为同时支持ios和android，使用起来也很友好，就用了。
-</code></pre><p>本记录使用的开发环境：<br>OS: Mac 10.11.6<br>Xcode: Version 8.0 (8A218a)</p>
-<h3 id="Example"><a href="#Example" class="headerlink" title="Example"></a>Example</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line">import JellySideMenu from &apos;react-native-jelly-side-menu&apos;;</div><div class="line"></div><div class="line">...</div><div class="line"></div><div class="line">#render</div><div class="line"></div><div class="line">render() &#123;</div><div class="line">        return (</div><div class="line">            &lt;View style=&#123;&#123;flex: 1, backgroundColor: &apos;#FF6644&apos;&#125;&#125;&gt;</div><div class="line">                &lt;JellySideMenu</div><div class="line">                    ref=&#123;(view) =&gt; &#123;this.jsm = view&#125;&#125;</div><div class="line">                    fill=&#123;&quot;#FFF&quot;&#125; fillOpacity=&#123;1.0&#125;</div><div class="line">                    renderMenu=&#123;this.renderMenu&#125;&gt;</div><div class="line">                    &lt;TouchableOpacity onPress=&#123;() =&gt; &#123;this.jsm.toggleSideMenu(true)&#125;&#125;&gt;</div><div class="line">	                    &lt;Icon name=&quot;navicon&quot; size=&#123;30&#125; color=&quot;#4F8EF7&quot; style=&#123;&#123;marginTop: 20, marginLeft: 20&#125;&#125;/&gt;  //1</div><div class="line">	                &lt;/TouchableOpacity&gt;</div><div class="line">                &lt;/JellySideMenu&gt;</div><div class="line"></div><div class="line">                &lt;TouchableOpacity onPress=&#123;() =&gt; &#123;this.jsm.toggleSideMenu(true)&#125;&#125;&gt;</div><div class="line">                    &lt;Icon name=&quot;navicon&quot; size=&#123;30&#125; color=&quot;#4F8EF7&quot; style=&#123;&#123;marginTop: 20, marginLeft: 20&#125;&#125;/&gt;  //2</div><div class="line">                &lt;/TouchableOpacity&gt;</div><div class="line">            &lt;/View&gt;</div><div class="line">        )</div><div class="line">    &#125;</div></pre></td></tr></table></figure>
-<pre><code>如果按照官方的demo，即代码1处，当滑出左侧菜单，关闭，再次点击1处的button，此时事件失效。
-你可以把open menu放在2处，可以很好的工作。
-</code></pre><h3 id="结束"><a href="#结束" class="headerlink" title="结束"></a>结束</h3><pre><code>：）～
+        <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><pre><code>CameraRoll模块提供了访问本地相册的功能。
+</code></pre><p>开发环境：<br>OS: Mac 10.11.6<br>Xcode: Version 8.0 (8A218a)</p>
+<h3 id="最简单的用例"><a href="#最简单的用例" class="headerlink" title="最简单的用例"></a>最简单的用例</h3><h3 id="踩到的坑"><a href="#踩到的坑" class="headerlink" title="踩到的坑"></a>踩到的坑</h3><ul>
+<li><p>解决ReactNative使用CameraRoll时undefined错误</p>
+<p>  1, 将 node_modules/react-native/Libraries/CameraRoll/RCTCameraRoll.xcodeproj 工程添加到现有工程中<br>  2, 添加静态库依赖： (Build Phases -&gt; Binary With Libraries -&gt; libRCTCameraRoll.a)</p>
+</li>
+<li><p>NSPhotoLibraryUsageDescription key must be present in Info.plist to use camera roll.</p>
+<p>  在info.plist添加键值对</p>
+<p>  1， Privacy - Camera Usage Description  使用相册<br>  2， Privacy - Photo Library Usage Description 使用相机</p>
+<p>  待续…</p>
+</li>
+</ul>
+<h3 id="结束"><a href="#结束" class="headerlink" title="结束"></a>结束</h3><pre><code>：）～
 </code></pre>
       
     </div>
@@ -376,7 +385,7 @@ Example123456789101112131415161718192021222324import JellySideMenu from &amp;apo
           
             <a href="../../../../tags/RN/" rel="tag">#RN</a>
           
-            <a href="../../../../tags/Slide-Menu/" rel="tag">#Slide Menu</a>
+            <a href="../../../../tags/CameraRoll/" rel="tag">#CameraRoll</a>
           
         </div>
       
@@ -385,16 +394,16 @@ Example123456789101112131415161718192021222324import JellySideMenu from &amp;apo
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="../../27/react-native-3-icons/" rel="next" title="react-native (三) react-native-vector-icons组件">
-                <i class="fa fa-chevron-left"></i> react-native (三) react-native-vector-icons组件
+              <a href="../../28/enrollment-1-apple-developer/" rel="next" title="账号申请(一) 苹果开发者账号">
+                <i class="fa fa-chevron-left"></i> 账号申请(一) 苹果开发者账号
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="../react-native-5-listview/" rel="prev" title="react-native (五) react-native-listview组件">
-                react-native (五) react-native-listview组件 <i class="fa fa-chevron-right"></i>
+              <a href="../../30/react-native-7-navigator/" rel="prev" title="React Native (七) Navigator 导航组件">
+                React Native (七) Navigator 导航组件 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -421,8 +430,8 @@ Example123456789101112131415161718192021222324import JellySideMenu from &amp;apo
           
   <div class="comments" id="comments">
     
-      <div class="ds-thread" data-thread-key="2016/07/28/react-native-4-slide-menu/"
-           data-title="react-native (四) react-native-jelly-side-menu组件" data-url="http://www.nealma.com/2016/07/28/react-native-4-slide-menu/">
+      <div class="ds-thread" data-thread-key="2016/07/29/react-native-6-cameraroll/"
+           data-title="React Native (六) CameraRoll 相册组件" data-url="http://www.nealma.com/2016/07/29/react-native-6-cameraroll/">
       </div>
     
   </div>
@@ -467,7 +476,7 @@ Example123456789101112131415161718192021222324import JellySideMenu from &amp;apo
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="../../../../archives">
-              <span class="site-state-item-count">23</span>
+              <span class="site-state-item-count">26</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -475,7 +484,7 @@ Example123456789101112131415161718192021222324import JellySideMenu from &amp;apo
           
             <div class="site-state-item site-state-categories">
               <a href="../../../../categories">
-                <span class="site-state-item-count">10</span>
+                <span class="site-state-item-count">11</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -484,7 +493,7 @@ Example123456789101112131415161718192021222324import JellySideMenu from &amp;apo
           
             <div class="site-state-item site-state-tags">
               <a href="../../../../tags">
-                <span class="site-state-item-count">30</span>
+                <span class="site-state-item-count">34</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -538,7 +547,7 @@ Example123456789101112131415161718192021222324import JellySideMenu from &amp;apo
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Example"><span class="nav-number">2.</span> <span class="nav-text">Example</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#结束"><span class="nav-number">3.</span> <span class="nav-text">结束</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#最简单的用例"><span class="nav-number">2.</span> <span class="nav-text">最简单的用例</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#踩到的坑"><span class="nav-number">3.</span> <span class="nav-text">踩到的坑</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#结束"><span class="nav-number">4.</span> <span class="nav-text">结束</span></a></li></ol></div>
             
           </div>
         </section>

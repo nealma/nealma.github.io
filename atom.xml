@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://www.nealma.com/"/>
-  <updated>2016-10-16T10:45:15.000Z</updated>
+  <updated>2016-10-21T13:48:37.000Z</updated>
   <id>http://www.nealma.com/</id>
   
   <author>
@@ -16,35 +16,157 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>react-native (五) react-native-listview组件</title>
-    <link href="http://www.nealma.com/2016/07/28/react-native-5-listview/"/>
-    <id>http://www.nealma.com/2016/07/28/react-native-5-listview/</id>
-    <published>2016-07-28T04:46:45.000Z</published>
-    <updated>2016-10-16T10:45:15.000Z</updated>
+    <title>React Native (七) Navigator 导航组件</title>
+    <link href="http://www.nealma.com/2016/07/30/react-native-7-navigator/"/>
+    <id>http://www.nealma.com/2016/07/30/react-native-7-navigator/</id>
+    <published>2016-07-30T03:46:45.000Z</published>
+    <updated>2016-10-21T13:48:37.000Z</updated>
     
-    <content type="html"><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><pre><code>react-native-listview组件,
-因为同时支持ios和android，使用起来也很友好，就用了。
-</code></pre><p>本记录使用的开发环境：<br>OS: Mac 10.11.6<br>Xcode: Version 8.0 (8A218a)</p>
-<h3 id="最简单的用例"><a href="#最简单的用例" class="headerlink" title="最简单的用例"></a>最简单的用例</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div></pre></td><td class="code"><pre><div class="line">import ListView from &apos;react-native-listview&apos;;</div><div class="line"></div><div class="line">...</div><div class="line"></div><div class="line">#constructor</div><div class="line">constructor(props) &#123;</div><div class="line">    super(props);</div><div class="line">    //数据源，即要显示的数据</div><div class="line">    const ds = new ListView.DataSource(&#123;rowHasChanged: (r1, r2) =&gt; r1 !== r2&#125;);</div><div class="line">    this.state = &#123;</div><div class="line">        dataSource: ds.cloneWithRows([&apos;row 1&apos;, &apos;row 2&apos;, &apos;row 1&apos;, &apos;row 2&apos;, &apos;row 1&apos;, &apos;row 2&apos;, &apos;row 1&apos;, &apos;row 2&apos;]),</div><div class="line">        loaded: false//4</div><div class="line">    &#125;;</div><div class="line"></div><div class="line">    this._onFetch(); //3</div><div class="line">&#125;</div><div class="line"></div><div class="line">...</div><div class="line"></div><div class="line">#render</div><div class="line"></div><div class="line">render() &#123;</div><div class="line">    return (</div><div class="line">        &lt;ListView</div><div class="line">            dataSource=&#123;this.state.dataSource&#125;</div><div class="line">            //行view，listview会根据datasource的每个数据进行渲染</div><div class="line">            renderRow=&#123;this._renderRowView&#125;</div><div class="line">        /&gt;</div><div class="line">    )</div><div class="line">&#125;</div><div class="line"></div><div class="line">/**</div><div class="line"> * When a row is touched</div><div class="line"> * @param &#123;object&#125; rowData Row data</div><div class="line"> */</div><div class="line">_onPress(rowData) &#123;</div><div class="line">    console.log(rowData+&apos; pressed&apos;);</div><div class="line">&#125;</div><div class="line"></div><div class="line">/**</div><div class="line"> * Render a row</div><div class="line"> * @param &#123;object&#125; rowData Row data</div><div class="line"> */</div><div class="line">_renderRowView(rowData) &#123;</div><div class="line">    return (</div><div class="line">        &lt;TouchableHighlight</div><div class="line">            style=&#123;styles.row&#125;</div><div class="line">            underlayColor=&apos;#c8c7cc&apos;</div><div class="line">        &gt;</div><div class="line">            &lt;Text&gt;&#123;rowData&#125;&lt;/Text&gt;</div><div class="line">        &lt;/TouchableHighlight&gt;</div><div class="line">    );</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h3 id="获取网络数据-Fetch"><a href="#获取网络数据-Fetch" class="headerlink" title="获取网络数据(Fetch)"></a>获取网络数据(Fetch)</h3><pre><code>这里只是简单的实现数据到列表的渲染，在实际项目里，list的数据必定都是从Server获取来的，
-我们以豆瓣音乐API为例, 通过网络数据渲染list
-</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">const API_URL = &apos;https://api.douban.com/v2/music/search?q=love&apos;;</div><div class="line"></div><div class="line">//把3处的注释去掉</div><div class="line"></div><div class="line">_onFetch() &#123;</div><div class="line">    fetch(API_URL)</div><div class="line">        .then(response =&gt; response.json())</div><div class="line">        .then(musics =&gt; &#123;</div><div class="line">            this.setState(&#123;</div><div class="line">                dataSource:this.state.dataSource.cloneWithRows(musics.musics),</div><div class="line">                loaded:true //4</div><div class="line">            &#125;)</div><div class="line">        &#125;)</div><div class="line">        .done();</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h3 id="添加loading状态"><a href="#添加loading状态" class="headerlink" title="添加loading状态"></a>添加loading状态</h3><pre><code>获取网络数据，必然会消耗时间。在等待的过程中，胃了给用户很好的提示，我们都会添加loading图标，
-如果什么都没有，让用户傻傻的干等，用户也不会对你的app有好的印象
-</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">...</div><div class="line">//去掉4处注解</div><div class="line">//修改render</div><div class="line">//在return之前添加如下</div><div class="line"></div><div class="line">if (!this.state.loaded) &#123;</div><div class="line">    return (</div><div class="line">        &lt;View style=&#123;styles.container&#125;&gt;</div><div class="line">            &lt;View style=&#123;styles.loading&#125;&gt;</div><div class="line">                &lt;ActivityIndicator</div><div class="line">                    size=&apos;large&apos;</div><div class="line">                    color=&apos;#eabb33&apos;/&gt;</div><div class="line">            &lt;/View&gt;</div><div class="line">        &lt;/View&gt;</div><div class="line">    )</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h3 id="列表中Item的onPress动作"><a href="#列表中Item的onPress动作" class="headerlink" title="列表中Item的onPress动作"></a>列表中Item的onPress动作</h3><pre><code>因为this的变更问题，_renderRowView做如下修改，onPress作为传递的处理函数
-这里如果你用this._onPress, 会抛出异常，就是this已经不是原来的this了，
-但是onPress还是原来的onPress。
-</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">/**</div><div class="line"> * Render a row</div><div class="line"> * @param &#123;object&#125; rowData Row data</div><div class="line"> */</div><div class="line">_renderRowView(rowData, onPress) &#123;</div><div class="line">    return (</div><div class="line">        &lt;TouchableHighlight</div><div class="line">            style=&#123;styles.row&#125;</div><div class="line">            underlayColor=&apos;#c8c7cc&apos;</div><div class="line">            onPress=&#123;(rowData) =&gt; onPress(rowData)&#125;&gt;</div><div class="line">            &lt;Text&gt;&#123;rowData.title&#125;&lt;/Text&gt;</div><div class="line">        &lt;/TouchableHighlight&gt;</div><div class="line">    );</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h3 id="下拉刷新"><a href="#下拉刷新" class="headerlink" title="下拉刷新"></a>下拉刷新</h3><pre><code>待续...
+    <content type="html"><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><pre><code>Navigator组件作为基础部分，必不可少。前面我们使用了sidemenu，每个menu的触发事件都会跳到
+一个新的视图，此时就要用Navigator了。说白了，就是控制路由的这么一个东西，从一个视图跳到另一个视图。
+</code></pre><p><img src="/images/navigator.gif" alt=""></p>
+<p>开发环境：<br>OS: Mac 10.11.6<br>Xcode: Version 8.0 (8A218a)</p>
+<h3 id="首先要定义Navigator作为入口"><a href="#首先要定义Navigator作为入口" class="headerlink" title="首先要定义Navigator作为入口"></a>首先要定义Navigator作为入口</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">import FirstPage from &apos;./navigator-first-page&apos;;</div><div class="line"></div><div class="line">export default class Main extends React.Component &#123;</div><div class="line">    render() &#123;</div><div class="line">        let defaultName = &apos;FirstPage&apos;;</div><div class="line">        let defaultComponent = FirstPage;</div><div class="line">        return (</div><div class="line">            &lt;Navigator</div><div class="line">                initialRoute=&#123;&#123; name: defaultName, component: defaultComponent &#125;&#125;</div><div class="line">                configureScene=&#123;(route) =&gt; &#123;</div><div class="line">                    return Navigator.SceneConfigs.VerticalDownSwipeJump;</div><div class="line">                &#125;&#125;</div><div class="line">                renderScene=&#123;(route, navigator) =&gt; &#123;</div><div class="line">                const Component = route.component;</div><div class="line">                    return (&lt;Component &#123;...route.params&#125; navigator=&#123;navigator&#125; /&gt;);</div><div class="line">                &#125;&#125; /&gt;</div><div class="line">        );</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<pre><code>＊ initialRoute: 初始化首屏视图，name可以看作页面的ID; component: 视图组件，即要显示的内容
+＊ configureScene: 过场动画
+＊ renderScene: 动态路由
+</code></pre><h3 id="定义第一个页面navigator-first-page-js"><a href="#定义第一个页面navigator-first-page-js" class="headerlink" title="定义第一个页面navigator-first-page.js"></a>定义第一个页面navigator-first-page.js</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div></pre></td><td class="code"><pre><div class="line">import SecondPage from &apos;./navigator-second-page&apos;;</div><div class="line"></div><div class="line">export default class FirstPage extends React.Component &#123;</div><div class="line">    constructor(props) &#123;</div><div class="line">        super(props);</div><div class="line">        this.state = &#123;&#125;;</div><div class="line">    &#125;</div><div class="line">    _pressButton() &#123;</div><div class="line">        const &#123; navigator &#125; = this.props;</div><div class="line">        if(navigator) &#123;</div><div class="line">            navigator.push(&#123;</div><div class="line">                name: &apos;SecondPage&apos;,</div><div class="line">                component: SecondPage</div><div class="line">            &#125;);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    render() &#123;</div><div class="line">        return (</div><div class="line">            &lt;View style=&#123;&#123;flex: 1, backgroundColor: &apos;#fcb064&apos;, justifyContent: &apos;center&apos;, alignItems: &apos;center&apos;&#125;&#125;&gt;</div><div class="line">                &lt;TouchableOpacity onPress=&#123;()=&gt;&#123;this._pressButton();&#125;&#125;&gt;</div><div class="line">                            &lt;Text style=&#123;&#123;height: 30, width: 80&#125;&#125;&gt;第一页&lt;/Text&gt;</div><div class="line">                &lt;/TouchableOpacity&gt;</div><div class="line">            &lt;/View&gt;</div><div class="line">        );</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="定义第二个页面navigator-second-page-js"><a href="#定义第二个页面navigator-second-page-js" class="headerlink" title="定义第二个页面navigator-second-page.js"></a>定义第二个页面navigator-second-page.js</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line">export default class SecondPage extends React.Component &#123;</div><div class="line"></div><div class="line">    constructor(props) &#123;</div><div class="line">        super(props);</div><div class="line">        this.state = &#123;&#125;;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    _pressButton() &#123;</div><div class="line">        const &#123; navigator &#125; = this.props;</div><div class="line">        if(navigator) &#123;</div><div class="line">            //入栈出栈, 把当前的页面pop掉，返回到了上一个页面:FirstPage</div><div class="line">            navigator.pop();</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    render() &#123;</div><div class="line">        return (</div><div class="line">            &lt;View style=&#123;&#123;flex: 1, backgroundColor: &apos;#fb9696&apos;, justifyContent: &apos;center&apos;, alignItems: &apos;center&apos;&#125;&#125;&gt;</div><div class="line">                &lt;TouchableOpacity onPress=&#123;()=&gt;&#123;this._pressButton();&#125;&#125;&gt;</div><div class="line">                    &lt;Text style=&#123;&#123;height: 30, width: 80&#125;&#125;&gt;第二页&lt;/Text&gt;</div><div class="line">                &lt;/TouchableOpacity&gt;</div><div class="line">            &lt;/View&gt;</div><div class="line">        );</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<pre><code>总体上很清晰，如果涉及到事件，待续...
 </code></pre><h3 id="结束"><a href="#结束" class="headerlink" title="结束"></a>结束</h3><pre><code>：）～
 </code></pre>]]></content>
     
     <summary type="html">
     
-      &lt;h3 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h3&gt;&lt;pre&gt;&lt;code&gt;react-native-listview组件,
-因为同时支持ios和android，使用起来也很友好，就用了。
-&lt;/cod
+      &lt;h3 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h3&gt;&lt;pre&gt;&lt;code&gt;Navigator组件作为基础部分，必不可少。前面我们使用了sidemenu，每个menu的触发事件都会跳到
+一个新的视图，
+    
+    </summary>
+    
+      <category term="React-Native" scheme="http://www.nealma.com/categories/React-Native/"/>
+    
+    
+      <category term="React-Native" scheme="http://www.nealma.com/tags/React-Native/"/>
+    
+      <category term="RN" scheme="http://www.nealma.com/tags/RN/"/>
+    
+      <category term="Navigator" scheme="http://www.nealma.com/tags/Navigator/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>React Native (六) CameraRoll 相册组件</title>
+    <link href="http://www.nealma.com/2016/07/29/react-native-6-cameraroll/"/>
+    <id>http://www.nealma.com/2016/07/29/react-native-6-cameraroll/</id>
+    <published>2016-07-29T04:46:45.000Z</published>
+    <updated>2016-10-21T09:21:28.000Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><pre><code>CameraRoll模块提供了访问本地相册的功能。
+</code></pre><p>开发环境：<br>OS: Mac 10.11.6<br>Xcode: Version 8.0 (8A218a)</p>
+<h3 id="最简单的用例"><a href="#最简单的用例" class="headerlink" title="最简单的用例"></a>最简单的用例</h3><h3 id="踩到的坑"><a href="#踩到的坑" class="headerlink" title="踩到的坑"></a>踩到的坑</h3><ul>
+<li><p>解决ReactNative使用CameraRoll时undefined错误</p>
+<p>  1, 将 node_modules/react-native/Libraries/CameraRoll/RCTCameraRoll.xcodeproj 工程添加到现有工程中<br>  2, 添加静态库依赖： (Build Phases -&gt; Binary With Libraries -&gt; libRCTCameraRoll.a)</p>
+</li>
+<li><p>NSPhotoLibraryUsageDescription key must be present in Info.plist to use camera roll.</p>
+<p>  在info.plist添加键值对</p>
+<p>  1， Privacy - Camera Usage Description  使用相册<br>  2， Privacy - Photo Library Usage Description 使用相机</p>
+<p>  待续…</p>
+</li>
+</ul>
+<h3 id="结束"><a href="#结束" class="headerlink" title="结束"></a>结束</h3><pre><code>：）～
+</code></pre>]]></content>
+    
+    <summary type="html">
+    
+      &lt;h3 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h3&gt;&lt;pre&gt;&lt;code&gt;CameraRoll模块提供了访问本地相册的功能。
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;开发环境：&lt;br&gt;OS: Mac 10.
+    
+    </summary>
+    
+      <category term="React-Native" scheme="http://www.nealma.com/categories/React-Native/"/>
+    
+    
+      <category term="React-Native" scheme="http://www.nealma.com/tags/React-Native/"/>
+    
+      <category term="RN" scheme="http://www.nealma.com/tags/RN/"/>
+    
+      <category term="CameraRoll" scheme="http://www.nealma.com/tags/CameraRoll/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>账号申请(一) 苹果开发者账号</title>
+    <link href="http://www.nealma.com/2016/07/28/enrollment-1-apple-developer/"/>
+    <id>http://www.nealma.com/2016/07/28/enrollment-1-apple-developer/</id>
+    <published>2016-07-28T04:46:45.000Z</published>
+    <updated>2016-10-21T09:17:12.000Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><pre><code>辞职在家了，做了个独立开发者。最近一段时间在做App，大部分的功能可以用Simulator调试，
+可偏偏我用到了相机功能，这个无法使用，只能在真机上开发了。
+然而，Xcode真机调试必须要有苹果开发者证书才能工作，word天，没办法，那就注册一个吧。
+</code></pre><h3 id="开发者中心"><a href="#开发者中心" class="headerlink" title="开发者中心"></a>开发者中心</h3><pre><code>我也是够笨的啦，想注册开发者，都不知道去哪注册，找了半天注册链接，要了我的命了。
+</code></pre><p><a href="https://developer.apple.com/enroll" target="_blank" rel="external">传送门 开发者注册中心</a></p>
+<pre><code>找到 Enrollment , 这个就是入口了
+</code></pre><h3 id="注册信息及流程"><a href="#注册信息及流程" class="headerlink" title="注册信息及流程"></a>注册信息及流程</h3><pre><code>* 首先你要有Apple ID， 没有的先去注册一个吧
+* Entity Type 是个人还是公司
+* Authority to Sign Legal Agreements 你的角色
+* 系统会查询你的公司是否申请过DUNS Number，如果咩有DUNS Number，可以免费申请一个（大概两周时间）
+</code></pre><p>### </p>
+<pre><code>还在等待...
+</code></pre><h3 id="结束"><a href="#结束" class="headerlink" title="结束"></a>结束</h3><pre><code>：）～
+</code></pre>]]></content>
+    
+    <summary type="html">
+    
+      &lt;h3 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h3&gt;&lt;pre&gt;&lt;code&gt;辞职在家了，做了个独立开发者。最近一段时间在做App，大部分的功能可以用Simulator调试，
+可偏偏我用到了相机功能，这
+    
+    </summary>
+    
+      <category term="Enrollment" scheme="http://www.nealma.com/categories/Enrollment/"/>
+    
+    
+      <category term="苹果开发者" scheme="http://www.nealma.com/tags/%E8%8B%B9%E6%9E%9C%E5%BC%80%E5%8F%91%E8%80%85/"/>
+    
+      <category term="账号申请" scheme="http://www.nealma.com/tags/%E8%B4%A6%E5%8F%B7%E7%94%B3%E8%AF%B7/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>React Native (五) ListView 组件</title>
+    <link href="http://www.nealma.com/2016/07/28/react-native-5-listview/"/>
+    <id>http://www.nealma.com/2016/07/28/react-native-5-listview/</id>
+    <published>2016-07-28T04:46:45.000Z</published>
+    <updated>2016-10-21T09:25:13.000Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><pre><code>ListView组件是每个App都用到的核心组件，RN当然也不能少。
+</code></pre><p><img src="/images/listview.gif" alt=""></p>
+<pre><code>开发环境：
+OS: Mac 10.11.6
+Xcode: Version 8.0 (8A218a)
+</code></pre><h3 id="核心配置介绍"><a href="#核心配置介绍" class="headerlink" title="核心配置介绍"></a>核心配置介绍</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">...</div><div class="line">constructor(props) &#123;</div><div class="line">    super(props);</div><div class="line">    const ds = new ListView.DataSource(&#123;</div><div class="line">        rowHasChanged: (r1, r2) =&gt; r1 !== r2, //1, 对变化的行渲染</div><div class="line">        sectionHeaderHasChanged : (s1, s2) =&gt; s1 !== s2 //2, 分组头部信息变更</div><div class="line">    &#125;);</div><div class="line">    let rowData = Array.from(new Array(10)).map((val, i) =&gt; (&#123;title: &apos;初始化数据 &apos; + i&#125;));</div><div class="line">    this.state = &#123;</div><div class="line">        dataSource: ds.cloneWithRows(rowData),</div><div class="line">        data: rowData,</div><div class="line">        isLoaded: false,</div><div class="line">        isRefreshing: false</div><div class="line">    &#125;;</div><div class="line">&#125;</div><div class="line"></div><div class="line">render() &#123;</div><div class="line">    if (!this.state.isLoaded) &#123;//3, loading</div><div class="line">        return &lt;Loading/&gt;;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    return (</div><div class="line">        &lt;ListView</div><div class="line">            style=&#123;styles.container&#125;</div><div class="line">            dataSource=&#123;this.state.dataSource&#125;/* 要渲染的数据源，类型是数组 */</div><div class="line">            renderRow=&#123;(rowData) =&gt; this._renderRowView(rowData, this._onPress)&#125;</div><div class="line">            onEndReached=&#123;this._handleLoadMore.bind(this)&#125; /* 滑动偏移量 &gt; onEndReachedThreshold的像素值时，触发 */</div><div class="line">            onEndReachedThreshold=&#123;5&#125; /* 调用onEndReached之前的临界值，单位是像素 */</div><div class="line">            initialListSize=&#123;8&#125; /* 初始值 */</div><div class="line">            pageSize=&#123;8&#125;/* 每次事件循环（每帧）渲染的行数 */</div><div class="line">            renderHeader=&#123; this._renderHeader.bind(this)&#125;</div><div class="line">            renderFooter=&#123;this._renderFooter.bind(this)&#125;</div><div class="line">            renderSectionHeader=&#123;this._renderSectionHeader.bind(this)&#125;</div><div class="line">            refreshControl=&#123;</div><div class="line">                &lt;RefreshControl // 下拉刷新</div><div class="line">                    refreshing=&#123;this.state.isRefreshing&#125;</div><div class="line">                    onRefresh=&#123;this._onRefresh.bind(this)&#125;/* 下拉刷新时，触发此事件*/</div><div class="line">                    title=&#123;this.state.isRefreshing? &apos;刷新中....&apos;:&apos;下拉刷新&apos;&#125;</div><div class="line">                    colors=&#123;[&apos;#fb96cf&apos;, &apos;#fb96cf&apos;,&apos;#fb96cf&apos;,&apos;#fb96cf&apos;]&#125;</div><div class="line">                    tintColor=&apos;#fb96cf&apos;</div><div class="line">                    progressBackgroundColor=&quot;#fb96cf&quot;</div><div class="line">                /&gt;</div><div class="line">            &#125;</div><div class="line">        /&gt;</div><div class="line">    );</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="添加loading状态"><a href="#添加loading状态" class="headerlink" title="添加loading状态"></a>添加loading状态</h3><pre><code>获取网络数据，必然会消耗时间。在等待的过程中，为了给用户很好的提示，我们都会添加loading图标，
+如果什么都没有，让用户傻傻的干等，用户也不会对你的app有好的印象
+</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">class Loading extends Component &#123;</div><div class="line">    render()&#123;</div><div class="line">        return (</div><div class="line">            &lt;View style=&#123;styles.container&#125;&gt;</div><div class="line">                &lt;View style=&#123;styles.loading&#125;&gt;</div><div class="line">                    &lt;ActivityIndicator</div><div class="line">                        size=&apos;large&apos;</div><div class="line">                        color=&apos;#eabb33&apos;/&gt;</div><div class="line">                &lt;/View&gt;</div><div class="line">            &lt;/View&gt;</div><div class="line">        );</div><div class="line">    &#125;;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="列表中Item的onPress事件"><a href="#列表中Item的onPress事件" class="headerlink" title="列表中Item的onPress事件"></a>列表中Item的onPress事件</h3><pre><code>因为this的变更问题，_renderRowView做如下修改，onPress作为传递的处理函数
+这里如果你用this._onPress, 会抛出异常，就是this已经不是原来的this了，
+但是onPress还是原来的onPress。
+</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">_renderRowView(rowData, onPress) &#123;</div><div class="line">    return (</div><div class="line">        &lt;TouchableOpacity</div><div class="line">            underlayColor=&apos;#484848&apos;</div><div class="line">            onPress=&#123;(rowData) =&gt; onPress(rowData)&#125;&gt;</div><div class="line">            &lt;View style=&#123;styles.row&#125;&gt;</div><div class="line">                &lt;View style=&#123;&#123;flex: 1, backgroundColor: &apos;#c8c7cc&apos;&#125;&#125;/&gt;</div><div class="line">                &lt;View style=&#123;&#123;flex: 20, backgroundColor: &apos;#EFE&apos;,justifyContent: &apos;center&apos;, alignItems: &apos;center&apos; &#125;&#125;&gt;</div><div class="line">                    &lt;Text style=&#123;&#123;</div><div class="line">                        borderColor: &apos;#d1d1d1&apos;,</div><div class="line">                        borderWidth: 2,</div><div class="line">                        borderRadius: 5 &#125;&#125;&gt;&#123;rowData.title&#125;&lt;/Text&gt;</div><div class="line">                &lt;/View&gt;</div><div class="line">            &lt;/View&gt;</div><div class="line">        &lt;/TouchableOpacity&gt;</div><div class="line">    );</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="下拉刷新"><a href="#下拉刷新" class="headerlink" title="下拉刷新"></a>下拉刷新</h3><pre><code>需要用RefreshControl组件，通过isRefreshing改变 正在刷新(true)、刷新完成(false),
+onRefresh触发该事件，进入onRefresh时，设置isRefreshing=true,处理完成onRefresh时，设置isRefreshing=false
+</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">_onRefresh() &#123;</div><div class="line">    // 刷新</div><div class="line">    this.setState(&#123;isRefreshing: true&#125;);</div><div class="line">    console.log(&apos;refresh&apos;, this.state.data);</div><div class="line">    setTimeout(() =&gt; &#123;</div><div class="line">        this._onFetch(false);</div><div class="line">        this.setState(&#123;isRefreshing: false&#125;);</div><div class="line">    &#125;,2000);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="Load-More-指示器"><a href="#Load-More-指示器" class="headerlink" title="Load More 指示器"></a>Load More 指示器</h3><pre><code>ListView可以使用renderFooter属性实现加载更多指示器，这里只用简单的文字实现，更多的效果请自行玩耍
+</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line">...</div><div class="line">_renderFooter()&#123;</div><div class="line">    return(</div><div class="line">        &lt;Footer /&gt;</div><div class="line">    );</div><div class="line">&#125;</div><div class="line">...</div><div class="line"></div><div class="line">class Footer extends Component &#123;</div><div class="line">    render()&#123;</div><div class="line">        return(</div><div class="line">            &lt;StaticContainer&gt;</div><div class="line">                &lt;View style=&#123;&#123; flex:1, flexDirection: &apos;row&apos;, justifyContent: &apos;space-between&apos;,</div><div class="line">                    alignItems: &apos;center&apos;, height:50, backgroundColor:&apos;#fb96cf&apos;&#125;&#125;&gt;</div><div class="line">                    &lt;Text&gt;&lt;/Text&gt;</div><div class="line">                    &lt;Text&gt;加载更多&lt;/Text&gt;</div><div class="line">                    &lt;Text&gt;&lt;/Text&gt;</div><div class="line">                &lt;/View&gt;</div><div class="line">            &lt;/StaticContainer&gt;</div><div class="line">        );</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="有关显示隐藏"><a href="#有关显示隐藏" class="headerlink" title="有关显示隐藏"></a>有关显示隐藏</h3><pre><code>RN中没有display:none可用，可以换一种方式实现
+</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">isHidden?&lt;View/&gt;:null</div></pre></td></tr></table></figure>
+<h3 id="结束"><a href="#结束" class="headerlink" title="结束"></a>结束</h3><pre><code>这里用到了StaticContainer，据说性能好，没有具体看呢？了解的同学可以给我留言
+：）～
+</code></pre>]]></content>
+    
+    <summary type="html">
+    
+      &lt;h3 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h3&gt;&lt;pre&gt;&lt;code&gt;ListView组件是每个App都用到的核心组件，RN当然也不能少。
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;&lt;img src=&quot;/
     
     </summary>
     
@@ -60,25 +182,36 @@
   </entry>
   
   <entry>
-    <title>react-native (四) react-native-jelly-side-menu组件</title>
-    <link href="http://www.nealma.com/2016/07/28/react-native-4-slide-menu/"/>
-    <id>http://www.nealma.com/2016/07/28/react-native-4-slide-menu/</id>
+    <title>React Native (四) react-native-side-menu组件</title>
+    <link href="http://www.nealma.com/2016/07/28/react-native-4-sidemenu/"/>
+    <id>http://www.nealma.com/2016/07/28/react-native-4-sidemenu/</id>
     <published>2016-07-28T03:46:45.000Z</published>
-    <updated>2016-10-16T10:45:10.000Z</updated>
+    <updated>2016-10-20T13:39:05.000Z</updated>
     
-    <content type="html"><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><pre><code>react-native-jelly-side-menu组件,
-因为同时支持ios和android，使用起来也很友好，就用了。
-</code></pre><p>本记录使用的开发环境：<br>OS: Mac 10.11.6<br>Xcode: Version 8.0 (8A218a)</p>
-<h3 id="Example"><a href="#Example" class="headerlink" title="Example"></a>Example</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line">import JellySideMenu from &apos;react-native-jelly-side-menu&apos;;</div><div class="line"></div><div class="line">...</div><div class="line"></div><div class="line">#render</div><div class="line"></div><div class="line">render() &#123;</div><div class="line">        return (</div><div class="line">            &lt;View style=&#123;&#123;flex: 1, backgroundColor: &apos;#FF6644&apos;&#125;&#125;&gt;</div><div class="line">                &lt;JellySideMenu</div><div class="line">                    ref=&#123;(view) =&gt; &#123;this.jsm = view&#125;&#125;</div><div class="line">                    fill=&#123;&quot;#FFF&quot;&#125; fillOpacity=&#123;1.0&#125;</div><div class="line">                    renderMenu=&#123;this.renderMenu&#125;&gt;</div><div class="line">                    &lt;TouchableOpacity onPress=&#123;() =&gt; &#123;this.jsm.toggleSideMenu(true)&#125;&#125;&gt;</div><div class="line">	                    &lt;Icon name=&quot;navicon&quot; size=&#123;30&#125; color=&quot;#4F8EF7&quot; style=&#123;&#123;marginTop: 20, marginLeft: 20&#125;&#125;/&gt;  //1</div><div class="line">	                &lt;/TouchableOpacity&gt;</div><div class="line">                &lt;/JellySideMenu&gt;</div><div class="line"></div><div class="line">                &lt;TouchableOpacity onPress=&#123;() =&gt; &#123;this.jsm.toggleSideMenu(true)&#125;&#125;&gt;</div><div class="line">                    &lt;Icon name=&quot;navicon&quot; size=&#123;30&#125; color=&quot;#4F8EF7&quot; style=&#123;&#123;marginTop: 20, marginLeft: 20&#125;&#125;/&gt;  //2</div><div class="line">                &lt;/TouchableOpacity&gt;</div><div class="line">            &lt;/View&gt;</div><div class="line">        )</div><div class="line">    &#125;</div></pre></td></tr></table></figure>
+    <content type="html"><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><pre><code>侧滑菜单在实际工作中，很常见，是比较流行的一种设计，
+RN怎会没有呢。一开始接触RN，总是乐于社区的活跃，你需要什么，大都会能找到
+现成，最初使用了react-native-jelly-side-menu，但是在安卓上死活run不起来，
+后来辗转到了react-native-side-menu,可以很好的在iOS、Android中玩耍。
+</code></pre><p><img src="/images/sidemenu.gif" alt=""></p>
+<p>开发环境<br>OS: Mac 10.11.6<br>Xcode: Version 8.0 (8A218a)</p>
+<h3 id="react-native-jelly-side-menu-爱恨"><a href="#react-native-jelly-side-menu-爱恨" class="headerlink" title="react-native-jelly-side-menu 爱恨"></a>react-native-jelly-side-menu 爱恨</h3><pre><code>jelly的动画很吸引我，就用了
+</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line">import JellySideMenu from &apos;react-native-jelly-side-menu&apos;;</div><div class="line"></div><div class="line">...</div><div class="line"></div><div class="line">#render</div><div class="line"></div><div class="line">render() &#123;</div><div class="line">        return (</div><div class="line">            &lt;View style=&#123;&#123;flex: 1, backgroundColor: &apos;#FF6644&apos;&#125;&#125;&gt;</div><div class="line">                &lt;JellySideMenu</div><div class="line">                    ref=&#123;(view) =&gt; &#123;this.jsm = view&#125;&#125;</div><div class="line">                    fill=&#123;&quot;#FFF&quot;&#125; fillOpacity=&#123;1.0&#125;</div><div class="line">                    renderMenu=&#123;this.renderMenu&#125;&gt;</div><div class="line">                    &lt;TouchableOpacity onPress=&#123;() =&gt; &#123;this.jsm.toggleSideMenu(true)&#125;&#125;&gt;</div><div class="line">	                    &lt;Icon name=&quot;navicon&quot; size=&#123;30&#125; color=&quot;#4F8EF7&quot; style=&#123;&#123;marginTop: 20, marginLeft: 20&#125;&#125;/&gt;  //1</div><div class="line">	                &lt;/TouchableOpacity&gt;</div><div class="line">                &lt;/JellySideMenu&gt;</div><div class="line"></div><div class="line">                &lt;TouchableOpacity onPress=&#123;() =&gt; &#123;this.jsm.toggleSideMenu(true)&#125;&#125;&gt;</div><div class="line">                    &lt;Icon name=&quot;navicon&quot; size=&#123;30&#125; color=&quot;#4F8EF7&quot; style=&#123;&#123;marginTop: 20, marginLeft: 20&#125;&#125;/&gt;  //2</div><div class="line">                &lt;/TouchableOpacity&gt;</div><div class="line">            &lt;/View&gt;</div><div class="line">        )</div><div class="line">    &#125;</div></pre></td></tr></table></figure>
 <pre><code>如果按照官方的demo，即代码1处，当滑出左侧菜单，关闭，再次点击1处的button，此时事件失效。
 你可以把open menu放在2处，可以很好的工作。
-</code></pre><h3 id="结束"><a href="#结束" class="headerlink" title="结束"></a>结束</h3><pre><code>：）～
+</code></pre><h3 id="追加1-换回官方的react-native-side-menu"><a href="#追加1-换回官方的react-native-side-menu" class="headerlink" title="追加1: 换回官方的react-native-side-menu"></a>追加1: 换回官方的react-native-side-menu</h3><pre><code>因为在android上运行的时候，报错了，联系作者没反应，自己短时间内无从下手，只好换了。
+</code></pre><h3 id="react-native-side-menu-简单使用"><a href="#react-native-side-menu-简单使用" class="headerlink" title="react-native-side-menu 简单使用"></a>react-native-side-menu 简单使用</h3><pre><code>给出一个简单的例子
+</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div></pre></td><td class="code"><pre><div class="line">export  default  class Main extends Component &#123;</div><div class="line">    constructor(props) &#123;</div><div class="line">        super(props);</div><div class="line">        this.state = &#123;&#125;;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    updateMenuState(isOpen) &#123;</div><div class="line">        this.setState(&#123; isOpen, &#125;);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    onMenuItemSelected = (item) =&gt; &#123;</div><div class="line">        //TODO：单击菜单的后续动作, 跳转到相应的页面</div><div class="line">        alert(&quot;单击 &quot; + item);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    render() &#123;</div><div class="line">        const menu = &lt;LeftView onItemSelected=&#123;this.onMenuItemSelected&#125; /&gt;;</div><div class="line">        return (</div><div class="line">            &lt;SideMenu</div><div class="line">                menu=&#123;menu&#125; /* 设置左侧页面(菜单) */</div><div class="line">                isOpen=&#123;this.state.isOpen&#125;/* 状态控制: true 打开，false 关闭*/</div><div class="line">                onChange=&#123;(isOpen) =&gt; this.updateMenuState(isOpen)&#125;&gt;</div><div class="line">                &lt;ContentView /&gt;</div><div class="line">            &lt;/SideMenu&gt;</div><div class="line">        );</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">class ContentView extends Component &#123;</div><div class="line">    render() &#123;</div><div class="line">        return (</div><div class="line">            &lt;View style=&#123;styles.page&#125;&gt;&lt;Text style=&#123;styles.pageContent&#125;&gt;Content&lt;/Text&gt;&lt;/View&gt;</div><div class="line">        );</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">class LeftView extends Component &#123;</div><div class="line"></div><div class="line">    static propTypes = &#123;</div><div class="line">        onItemSelected: React.PropTypes.func.isRequired,</div><div class="line">    &#125;;</div><div class="line"></div><div class="line">    constructor(props) &#123;</div><div class="line">        super(props);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    render() &#123;</div><div class="line">        return (</div><div class="line">            &lt;ScrollView scrollsToTop=&#123;true&#125; style=&#123;styles.menu&#125;&gt;</div><div class="line">                &lt;Text</div><div class="line">                    onPress=&#123;() =&gt; this.props.onItemSelected(&apos;first&apos;)&#125;</div><div class="line">                    style=&#123;styles.item&#125;&gt;</div><div class="line">                    First</div><div class="line">                &lt;/Text&gt;</div><div class="line"></div><div class="line">                &lt;Text</div><div class="line">                    onPress=&#123;() =&gt; this.props.onItemSelected(&apos;second&apos;)&#125;</div><div class="line">                    style=&#123;styles.item&#125;&gt;</div><div class="line">                    Second</div><div class="line">                &lt;/Text&gt;</div><div class="line"></div><div class="line">                &lt;Text</div><div class="line">                    onPress=&#123;() =&gt; this.props.onItemSelected(&apos;third&apos;)&#125;</div><div class="line">                    style=&#123;styles.item&#125;&gt;</div><div class="line">                    Third</div><div class="line">                &lt;/Text&gt;</div><div class="line">            &lt;/ScrollView&gt;</div><div class="line">        );</div><div class="line">    &#125;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<pre><code>在使用过程中，比较费解的是onMenuItemSelected, 该函数在LeftView中进行声明并指定类型为function，
+并没有实现，而是留给引用者去实现具体业务， 也就是TODO的位置。
+</code></pre><h3 id="结束"><a href="#结束" class="headerlink" title="结束"></a>结束</h3><pre><code>menu的导航需要Navigator组件配置使用，后面会做个结合使用的例子。
+
+：）～
 </code></pre>]]></content>
     
     <summary type="html">
     
-      &lt;h3 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h3&gt;&lt;pre&gt;&lt;code&gt;react-native-jelly-side-menu组件,
-因为同时支持ios和android，使用起来也很友好，就用了
+      &lt;h3 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h3&gt;&lt;pre&gt;&lt;code&gt;侧滑菜单在实际工作中，很常见，是比较流行的一种设计，
+RN怎会没有呢。一开始接触RN，总是乐于社区的活跃，你需要什么，大都会
     
     </summary>
     
@@ -94,19 +227,19 @@
   </entry>
   
   <entry>
-    <title>react-native (三) react-native-vector-icons组件</title>
+    <title>React Native (三) react-native-vector-icons 图标组件</title>
     <link href="http://www.nealma.com/2016/07/27/react-native-3-icons/"/>
     <id>http://www.nealma.com/2016/07/27/react-native-3-icons/</id>
     <published>2016-07-27T03:46:45.000Z</published>
-    <updated>2016-10-16T10:48:05.000Z</updated>
+    <updated>2016-10-21T09:30:39.000Z</updated>
     
     <content type="html"><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><pre><code>react-native-vector-icons组件,
-可以免费使用更多的icons资源
-</code></pre><p>本记录使用的开发环境：<br>OS: Mac 10.11.6<br>Xcode: Version 8.0 (8A218a)</p>
+对于非设计人员，可以免费使用更多的icons资源
+</code></pre><p>开发环境：<br>OS: Mac 10.11.6<br>Xcode: Version 8.0 (8A218a)</p>
 <h3 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">npm install react-native-vector-icons --save</div><div class="line">rnpm link</div></pre></td></tr></table></figure>
-<p>＊ ios<br>    之后会在Xcode中的info.plis里面看到如下键值信息：<br>    Fonts provided by application（item0-item7）<br>    如果没有此项信息，需要手动添加Fonts provided by application。</p>
 <ul>
-<li>android<br>  Edit android/app/build.gradle ( NOT android/build.gradle ) and add the following:<br>  添加如下内容:</li>
+<li>iOS<br>  之后会在Xcode中的info.plis里面看到如下键值信息：<br>  Fonts provided by application（item0-item7）<br>  如果没有此项信息，需要手动添加Fonts provided by application。</li>
+<li>Android<br>  Edit android/app/build.gradle ( NOT android/build.gradle ) and add the following:<br>  添加如下内容:</li>
 </ul>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">project.ext.vectoricons = [</div><div class="line">    iconFontNames: [ &apos;MaterialIcons.ttf&apos;, &apos;EvilIcons.ttf&apos;, &apos;FontAwesome.ttf&apos;, &apos;Entypo.fft&apos;, &apos;EvilIcons.ttf&apos;, &apos;Octicons.ttf&apos;, &apos;Zocial.ttf&apos;, &apos;Ionicons.ttf&apos; ] // Name of the font files you want to copy</div><div class="line">]</div><div class="line"></div><div class="line">apply from: &quot;../../node_modules/react-native-vector-icons/fonts.gradle&quot;</div></pre></td></tr></table></figure>
 <h3 id="Example"><a href="#Example" class="headerlink" title="Example"></a>Example</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">import Icon from &apos;react-native-vector-icons/FontAwesome&apos;;</div><div class="line"></div><div class="line">&lt;Icon name=&quot;navicon&quot; size=&#123;30&#125; color=&quot;#4F8EF7&quot; style=&#123;&#123;marginTop: 20, marginLeft: 20&#125;&#125;/&gt;</div></pre></td></tr></table></figure>
@@ -117,8 +250,8 @@
     <summary type="html">
     
       &lt;h3 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h3&gt;&lt;pre&gt;&lt;code&gt;react-native-vector-icons组件,
-可以免费使用更多的icons资源
-&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;
+对于非设计人员，可以免费使用更多的icons资源
+&lt;/code&gt;&lt;
     
     </summary>
     
@@ -134,11 +267,11 @@
   </entry>
   
   <entry>
-    <title>react-native (二) Image图片组件</title>
+    <title>React Native (二) Image图片组件</title>
     <link href="http://www.nealma.com/2016/07/26/react-native-2-image/"/>
     <id>http://www.nealma.com/2016/07/26/react-native-2-image/</id>
     <published>2016-07-26T03:46:45.000Z</published>
-    <updated>2016-10-16T10:44:58.000Z</updated>
+    <updated>2016-10-20T06:14:44.000Z</updated>
     
     <content type="html"><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><pre><code>在RN中使用Image组件，即使很简单，总会出现这个那个的问题。
 </code></pre><p>本记录使用的开发环境：<br>OS: Mac 10.11.6<br>Xcode: Version 8.0 (8A218a)</p>
@@ -151,9 +284,9 @@
 <li>uri</li>
 </ul>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&lt;View style=&#123;&#123;width: <span class="number">100</span>, height: <span class="number">100</span>&#125;&#125;&gt;</div><div class="line">    &lt;Image source=&#123;&#123;uri: 'http://cdn.crunchify.com/wp-content/uploads/2013/01/html5-canvas.png'&#125;&#125; /&gt;</div><div class="line">    &lt;Image source=&#123;&#123;uri: 'https://facebook.github.io/react/img/logo_og.png'&#125;&#125; /&gt;</div><div class="line">&lt;/View&gt;</div></pre></td></tr></table></figure>
-<pre><code>注意如果是ios,http协议的uri会受到限制，可能什么也看不到，
-这是因为iOS9之后，默认Https请求，如需支持Http，
-修改info.plist文件添加键值对就
+<pre><code>注意如果是iOS,HTTP协议的uri会受到限制，可能什么也看不到，
+这是因为iOS9之后，默认HTTPs请求，如需支持HTTP，
+修改info.plist文件, 添加键值对就OK
 
 需要在info.plist中设置
 
@@ -187,16 +320,16 @@ Allow Arbitrary Loads 设置为 YES
   </entry>
   
   <entry>
-    <title>react-native (一) 环境搭建</title>
+    <title>React Native (一) 环境搭建</title>
     <link href="http://www.nealma.com/2016/06/26/react-native-1-envirment/"/>
     <id>http://www.nealma.com/2016/06/26/react-native-1-envirment/</id>
     <published>2016-06-26T03:46:45.000Z</published>
-    <updated>2016-10-16T10:58:10.000Z</updated>
+    <updated>2016-10-20T10:34:26.000Z</updated>
     
     <content type="html"><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><pre><code>对于人员缺少，功能又不复杂的app来说，使用RN这种方式效率还是很高的;
 在使用的过程中，即使你按照参考资料，一个代码一个代码的敲，最后还是报bug，
 总会让你头疼，这个过程中，记录了下遇到的问题，可以让看到的人少走些弯路。
-</code></pre><p>本记录使用的开发环境：<br>OS: Mac 10.11.6<br>Xcode: Version 8.0 (8A218a)</p>
+</code></pre><p>开发环境：<br>OS: Mac 10.11.6<br>Xcode: Version 8.0 (8A218a)</p>
 <h3 id="安装环境"><a href="#安装环境" class="headerlink" title="安装环境"></a>安装环境</h3><pre><code>根据RN中文网的步骤来，都没啥问题。
 </code></pre><h3 id="遇到的坑"><a href="#遇到的坑" class="headerlink" title="遇到的坑"></a>遇到的坑</h3><ul>
 <li>Failure to call AppRegistry.registerComponent</li>
@@ -231,7 +364,7 @@ Allow Arbitrary Loads 设置为 YES
 <h3 id="reload菜单shortcut"><a href="#reload菜单shortcut" class="headerlink" title="reload菜单shortcut"></a>reload菜单shortcut</h3></li>
 <li><p>iOS        command + d</p>
 </li>
-<li>android     command + m</li>
+<li>Android     command + m</li>
 </ul>
 <h3 id="结束"><a href="#结束" class="headerlink" title="结束"></a>结束</h3><pre><code>还是很方便的吗
 </code></pre>]]></content>
@@ -446,36 +579,6 @@ so，还是折腾下亲儿
   </entry>
   
   <entry>
-    <title>Vim Plugin 自动补全(NERDTree)</title>
-    <link href="http://www.nealma.com/2016/04/26/vim-plugin-install-nerttree/"/>
-    <id>http://www.nealma.com/2016/04/26/vim-plugin-install-nerttree/</id>
-    <published>2016-04-26T04:46:45.000Z</published>
-    <updated>2016-10-16T10:46:43.000Z</updated>
-    
-    <content type="html"><![CDATA[<p>Vim在安装目录工具NERDTree的时候，遇到了坑。</p>
-<p>本记录使用的开发环境：<br>OS: Mac</p>
-<h3 id="其实也没啥，就是不知道怎么启用，哈哈"><a href="#其实也没啥，就是不知道怎么启用，哈哈" class="headerlink" title="其实也没啥，就是不知道怎么启用，哈哈"></a>其实也没啥，就是不知道怎么启用，哈哈</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">#进入vim</div><div class="line"></div><div class="line">:NERDTree ＃回车，就看到啦</div><div class="line"></div><div class="line">#Crtl + w 是前缀唤醒组合</div><div class="line"></div><div class="line">#左右切换</div><div class="line">h l </div><div class="line"></div><div class="line">#退出</div><div class="line">q</div><div class="line"></div><div class="line">#每次都需要输入NERDTree是不是很麻烦，别怕，可以很省事的</div><div class="line"></div><div class="line">#vim ~/.vimrc 加入</div><div class="line">nnoremap &lt;silent&gt; &lt;F5&gt; :NERDTree&lt;CR&gt;</div></pre></td></tr></table></figure>
-<p>:D-</p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;Vim在安装目录工具NERDTree的时候，遇到了坑。&lt;/p&gt;
-&lt;p&gt;本记录使用的开发环境：&lt;br&gt;OS: Mac&lt;/p&gt;
-&lt;h3 id=&quot;其实也没啥，就是不知道怎么启用，哈哈&quot;&gt;&lt;a href=&quot;#其实也没啥，就是不知道怎么启用，哈哈&quot; class=&quot;headerlink
-    
-    </summary>
-    
-      <category term="Vim" scheme="http://www.nealma.com/categories/Vim/"/>
-    
-    
-      <category term="Vim" scheme="http://www.nealma.com/tags/Vim/"/>
-    
-      <category term="NERDTree" scheme="http://www.nealma.com/tags/NERDTree/"/>
-    
-  </entry>
-  
-  <entry>
     <title>Vim Plugin 自动补全(YouCompleteMe)</title>
     <link href="http://www.nealma.com/2016/04/26/vim-plugin-install-youcompleteme/"/>
     <id>http://www.nealma.com/2016/04/26/vim-plugin-install-youcompleteme/</id>
@@ -510,6 +613,36 @@ so，还是折腾下亲儿
       <category term="Vim" scheme="http://www.nealma.com/tags/Vim/"/>
     
       <category term="Plugin" scheme="http://www.nealma.com/tags/Plugin/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Vim Plugin 自动补全(NERDTree)</title>
+    <link href="http://www.nealma.com/2016/04/26/vim-plugin-install-nerttree/"/>
+    <id>http://www.nealma.com/2016/04/26/vim-plugin-install-nerttree/</id>
+    <published>2016-04-26T04:46:45.000Z</published>
+    <updated>2016-10-16T10:46:43.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>Vim在安装目录工具NERDTree的时候，遇到了坑。</p>
+<p>本记录使用的开发环境：<br>OS: Mac</p>
+<h3 id="其实也没啥，就是不知道怎么启用，哈哈"><a href="#其实也没啥，就是不知道怎么启用，哈哈" class="headerlink" title="其实也没啥，就是不知道怎么启用，哈哈"></a>其实也没啥，就是不知道怎么启用，哈哈</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">#进入vim</div><div class="line"></div><div class="line">:NERDTree ＃回车，就看到啦</div><div class="line"></div><div class="line">#Crtl + w 是前缀唤醒组合</div><div class="line"></div><div class="line">#左右切换</div><div class="line">h l </div><div class="line"></div><div class="line">#退出</div><div class="line">q</div><div class="line"></div><div class="line">#每次都需要输入NERDTree是不是很麻烦，别怕，可以很省事的</div><div class="line"></div><div class="line">#vim ~/.vimrc 加入</div><div class="line">nnoremap &lt;silent&gt; &lt;F5&gt; :NERDTree&lt;CR&gt;</div></pre></td></tr></table></figure>
+<p>:D-</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;Vim在安装目录工具NERDTree的时候，遇到了坑。&lt;/p&gt;
+&lt;p&gt;本记录使用的开发环境：&lt;br&gt;OS: Mac&lt;/p&gt;
+&lt;h3 id=&quot;其实也没啥，就是不知道怎么启用，哈哈&quot;&gt;&lt;a href=&quot;#其实也没啥，就是不知道怎么启用，哈哈&quot; class=&quot;headerlink
+    
+    </summary>
+    
+      <category term="Vim" scheme="http://www.nealma.com/categories/Vim/"/>
+    
+    
+      <category term="Vim" scheme="http://www.nealma.com/tags/Vim/"/>
+    
+      <category term="NERDTree" scheme="http://www.nealma.com/tags/NERDTree/"/>
     
   </entry>
   
@@ -677,109 +810,6 @@ so，还是折腾下亲儿
     
     
       <category term="Mac OS" scheme="http://www.nealma.com/tags/Mac-OS/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Hexo使用攻略</title>
-    <link href="http://www.nealma.com/2016/03/18/hexo-how-to-use/"/>
-    <id>http://www.nealma.com/2016/03/18/hexo-how-to-use/</id>
-    <published>2016-03-18T03:46:45.000Z</published>
-    <updated>2016-10-15T14:07:42.000Z</updated>
-    
-    <content type="html"><![CDATA[<p>对生活、学习或者工作中，遇到的问题以及解决的方案，已blog的形式存于互联网，共享给需要帮助的人。<br>但是从各大博客网站辗转于免费空间，最后落脚在github，hexo给我们提供了方便的blog模版，<br>让我们可以安心的写内容了，hexo使用过程中的一些记录，便于后来人。</p>
-<h3 id="1-安装"><a href="#1-安装" class="headerlink" title="1 安装"></a>1 安装</h3><p>nodejs、git、hexo,具体步骤，请Google。<br>我的环境是Mac OS<br>so ：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">brew install npm（Node Packaged Modules）</div><div class="line">brew install n -g</div><div class="line">n ls</div><div class="line">n 6.5.0</div><div class="line">brew install git</div><div class="line">npm install hexo-cli -g</div><div class="line">npm install hexo --save</div><div class="line">hexo g</div><div class="line">hexo s</div><div class="line">hexo d</div><div class="line"></div><div class="line">#如果报错的话，执行</div><div class="line">npm install hexo --no-optional</div><div class="line"></div><div class="line">#如果还是报错</div><div class="line">rm -rf node_modules/ &amp;&amp; npm install --no-optional</div></pre></td></tr></table></figure></p>
-<h3 id="2-创建分类页面-新建一个页面-命名为-categories-关于、标签类似"><a href="#2-创建分类页面-新建一个页面-命名为-categories-关于、标签类似" class="headerlink" title="2 创建分类页面, 新建一个页面, 命名为 categories, 关于、标签类似"></a>2 创建分类页面, 新建一个页面, 命名为 categories, 关于、标签类似</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo new page categories</div></pre></td></tr></table></figure>
-<h3 id="3-编辑categories页面-内容"><a href="#3-编辑categories页面-内容" class="headerlink" title="3 编辑categories页面, 内容:"></a>3 编辑categories页面, 内容:</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">---</div><div class="line">title: 分类</div><div class="line">type: categories</div><div class="line">comments: false</div><div class="line">---</div></pre></td></tr></table></figure>
-<h3 id="4-设置分类列表"><a href="#4-设置分类列表" class="headerlink" title="4 设置分类列表"></a>4 设置分类列表</h3><p>不需要特别的配置，只需要在写文章的时候，加上<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">#eg. tech</div><div class="line">categories: tech</div></pre></td></tr></table></figure></p>
-<h3 id="github绑定域名问题"><a href="#github绑定域名问题" class="headerlink" title="github绑定域名问题"></a>github绑定域名问题</h3><p>github上有个绑定自己的域名功能，可是每次重新部署(hexo deploy)的时候，都需要重新设置，简直死的心都有了。<br>幸好看到一个blog说可以在source目录下新建CNAME文件，注意全部大写并且没有后缀。<br>CNAME文件中只能有一行：例如:xxx.com<br>不要有http(s)://，写多个域名也没用。</p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;对生活、学习或者工作中，遇到的问题以及解决的方案，已blog的形式存于互联网，共享给需要帮助的人。&lt;br&gt;但是从各大博客网站辗转于免费空间，最后落脚在github，hexo给我们提供了方便的blog模版，&lt;br&gt;让我们可以安心的写内容了，hexo使用过程中的一些记录，便于后
-    
-    </summary>
-    
-      <category term="Hexo" scheme="http://www.nealma.com/categories/Hexo/"/>
-    
-    
-      <category term="blog" scheme="http://www.nealma.com/tags/blog/"/>
-    
-      <category term="hexo" scheme="http://www.nealma.com/tags/hexo/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Nginx Configuration</title>
-    <link href="http://www.nealma.com/2016/03/16/nginx-configuration/"/>
-    <id>http://www.nealma.com/2016/03/16/nginx-configuration/</id>
-    <published>2016-03-16T03:46:45.000Z</published>
-    <updated>2016-10-15T14:09:44.000Z</updated>
-    
-    <content type="html"><![CDATA[<h3 id="Download-nginx"><a href="#Download-nginx" class="headerlink" title="Download nginx"></a>Download nginx</h3><p><a href="http://nginx.org/download/nginx-1.8.0.tar.gz" target="_blank" rel="external">1.8.0</a></p>
-<h3 id="Download-openssl"><a href="#Download-openssl" class="headerlink" title="Download openssl"></a>Download openssl</h3><p><a href="https://www.openssl.org/source/openssl-1.0.2h.tar.gz" target="_blank" rel="external">1.0.2h</a></p>
-<h3 id="Install"><a href="#Install" class="headerlink" title="Install"></a>Install</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">cd nginx_home</div><div class="line">./configure --prefix=/usr/local/nginx \</div><div class="line">            --with-http_ssl_module \</div><div class="line">            --with-openssl=//home/lingyitech/sw/openssl-1.0.2h \</div><div class="line">            --with-openssl-opt=&quot;enable-tlsext&quot;</div><div class="line">sudo make &amp;&amp; sudo make install</div></pre></td></tr></table></figure>
-<h3 id="Multiple-Host"><a href="#Multiple-Host" class="headerlink" title="Multiple Host"></a>Multiple Host</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line">server  &#123;</div><div class="line">        listen 443;</div><div class="line">        server_name   www.nealma.com;</div><div class="line">        index index.html index.htm index.php;</div><div class="line">        root  /data/wwwroot/www.nealma.com/webroot;</div><div class="line">        ssl on;</div><div class="line">        ssl_certificate &quot;/usr/local/nginx/conf/ssl/www.nealma.com.public.cer&quot;;</div><div class="line">        ssl_certificate_key &quot;/usr/local/nginx/conf/ssl/www.nealma.com.private.key&quot;;</div><div class="line">        ...</div><div class="line">&#125;</div><div class="line"></div><div class="line">server  &#123;</div><div class="line">        listen 443;</div><div class="line">        server_name   www.malingyi.com;</div><div class="line">        index index.html index.htm index.php;</div><div class="line">        root  /data/wwwroot/www.malingyi.com/webroot;</div><div class="line">        ssl on;</div><div class="line">        ssl_certificate 	  &quot;/usr/local/nginx/conf/ssl/www.malingyi.com.public.cer&quot;;</div><div class="line">        ssl_certificate_key &quot;/usr/local/nginx/conf/ssl/www.malingyi.com.private.key&quot;;</div><div class="line">        ...</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h3 id="可能会出现的问题"><a href="#可能会出现的问题" class="headerlink" title="可能会出现的问题"></a>可能会出现的问题</h3><ul>
-<li>却少gcc工具</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ sudo yum -y install gcc gcc-c++ autoconf automake make</div></pre></td></tr></table></figure>
-<ul>
-<li>新的服务器缺少pcre</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ sudo yum -y install pcre-devel</div></pre></td></tr></table></figure>
-<ul>
-<li>新的服务器缺少zlib</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ sudo yum -y install zlib-devel</div></pre></td></tr></table></figure>
-<ul>
-<li>ngnix 配置缺少</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">server_names_hash_bucket_size 32;</div></pre></td></tr></table></figure>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;h3 id=&quot;Download-nginx&quot;&gt;&lt;a href=&quot;#Download-nginx&quot; class=&quot;headerlink&quot; title=&quot;Download nginx&quot;&gt;&lt;/a&gt;Download nginx&lt;/h3&gt;&lt;p&gt;&lt;a href=&quot;http://nginx.
-    
-    </summary>
-    
-      <category term="Nginx" scheme="http://www.nealma.com/categories/Nginx/"/>
-    
-    
-      <category term="Nginx" scheme="http://www.nealma.com/tags/Nginx/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>CentOS 添加用户</title>
-    <link href="http://www.nealma.com/2016/03/15/centos-65-add-user/"/>
-    <id>http://www.nealma.com/2016/03/15/centos-65-add-user/</id>
-    <published>2016-03-15T03:46:45.000Z</published>
-    <updated>2016-10-15T14:07:06.000Z</updated>
-    
-    <content type="html"><![CDATA[<p>每次添加用户总是忘记，总是Google一下，没办法，只好记录下来。</p>
-<h3 id="添加普通用户-用户名为lingyitech"><a href="#添加普通用户-用户名为lingyitech" class="headerlink" title="添加普通用户,用户名为lingyitech"></a>添加普通用户,用户名为lingyitech</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ useradd lingyitech</div></pre></td></tr></table></figure>
-<h3 id="更新用户lingyitech密码"><a href="#更新用户lingyitech密码" class="headerlink" title="更新用户lingyitech密码"></a>更新用户lingyitech密码</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ password lingyitech</div></pre></td></tr></table></figure>
-<h3 id="更改lingyitech的用户组，属于root组"><a href="#更改lingyitech的用户组，属于root组" class="headerlink" title="更改lingyitech的用户组，属于root组"></a>更改lingyitech的用户组，属于root组</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ usermod -g root lingyitech</div></pre></td></tr></table></figure>
-<h3 id="也可以修改-etc-sudoers文件，添加一行"><a href="#也可以修改-etc-sudoers文件，添加一行" class="headerlink" title="也可以修改/etc/sudoers文件，添加一行"></a>也可以修改/etc/sudoers文件，添加一行</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">lingyitech    ALL=(ALL)       ALL</div></pre></td></tr></table></figure>
-<h3 id="还可以修改-etc-passwd文件，将lingyitech的id修改为0"><a href="#还可以修改-etc-passwd文件，将lingyitech的id修改为0" class="headerlink" title="还可以修改/etc/passwd文件，将lingyitech的id修改为0"></a>还可以修改/etc/passwd文件，将lingyitech的id修改为0</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">lingyitech:x:500:500::/home/lingyitech:/bin/bash</div><div class="line">             －－</div><div class="line">＃modify</div><div class="line">lingyitech:x:0:500::/home/lingyitech:/bin/bash</div><div class="line">           －</div></pre></td></tr></table></figure>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;每次添加用户总是忘记，总是Google一下，没办法，只好记录下来。&lt;/p&gt;
-&lt;h3 id=&quot;添加普通用户-用户名为lingyitech&quot;&gt;&lt;a href=&quot;#添加普通用户-用户名为lingyitech&quot; class=&quot;headerlink&quot; title=&quot;添加普通用户,用户
-    
-    </summary>
-    
-      <category term="Linux" scheme="http://www.nealma.com/categories/Linux/"/>
-    
-    
-      <category term="CentOS" scheme="http://www.nealma.com/tags/CentOS/"/>
-    
-      <category term="Linux" scheme="http://www.nealma.com/tags/Linux/"/>
     
   </entry>
   

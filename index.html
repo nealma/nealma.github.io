@@ -270,8 +270,403 @@
             
               
                 
+                <a class="post-title-link" href="2016/07/30/react-native-7-navigator/" itemprop="url">
+                  React Native (七) Navigator 导航组件
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-07-30T11:46:45+08:00" content="2016-07-30">
+              2016-07-30
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="categories/React-Native/" itemprop="url" rel="index">
+                    <span itemprop="name">React-Native</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="2016/07/30/react-native-7-navigator/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/07/30/react-native-7-navigator/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><pre><code>Navigator组件作为基础部分，必不可少。前面我们使用了sidemenu，每个menu的触发事件都会跳到
+一个新的视图，此时就要用Navigator了。说白了，就是控制路由的这么一个东西，从一个视图跳到另一个视图。
+</code></pre><p><img src="/images/navigator.gif" alt=""></p>
+<p>开发环境：<br>OS: Mac 10.11.6<br>Xcode: Version 8.0 (8A218a)</p>
+<h3 id="首先要定义Navigator作为入口"><a href="#首先要定义Navigator作为入口" class="headerlink" title="首先要定义Navigator作为入口"></a>首先要定义Navigator作为入口</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">import FirstPage from &apos;./navigator-first-page&apos;;</div><div class="line"></div><div class="line">export default class Main extends React.Component &#123;</div><div class="line">    render() &#123;</div><div class="line">        let defaultName = &apos;FirstPage&apos;;</div><div class="line">        let defaultComponent = FirstPage;</div><div class="line">        return (</div><div class="line">            &lt;Navigator</div><div class="line">                initialRoute=&#123;&#123; name: defaultName, component: defaultComponent &#125;&#125;</div><div class="line">                configureScene=&#123;(route) =&gt; &#123;</div><div class="line">                    return Navigator.SceneConfigs.VerticalDownSwipeJump;</div><div class="line">                &#125;&#125;</div><div class="line">                renderScene=&#123;(route, navigator) =&gt; &#123;</div><div class="line">                const Component = route.component;</div><div class="line">                    return (&lt;Component &#123;...route.params&#125; navigator=&#123;navigator&#125; /&gt;);</div><div class="line">                &#125;&#125; /&gt;</div><div class="line">        );</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<pre><code>＊ initialRoute: 初始化首屏视图，name可以看作页面的ID; component: 视图组件，即要显示的内容
+＊ configureScene: 过场动画
+＊ renderScene: 动态路由
+</code></pre><h3 id="定义第一个页面navigator-first-page-js"><a href="#定义第一个页面navigator-first-page-js" class="headerlink" title="定义第一个页面navigator-first-page.js"></a>定义第一个页面navigator-first-page.js</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div></pre></td><td class="code"><pre><div class="line">import SecondPage from &apos;./navigator-second-page&apos;;</div><div class="line"></div><div class="line">export default class FirstPage extends React.Component &#123;</div><div class="line">    constructor(props) &#123;</div><div class="line">        super(props);</div><div class="line">        this.state = &#123;&#125;;</div><div class="line">    &#125;</div><div class="line">    _pressButton() &#123;</div><div class="line">        const &#123; navigator &#125; = this.props;</div><div class="line">        if(navigator) &#123;</div><div class="line">            navigator.push(&#123;</div><div class="line">                name: &apos;SecondPage&apos;,</div><div class="line">                component: SecondPage</div><div class="line">            &#125;);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    render() &#123;</div><div class="line">        return (</div><div class="line">            &lt;View style=&#123;&#123;flex: 1, backgroundColor: &apos;#fcb064&apos;, justifyContent: &apos;center&apos;, alignItems: &apos;center&apos;&#125;&#125;&gt;</div><div class="line">                &lt;TouchableOpacity onPress=&#123;()=&gt;&#123;this._pressButton();&#125;&#125;&gt;</div><div class="line">                            &lt;Text style=&#123;&#123;height: 30, width: 80&#125;&#125;&gt;第一页&lt;/Text&gt;</div><div class="line">                &lt;/TouchableOpacity&gt;</div><div class="line">            &lt;/View&gt;</div><div class="line">        );</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="定义第二个页面navigator-second-page-js"><a href="#定义第二个页面navigator-second-page-js" class="headerlink" title="定义第二个页面navigator-second-page.js"></a>定义第二个页面navigator-second-page.js</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line">export default class SecondPage extends React.Component &#123;</div><div class="line"></div><div class="line">    constructor(props) &#123;</div><div class="line">        super(props);</div><div class="line">        this.state = &#123;&#125;;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    _pressButton() &#123;</div><div class="line">        const &#123; navigator &#125; = this.props;</div><div class="line">        if(navigator) &#123;</div><div class="line">            //入栈出栈, 把当前的页面pop掉，返回到了上一个页面:FirstPage</div><div class="line">            navigator.pop();</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    render() &#123;</div><div class="line">        return (</div><div class="line">            &lt;View style=&#123;&#123;flex: 1, backgroundColor: &apos;#fb9696&apos;, justifyContent: &apos;center&apos;, alignItems: &apos;center&apos;&#125;&#125;&gt;</div><div class="line">                &lt;TouchableOpacity onPress=&#123;()=&gt;&#123;this._pressButton();&#125;&#125;&gt;</div><div class="line">                    &lt;Text style=&#123;&#123;height: 30, width: 80&#125;&#125;&gt;第二页&lt;/Text&gt;</div><div class="line">                &lt;/TouchableOpacity&gt;</div><div class="line">            &lt;/View&gt;</div><div class="line">        );</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<pre><code>总体上很清晰，如果涉及到事件，待续...
+</code></pre><h3 id="结束"><a href="#结束" class="headerlink" title="结束"></a>结束</h3><pre><code>：）～
+</code></pre>
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="2016/07/29/react-native-6-cameraroll/" itemprop="url">
+                  React Native (六) CameraRoll 相册组件
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-07-29T12:46:45+08:00" content="2016-07-29">
+              2016-07-29
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="categories/React-Native/" itemprop="url" rel="index">
+                    <span itemprop="name">React-Native</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="2016/07/29/react-native-6-cameraroll/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/07/29/react-native-6-cameraroll/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><pre><code>CameraRoll模块提供了访问本地相册的功能。
+</code></pre><p>开发环境：<br>OS: Mac 10.11.6<br>Xcode: Version 8.0 (8A218a)</p>
+<h3 id="最简单的用例"><a href="#最简单的用例" class="headerlink" title="最简单的用例"></a>最简单的用例</h3><h3 id="踩到的坑"><a href="#踩到的坑" class="headerlink" title="踩到的坑"></a>踩到的坑</h3><ul>
+<li><p>解决ReactNative使用CameraRoll时undefined错误</p>
+<p>  1, 将 node_modules/react-native/Libraries/CameraRoll/RCTCameraRoll.xcodeproj 工程添加到现有工程中<br>  2, 添加静态库依赖： (Build Phases -&gt; Binary With Libraries -&gt; libRCTCameraRoll.a)</p>
+</li>
+<li><p>NSPhotoLibraryUsageDescription key must be present in Info.plist to use camera roll.</p>
+<p>  在info.plist添加键值对</p>
+<p>  1， Privacy - Camera Usage Description  使用相册<br>  2， Privacy - Photo Library Usage Description 使用相机</p>
+<p>  待续…</p>
+</li>
+</ul>
+<h3 id="结束"><a href="#结束" class="headerlink" title="结束"></a>结束</h3><pre><code>：）～
+</code></pre>
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="2016/07/28/enrollment-1-apple-developer/" itemprop="url">
+                  账号申请(一) 苹果开发者账号
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-07-28T12:46:45+08:00" content="2016-07-28">
+              2016-07-28
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="categories/Enrollment/" itemprop="url" rel="index">
+                    <span itemprop="name">Enrollment</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="2016/07/28/enrollment-1-apple-developer/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/07/28/enrollment-1-apple-developer/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><pre><code>辞职在家了，做了个独立开发者。最近一段时间在做App，大部分的功能可以用Simulator调试，
+可偏偏我用到了相机功能，这个无法使用，只能在真机上开发了。
+然而，Xcode真机调试必须要有苹果开发者证书才能工作，word天，没办法，那就注册一个吧。
+</code></pre><h3 id="开发者中心"><a href="#开发者中心" class="headerlink" title="开发者中心"></a>开发者中心</h3><pre><code>我也是够笨的啦，想注册开发者，都不知道去哪注册，找了半天注册链接，要了我的命了。
+</code></pre><p><a href="https://developer.apple.com/enroll" target="_blank" rel="external">传送门 开发者注册中心</a></p>
+<pre><code>找到 Enrollment , 这个就是入口了
+</code></pre><h3 id="注册信息及流程"><a href="#注册信息及流程" class="headerlink" title="注册信息及流程"></a>注册信息及流程</h3><pre><code>* 首先你要有Apple ID， 没有的先去注册一个吧
+* Entity Type 是个人还是公司
+* Authority to Sign Legal Agreements 你的角色
+* 系统会查询你的公司是否申请过DUNS Number，如果咩有DUNS Number，可以免费申请一个（大概两周时间）
+</code></pre><p>### </p>
+<pre><code>还在等待...
+</code></pre><h3 id="结束"><a href="#结束" class="headerlink" title="结束"></a>结束</h3><pre><code>：）～
+</code></pre>
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="2016/07/28/react-native-5-listview/" itemprop="url">
-                  react-native (五) react-native-listview组件
+                  React Native (五) ListView 组件
                 </a>
               
             
@@ -340,22 +735,28 @@
       
         
           
-            <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><pre><code>react-native-listview组件,
-因为同时支持ios和android，使用起来也很友好，就用了。
-</code></pre><p>本记录使用的开发环境：<br>OS: Mac 10.11.6<br>Xcode: Version 8.0 (8A218a)</p>
-<h3 id="最简单的用例"><a href="#最简单的用例" class="headerlink" title="最简单的用例"></a>最简单的用例</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div></pre></td><td class="code"><pre><div class="line">import ListView from &apos;react-native-listview&apos;;</div><div class="line"></div><div class="line">...</div><div class="line"></div><div class="line">#constructor</div><div class="line">constructor(props) &#123;</div><div class="line">    super(props);</div><div class="line">    //数据源，即要显示的数据</div><div class="line">    const ds = new ListView.DataSource(&#123;rowHasChanged: (r1, r2) =&gt; r1 !== r2&#125;);</div><div class="line">    this.state = &#123;</div><div class="line">        dataSource: ds.cloneWithRows([&apos;row 1&apos;, &apos;row 2&apos;, &apos;row 1&apos;, &apos;row 2&apos;, &apos;row 1&apos;, &apos;row 2&apos;, &apos;row 1&apos;, &apos;row 2&apos;]),</div><div class="line">        loaded: false//4</div><div class="line">    &#125;;</div><div class="line"></div><div class="line">    this._onFetch(); //3</div><div class="line">&#125;</div><div class="line"></div><div class="line">...</div><div class="line"></div><div class="line">#render</div><div class="line"></div><div class="line">render() &#123;</div><div class="line">    return (</div><div class="line">        &lt;ListView</div><div class="line">            dataSource=&#123;this.state.dataSource&#125;</div><div class="line">            //行view，listview会根据datasource的每个数据进行渲染</div><div class="line">            renderRow=&#123;this._renderRowView&#125;</div><div class="line">        /&gt;</div><div class="line">    )</div><div class="line">&#125;</div><div class="line"></div><div class="line">/**</div><div class="line"> * When a row is touched</div><div class="line"> * @param &#123;object&#125; rowData Row data</div><div class="line"> */</div><div class="line">_onPress(rowData) &#123;</div><div class="line">    console.log(rowData+&apos; pressed&apos;);</div><div class="line">&#125;</div><div class="line"></div><div class="line">/**</div><div class="line"> * Render a row</div><div class="line"> * @param &#123;object&#125; rowData Row data</div><div class="line"> */</div><div class="line">_renderRowView(rowData) &#123;</div><div class="line">    return (</div><div class="line">        &lt;TouchableHighlight</div><div class="line">            style=&#123;styles.row&#125;</div><div class="line">            underlayColor=&apos;#c8c7cc&apos;</div><div class="line">        &gt;</div><div class="line">            &lt;Text&gt;&#123;rowData&#125;&lt;/Text&gt;</div><div class="line">        &lt;/TouchableHighlight&gt;</div><div class="line">    );</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h3 id="获取网络数据-Fetch"><a href="#获取网络数据-Fetch" class="headerlink" title="获取网络数据(Fetch)"></a>获取网络数据(Fetch)</h3><pre><code>这里只是简单的实现数据到列表的渲染，在实际项目里，list的数据必定都是从Server获取来的，
-我们以豆瓣音乐API为例, 通过网络数据渲染list
-</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">const API_URL = &apos;https://api.douban.com/v2/music/search?q=love&apos;;</div><div class="line"></div><div class="line">//把3处的注释去掉</div><div class="line"></div><div class="line">_onFetch() &#123;</div><div class="line">    fetch(API_URL)</div><div class="line">        .then(response =&gt; response.json())</div><div class="line">        .then(musics =&gt; &#123;</div><div class="line">            this.setState(&#123;</div><div class="line">                dataSource:this.state.dataSource.cloneWithRows(musics.musics),</div><div class="line">                loaded:true //4</div><div class="line">            &#125;)</div><div class="line">        &#125;)</div><div class="line">        .done();</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h3 id="添加loading状态"><a href="#添加loading状态" class="headerlink" title="添加loading状态"></a>添加loading状态</h3><pre><code>获取网络数据，必然会消耗时间。在等待的过程中，胃了给用户很好的提示，我们都会添加loading图标，
+            <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><pre><code>ListView组件是每个App都用到的核心组件，RN当然也不能少。
+</code></pre><p><img src="/images/listview.gif" alt=""></p>
+<pre><code>开发环境：
+OS: Mac 10.11.6
+Xcode: Version 8.0 (8A218a)
+</code></pre><h3 id="核心配置介绍"><a href="#核心配置介绍" class="headerlink" title="核心配置介绍"></a>核心配置介绍</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">...</div><div class="line">constructor(props) &#123;</div><div class="line">    super(props);</div><div class="line">    const ds = new ListView.DataSource(&#123;</div><div class="line">        rowHasChanged: (r1, r2) =&gt; r1 !== r2, //1, 对变化的行渲染</div><div class="line">        sectionHeaderHasChanged : (s1, s2) =&gt; s1 !== s2 //2, 分组头部信息变更</div><div class="line">    &#125;);</div><div class="line">    let rowData = Array.from(new Array(10)).map((val, i) =&gt; (&#123;title: &apos;初始化数据 &apos; + i&#125;));</div><div class="line">    this.state = &#123;</div><div class="line">        dataSource: ds.cloneWithRows(rowData),</div><div class="line">        data: rowData,</div><div class="line">        isLoaded: false,</div><div class="line">        isRefreshing: false</div><div class="line">    &#125;;</div><div class="line">&#125;</div><div class="line"></div><div class="line">render() &#123;</div><div class="line">    if (!this.state.isLoaded) &#123;//3, loading</div><div class="line">        return &lt;Loading/&gt;;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    return (</div><div class="line">        &lt;ListView</div><div class="line">            style=&#123;styles.container&#125;</div><div class="line">            dataSource=&#123;this.state.dataSource&#125;/* 要渲染的数据源，类型是数组 */</div><div class="line">            renderRow=&#123;(rowData) =&gt; this._renderRowView(rowData, this._onPress)&#125;</div><div class="line">            onEndReached=&#123;this._handleLoadMore.bind(this)&#125; /* 滑动偏移量 &gt; onEndReachedThreshold的像素值时，触发 */</div><div class="line">            onEndReachedThreshold=&#123;5&#125; /* 调用onEndReached之前的临界值，单位是像素 */</div><div class="line">            initialListSize=&#123;8&#125; /* 初始值 */</div><div class="line">            pageSize=&#123;8&#125;/* 每次事件循环（每帧）渲染的行数 */</div><div class="line">            renderHeader=&#123; this._renderHeader.bind(this)&#125;</div><div class="line">            renderFooter=&#123;this._renderFooter.bind(this)&#125;</div><div class="line">            renderSectionHeader=&#123;this._renderSectionHeader.bind(this)&#125;</div><div class="line">            refreshControl=&#123;</div><div class="line">                &lt;RefreshControl // 下拉刷新</div><div class="line">                    refreshing=&#123;this.state.isRefreshing&#125;</div><div class="line">                    onRefresh=&#123;this._onRefresh.bind(this)&#125;/* 下拉刷新时，触发此事件*/</div><div class="line">                    title=&#123;this.state.isRefreshing? &apos;刷新中....&apos;:&apos;下拉刷新&apos;&#125;</div><div class="line">                    colors=&#123;[&apos;#fb96cf&apos;, &apos;#fb96cf&apos;,&apos;#fb96cf&apos;,&apos;#fb96cf&apos;]&#125;</div><div class="line">                    tintColor=&apos;#fb96cf&apos;</div><div class="line">                    progressBackgroundColor=&quot;#fb96cf&quot;</div><div class="line">                /&gt;</div><div class="line">            &#125;</div><div class="line">        /&gt;</div><div class="line">    );</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="添加loading状态"><a href="#添加loading状态" class="headerlink" title="添加loading状态"></a>添加loading状态</h3><pre><code>获取网络数据，必然会消耗时间。在等待的过程中，为了给用户很好的提示，我们都会添加loading图标，
 如果什么都没有，让用户傻傻的干等，用户也不会对你的app有好的印象
-</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">...</div><div class="line">//去掉4处注解</div><div class="line">//修改render</div><div class="line">//在return之前添加如下</div><div class="line"></div><div class="line">if (!this.state.loaded) &#123;</div><div class="line">    return (</div><div class="line">        &lt;View style=&#123;styles.container&#125;&gt;</div><div class="line">            &lt;View style=&#123;styles.loading&#125;&gt;</div><div class="line">                &lt;ActivityIndicator</div><div class="line">                    size=&apos;large&apos;</div><div class="line">                    color=&apos;#eabb33&apos;/&gt;</div><div class="line">            &lt;/View&gt;</div><div class="line">        &lt;/View&gt;</div><div class="line">    )</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h3 id="列表中Item的onPress动作"><a href="#列表中Item的onPress动作" class="headerlink" title="列表中Item的onPress动作"></a>列表中Item的onPress动作</h3><pre><code>因为this的变更问题，_renderRowView做如下修改，onPress作为传递的处理函数
+</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">class Loading extends Component &#123;</div><div class="line">    render()&#123;</div><div class="line">        return (</div><div class="line">            &lt;View style=&#123;styles.container&#125;&gt;</div><div class="line">                &lt;View style=&#123;styles.loading&#125;&gt;</div><div class="line">                    &lt;ActivityIndicator</div><div class="line">                        size=&apos;large&apos;</div><div class="line">                        color=&apos;#eabb33&apos;/&gt;</div><div class="line">                &lt;/View&gt;</div><div class="line">            &lt;/View&gt;</div><div class="line">        );</div><div class="line">    &#125;;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="列表中Item的onPress事件"><a href="#列表中Item的onPress事件" class="headerlink" title="列表中Item的onPress事件"></a>列表中Item的onPress事件</h3><pre><code>因为this的变更问题，_renderRowView做如下修改，onPress作为传递的处理函数
 这里如果你用this._onPress, 会抛出异常，就是this已经不是原来的this了，
 但是onPress还是原来的onPress。
-</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">/**</div><div class="line"> * Render a row</div><div class="line"> * @param &#123;object&#125; rowData Row data</div><div class="line"> */</div><div class="line">_renderRowView(rowData, onPress) &#123;</div><div class="line">    return (</div><div class="line">        &lt;TouchableHighlight</div><div class="line">            style=&#123;styles.row&#125;</div><div class="line">            underlayColor=&apos;#c8c7cc&apos;</div><div class="line">            onPress=&#123;(rowData) =&gt; onPress(rowData)&#125;&gt;</div><div class="line">            &lt;Text&gt;&#123;rowData.title&#125;&lt;/Text&gt;</div><div class="line">        &lt;/TouchableHighlight&gt;</div><div class="line">    );</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h3 id="下拉刷新"><a href="#下拉刷新" class="headerlink" title="下拉刷新"></a>下拉刷新</h3><pre><code>待续...
-</code></pre><h3 id="结束"><a href="#结束" class="headerlink" title="结束"></a>结束</h3><pre><code>：）～
+</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">_renderRowView(rowData, onPress) &#123;</div><div class="line">    return (</div><div class="line">        &lt;TouchableOpacity</div><div class="line">            underlayColor=&apos;#484848&apos;</div><div class="line">            onPress=&#123;(rowData) =&gt; onPress(rowData)&#125;&gt;</div><div class="line">            &lt;View style=&#123;styles.row&#125;&gt;</div><div class="line">                &lt;View style=&#123;&#123;flex: 1, backgroundColor: &apos;#c8c7cc&apos;&#125;&#125;/&gt;</div><div class="line">                &lt;View style=&#123;&#123;flex: 20, backgroundColor: &apos;#EFE&apos;,justifyContent: &apos;center&apos;, alignItems: &apos;center&apos; &#125;&#125;&gt;</div><div class="line">                    &lt;Text style=&#123;&#123;</div><div class="line">                        borderColor: &apos;#d1d1d1&apos;,</div><div class="line">                        borderWidth: 2,</div><div class="line">                        borderRadius: 5 &#125;&#125;&gt;&#123;rowData.title&#125;&lt;/Text&gt;</div><div class="line">                &lt;/View&gt;</div><div class="line">            &lt;/View&gt;</div><div class="line">        &lt;/TouchableOpacity&gt;</div><div class="line">    );</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="下拉刷新"><a href="#下拉刷新" class="headerlink" title="下拉刷新"></a>下拉刷新</h3><pre><code>需要用RefreshControl组件，通过isRefreshing改变 正在刷新(true)、刷新完成(false),
+onRefresh触发该事件，进入onRefresh时，设置isRefreshing=true,处理完成onRefresh时，设置isRefreshing=false
+</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">_onRefresh() &#123;</div><div class="line">    // 刷新</div><div class="line">    this.setState(&#123;isRefreshing: true&#125;);</div><div class="line">    console.log(&apos;refresh&apos;, this.state.data);</div><div class="line">    setTimeout(() =&gt; &#123;</div><div class="line">        this._onFetch(false);</div><div class="line">        this.setState(&#123;isRefreshing: false&#125;);</div><div class="line">    &#125;,2000);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="Load-More-指示器"><a href="#Load-More-指示器" class="headerlink" title="Load More 指示器"></a>Load More 指示器</h3><pre><code>ListView可以使用renderFooter属性实现加载更多指示器，这里只用简单的文字实现，更多的效果请自行玩耍
+</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line">...</div><div class="line">_renderFooter()&#123;</div><div class="line">    return(</div><div class="line">        &lt;Footer /&gt;</div><div class="line">    );</div><div class="line">&#125;</div><div class="line">...</div><div class="line"></div><div class="line">class Footer extends Component &#123;</div><div class="line">    render()&#123;</div><div class="line">        return(</div><div class="line">            &lt;StaticContainer&gt;</div><div class="line">                &lt;View style=&#123;&#123; flex:1, flexDirection: &apos;row&apos;, justifyContent: &apos;space-between&apos;,</div><div class="line">                    alignItems: &apos;center&apos;, height:50, backgroundColor:&apos;#fb96cf&apos;&#125;&#125;&gt;</div><div class="line">                    &lt;Text&gt;&lt;/Text&gt;</div><div class="line">                    &lt;Text&gt;加载更多&lt;/Text&gt;</div><div class="line">                    &lt;Text&gt;&lt;/Text&gt;</div><div class="line">                &lt;/View&gt;</div><div class="line">            &lt;/StaticContainer&gt;</div><div class="line">        );</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="有关显示隐藏"><a href="#有关显示隐藏" class="headerlink" title="有关显示隐藏"></a>有关显示隐藏</h3><pre><code>RN中没有display:none可用，可以换一种方式实现
+</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">isHidden?&lt;View/&gt;:null</div></pre></td></tr></table></figure>
+<h3 id="结束"><a href="#结束" class="headerlink" title="结束"></a>结束</h3><pre><code>这里用到了StaticContainer，据说性能好，没有具体看呢？了解的同学可以给我留言
+：）～
 </code></pre>
           
         
@@ -405,8 +806,8 @@
             
               
                 
-                <a class="post-title-link" href="2016/07/28/react-native-4-slide-menu/" itemprop="url">
-                  react-native (四) react-native-jelly-side-menu组件
+                <a class="post-title-link" href="2016/07/28/react-native-4-sidemenu/" itemprop="url">
+                  React Native (四) react-native-side-menu组件
                 </a>
               
             
@@ -449,8 +850,8 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="2016/07/28/react-native-4-slide-menu/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/07/28/react-native-4-slide-menu/" itemprop="commentsCount"></span>
+                <a href="2016/07/28/react-native-4-sidemenu/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/07/28/react-native-4-sidemenu/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -475,13 +876,24 @@
       
         
           
-            <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><pre><code>react-native-jelly-side-menu组件,
-因为同时支持ios和android，使用起来也很友好，就用了。
-</code></pre><p>本记录使用的开发环境：<br>OS: Mac 10.11.6<br>Xcode: Version 8.0 (8A218a)</p>
-<h3 id="Example"><a href="#Example" class="headerlink" title="Example"></a>Example</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line">import JellySideMenu from &apos;react-native-jelly-side-menu&apos;;</div><div class="line"></div><div class="line">...</div><div class="line"></div><div class="line">#render</div><div class="line"></div><div class="line">render() &#123;</div><div class="line">        return (</div><div class="line">            &lt;View style=&#123;&#123;flex: 1, backgroundColor: &apos;#FF6644&apos;&#125;&#125;&gt;</div><div class="line">                &lt;JellySideMenu</div><div class="line">                    ref=&#123;(view) =&gt; &#123;this.jsm = view&#125;&#125;</div><div class="line">                    fill=&#123;&quot;#FFF&quot;&#125; fillOpacity=&#123;1.0&#125;</div><div class="line">                    renderMenu=&#123;this.renderMenu&#125;&gt;</div><div class="line">                    &lt;TouchableOpacity onPress=&#123;() =&gt; &#123;this.jsm.toggleSideMenu(true)&#125;&#125;&gt;</div><div class="line">	                    &lt;Icon name=&quot;navicon&quot; size=&#123;30&#125; color=&quot;#4F8EF7&quot; style=&#123;&#123;marginTop: 20, marginLeft: 20&#125;&#125;/&gt;  //1</div><div class="line">	                &lt;/TouchableOpacity&gt;</div><div class="line">                &lt;/JellySideMenu&gt;</div><div class="line"></div><div class="line">                &lt;TouchableOpacity onPress=&#123;() =&gt; &#123;this.jsm.toggleSideMenu(true)&#125;&#125;&gt;</div><div class="line">                    &lt;Icon name=&quot;navicon&quot; size=&#123;30&#125; color=&quot;#4F8EF7&quot; style=&#123;&#123;marginTop: 20, marginLeft: 20&#125;&#125;/&gt;  //2</div><div class="line">                &lt;/TouchableOpacity&gt;</div><div class="line">            &lt;/View&gt;</div><div class="line">        )</div><div class="line">    &#125;</div></pre></td></tr></table></figure>
+            <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><pre><code>侧滑菜单在实际工作中，很常见，是比较流行的一种设计，
+RN怎会没有呢。一开始接触RN，总是乐于社区的活跃，你需要什么，大都会能找到
+现成，最初使用了react-native-jelly-side-menu，但是在安卓上死活run不起来，
+后来辗转到了react-native-side-menu,可以很好的在iOS、Android中玩耍。
+</code></pre><p><img src="/images/sidemenu.gif" alt=""></p>
+<p>开发环境<br>OS: Mac 10.11.6<br>Xcode: Version 8.0 (8A218a)</p>
+<h3 id="react-native-jelly-side-menu-爱恨"><a href="#react-native-jelly-side-menu-爱恨" class="headerlink" title="react-native-jelly-side-menu 爱恨"></a>react-native-jelly-side-menu 爱恨</h3><pre><code>jelly的动画很吸引我，就用了
+</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line">import JellySideMenu from &apos;react-native-jelly-side-menu&apos;;</div><div class="line"></div><div class="line">...</div><div class="line"></div><div class="line">#render</div><div class="line"></div><div class="line">render() &#123;</div><div class="line">        return (</div><div class="line">            &lt;View style=&#123;&#123;flex: 1, backgroundColor: &apos;#FF6644&apos;&#125;&#125;&gt;</div><div class="line">                &lt;JellySideMenu</div><div class="line">                    ref=&#123;(view) =&gt; &#123;this.jsm = view&#125;&#125;</div><div class="line">                    fill=&#123;&quot;#FFF&quot;&#125; fillOpacity=&#123;1.0&#125;</div><div class="line">                    renderMenu=&#123;this.renderMenu&#125;&gt;</div><div class="line">                    &lt;TouchableOpacity onPress=&#123;() =&gt; &#123;this.jsm.toggleSideMenu(true)&#125;&#125;&gt;</div><div class="line">	                    &lt;Icon name=&quot;navicon&quot; size=&#123;30&#125; color=&quot;#4F8EF7&quot; style=&#123;&#123;marginTop: 20, marginLeft: 20&#125;&#125;/&gt;  //1</div><div class="line">	                &lt;/TouchableOpacity&gt;</div><div class="line">                &lt;/JellySideMenu&gt;</div><div class="line"></div><div class="line">                &lt;TouchableOpacity onPress=&#123;() =&gt; &#123;this.jsm.toggleSideMenu(true)&#125;&#125;&gt;</div><div class="line">                    &lt;Icon name=&quot;navicon&quot; size=&#123;30&#125; color=&quot;#4F8EF7&quot; style=&#123;&#123;marginTop: 20, marginLeft: 20&#125;&#125;/&gt;  //2</div><div class="line">                &lt;/TouchableOpacity&gt;</div><div class="line">            &lt;/View&gt;</div><div class="line">        )</div><div class="line">    &#125;</div></pre></td></tr></table></figure>
 <pre><code>如果按照官方的demo，即代码1处，当滑出左侧菜单，关闭，再次点击1处的button，此时事件失效。
 你可以把open menu放在2处，可以很好的工作。
-</code></pre><h3 id="结束"><a href="#结束" class="headerlink" title="结束"></a>结束</h3><pre><code>：）～
+</code></pre><h3 id="追加1-换回官方的react-native-side-menu"><a href="#追加1-换回官方的react-native-side-menu" class="headerlink" title="追加1: 换回官方的react-native-side-menu"></a>追加1: 换回官方的react-native-side-menu</h3><pre><code>因为在android上运行的时候，报错了，联系作者没反应，自己短时间内无从下手，只好换了。
+</code></pre><h3 id="react-native-side-menu-简单使用"><a href="#react-native-side-menu-简单使用" class="headerlink" title="react-native-side-menu 简单使用"></a>react-native-side-menu 简单使用</h3><pre><code>给出一个简单的例子
+</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div></pre></td><td class="code"><pre><div class="line">export  default  class Main extends Component &#123;</div><div class="line">    constructor(props) &#123;</div><div class="line">        super(props);</div><div class="line">        this.state = &#123;&#125;;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    updateMenuState(isOpen) &#123;</div><div class="line">        this.setState(&#123; isOpen, &#125;);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    onMenuItemSelected = (item) =&gt; &#123;</div><div class="line">        //TODO：单击菜单的后续动作, 跳转到相应的页面</div><div class="line">        alert(&quot;单击 &quot; + item);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    render() &#123;</div><div class="line">        const menu = &lt;LeftView onItemSelected=&#123;this.onMenuItemSelected&#125; /&gt;;</div><div class="line">        return (</div><div class="line">            &lt;SideMenu</div><div class="line">                menu=&#123;menu&#125; /* 设置左侧页面(菜单) */</div><div class="line">                isOpen=&#123;this.state.isOpen&#125;/* 状态控制: true 打开，false 关闭*/</div><div class="line">                onChange=&#123;(isOpen) =&gt; this.updateMenuState(isOpen)&#125;&gt;</div><div class="line">                &lt;ContentView /&gt;</div><div class="line">            &lt;/SideMenu&gt;</div><div class="line">        );</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">class ContentView extends Component &#123;</div><div class="line">    render() &#123;</div><div class="line">        return (</div><div class="line">            &lt;View style=&#123;styles.page&#125;&gt;&lt;Text style=&#123;styles.pageContent&#125;&gt;Content&lt;/Text&gt;&lt;/View&gt;</div><div class="line">        );</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">class LeftView extends Component &#123;</div><div class="line"></div><div class="line">    static propTypes = &#123;</div><div class="line">        onItemSelected: React.PropTypes.func.isRequired,</div><div class="line">    &#125;;</div><div class="line"></div><div class="line">    constructor(props) &#123;</div><div class="line">        super(props);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    render() &#123;</div><div class="line">        return (</div><div class="line">            &lt;ScrollView scrollsToTop=&#123;true&#125; style=&#123;styles.menu&#125;&gt;</div><div class="line">                &lt;Text</div><div class="line">                    onPress=&#123;() =&gt; this.props.onItemSelected(&apos;first&apos;)&#125;</div><div class="line">                    style=&#123;styles.item&#125;&gt;</div><div class="line">                    First</div><div class="line">                &lt;/Text&gt;</div><div class="line"></div><div class="line">                &lt;Text</div><div class="line">                    onPress=&#123;() =&gt; this.props.onItemSelected(&apos;second&apos;)&#125;</div><div class="line">                    style=&#123;styles.item&#125;&gt;</div><div class="line">                    Second</div><div class="line">                &lt;/Text&gt;</div><div class="line"></div><div class="line">                &lt;Text</div><div class="line">                    onPress=&#123;() =&gt; this.props.onItemSelected(&apos;third&apos;)&#125;</div><div class="line">                    style=&#123;styles.item&#125;&gt;</div><div class="line">                    Third</div><div class="line">                &lt;/Text&gt;</div><div class="line">            &lt;/ScrollView&gt;</div><div class="line">        );</div><div class="line">    &#125;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<pre><code>在使用过程中，比较费解的是onMenuItemSelected, 该函数在LeftView中进行声明并指定类型为function，
+并没有实现，而是留给引用者去实现具体业务， 也就是TODO的位置。
+</code></pre><h3 id="结束"><a href="#结束" class="headerlink" title="结束"></a>结束</h3><pre><code>menu的导航需要Navigator组件配置使用，后面会做个结合使用的例子。
+
+：）～
 </code></pre>
           
         
@@ -532,7 +944,7 @@
               
                 
                 <a class="post-title-link" href="2016/07/27/react-native-3-icons/" itemprop="url">
-                  react-native (三) react-native-vector-icons组件
+                  React Native (三) react-native-vector-icons 图标组件
                 </a>
               
             
@@ -602,12 +1014,12 @@
         
           
             <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><pre><code>react-native-vector-icons组件,
-可以免费使用更多的icons资源
-</code></pre><p>本记录使用的开发环境：<br>OS: Mac 10.11.6<br>Xcode: Version 8.0 (8A218a)</p>
+对于非设计人员，可以免费使用更多的icons资源
+</code></pre><p>开发环境：<br>OS: Mac 10.11.6<br>Xcode: Version 8.0 (8A218a)</p>
 <h3 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">npm install react-native-vector-icons --save</div><div class="line">rnpm link</div></pre></td></tr></table></figure>
-<p>＊ ios<br>    之后会在Xcode中的info.plis里面看到如下键值信息：<br>    Fonts provided by application（item0-item7）<br>    如果没有此项信息，需要手动添加Fonts provided by application。</p>
 <ul>
-<li>android<br>  Edit android/app/build.gradle ( NOT android/build.gradle ) and add the following:<br>  添加如下内容:</li>
+<li>iOS<br>  之后会在Xcode中的info.plis里面看到如下键值信息：<br>  Fonts provided by application（item0-item7）<br>  如果没有此项信息，需要手动添加Fonts provided by application。</li>
+<li>Android<br>  Edit android/app/build.gradle ( NOT android/build.gradle ) and add the following:<br>  添加如下内容:</li>
 </ul>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">project.ext.vectoricons = [</div><div class="line">    iconFontNames: [ &apos;MaterialIcons.ttf&apos;, &apos;EvilIcons.ttf&apos;, &apos;FontAwesome.ttf&apos;, &apos;Entypo.fft&apos;, &apos;EvilIcons.ttf&apos;, &apos;Octicons.ttf&apos;, &apos;Zocial.ttf&apos;, &apos;Ionicons.ttf&apos; ] // Name of the font files you want to copy</div><div class="line">]</div><div class="line"></div><div class="line">apply from: &quot;../../node_modules/react-native-vector-icons/fonts.gradle&quot;</div></pre></td></tr></table></figure>
 <h3 id="Example"><a href="#Example" class="headerlink" title="Example"></a>Example</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">import Icon from &apos;react-native-vector-icons/FontAwesome&apos;;</div><div class="line"></div><div class="line">&lt;Icon name=&quot;navicon&quot; size=&#123;30&#125; color=&quot;#4F8EF7&quot; style=&#123;&#123;marginTop: 20, marginLeft: 20&#125;&#125;/&gt;</div></pre></td></tr></table></figure>
@@ -663,7 +1075,7 @@
               
                 
                 <a class="post-title-link" href="2016/07/26/react-native-2-image/" itemprop="url">
-                  react-native (二) Image图片组件
+                  React Native (二) Image图片组件
                 </a>
               
             
@@ -743,9 +1155,9 @@
 <li>uri</li>
 </ul>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&lt;View style=&#123;&#123;width: <span class="number">100</span>, height: <span class="number">100</span>&#125;&#125;&gt;</div><div class="line">    &lt;Image source=&#123;&#123;uri: 'http://cdn.crunchify.com/wp-content/uploads/2013/01/html5-canvas.png'&#125;&#125; /&gt;</div><div class="line">    &lt;Image source=&#123;&#123;uri: 'https://facebook.github.io/react/img/logo_og.png'&#125;&#125; /&gt;</div><div class="line">&lt;/View&gt;</div></pre></td></tr></table></figure>
-<pre><code>注意如果是ios,http协议的uri会受到限制，可能什么也看不到，
-这是因为iOS9之后，默认Https请求，如需支持Http，
-修改info.plist文件添加键值对就
+<pre><code>注意如果是iOS,HTTP协议的uri会受到限制，可能什么也看不到，
+这是因为iOS9之后，默认HTTPs请求，如需支持HTTP，
+修改info.plist文件, 添加键值对就OK
 
 需要在info.plist中设置
 
@@ -808,7 +1220,7 @@ Allow Arbitrary Loads 设置为 YES
               
                 
                 <a class="post-title-link" href="2016/06/26/react-native-1-envirment/" itemprop="url">
-                  react-native (一) 环境搭建
+                  React Native (一) 环境搭建
                 </a>
               
             
@@ -880,7 +1292,7 @@ Allow Arbitrary Loads 设置为 YES
             <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><pre><code>对于人员缺少，功能又不复杂的app来说，使用RN这种方式效率还是很高的;
 在使用的过程中，即使你按照参考资料，一个代码一个代码的敲，最后还是报bug，
 总会让你头疼，这个过程中，记录了下遇到的问题，可以让看到的人少走些弯路。
-</code></pre><p>本记录使用的开发环境：<br>OS: Mac 10.11.6<br>Xcode: Version 8.0 (8A218a)</p>
+</code></pre><p>开发环境：<br>OS: Mac 10.11.6<br>Xcode: Version 8.0 (8A218a)</p>
 <h3 id="安装环境"><a href="#安装环境" class="headerlink" title="安装环境"></a>安装环境</h3><pre><code>根据RN中文网的步骤来，都没啥问题。
 </code></pre><h3 id="遇到的坑"><a href="#遇到的坑" class="headerlink" title="遇到的坑"></a>遇到的坑</h3><ul>
 <li>Failure to call AppRegistry.registerComponent</li>
@@ -915,7 +1327,7 @@ Allow Arbitrary Loads 设置为 YES
 <h3 id="reload菜单shortcut"><a href="#reload菜单shortcut" class="headerlink" title="reload菜单shortcut"></a>reload菜单shortcut</h3></li>
 <li><p>iOS        command + d</p>
 </li>
-<li>android     command + m</li>
+<li>Android     command + m</li>
 </ul>
 <h3 id="结束"><a href="#结束" class="headerlink" title="结束"></a>结束</h3><pre><code>还是很方便的吗
 </code></pre>
@@ -1210,392 +1622,6 @@ Allow Arbitrary Loads 设置为 YES
 
 
     
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="2016/04/30/spring-boot-4-security/" itemprop="url">
-                  Spring-Boot （四) 集成Spring Security
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-04-30T11:46:45+08:00" content="2016-04-30">
-              2016-04-30
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="categories/Java/" itemprop="url" rel="index">
-                    <span itemprop="name">Java</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="2016/04/30/spring-boot-4-security/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/04/30/spring-boot-4-security/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><pre><code>shiro可以完全解决有关安全的问题，但是项目大多使用的是Spring框架，所以没必要在引入其他依赖，
-so，还是折腾下亲儿子的东东吧
-</code></pre><p>使用的开发环境：<br>OS: Mac 10.11.6<br>IDE: idea<br>Build: maven</p>
-<pre><code>以前都是使用xml来配置，但是spring-boot提倡Java Config的使用，
-折腾下来还是很多收获的。有关权限管理，行内大都秉承
-以角色为基础的访问控制（Role-based access control, RBAC）
-在Spring Security中，实现原理很简单，通过AOP对所要管理的资源（url或者method）进行拦截，
-在其内部维护了一条安全过滤链，有用户服务（UserDetailsService)、身份认证服务（AuthenticationProvider）、
-访问决策管理（AccessDecisionManager）、记住我(remember-me)等普世功能。
-当然，使用Spring-boot离不开Java Config，come on,just do it.
-</code></pre><h3 id="WebSecurityConfig"><a href="#WebSecurityConfig" class="headerlink" title="WebSecurityConfig"></a>WebSecurityConfig</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="meta">@Configuration</span></div><div class="line"><span class="meta">@ComponentScan</span>(<span class="string">"com.caogen"</span>)</div><div class="line"><span class="meta">@EnableWebSecurity</span></div><div class="line"><span class="meta">@EnableGlobalMethodSecurity</span>(prePostEnabled = <span class="keyword">true</span>, jsr250Enabled = <span class="keyword">true</span>)</div><div class="line"><span class="meta">@PropertySource</span>(<span class="string">"classpath:application.properties"</span>)</div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">WebSecurityConfig</span> <span class="keyword">extends</span> <span class="title">WebSecurityConfigurerAdapter</span> </span>&#123;</div><div class="line"></div><div class="line">    <span class="keyword">protected</span> <span class="keyword">final</span> Logger LOGGER = LoggerFactory.getLogger(getClass());</div><div class="line"></div><div class="line">    <span class="meta">@Autowired</span></div><div class="line">    <span class="keyword">private</span> MyAuthenticationProvider authenticationProvider;<span class="comment">//自定义验证</span></div><div class="line"></div><div class="line">    <span class="meta">@Autowired</span></div><div class="line">    <span class="keyword">private</span> MyUserDetailsService userDetailsService;</div><div class="line"></div><div class="line">    <span class="meta">@Autowired</span></div><div class="line">    <span class="keyword">private</span> MyPersistentTokenRepository tokenRepository;</div><div class="line"></div><div class="line">    <span class="meta">@Autowired</span></div><div class="line">    <span class="keyword">private</span> MyAccessDecisionManager accessDecisionManager;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">configure</span><span class="params">(AuthenticationManagerBuilder auth)</span> <span class="keyword">throws</span> Exception </span>&#123;</div><div class="line">        auth.authenticationProvider(authenticationProvider);</div><div class="line">        auth.userDetailsService(userDetailsService);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">configure</span><span class="params">(HttpSecurity http)</span> <span class="keyword">throws</span> Exception </span>&#123;</div><div class="line">        http</div><div class="line">                .headers()</div><div class="line">                    .frameOptions().sameOrigin().disable()<span class="comment">//disable X-Frame-Options</span></div><div class="line">                .authorizeRequests()</div><div class="line"><span class="comment">//                    .accessDecisionManager(accessDecisionManager)//用注解替换,如果不使用注解，取消注释</span></div><div class="line">                    .anyRequest().fullyAuthenticated()<span class="comment">//其他url需要鉴权</span></div><div class="line">                .and()</div><div class="line">                    .formLogin()</div><div class="line">                        .usernameParameter(<span class="string">"username"</span>)</div><div class="line">                        .passwordParameter(<span class="string">"password"</span>)</div><div class="line">                        .loginProcessingUrl(<span class="string">"/login"</span>)</div><div class="line">                        .loginPage(<span class="string">"/login"</span>)</div><div class="line">                        .failureUrl(<span class="string">"/login?error"</span>)</div><div class="line">                        .permitAll()</div><div class="line">                .and()</div><div class="line">                    .logout()</div><div class="line">                        .deleteCookies(<span class="string">"JSESSIONID"</span>)</div><div class="line">                        .logoutRequestMatcher(<span class="keyword">new</span> AntPathRequestMatcher(<span class="string">"/logout"</span>))</div><div class="line">                        .logoutSuccessUrl(<span class="string">"/login"</span>)</div><div class="line">                .and()</div><div class="line">                    .rememberMe()</div><div class="line">                        .tokenRepository(tokenRepository)</div><div class="line">                        .rememberMeServices(rememberMeServices())</div><div class="line">                        .rememberMeParameter(<span class="string">"remember-me"</span>).key(<span class="string">"key"</span>)</div><div class="line">                        .tokenValiditySeconds(<span class="number">86400</span>)</div><div class="line">                .and()</div><div class="line">                    .csrf().disable() <span class="comment">//disable csrf</span></div><div class="line">                    .sessionManagement().maximumSessions(<span class="number">1</span>);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@Bean</span></div><div class="line">    <span class="function"><span class="keyword">public</span> RememberMeServices <span class="title">rememberMeServices</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="comment">// Key must be equal to rememberMe().key()</span></div><div class="line">        PersistentTokenBasedRememberMeServices rememberMeServices =</div><div class="line">                <span class="keyword">new</span> PersistentTokenBasedRememberMeServices(<span class="string">"key"</span>, userDetailsService, tokenRepository);</div><div class="line">        rememberMeServices.setCookieName(<span class="string">"remember-me"</span>);</div><div class="line">        rememberMeServices.setParameter(<span class="string">"remember-me"</span>);</div><div class="line">        rememberMeServices.setTokenValiditySeconds(<span class="number">864000</span>);</div><div class="line">        <span class="keyword">return</span> rememberMeServices;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h3 id="MyUserDetailsService"><a href="#MyUserDetailsService" class="headerlink" title="MyUserDetailsService"></a>MyUserDetailsService</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**</span></div><div class="line"> * SPRING SECURITY用户登录处理</div><div class="line"> */</div><div class="line"><span class="meta">@Service</span>(<span class="string">"MyUserDetailsServiceImpl"</span>)</div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyUserDetailsService</span> <span class="keyword">implements</span> <span class="title">UserDetailsService</span> </span>&#123;</div><div class="line"></div><div class="line">    <span class="keyword">protected</span> <span class="keyword">final</span> Logger LOGGER = LoggerFactory.getLogger(getClass());</div><div class="line"></div><div class="line">    <span class="meta">@Autowired</span></div><div class="line">    <span class="keyword">private</span> SysUserMapper sysUserMapper;</div><div class="line">    <span class="meta">@Autowired</span></div><div class="line">    <span class="keyword">private</span> RoleMapper roleMapper;</div><div class="line">    <span class="meta">@Autowired</span></div><div class="line">    <span class="keyword">private</span> UserRoleLinkMapper userRoleLinkMapper;</div><div class="line"></div><div class="line">    <span class="meta">@Autowired</span></div><div class="line">    <span class="keyword">private</span> ResourceService resourceService;</div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> UserDetails <span class="title">loadUserByUsername</span><span class="params">(String username)</span> <span class="keyword">throws</span> UsernameNotFoundException </span>&#123;</div><div class="line"></div><div class="line">        LOGGER.info(<span class="string">"loadUserByUsername --&gt; [&#123;&#125;]"</span>, username);</div><div class="line"></div><div class="line">        SysUser sysUser = <span class="keyword">new</span> SysUser();</div><div class="line">        sysUser.setUsername(username);</div><div class="line">        List&lt;SysUser&gt; userList = sysUserMapper.select(sysUser);</div><div class="line">        <span class="keyword">if</span> (userList == <span class="keyword">null</span> || userList.size() == <span class="number">0</span>) &#123;</div><div class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> UsernameNotFoundException(<span class="string">"username not found."</span>);</div><div class="line">        &#125;</div><div class="line">        sysUser = userList.get(<span class="number">0</span>);</div><div class="line">        UserRoleLink userRoleLink = <span class="keyword">new</span> UserRoleLink();</div><div class="line">        userRoleLink.setUserId(sysUser.getId());</div><div class="line"></div><div class="line">        List&lt;UserRoleLink&gt; userRoleLinks = userRoleLinkMapper.select(userRoleLink);</div><div class="line">        List&lt;GrantedAuthority&gt; grantedAuthorities = <span class="keyword">new</span> ArrayList&lt;&gt;();</div><div class="line"></div><div class="line">        List&lt;Long&gt; roleIds = <span class="keyword">new</span> ArrayList&lt;&gt;();</div><div class="line"></div><div class="line">        Optional&lt;List&lt;UserRoleLink&gt;&gt; userRoleLinksOptional = Optional.ofNullable(userRoleLinks);</div><div class="line">        userRoleLinksOptional.ifPresent(userRoleLinks1 -&gt; &#123;</div><div class="line">            userRoleLinks1.forEach(userRoleLink1 -&gt; &#123;</div><div class="line">                roleIds.add(userRoleLink1.getRoleId());</div><div class="line">                <span class="keyword">if</span>(userRoleLink1.getRoleId() == <span class="number">1L</span>)&#123;</div><div class="line">                    GrantedAuthority grantedAuthority = <span class="keyword">new</span> SimpleGrantedAuthority(<span class="string">"ROLE_root"</span>);<span class="comment">//root角色特权</span></div><div class="line">                    grantedAuthorities.add(grantedAuthority);</div><div class="line">                &#125;</div><div class="line">            &#125;);</div><div class="line">        &#125;);</div><div class="line"></div><div class="line"></div><div class="line"><span class="comment">//        List&lt;Role&gt; roles = roleMapper.selectBatch(roleIds);//V1.0</span></div><div class="line">        List&lt;Resource&gt; resources = resourceService.selectByRoleId(roleIds.toArray(<span class="keyword">new</span> Long[<span class="number">0</span>]));</div><div class="line"></div><div class="line">        <span class="keyword">if</span>(resources != <span class="keyword">null</span> &amp;&amp; resources.size() &gt; <span class="number">0</span>)&#123;</div><div class="line">            resources.forEach(resource -&gt; &#123;</div><div class="line">                GrantedAuthority grantedAuthority = <span class="keyword">new</span> SimpleGrantedAuthority(<span class="string">"ROLE_"</span>+resource.getLink());<span class="comment">//必须ROLE_为前缀</span></div><div class="line">                grantedAuthorities.add(grantedAuthority);</div><div class="line">            &#125;);</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        LOGGER.info(<span class="string">"grantedAuthorities --&gt; &#123;&#125;"</span>, grantedAuthorities);</div><div class="line">        <span class="keyword">return</span> <span class="keyword">new</span> User(username, sysUser.getPassword(), <span class="keyword">true</span>, <span class="keyword">true</span>, <span class="keyword">true</span>, <span class="keyword">true</span>, grantedAuthorities);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h3 id="MyAuthenticationProvider"><a href="#MyAuthenticationProvider" class="headerlink" title="MyAuthenticationProvider"></a>MyAuthenticationProvider</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"> * 自定义验证方式</div><div class="line"> */</div><div class="line"><span class="meta">@Component</span></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyAuthenticationProvider</span> <span class="keyword">implements</span> <span class="title">AuthenticationProvider</span></span>&#123;</div><div class="line"></div><div class="line">    <span class="keyword">protected</span> <span class="keyword">final</span> Logger LOGGER = LoggerFactory.getLogger(getClass());</div><div class="line"></div><div class="line">    <span class="meta">@Autowired</span></div><div class="line">    <span class="keyword">private</span> MyUserDetailsService userService;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> Authentication <span class="title">authenticate</span><span class="params">(Authentication authentication)</span></span></div><div class="line">                                                <span class="keyword">throws</span> AuthenticationException &#123;</div><div class="line">        String username = authentication.getName();</div><div class="line">        String password = (String) authentication.getCredentials();</div><div class="line"></div><div class="line">        UserDetails user = userService.loadUserByUsername(username);</div><div class="line"></div><div class="line">        LOGGER.info(<span class="string">"password=&#123;&#125;, needPassword=&#123;&#125;"</span>, password, user.getPassword());</div><div class="line">        <span class="comment">//密码匹配验证</span></div><div class="line">        <span class="keyword">if</span> (passwordEncoder().matches(password, user.getPassword())) &#123;</div><div class="line">            Collection&lt;? extends GrantedAuthority&gt; authorities = user.getAuthorities();</div><div class="line">            <span class="keyword">return</span> <span class="keyword">new</span> UsernamePasswordAuthenticationToken(user, password, authorities);</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> BadCredentialsException(<span class="string">"Wrong password."</span>);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">   <span class="meta">@Bean</span></div><div class="line">   <span class="function"><span class="keyword">public</span> PasswordEncoder <span class="title">passwordEncoder</span><span class="params">()</span></span>&#123;</div><div class="line">       <span class="keyword">return</span> <span class="keyword">new</span> BCryptPasswordEncoder();</div><div class="line">   &#125;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">supports</span><span class="params">(Class&lt;?&gt; aClass)</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">true</span>;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h3 id="MyAccessDecisionManager"><a href="#MyAccessDecisionManager" class="headerlink" title="MyAccessDecisionManager"></a>MyAccessDecisionManager</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**</span></div><div class="line"> * 验证资源跟角色之间的关系</div><div class="line"> */</div><div class="line"><span class="meta">@Component</span></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyAccessDecisionManager</span> <span class="keyword">implements</span> <span class="title">AccessDecisionManager</span> </span>&#123;</div><div class="line"></div><div class="line">    <span class="keyword">protected</span> <span class="keyword">final</span> Logger LOGGER = LoggerFactory.getLogger(getClass());</div><div class="line"></div><div class="line">    <span class="meta">@Autowired</span></div><div class="line">    <span class="keyword">private</span> RoleService roleService;</div><div class="line"></div><div class="line">    <span class="comment">/**</span></div><div class="line">     * // authentication 为用户所被赋予的权限, configAttributes 为访问相应的资源应该具有的权限。</div><div class="line">     * <span class="doctag">@param</span> authentication</div><div class="line">     * <span class="doctag">@param</span> object</div><div class="line">     * <span class="doctag">@param</span> configAttributes</div><div class="line">     * <span class="doctag">@throws</span> AccessDeniedException</div><div class="line">     * <span class="doctag">@throws</span> InsufficientAuthenticationException</div><div class="line">     */</div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">decide</span><span class="params">(Authentication authentication, Object object, Collection&lt;ConfigAttribute&gt; configAttributes)</span></span></div><div class="line">            <span class="keyword">throws</span> AccessDeniedException, InsufficientAuthenticationException &#123;</div><div class="line"></div><div class="line">        Collection&lt;GrantedAuthority&gt; userHasRoles =</div><div class="line">                (Collection&lt;GrantedAuthority&gt;) authentication.getAuthorities();</div><div class="line"></div><div class="line">        LOGGER.info(<span class="string">"CurrentUser=&#123;&#125; CurrentHasRoles = &#123;&#125;"</span>, authentication.getName(), Arrays.asList(userHasRoles));</div><div class="line"></div><div class="line">        <span class="comment">//放行[超级管理员]角色</span></div><div class="line">        Iterator&lt;GrantedAuthority&gt; iterator = userHasRoles.iterator();</div><div class="line">        <span class="keyword">while</span> (iterator.hasNext())&#123;</div><div class="line">            GrantedAuthority grantedAuthority = iterator.next();</div><div class="line">            <span class="keyword">if</span>(<span class="string">"系统管理员"</span>.equals(grantedAuthority.getAuthority()))&#123;</div><div class="line">                <span class="keyword">return</span>;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        LOGGER.info(<span class="string">"1 CurrentUser=&#123;&#125; CurrentHasRoles = &#123;&#125;"</span>, authentication.getName(), Arrays.asList(userHasRoles));</div><div class="line"></div><div class="line">        Collection&lt;GrantedAuthority&gt; uriHasRoles = getGrantedAuthoritys(object);</div><div class="line">        <span class="keyword">if</span> (uriHasRoles == <span class="keyword">null</span> || uriHasRoles.size() == <span class="number">0</span>) &#123;</div><div class="line">            <span class="keyword">return</span>;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        Optional&lt;Collection&lt;GrantedAuthority&gt;&gt; grantedAuthoritiesForOptional =</div><div class="line">                Optional.ofNullable(userHasRoles);</div><div class="line"></div><div class="line">        <span class="keyword">try</span>&#123;</div><div class="line">            grantedAuthoritiesForOptional.ifPresent(userHasRolesNotNull -&gt; &#123;</div><div class="line">                userHasRolesNotNull.forEach(userHasRole -&gt; &#123;</div><div class="line">                    uriHasRoles.forEach(uriHasRole -&gt; &#123;</div><div class="line">                        LOGGER.info(<span class="string">"userHasRole=&#123;&#125;, uriHasRole=&#123;&#125;"</span>, userHasRole, uriHasRole);</div><div class="line">                        <span class="keyword">if</span> (userHasRole.getAuthority().equals(uriHasRole.getAuthority())) &#123;</div><div class="line">                            <span class="keyword">throw</span> <span class="keyword">new</span> AppException(<span class="string">"break"</span>);</div><div class="line">                        &#125;</div><div class="line">                    &#125;);</div><div class="line">                &#125;);</div><div class="line">            &#125;);</div><div class="line">        &#125;<span class="keyword">catch</span>(AppException be)&#123;</div><div class="line">            <span class="keyword">return</span>;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> AccessDeniedException(<span class="string">"Access Denied."</span>);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">private</span> Collection&lt;GrantedAuthority&gt; <span class="title">getGrantedAuthoritys</span><span class="params">(Object object)</span> </span>&#123;</div><div class="line">        FilterInvocation filterInvocation = (FilterInvocation) object;</div><div class="line">        String uri = <span class="keyword">new</span> StringBuilder(filterInvocation.getRequestUrl()).deleteCharAt(<span class="number">0</span>).toString();</div><div class="line">        <span class="keyword">if</span>(<span class="string">""</span>.equals(uri))&#123;</div><div class="line">            <span class="keyword">return</span> <span class="keyword">null</span>;</div><div class="line">        &#125;</div><div class="line">        List&lt;Role&gt; uriHasRoles = roleService.selectByResourceURI(uri);</div><div class="line">        LOGGER.info(<span class="string">"fullRequestUrl=&#123;&#125;, requestUrl=&#123;&#125;, uriHasRoles=&#123;&#125;"</span>,</div><div class="line">                filterInvocation.getFullRequestUrl(),</div><div class="line">                filterInvocation.getRequestUrl(),</div><div class="line">                uriHasRoles);</div><div class="line"></div><div class="line">        <span class="keyword">if</span> (uriHasRoles == <span class="keyword">null</span> || uriHasRoles.size() == <span class="number">0</span>) &#123;</div><div class="line">            <span class="keyword">return</span> <span class="keyword">null</span>;</div><div class="line">        &#125;</div><div class="line">        Collection&lt;GrantedAuthority&gt; grantedAuthorities = <span class="keyword">new</span> ArrayList&lt;&gt;();</div><div class="line">        uriHasRoles.forEach(item -&gt; &#123;</div><div class="line">            GrantedAuthority grantedAuthority = <span class="keyword">new</span> SimpleGrantedAuthority(item.getName());</div><div class="line">            grantedAuthorities.add(grantedAuthority);</div><div class="line">        &#125;);</div><div class="line">        <span class="keyword">return</span> grantedAuthorities;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">supports</span><span class="params">(ConfigAttribute configAttribute)</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">true</span>;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">supports</span><span class="params">(Class&lt;?&gt; aClass)</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">true</span>;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h3 id="Remember-Me-使用database方式，MyPersistentTokenRepository"><a href="#Remember-Me-使用database方式，MyPersistentTokenRepository" class="headerlink" title="Remember-Me 使用database方式，MyPersistentTokenRepository"></a>Remember-Me 使用database方式，MyPersistentTokenRepository</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"> * 记住我 持久化方式</div><div class="line"> */</div><div class="line"><span class="meta">@Component</span></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyPersistentTokenRepository</span> <span class="keyword">implements</span> <span class="title">PersistentTokenRepository</span> </span>&#123;</div><div class="line"></div><div class="line">    <span class="keyword">protected</span> <span class="keyword">final</span> Logger LOGGER = LoggerFactory.getLogger(getClass());</div><div class="line"></div><div class="line">    <span class="meta">@Autowired</span></div><div class="line">    <span class="keyword">private</span> RememberMeMapper remembermeMapper;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">createNewToken</span><span class="params">(PersistentRememberMeToken persistentRememberMeToken)</span> </span>&#123;</div><div class="line">        RememberMe rememberMe = <span class="keyword">new</span> RememberMe();</div><div class="line">        rememberMe.setUsername(persistentRememberMeToken.getUsername());</div><div class="line">        rememberMe.setSeries(persistentRememberMeToken.getSeries());</div><div class="line">        rememberMe.setDate(persistentRememberMeToken.getDate());</div><div class="line">        rememberMe.setTokenValue(persistentRememberMeToken.getTokenValue());</div><div class="line">        remembermeMapper.insert(rememberMe);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">updateToken</span><span class="params">(String s, String s1, Date date)</span> </span>&#123;</div><div class="line">        RememberMe rememberMe = <span class="keyword">new</span> RememberMe();</div><div class="line">        rememberMe.setUsername(<span class="string">""</span>);</div><div class="line">        rememberMe.setSeries(s);</div><div class="line">        rememberMe.setTokenValue(s1);</div><div class="line">        rememberMe.setDate(date);</div><div class="line">        remembermeMapper.updateByPK(rememberMe);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> PersistentRememberMeToken <span class="title">getTokenForSeries</span><span class="params">(String s)</span> </span>&#123;</div><div class="line">        RememberMe rememberMe = remembermeMapper.selectByPK(s);</div><div class="line">        PersistentRememberMeToken persistentRememberMeToken =</div><div class="line">                <span class="keyword">new</span> PersistentRememberMeToken(rememberMe.getUsername(),</div><div class="line">                        rememberMe.getSeries(),</div><div class="line">                        rememberMe.getTokenValue(),</div><div class="line">                        rememberMe.getDate()</div><div class="line">                );</div><div class="line">        <span class="keyword">return</span> persistentRememberMeToken;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">removeUserTokens</span><span class="params">(String s)</span> </span>&#123;</div><div class="line">        remembermeMapper.deleteByPK(s);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h3 id="如果用注解的方式，及-RolesAllowed（jsr250）"><a href="#如果用注解的方式，及-RolesAllowed（jsr250）" class="headerlink" title="如果用注解的方式，及@RolesAllowed（jsr250）"></a>如果用注解的方式，及@RolesAllowed（jsr250）</h3><p>   那么务必将jsr250Enabled＝true在config中声明，然后再所需控制的方法上加上注解，<br>   jsr250有三个注解，分别是@RolesAllowed,@PermitAll,@DenyAll,功能跟名字一样，<br>   一目了然，如果有多个角色，可以@RolesAllowed({“ROLE_A”, “ROLE<em>B”}),这里角色的前缀<br>   一定是”ROLE</em>“,约定好的，就不要计较了。</p>
-<h3 id="结束"><a href="#结束" class="headerlink" title="结束"></a>结束</h3><p>   使用过程中，总是下意识的按照Spring Security提供的思路去实现，无可厚非，但是我仔细琢磨后，<br>   觉得从便利性和实用方面考虑，每个方法上的注解要约定好名称，例如：</p>
-   <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">@RolesAllowed(&#123;&quot;ROLE_roles:view&quot;&#125;)</div><div class="line">public void find&#123;...&#125;</div><div class="line"></div><div class="line">@RolesAllowed(&#123;&quot;ROLE_roles:update&quot;&#125;)</div><div class="line">public void update&#123;...&#125;</div><div class="line"></div><div class="line">@RolesAllowed(&#123;&quot;ROLE_roles:delete&quot;&#125;)</div><div class="line">public void delete&#123;...&#125;</div><div class="line"></div><div class="line">@RolesAllowed(&#123;&quot;ROLE_roles:create&quot;&#125;)</div><div class="line">public void create&#123;...&#125;</div><div class="line"></div><div class="line">`</div></pre></td></tr></table></figure>
-<p>   这样，表面是把权限赋予了角色，还能Dynamic Resource，何乐而不为呢。</p>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="2016/04/29/spring-boot-3-mybatis/" itemprop="url">
-                  Spring-Boot（三） 集成MyBatis
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-04-29T11:46:45+08:00" content="2016-04-29">
-              2016-04-29
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="categories/Java/" itemprop="url" rel="index">
-                    <span itemprop="name">Java</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="2016/04/29/spring-boot-3-mybatis/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/04/29/spring-boot-3-mybatis/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>MyBatis在国内一直很流行，在ORM框架中使用比例很高。<br>由于MyBatis不是Spring的亲生儿子，所以依赖的版本很发麻，不像其他的依赖，直接引入就可以，还得看版本。<br>经过几次尝试，下文给出的是可以正常使用的。</p>
-<p>本记录使用的开发环境：<br>OS: Mac 10.11.6<br>IDE: idea<br>Build: maven</p>
-<h3 id="POM依赖"><a href="#POM依赖" class="headerlink" title="POM依赖"></a>POM依赖</h3><figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">&lt;!-- properties --&gt;</div><div class="line">&lt;properties&gt;</div><div class="line">    &lt;spring.boot.mybatis&gt;1.0.2&lt;/spring.boot.mybatis&gt;</div><div class="line">    &lt;mybatis.version&gt;3.4.1&lt;/mybatis.version&gt;</div><div class="line">    &lt;mybatis.spring.version&gt;1.3.0&lt;/mybatis.spring.version&gt;</div><div class="line">&lt;/properties</div><div class="line">&lt;!-- mybatis --&gt;</div><div class="line">&lt;dependency&gt;</div><div class="line">    &lt;groupId&gt;org.mybatis&lt;/groupId&gt;</div><div class="line">    &lt;artifactId&gt;mybatis&lt;/artifactId&gt;</div><div class="line">    &lt;version&gt;$&#123;mybatis.version&#125;&lt;/version&gt;</div><div class="line">&lt;/dependency&gt;</div><div class="line">&lt;!-- mybatis-spring --&gt;</div><div class="line">&lt;dependency&gt;</div><div class="line">    &lt;groupId&gt;org.mybatis&lt;/groupId&gt;</div><div class="line">    &lt;artifactId&gt;mybatis-spring&lt;/artifactId&gt;</div><div class="line">    &lt;version&gt;$&#123;mybatis.spring.version&#125;&lt;/version&gt;</div><div class="line">&lt;/dependency&gt;</div></pre></td></tr></table></figure>
-<h3 id="属性配置application-properties"><a href="#属性配置application-properties" class="headerlink" title="属性配置application.properties"></a>属性配置application.properties</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">#datasource</div><div class="line">spring.datasource.url=jdbc:mysql://localhost:3306/db_name?useUnicode=true&amp;characterEncoding=utf-8&amp;useSSL=false</div><div class="line">spring.datasource.username=******</div><div class="line">spring.datasource.password=******</div><div class="line">spring.datasource.driver-class-name=com.mysql.jdbc.Driver</div><div class="line"></div><div class="line">#mybatis</div><div class="line">#mapper路径</div><div class="line">mybatis.mapperLocations=classpath*:**/mappers/*.xml</div><div class="line">#model包</div><div class="line">mybatis.typeAliasesPackage=com.xxxx.domain</div></pre></td></tr></table></figure>
-<h3 id="结束"><a href="#结束" class="headerlink" title="结束"></a>结束</h3><p>是不是很简单，没有太多的配置，清爽多了。</p>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="2016/04/28/spring-boot-2-hot-swap/" itemprop="url">
-                  Spring-Boot（二） 集成springloaded
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-04-28T11:46:45+08:00" content="2016-04-28">
-              2016-04-28
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="categories/Java/" itemprop="url" rel="index">
-                    <span itemprop="name">Java</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="2016/04/28/spring-boot-2-hot-swap/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/04/28/spring-boot-2-hot-swap/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>我在开发的时候，总是会及时对自己的程序进行测试，总是频繁的重启web server，容器不烦我们都觉得烦了。<br>福音来了，正好有springloaded，解决了我们的烦恼。</p>
-<p>本记录使用的开发环境：<br>OS: Mac 10.11.6<br>IDE: idea<br>Build: maven<br>spring-boot-version: 1.4.0.RELEASE</p>
-<h3 id="POM依赖"><a href="#POM依赖" class="headerlink" title="POM依赖"></a>POM依赖</h3><figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-devtools<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>springloaded<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.2.6.RELEASE<span class="tag">&lt;/<span class="name">version</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">dependency</span></span></div></pre></td></tr></table></figure>
-<h3 id="maven-plugin"><a href="#maven-plugin" class="headerlink" title="maven plugin"></a>maven plugin</h3><figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">plugin</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-maven-plugin<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">dependencies</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>springloaded<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.2.6.RELEASE<span class="tag">&lt;/<span class="name">version</span>&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">dependencies</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">plugin</span>&gt;</span></div></pre></td></tr></table></figure>
-<h3 id="结束"><a href="#结束" class="headerlink" title="结束"></a>结束</h3><p> 一开始以为直接在maven plugin中加入依赖就可以了，而在实际当中没有任何动静，直到把devtools和springloaded加入依赖，才能如愿以偿。</p>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -1641,7 +1667,7 @@ so，还是折腾下亲儿子的东东吧
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">23</span>
+              <span class="site-state-item-count">26</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -1649,7 +1675,7 @@ so，还是折腾下亲儿子的东东吧
           
             <div class="site-state-item site-state-categories">
               <a href="/categories">
-                <span class="site-state-item-count">10</span>
+                <span class="site-state-item-count">11</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -1658,7 +1684,7 @@ so，还是折腾下亲儿子的东东吧
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">30</span>
+                <span class="site-state-item-count">34</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>

@@ -87,27 +87,30 @@
 
 
 <meta name="description" content="前言react-native-vector-icons组件,
-可以免费使用更多的icons资源
-本记录使用的开发环境：OS: Mac 10.11.6Xcode: Version 8.0 (8A218a)
+对于非设计人员，可以免费使用更多的icons资源
+开发环境：OS: Mac 10.11.6Xcode: Version 8.0 (8A218a)
 使用12npm install react-native-vector-icons --savernpm link
-＊ ios    之后会在Xcode中的info.plis里面看到如下键值信息：">
+
+iOS  之后会在Xcode中的info.plis里面看到如下键值信息：">
 <meta property="og:type" content="article">
-<meta property="og:title" content="react-native (三) react-native-vector-icons组件">
+<meta property="og:title" content="React Native (三) react-native-vector-icons 图标组件">
 <meta property="og:url" content="http://www.nealma.com/2016/07/27/react-native-3-icons/index.html">
 <meta property="og:site_name" content="neal.ma">
 <meta property="og:description" content="前言react-native-vector-icons组件,
-可以免费使用更多的icons资源
-本记录使用的开发环境：OS: Mac 10.11.6Xcode: Version 8.0 (8A218a)
+对于非设计人员，可以免费使用更多的icons资源
+开发环境：OS: Mac 10.11.6Xcode: Version 8.0 (8A218a)
 使用12npm install react-native-vector-icons --savernpm link
-＊ ios    之后会在Xcode中的info.plis里面看到如下键值信息：">
-<meta property="og:updated_time" content="2016-10-16T10:48:05.000Z">
+
+iOS  之后会在Xcode中的info.plis里面看到如下键值信息：">
+<meta property="og:updated_time" content="2016-10-21T09:30:39.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="react-native (三) react-native-vector-icons组件">
+<meta name="twitter:title" content="React Native (三) react-native-vector-icons 图标组件">
 <meta name="twitter:description" content="前言react-native-vector-icons组件,
-可以免费使用更多的icons资源
-本记录使用的开发环境：OS: Mac 10.11.6Xcode: Version 8.0 (8A218a)
+对于非设计人员，可以免费使用更多的icons资源
+开发环境：OS: Mac 10.11.6Xcode: Version 8.0 (8A218a)
 使用12npm install react-native-vector-icons --savernpm link
-＊ ios    之后会在Xcode中的info.plis里面看到如下键值信息：">
+
+iOS  之后会在Xcode中的info.plis里面看到如下键值信息：">
 
 
 
@@ -130,7 +133,7 @@
 
   <link rel="canonical" href="http://www.nealma.com/2016/07/27/react-native-3-icons/"/>
 
-  <title> react-native (三) react-native-vector-icons组件 | neal.ma </title>
+  <title> React Native (三) react-native-vector-icons 图标组件 | neal.ma </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -280,7 +283,7 @@
             
             
               
-                react-native (三) react-native-vector-icons组件
+                React Native (三) react-native-vector-icons 图标组件
               
             
           </h1>
@@ -347,12 +350,12 @@
 
       
         <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><pre><code>react-native-vector-icons组件,
-可以免费使用更多的icons资源
-</code></pre><p>本记录使用的开发环境：<br>OS: Mac 10.11.6<br>Xcode: Version 8.0 (8A218a)</p>
+对于非设计人员，可以免费使用更多的icons资源
+</code></pre><p>开发环境：<br>OS: Mac 10.11.6<br>Xcode: Version 8.0 (8A218a)</p>
 <h3 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">npm install react-native-vector-icons --save</div><div class="line">rnpm link</div></pre></td></tr></table></figure>
-<p>＊ ios<br>    之后会在Xcode中的info.plis里面看到如下键值信息：<br>    Fonts provided by application（item0-item7）<br>    如果没有此项信息，需要手动添加Fonts provided by application。</p>
 <ul>
-<li>android<br>  Edit android/app/build.gradle ( NOT android/build.gradle ) and add the following:<br>  添加如下内容:</li>
+<li>iOS<br>  之后会在Xcode中的info.plis里面看到如下键值信息：<br>  Fonts provided by application（item0-item7）<br>  如果没有此项信息，需要手动添加Fonts provided by application。</li>
+<li>Android<br>  Edit android/app/build.gradle ( NOT android/build.gradle ) and add the following:<br>  添加如下内容:</li>
 </ul>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">project.ext.vectoricons = [</div><div class="line">    iconFontNames: [ &apos;MaterialIcons.ttf&apos;, &apos;EvilIcons.ttf&apos;, &apos;FontAwesome.ttf&apos;, &apos;Entypo.fft&apos;, &apos;EvilIcons.ttf&apos;, &apos;Octicons.ttf&apos;, &apos;Zocial.ttf&apos;, &apos;Ionicons.ttf&apos; ] // Name of the font files you want to copy</div><div class="line">]</div><div class="line"></div><div class="line">apply from: &quot;../../node_modules/react-native-vector-icons/fonts.gradle&quot;</div></pre></td></tr></table></figure>
 <h3 id="Example"><a href="#Example" class="headerlink" title="Example"></a>Example</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">import Icon from &apos;react-native-vector-icons/FontAwesome&apos;;</div><div class="line"></div><div class="line">&lt;Icon name=&quot;navicon&quot; size=&#123;30&#125; color=&quot;#4F8EF7&quot; style=&#123;&#123;marginTop: 20, marginLeft: 20&#125;&#125;/&gt;</div></pre></td></tr></table></figure>
@@ -393,16 +396,16 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="../../26/react-native-2-image/" rel="next" title="react-native (二) Image图片组件">
-                <i class="fa fa-chevron-left"></i> react-native (二) Image图片组件
+              <a href="../../26/react-native-2-image/" rel="next" title="React Native (二) Image图片组件">
+                <i class="fa fa-chevron-left"></i> React Native (二) Image图片组件
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="../../28/react-native-4-slide-menu/" rel="prev" title="react-native (四) react-native-jelly-side-menu组件">
-                react-native (四) react-native-jelly-side-menu组件 <i class="fa fa-chevron-right"></i>
+              <a href="../../28/react-native-4-sidemenu/" rel="prev" title="React Native (四) react-native-side-menu组件">
+                React Native (四) react-native-side-menu组件 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -430,7 +433,7 @@
   <div class="comments" id="comments">
     
       <div class="ds-thread" data-thread-key="2016/07/27/react-native-3-icons/"
-           data-title="react-native (三) react-native-vector-icons组件" data-url="http://www.nealma.com/2016/07/27/react-native-3-icons/">
+           data-title="React Native (三) react-native-vector-icons 图标组件" data-url="http://www.nealma.com/2016/07/27/react-native-3-icons/">
       </div>
     
   </div>
@@ -475,7 +478,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="../../../../archives">
-              <span class="site-state-item-count">23</span>
+              <span class="site-state-item-count">26</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -483,7 +486,7 @@
           
             <div class="site-state-item site-state-categories">
               <a href="../../../../categories">
-                <span class="site-state-item-count">10</span>
+                <span class="site-state-item-count">11</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -492,7 +495,7 @@
           
             <div class="site-state-item site-state-tags">
               <a href="../../../../tags">
-                <span class="site-state-item-count">30</span>
+                <span class="site-state-item-count">34</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>

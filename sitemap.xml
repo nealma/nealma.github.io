@@ -2,16 +2,65 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>http://www.nealma.com/2016/06/26/react-native-1-envirment/</loc>
+    <loc>http://www.nealma.com/2016/07/30/react-native-7-navigator/</loc>
     
-    <lastmod>2016-10-16T10:58:10.000Z</lastmod>
+    <lastmod>2016-10-21T13:48:37.000Z</lastmod>
     
   </url>
   
   <url>
     <loc>http://www.nealma.com/2016/07/27/react-native-3-icons/</loc>
     
-    <lastmod>2016-10-16T10:48:05.000Z</lastmod>
+    <lastmod>2016-10-21T09:30:39.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://www.nealma.com/2016/07/28/react-native-5-listview/</loc>
+    
+    <lastmod>2016-10-21T09:25:13.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://www.nealma.com/2016/07/29/react-native-6-cameraroll/</loc>
+    
+    <lastmod>2016-10-21T09:21:28.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://www.nealma.com/2016/07/28/enrollment-1-apple-developer/</loc>
+    
+    <lastmod>2016-10-21T09:17:12.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://www.nealma.com/2016/07/28/react-native-4-sidemenu/</loc>
+    
+    <lastmod>2016-10-20T13:39:05.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://www.nealma.com/2016/03/18/hexo-how-to-use/</loc>
+    
+    <lastmod>2016-10-20T13:37:54.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://www.nealma.com/2016/06/26/react-native-1-envirment/</loc>
+    
+    <lastmod>2016-10-20T10:34:26.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://www.nealma.com/2016/07/26/react-native-2-image/</loc>
+    
+    <lastmod>2016-10-20T06:14:44.000Z</lastmod>
     
   </url>
   
@@ -65,27 +114,6 @@
   </url>
   
   <url>
-    <loc>http://www.nealma.com/2016/07/28/react-native-5-listview/</loc>
-    
-    <lastmod>2016-10-16T10:45:15.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://www.nealma.com/2016/07/28/react-native-4-slide-menu/</loc>
-    
-    <lastmod>2016-10-16T10:45:10.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://www.nealma.com/2016/07/26/react-native-2-image/</loc>
-    
-    <lastmod>2016-10-16T10:44:58.000Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>http://www.nealma.com/2016/03/30/mac-used-2-shortcut-capture/</loc>
     
     <lastmod>2016-10-16T00:19:07.000Z</lastmod>
@@ -131,13 +159,6 @@
     <loc>http://www.nealma.com/2016/03/29/mac-used-1-app/</loc>
     
     <lastmod>2016-10-15T14:07:52.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://www.nealma.com/2016/03/18/hexo-how-to-use/</loc>
-    
-    <lastmod>2016-10-15T14:07:42.000Z</lastmod>
     
   </url>
   
