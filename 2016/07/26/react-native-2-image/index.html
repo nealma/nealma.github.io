@@ -354,12 +354,12 @@ require
 <h3 id="使用方式"><a href="#使用方式" class="headerlink" title="使用方式"></a>使用方式</h3><ul>
 <li>require</li>
 </ul>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;Image source=&#123;<span class="built_in">require</span>(<span class="string">'./resources/ly.png'</span>)&#125; style=&#123;&#123;width: <span class="number">100</span>, height: <span class="number">100</span>&#125;&#125; /&gt;</div></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;Image source=&#123;<span class="built_in">require</span>(<span class="string">'./resources/ly.png'</span>)&#125; style=&#123;&#123;<span class="attr">width</span>: <span class="number">100</span>, <span class="attr">height</span>: <span class="number">100</span>&#125;&#125; /&gt;</div></pre></td></tr></table></figure>
 <pre><code>注意这里面一定要显示定义图片大小，否则一旦图片尺寸很大，会不显示。
 </code></pre><ul>
 <li>uri</li>
 </ul>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&lt;View style=&#123;&#123;width: <span class="number">100</span>, height: <span class="number">100</span>&#125;&#125;&gt;</div><div class="line">    &lt;Image source=&#123;&#123;uri: 'http://cdn.crunchify.com/wp-content/uploads/2013/01/html5-canvas.png'&#125;&#125; /&gt;</div><div class="line">    &lt;Image source=&#123;&#123;uri: 'https://facebook.github.io/react/img/logo_og.png'&#125;&#125; /&gt;</div><div class="line">&lt;/View&gt;</div></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&lt;View style=&#123;&#123;<span class="attr">width</span>: <span class="number">100</span>, <span class="attr">height</span>: <span class="number">100</span>&#125;&#125;&gt;</div><div class="line">    &lt;Image source=&#123;&#123;uri: 'http://cdn.crunchify.com/wp-content/uploads/2013/01/html5-canvas.png'&#125;&#125; /&gt;</div><div class="line">    &lt;Image source=&#123;&#123;uri: 'https://facebook.github.io/react/img/logo_og.png'&#125;&#125; /&gt;</div><div class="line">&lt;/View&gt;</div></pre></td></tr></table></figure>
 <pre><code>注意如果是iOS,HTTP协议的uri会受到限制，可能什么也看不到，
 这是因为iOS9之后，默认HTTPs请求，如需支持HTTP，
 修改info.plist文件, 添加键值对就OK
@@ -410,8 +410,8 @@ Allow Arbitrary Loads 设置为 YES
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="../../../06/26/react-native-1-envirment/" rel="next" title="React Native (一) 环境搭建">
-                <i class="fa fa-chevron-left"></i> React Native (一) 环境搭建
+              <a href="../../25/enrollment-1-apple-developer/" rel="next" title="账号申请(一) 苹果开发者账号">
+                <i class="fa fa-chevron-left"></i> 账号申请(一) 苹果开发者账号
               </a>
             
           </div>
@@ -492,7 +492,7 @@ Allow Arbitrary Loads 设置为 YES
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="../../../../archives">
-              <span class="site-state-item-count">26</span>
+              <span class="site-state-item-count">28</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -509,7 +509,7 @@ Allow Arbitrary Loads 设置为 YES
           
             <div class="site-state-item site-state-tags">
               <a href="../../../../tags">
-                <span class="site-state-item-count">34</span>
+                <span class="site-state-item-count">35</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>

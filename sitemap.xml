@@ -2,9 +2,58 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://www.nealma.com/2016/08/31/react-native-9-TextInput/</loc>
+    
+    <lastmod>2016-10-28T05:59:33.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://www.nealma.com/2016/08/30/react-native-8-define-component/</loc>
+    
+    <lastmod>2016-10-28T05:51:08.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://www.nealma.com/2016/04/28/spring-boot-2-hot-swap/</loc>
+    
+    <lastmod>2016-10-27T12:22:54.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://www.nealma.com/2016/06/26/react-native-1-envirment/</loc>
+    
+    <lastmod>2016-10-27T12:20:39.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://www.nealma.com/2016/07/25/enrollment-1-apple-developer/</loc>
+    
+    <lastmod>2016-10-26T05:56:14.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://www.nealma.com/2016/04/20/spring-boot-1-how-to-use/</loc>
+    
+    <lastmod>2016-10-25T08:01:34.000Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://www.nealma.com/2016/07/30/react-native-7-navigator/</loc>
     
-    <lastmod>2016-10-21T13:48:37.000Z</lastmod>
+    <lastmod>2016-10-24T16:11:36.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://www.nealma.com/2016/07/29/react-native-6-cameraroll/</loc>
+    
+    <lastmod>2016-10-24T04:56:01.000Z</lastmod>
     
   </url>
   
@@ -23,20 +72,6 @@
   </url>
   
   <url>
-    <loc>http://www.nealma.com/2016/07/29/react-native-6-cameraroll/</loc>
-    
-    <lastmod>2016-10-21T09:21:28.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://www.nealma.com/2016/07/28/enrollment-1-apple-developer/</loc>
-    
-    <lastmod>2016-10-21T09:17:12.000Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>http://www.nealma.com/2016/07/28/react-native-4-sidemenu/</loc>
     
     <lastmod>2016-10-20T13:39:05.000Z</lastmod>
@@ -51,30 +86,9 @@
   </url>
   
   <url>
-    <loc>http://www.nealma.com/2016/06/26/react-native-1-envirment/</loc>
-    
-    <lastmod>2016-10-20T10:34:26.000Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>http://www.nealma.com/2016/07/26/react-native-2-image/</loc>
     
     <lastmod>2016-10-20T06:14:44.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://www.nealma.com/2016/04/20/spring-boot-1-how-to-use/</loc>
-    
-    <lastmod>2016-10-16T10:47:11.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://www.nealma.com/2016/04/28/spring-boot-2-hot-swap/</loc>
-    
-    <lastmod>2016-10-16T10:47:09.000Z</lastmod>
     
   </url>
   

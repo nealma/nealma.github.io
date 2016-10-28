@@ -87,27 +87,26 @@
 
 
 <meta name="description" content="前言CameraRoll模块提供了访问本地相册的功能。
+
 开发环境：OS: Mac 10.11.6Xcode: Version 8.0 (8A218a)
-最简单的用例踩到的坑
-解决ReactNative使用CameraRoll时undefined错误
-  1, 将 node_modules/react-native/Libraries/CameraRoll/RCTCameraRoll.xcodepr">
+简单用例12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849505152535455565758596061626364">
 <meta property="og:type" content="article">
 <meta property="og:title" content="React Native (六) CameraRoll 相册组件">
 <meta property="og:url" content="http://www.nealma.com/2016/07/29/react-native-6-cameraroll/index.html">
 <meta property="og:site_name" content="neal.ma">
 <meta property="og:description" content="前言CameraRoll模块提供了访问本地相册的功能。
+
 开发环境：OS: Mac 10.11.6Xcode: Version 8.0 (8A218a)
-最简单的用例踩到的坑
-解决ReactNative使用CameraRoll时undefined错误
-  1, 将 node_modules/react-native/Libraries/CameraRoll/RCTCameraRoll.xcodepr">
-<meta property="og:updated_time" content="2016-10-21T09:21:28.000Z">
+简单用例12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849505152535455565758596061626364">
+<meta property="og:image" content="http://www.nealma.com/images/cameraroll.gif">
+<meta property="og:updated_time" content="2016-10-24T04:56:01.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="React Native (六) CameraRoll 相册组件">
 <meta name="twitter:description" content="前言CameraRoll模块提供了访问本地相册的功能。
+
 开发环境：OS: Mac 10.11.6Xcode: Version 8.0 (8A218a)
-最简单的用例踩到的坑
-解决ReactNative使用CameraRoll时undefined错误
-  1, 将 node_modules/react-native/Libraries/CameraRoll/RCTCameraRoll.xcodepr">
+简单用例12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849505152535455565758596061626364">
+<meta name="twitter:image" content="http://www.nealma.com/images/cameraroll.gif">
 
 
 
@@ -347,17 +346,25 @@
 
       
         <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><pre><code>CameraRoll模块提供了访问本地相册的功能。
-</code></pre><p>开发环境：<br>OS: Mac 10.11.6<br>Xcode: Version 8.0 (8A218a)</p>
-<h3 id="最简单的用例"><a href="#最简单的用例" class="headerlink" title="最简单的用例"></a>最简单的用例</h3><h3 id="踩到的坑"><a href="#踩到的坑" class="headerlink" title="踩到的坑"></a>踩到的坑</h3><ul>
-<li><p>解决ReactNative使用CameraRoll时undefined错误</p>
+</code></pre><p><img src="/images/cameraroll.gif" alt=""></p>
+<p>开发环境：<br>OS: Mac 10.11.6<br>Xcode: Version 8.0 (8A218a)</p>
+<h3 id="简单用例"><a href="#简单用例" class="headerlink" title="简单用例"></a>简单用例</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div><div class="line">106</div></pre></td><td class="code"><pre><div class="line">export default class HaiJiCameraRoll extends Component &#123;</div><div class="line">    constructor(props) &#123;</div><div class="line">        super(props);</div><div class="line">        this.state = &#123;</div><div class="line">            photos: [],</div><div class="line">            selected: &apos;&apos;,</div><div class="line">            placeHolder: &apos;这一刻的想法...&apos;,</div><div class="line">            text: null</div><div class="line">        &#125;;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    componentDidMount() &#123;</div><div class="line">        let fetchParams = &#123;</div><div class="line">            first: 10,</div><div class="line">            assetType: &apos;Photos&apos;</div><div class="line">        &#125;;</div><div class="line">        CameraRoll.getPhotos(fetchParams).then((data) =&gt; &#123;</div><div class="line">            const edges = data.edges;</div><div class="line">            let photos = edges.map(photo=&gt;&#123;</div><div class="line">                return photo.node.image.uri</div><div class="line">            &#125;);</div><div class="line">            this.setState(&#123;</div><div class="line">                photos: photos</div><div class="line">            &#125;);</div><div class="line">        &#125;).catch(alert);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    selectImage(image) &#123;</div><div class="line">        this.setState(&#123;</div><div class="line">            selected: image</div><div class="line">        &#125;);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    render() &#123;</div><div class="line"></div><div class="line">        const photos = this.state.photos || [];</div><div class="line">        let photosView = [];</div><div class="line">        for(let i = 0; i &lt; photos.length; i+=4) &#123;</div><div class="line">            let imageUri = photos[parseInt(i)];</div><div class="line">            let imageUri1 = photos[parseInt(i+1)];</div><div class="line">            let imageUri2 = photos[parseInt(i+2)];</div><div class="line">            let imageUri3 = photos[parseInt(i+3)];</div><div class="line">            photosView.push(</div><div class="line">                &lt;View style=&#123;Styles.postCameraRollRow&#125; key=&#123;i&#125;&gt;</div><div class="line">                    &lt;View style=&#123;Styles.container&#125;&gt;</div><div class="line">                        &lt;TouchableOpacity  onPress=&#123;this.selectImage.bind(this,imageUri)&#125;&gt;</div><div class="line">                            &lt;Image</div><div class="line">                                resizeMode=&apos;stretch&apos;</div><div class="line">                                style=&#123;[Styles.postCameraRollPhoto]&#125;</div><div class="line">                                source=&#123;&#123;uri: imageUri&#125;&#125; /&gt;</div><div class="line">                        &lt;/TouchableOpacity&gt;</div><div class="line">                    &lt;/View&gt;</div><div class="line">                    &lt;View style=&#123;Styles.container&#125;&gt;</div><div class="line">                        &lt;TouchableOpacity  onPress=&#123;this.selectImage.bind(this,imageUri1)&#125;&gt;</div><div class="line">                            &lt;Image</div><div class="line">                                resizeMode=&apos;stretch&apos;</div><div class="line">                                style=&#123;[Styles.postCameraRollPhoto]&#125;</div><div class="line">                                source=&#123;&#123;uri: imageUri1&#125;&#125; /&gt;</div><div class="line">                        &lt;/TouchableOpacity&gt;</div><div class="line">                    &lt;/View&gt;</div><div class="line">                    &lt;View style=&#123;Styles.container&#125;&gt;</div><div class="line">                        &lt;TouchableOpacity  onPress=&#123;this.selectImage.bind(this,imageUri2)&#125;&gt;</div><div class="line">                            &lt;Image</div><div class="line">                                resizeMode=&apos;stretch&apos;</div><div class="line">                                style=&#123;[Styles.postCameraRollPhoto]&#125;</div><div class="line">                                source=&#123;&#123;uri: imageUri2&#125;&#125; /&gt;</div><div class="line">                        &lt;/TouchableOpacity&gt;</div><div class="line">                    &lt;/View&gt;</div><div class="line">                    &lt;View style=&#123;Styles.container&#125;&gt;</div><div class="line">                        &lt;TouchableOpacity  onPress=&#123;this.selectImage.bind(this,imageUri3)&#125;&gt;</div><div class="line">                            &lt;Image</div><div class="line">                                resizeMode=&apos;stretch&apos;</div><div class="line">                                style=&#123;[Styles.postCameraRollPhoto]&#125;</div><div class="line">                                source=&#123;&#123;uri: imageUri3&#125;&#125; /&gt;</div><div class="line">                        &lt;/TouchableOpacity&gt;</div><div class="line">                    &lt;/View&gt;</div><div class="line">                &lt;/View&gt;</div><div class="line">            );</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        return (</div><div class="line">            &lt;View style=&#123;[Styles.postContainer, Styles.bgColorWhite]&#125;&gt;</div><div class="line">                &lt;TextInput</div><div class="line">                    style=&#123;Styles.postTextInput&#125;</div><div class="line">                    multiline=&#123;true&#125;</div><div class="line">                    placeholder=&apos;这一刻的想法...&apos;</div><div class="line">                    placeholderTextColor=&#123;&apos;#f8f8f8&apos;&#125;</div><div class="line">                    onChangeText=&#123;(text) =&gt; this.setState(&#123;text&#125;)&#125;</div><div class="line">                    defaultValue=&#123;this.state.placeHolder&#125;</div><div class="line">                    value=&#123;this.state.text&#125;/&gt;</div><div class="line">                &lt;Image</div><div class="line">                    resizeMode=&apos;stretch&apos;</div><div class="line">                    style=&#123;[Styles.postPreviewPhoto]&#125;</div><div class="line">                    source=&#123;&#123;uri: this.state.selected&#125;&#125;/&gt;</div><div class="line">                &lt;TouchableOpacity style=&#123;[Styles.postButton,Styles.bgColorLightGray]&#125;&gt;</div><div class="line">                    &lt;Text style=&#123;[Styles.postButtonText]&#125;&gt;发布&lt;/Text&gt;</div><div class="line">                &lt;/TouchableOpacity&gt;</div><div class="line">                &lt;ScrollView style=&#123;[Styles.postCameraRoll]&#125;&gt;</div><div class="line">                    &lt;View&gt;</div><div class="line">                        &#123;photosView&#125;</div><div class="line">                    &lt;/View&gt;</div><div class="line">                &lt;/ScrollView&gt;</div><div class="line">            &lt;/View&gt;</div><div class="line">        );</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="主要方法"><a href="#主要方法" class="headerlink" title="主要方法"></a>主要方法</h3><ul>
+<li>CameraRoll.getPhotos(fetchParams)<br>  返回的是Promise</li>
+</ul>
+<h3 id="踩到的坑"><a href="#踩到的坑" class="headerlink" title="踩到的坑"></a>踩到的坑</h3><ul>
+<li><p>(iOS)解决ReactNative使用CameraRoll时undefined错误</p>
 <p>  1, 将 node_modules/react-native/Libraries/CameraRoll/RCTCameraRoll.xcodeproj 工程添加到现有工程中<br>  2, 添加静态库依赖： (Build Phases -&gt; Binary With Libraries -&gt; libRCTCameraRoll.a)</p>
 </li>
-<li><p>NSPhotoLibraryUsageDescription key must be present in Info.plist to use camera roll.</p>
+<li><p>(iOS)NSPhotoLibraryUsageDescription key must be present in Info.plist to use camera roll.</p>
 <p>  在info.plist添加键值对</p>
 <p>  1， Privacy - Camera Usage Description  使用相册<br>  2， Privacy - Photo Library Usage Description 使用相机</p>
-<p>  待续…</p>
+</li>
+<li><p>(Android)Error: /path/to/file: open failed: ENOENT (No such file or directory)<br>  Android上出现bug，还没有解决，待续…</p>
 </li>
 </ul>
+<h3 id="新技能GET"><a href="#新技能GET" class="headerlink" title="新技能GET"></a>新技能GET</h3><p>＊ onPress 事件在<image>中失效，如果给<image>加onPress事件，需要用<touchableopacity>包裹</touchableopacity></image></image></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&lt;TouchableOpacity onPress=&#123;()=&gt;alert(1)&#125;&gt;</div><div class="line">	&lt;Image /&gt;</div><div class="line">&lt;/TouchableOpacity&gt;</div></pre></td></tr></table></figure>
 <h3 id="结束"><a href="#结束" class="headerlink" title="结束"></a>结束</h3><pre><code>：）～
 </code></pre>
       
@@ -394,8 +401,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="../../28/enrollment-1-apple-developer/" rel="next" title="账号申请(一) 苹果开发者账号">
-                <i class="fa fa-chevron-left"></i> 账号申请(一) 苹果开发者账号
+              <a href="../../28/react-native-5-listview/" rel="next" title="React Native (五) ListView 组件">
+                <i class="fa fa-chevron-left"></i> React Native (五) ListView 组件
               </a>
             
           </div>
@@ -476,7 +483,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="../../../../archives">
-              <span class="site-state-item-count">26</span>
+              <span class="site-state-item-count">28</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -493,7 +500,7 @@
           
             <div class="site-state-item site-state-tags">
               <a href="../../../../tags">
-                <span class="site-state-item-count">34</span>
+                <span class="site-state-item-count">35</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -547,7 +554,7 @@
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#最简单的用例"><span class="nav-number">2.</span> <span class="nav-text">最简单的用例</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#踩到的坑"><span class="nav-number">3.</span> <span class="nav-text">踩到的坑</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#结束"><span class="nav-number">4.</span> <span class="nav-text">结束</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#简单用例"><span class="nav-number">2.</span> <span class="nav-text">简单用例</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#主要方法"><span class="nav-number">3.</span> <span class="nav-text">主要方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#踩到的坑"><span class="nav-number">4.</span> <span class="nav-text">踩到的坑</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#新技能GET"><span class="nav-number">5.</span> <span class="nav-text">新技能GET</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#结束"><span class="nav-number">6.</span> <span class="nav-text">结束</span></a></li></ol></div>
             
           </div>
         </section>

@@ -270,6 +270,270 @@
             
               
                 
+                <a class="post-title-link" href="../../2016/05/30/spring-boot-5-exception/" itemprop="url">
+                  Spring-Boot（五) 全局异常处理
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-05-30T11:46:45+08:00" content="2016-05-30">
+              2016-05-30
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="../../categories/Java/" itemprop="url" rel="index">
+                    <span itemprop="name">Java</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="../../2016/05/30/spring-boot-5-exception/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/05/30/spring-boot-5-exception/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><pre><code>广大码农同胞在写程序的时候，总是会遇到处理各种Exception，神马空指针啦，
+再有就是处理DataBase的IO异常啦，反正哪都有他们的影子，真是阴魂不散啊。但是呢，
+你又不能置之不理，那就求救于Spring的全局处理吧
+</code></pre><p>：）～</p>
+<pre><code>Spring-Boot默认实现了简单的错误页面，但是那个真是惨不忍睹。追求用户体验的你，当然想
+换成自己的页面了，看着美美哒。
+
+在实际工作中，我们不可能都是一出错就跳到html页面，根据我们自己的业务，我们通常还要以接口的形式
+返回固定格式的数据，最多的就是json啦。
+</code></pre><p>下面就以html和json两种形式介绍如何实现。</p>
+<h3 id="html"><a href="#html" class="headerlink" title="html"></a>html</h3><pre><code>现在只要能用注解，谁还实用xml来配置啊。
+正好这里涉及到两个annotation类：
+* @ControllerAdvice 全局异常处理类，不再需要每个Controller里一一定义
+* @ExceptionHandler 定义针对每种类型的Exception
+
+当然啦，如果你在业务中已经trycatch啦，那就别指望被处理了，你自己都处理了
+别人当然不操心了
+</code></pre><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"> * 全局异常处理类</div><div class="line"> */</div><div class="line"><span class="meta">@ControllerAdvice</span></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">GlobalExceptionHandler</span> </span>&#123;</div><div class="line"></div><div class="line">    <span class="keyword">protected</span> <span class="keyword">final</span> Logger LOGGER = LoggerFactory.getLogger(getClass());</div><div class="line"></div><div class="line">    <span class="meta">@ExceptionHandler</span>(value = NullPointerException.class)</div><div class="line">    <span class="function"><span class="keyword">public</span> ModelAndView <span class="title">defaultErrorHandler</span><span class="params">(HttpServletRequest req, Exception e)</span> <span class="keyword">throws</span> Exception </span>&#123;</div><div class="line">        LOGGER.error(<span class="string">"[error] --&gt; &#123;&#125;"</span>, e);</div><div class="line">        ModelAndView mav = <span class="keyword">new</span> ModelAndView();</div><div class="line">        mav.addObject(<span class="string">"exception"</span>, e);</div><div class="line">        mav.addObject(<span class="string">"url"</span>, req.getRequestURL());</div><div class="line">        mav.setViewName(<span class="string">"error"</span>);</div><div class="line">        <span class="keyword">return</span> mav;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="JSON"><a href="#JSON" class="headerlink" title="JSON"></a>JSON</h3><pre><code>在前面的基础上，添加输出json的方法，其中@ResponseBody是必须条件
+</code></pre><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**</span></div><div class="line"> * 全局异常处理类</div><div class="line"> */</div><div class="line"><span class="meta">@ControllerAdvice</span></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">GlobalExceptionHandler</span> </span>&#123;</div><div class="line"></div><div class="line">    <span class="keyword">protected</span> <span class="keyword">final</span> Logger LOGGER = LoggerFactory.getLogger(getClass());</div><div class="line"></div><div class="line">    <span class="meta">@ExceptionHandler</span>(value = NullPointerException.class)</div><div class="line">    <span class="function"><span class="keyword">public</span> ModelAndView <span class="title">defaultErrorHandler</span><span class="params">(HttpServletRequest req, Exception e)</span> <span class="keyword">throws</span> Exception </span>&#123;</div><div class="line">        LOGGER.error(<span class="string">"[error] --&gt; &#123;&#125;"</span>, e);</div><div class="line">        ModelAndView mav = <span class="keyword">new</span> ModelAndView();</div><div class="line">        mav.addObject(<span class="string">"exception"</span>, e);</div><div class="line">        mav.addObject(<span class="string">"url"</span>, req.getRequestURL());</div><div class="line">        mav.setViewName(<span class="string">"error"</span>);</div><div class="line">        <span class="keyword">return</span> mav;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@ExceptionHandler</span>(value = AppException.class)</div><div class="line">    <span class="meta">@ResponseBody</span></div><div class="line">    <span class="function"><span class="keyword">public</span> MsgOut <span class="title">json</span><span class="params">(Exception ex)</span> </span>&#123;</div><div class="line">        <span class="comment">//<span class="doctag">TODO:</span>记录日志</span></div><div class="line">        LOGGER.error(<span class="string">"AppException"</span>, ex);</div><div class="line"></div><div class="line">        <span class="keyword">return</span> MsgOut.error(ex);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="结束"><a href="#结束" class="headerlink" title="结束"></a>结束</h3><pre><code>在Spring-Boot中，没有被全局处理类（GlobalExceptionHandler）捕获的异常，ErrorController会帮你补漏。
+如果你使用Spring Validation来校验,要成功捕获 MethodArgumentNotValidException，
+在控制器方法上就不能定义 BindingResult 参数接收校验结果，
+不然如果校验失败 Spring 是不会抛出 MethodArgumentNotValidException 异常的，
+自然而然在我们的 GlobalExceptionHandler 就无法处理了。
+</code></pre>
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="../../2016/05/30/nodejs-1-very-slow/" itemprop="url">
+                  npm 网络难以忍受
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-05-30T11:46:45+08:00" content="2016-05-30">
+              2016-05-30
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="../../categories/NodeJS/" itemprop="url" rel="index">
+                    <span itemprop="name">NodeJS</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="../../2016/05/30/nodejs-1-very-slow/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/05/30/nodejs-1-very-slow/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="那就换成淘宝的吧"><a href="#那就换成淘宝的吧" class="headerlink" title="那就换成淘宝的吧"></a>那就换成淘宝的吧</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">npm --registry=https://registry.npm.taobao.org install cnpm -g</div></pre></td></tr></table></figure>
+<h3 id="或者改变registry"><a href="#或者改变registry" class="headerlink" title="或者改变registry"></a>或者改变registry</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">#vim ~/.npmrc</div><div class="line"></div><div class="line">registry = https://registry.npm.taobao.org</div></pre></td></tr></table></figure>
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="../../2016/04/30/spring-boot-4-security/" itemprop="url">
                   Spring-Boot （四) 集成Spring Security
                 </a>
@@ -602,10 +866,11 @@ so，还是折腾下亲儿子的东东吧
       
         
           
-            <p>我在开发的时候，总是会及时对自己的程序进行测试，总是频繁的重启web server，容器不烦我们都觉得烦了。<br>福音来了，正好有springloaded，解决了我们的烦恼。</p>
-<p>本记录使用的开发环境：<br>OS: Mac 10.11.6<br>IDE: idea<br>Build: maven<br>spring-boot-version: 1.4.0.RELEASE</p>
+            <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><pre><code>我在开发的时候，总是会及时对自己的程序进行测试，总是频繁的重启web server，容器不烦我们都觉得烦了。
+福音来了，正好有springloaded，解决了我们的烦恼。
+</code></pre><p>开发环境：<br>OS: Mac 10.11.6<br>IDE: idea<br>Build: maven<br>spring-boot-version: 1.4.0.RELEASE</p>
 <h3 id="POM依赖"><a href="#POM依赖" class="headerlink" title="POM依赖"></a>POM依赖</h3><figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-devtools<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>springloaded<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.2.6.RELEASE<span class="tag">&lt;/<span class="name">version</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">dependency</span></span></div></pre></td></tr></table></figure>
-<h3 id="maven-plugin"><a href="#maven-plugin" class="headerlink" title="maven plugin"></a>maven plugin</h3><figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">plugin</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-maven-plugin<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">dependencies</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>springloaded<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.2.6.RELEASE<span class="tag">&lt;/<span class="name">version</span>&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">dependencies</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">plugin</span>&gt;</span></div></pre></td></tr></table></figure>
+<h3 id="Maven-Plugin"><a href="#Maven-Plugin" class="headerlink" title="Maven Plugin"></a>Maven Plugin</h3><figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">plugin</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-maven-plugin<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">dependencies</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>springloaded<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.2.6.RELEASE<span class="tag">&lt;/<span class="name">version</span>&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">dependencies</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">plugin</span>&gt;</span></div></pre></td></tr></table></figure>
 <h3 id="结束"><a href="#结束" class="headerlink" title="结束"></a>结束</h3><p> 一开始以为直接在maven plugin中加入依赖就可以了，而在实际当中没有任何动静，直到把devtools和springloaded加入依赖，才能如愿以偿。</p>
 
           
@@ -1231,270 +1496,18 @@ so，还是折腾下亲儿子的东东吧
       
         
           
-            <p>Spring发展到现在，在java框架中一直在坚守，也在不断的改进。<br>Spring-Boot的出现，并不是什么新技术，而是简化我们的开发步骤和配置，让我们愉快的玩耍吧。</p>
-<p>本记录使用的开发环境：<br>OS: Mac 10.11.6<br>IDE: idea<br>Build: maven</p>
+            <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>Spring发展到现在，在java框架中一直在坚守，也在不断的改进。<br>Spring-Boot的出现，并不是什么新技术，而是简化我们的开发步骤和配置，让我们愉快的玩耍吧。</p>
+<p>开发环境：<br>OS: Mac 10.11.6<br>IDE: IDEA 2016.2<br>Build: Maven</p>
 <h3 id="Run"><a href="#Run" class="headerlink" title="Run"></a>Run</h3><p>Spring-Boot是从run开始的，所以你的项目必须包含类似以下的一段代码<br>我习惯于放在com.domain.project包下</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@SpringBootApplication</span></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Application</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</div><div class="line">        SpringApplication.run(Application.class, args);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <h3 id="POM依赖"><a href="#POM依赖" class="headerlink" title="POM依赖"></a>POM依赖</h3><figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="comment">&lt;!-- Inherit defaults from Spring Boot --&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">parent</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-parent<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.3.5.RELEASE<span class="tag">&lt;/<span class="name">version</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">parent</span>&gt;</span></div></pre></td></tr></table></figure>
-<p>当然也可以不依赖，使用scope=import</p>
+<p>当然也可以不依赖，使用scope=import，没有尝试过。</p>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">parent</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-parent<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.3.5.RELEASE<span class="tag">&lt;/<span class="name">version</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">type</span>&gt;</span>pom<span class="tag">&lt;/<span class="name">type</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">scope</span>&gt;</span>import<span class="tag">&lt;/<span class="name">scope</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">parent</span>&gt;</span></div></pre></td></tr></table></figure>
 <h3 id="使用Spring-Boot-Maven插件"><a href="#使用Spring-Boot-Maven插件" class="headerlink" title="使用Spring-Boot-Maven插件"></a>使用Spring-Boot-Maven插件</h3><p>将项目打包成“flat jars”，独立可执行jar包</p>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">plugin</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-maven-plugin<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">plugin</span>&gt;</span></div></pre></td></tr></table></figure>
 <h3 id="Starter-POMs"><a href="#Starter-POMs" class="headerlink" title="Starter POMs"></a>Starter POMs</h3><p>starts是开箱即用，方便的的依赖集合，不用在像spring那样一个一个的配置依赖了<br>只需要引入如下就可以跑起来了</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">...</div><div class="line"></div><div class="line">    &lt;dependency&gt;</div><div class="line">        &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;</div><div class="line">        &lt;artifactId&gt;spring-boot-starter&lt;/artifactId&gt;</div><div class="line">    &lt;/dependency</div><div class="line"></div><div class="line">...</div></pre></td></tr></table></figure>
 <h3 id="跑起来"><a href="#跑起来" class="headerlink" title="跑起来"></a>跑起来</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">mvn clean spring-boot:run</div></pre></td></tr></table></figure>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="../../2016/03/30/mac-used-2-shortcut-capture/" itemprop="url">
-                  如何在Mac OS X上屏幕截图
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-03-30T11:46:45+08:00" content="2016-03-30">
-              2016-03-30
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="../../categories/Mac/" itemprop="url" rel="index">
-                    <span itemprop="name">Mac</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="../../2016/03/30/mac-used-2-shortcut-capture/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/03/30/mac-used-2-shortcut-capture/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><pre><code>我们在工作和生活中经常遇到截图的情景，QQ截图是经常用的
-可是Mac自身也很方便截图，特别是当QQ全屏时，截图比较麻烦
-试试Mac原生的功能吧
-</code></pre><h3 id="截取窗口中某个子窗口"><a href="#截取窗口中某个子窗口" class="headerlink" title="截取窗口中某个子窗口"></a>截取窗口中某个子窗口</h3><pre><code>command + shift + 4                        
-
-出现区域选择按钮后可选取，如果想直接选子窗口，
-* 首先移动十字按钮，移动到子窗口上，
-* 然后敲击space键，出现相机图标，单击即可。
-</code></pre><h3 id="截取当前整个窗口"><a href="#截取当前整个窗口" class="headerlink" title="截取当前整个窗口"></a>截取当前整个窗口</h3><pre><code>command + shift + 3        
-</code></pre><h3 id="QQ截图"><a href="#QQ截图" class="headerlink" title="QQ截图"></a>QQ截图</h3><pre><code>ctrl + alt + a            
-</code></pre><h3 id="结束"><a href="#结束" class="headerlink" title="结束"></a>结束</h3><pre><code>:)~
-</code></pre>
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="../../2016/03/29/mac-used-1-app/" itemprop="url">
-                  我的 Mac OS 软件列表
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-03-29T11:46:45+08:00" content="2016-03-29">
-              2016-03-29
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="../../categories/Mac/" itemprop="url" rel="index">
-                    <span itemprop="name">Mac</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="../../2016/03/29/mac-used-1-app/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/03/29/mac-used-1-app/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>自己在使用过程中积累的一些应用软件，推荐给大家。</p>
-<h3 id="Command-Line"><a href="#Command-Line" class="headerlink" title="Command Line"></a>Command Line</h3><p><a href="http://brew.sh/" target="_blank" rel="external">homebrew</a>                                应用程序管理工具<br><a href="https://github.com/robbyrussell/oh-my-zsh" target="_blank" rel="external">oh-my-zsh</a>    包装过的zsh<br><a href="https://github.com/wting/autojump" target="_blank" rel="external">autojump</a>            高效跳转到历史路径的命令行辅助工具<br><a href="https://tmux.github.io/" target="_blank" rel="external">tmux</a>                            终端加强工具</p>
-<h3 id="Dev-Tools"><a href="#Dev-Tools" class="headerlink" title="Dev Tools"></a>Dev Tools</h3><p><a href="https://www.jetbrains.com/idea/" target="_blank" rel="external">idea</a>                    IDE高效开发工具<br><a href="https://www.sublimetext.com/" target="_blank" rel="external">Sublime Text</a>            漂亮文本编辑器<br><a href="https://www.charlesproxy.com/" target="_blank" rel="external">Charles</a>                网络抓包工具<br><a href="https://www.mysql.com/products/workbench/" target="_blank" rel="external">MySQL Workbench</a>                                        数据库工具</p>
 
           
         
@@ -1568,7 +1581,7 @@ so，还是折腾下亲儿子的东东吧
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="../../archives">
-              <span class="site-state-item-count">26</span>
+              <span class="site-state-item-count">28</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -1585,7 +1598,7 @@ so，还是折腾下亲儿子的东东吧
           
             <div class="site-state-item site-state-tags">
               <a href="../../tags">
-                <span class="site-state-item-count">34</span>
+                <span class="site-state-item-count">35</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
