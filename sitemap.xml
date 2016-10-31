@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://www.nealma.com/2016/09/03/react-native-12-archive/</loc>
+    
+    <lastmod>2016-10-31T17:23:38.000Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://www.nealma.com/2016/05/30/spring-boot-5-exception/</loc>
     
     <lastmod>2016-10-31T17:15:48.000Z</lastmod>
@@ -54,13 +61,6 @@
     <loc>http://www.nealma.com/2016/07/27/react-native-3-icons/</loc>
     
     <lastmod>2016-10-29T22:20:01.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://www.nealma.com/2016/09/03/react-native-12-archive/</loc>
-    
-    <lastmod>2016-10-29T18:16:11.000Z</lastmod>
     
   </url>
   

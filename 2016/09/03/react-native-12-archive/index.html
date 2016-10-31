@@ -88,43 +88,41 @@
 
 <meta name="description" content="前言导出分发包的过程中，遇到了许多小问题，做个总结吧
 开发环境：OS: Mac 10.11.6Xcode: Version 8.0 (8A218a)
-For iOS
-突然Products中的archive变成灰色，不能archive了
+趟雷过程中遇到的陷阱
+{For iOS} 突然Products中的archive变成灰色，不能archive了
   把device换成Generic iOS Device
 
 在模拟器中运行出现
 
 
-1clang: error: no such file or director">
+1clang: error: no such fil">
 <meta property="og:type" content="article">
-<meta property="og:title" content="React Native (十二) 导出ipa遇到的问题">
+<meta property="og:title" content="React Native (十二) 趟雷过程中遇到的陷阱">
 <meta property="og:url" content="http://www.nealma.com/2016/09/03/react-native-12-archive/index.html">
 <meta property="og:site_name" content="neal.ma">
 <meta property="og:description" content="前言导出分发包的过程中，遇到了许多小问题，做个总结吧
 开发环境：OS: Mac 10.11.6Xcode: Version 8.0 (8A218a)
-For iOS
-突然Products中的archive变成灰色，不能archive了
+趟雷过程中遇到的陷阱
+{For iOS} 突然Products中的archive变成灰色，不能archive了
   把device换成Generic iOS Device
 
 在模拟器中运行出现
 
 
-1clang: error: no such file or director">
-<meta property="og:image" content="http://www.nealma.com/images/appicon.png">
-<meta property="og:updated_time" content="2016-10-29T18:16:11.000Z">
+1clang: error: no such fil">
+<meta property="og:updated_time" content="2016-10-31T17:23:38.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="React Native (十二) 导出ipa遇到的问题">
+<meta name="twitter:title" content="React Native (十二) 趟雷过程中遇到的陷阱">
 <meta name="twitter:description" content="前言导出分发包的过程中，遇到了许多小问题，做个总结吧
 开发环境：OS: Mac 10.11.6Xcode: Version 8.0 (8A218a)
-For iOS
-突然Products中的archive变成灰色，不能archive了
+趟雷过程中遇到的陷阱
+{For iOS} 突然Products中的archive变成灰色，不能archive了
   把device换成Generic iOS Device
 
 在模拟器中运行出现
 
 
-1clang: error: no such file or director">
-<meta name="twitter:image" content="http://www.nealma.com/images/appicon.png">
+1clang: error: no such fil">
 
 
 
@@ -147,7 +145,7 @@ For iOS
 
   <link rel="canonical" href="http://www.nealma.com/2016/09/03/react-native-12-archive/"/>
 
-  <title> React Native (十二) 导出ipa遇到的问题 | neal.ma </title>
+  <title> React Native (十二) 趟雷过程中遇到的陷阱 | neal.ma </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -297,7 +295,7 @@ For iOS
             
             
               
-                React Native (十二) 导出ipa遇到的问题
+                React Native (十二) 趟雷过程中遇到的陷阱
               
             
           </h1>
@@ -365,8 +363,8 @@ For iOS
       
         <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><pre><code>导出分发包的过程中，遇到了许多小问题，做个总结吧
 </code></pre><p>开发环境：<br>OS: Mac 10.11.6<br>Xcode: Version 8.0 (8A218a)</p>
-<h3 id="For-iOS"><a href="#For-iOS" class="headerlink" title="For iOS"></a>For iOS</h3><ul>
-<li><p>突然Products中的archive变成灰色，不能archive了</p>
+<h3 id="趟雷过程中遇到的陷阱"><a href="#趟雷过程中遇到的陷阱" class="headerlink" title="趟雷过程中遇到的陷阱"></a>趟雷过程中遇到的陷阱</h3><ul>
+<li><p>{For iOS} 突然Products中的archive变成灰色，不能archive了</p>
 <p>  把device换成Generic iOS Device</p>
 </li>
 <li><p>在模拟器中运行出现</p>
@@ -375,26 +373,11 @@ For iOS
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">clang: error: no such file or directory: &apos;/Users/neal/Library/Developer/Xcode/DerivedData/haiji-hakrywogbjraxiheecjpbwbxsood/Build/Products/Debug-iphonesimulator/libReact.a&apos;</div></pre></td></tr></table></figure>
 <pre><code>把Build Settings -&gt; Architectures -&gt; Build Active Architectures Only 设置成 NO
 </code></pre><ul>
-<li><p>修改应用名称</p>
-<p>  还有一点就是，App name ，默认会是你的项目的名称。我们呢，都用中文，当然得提前设置了。</p>
-<p>  在哪设置呢？</p>
-<p>  在Xcode中，单击项目，左侧出现跟项目相关的信息。<br>  选择info -&gt; Custom iOS Target Properties , 添加Bundle display name,值部分就是你要填的<br>  显示在AppIcon 下面的文本部分了。</p>
+<li><p>Duplicate module name: XXX</p>
+<p>   有可能是React的版本不一样，我的做法是  </p>
 </li>
 </ul>
-<p><img src="/images/appicon.png" alt=""></p>
-<h3 id="For-Android"><a href="#For-Android" class="headerlink" title="For Android"></a>For Android</h3><ul>
-<li><p>修改应用icon</p>
-<p>   把 ic_launcher.png 放到文件夹 [PrjDir]/android/app/src/main/res/mipmap-*.</p>
-<p>  相应的尺寸：</p>
-<pre><code>72*72 ic_launcher.png to mipmap-hdpi.
-48*48 ic_launcher.png to mipmap-mdpi.
-96*96 ic_launcher.png to mipmap-xhdpi.
-144*144 ic_launcher.png to mipmap-xxhdpi.
-</code></pre></li>
-<li><p>修改应用名称</p>
-<p>  在a[PrjDir]/ndroid/app/src/main/res/values/strings.xml中，<br>  找到<string name="app_name">MyProject</string>, MyProject替换为你自己的应用名称即可。</p>
-</li>
-</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">rm -rf node_modules &amp;&amp; npm install</div></pre></td></tr></table></figure>
 <h3 id="结束"><a href="#结束" class="headerlink" title="结束"></a>结束</h3><pre><code>：）～
 </code></pre>
       
@@ -464,7 +447,7 @@ For iOS
   <div class="comments" id="comments">
     
       <div class="ds-thread" data-thread-key="2016/09/03/react-native-12-archive/"
-           data-title="React Native (十二) 导出ipa遇到的问题" data-url="http://www.nealma.com/2016/09/03/react-native-12-archive/">
+           data-title="React Native (十二) 趟雷过程中遇到的陷阱" data-url="http://www.nealma.com/2016/09/03/react-native-12-archive/">
       </div>
     
   </div>
@@ -580,7 +563,7 @@ For iOS
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#For-iOS"><span class="nav-number">2.</span> <span class="nav-text">For iOS</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#For-Android"><span class="nav-number">3.</span> <span class="nav-text">For Android</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#结束"><span class="nav-number">4.</span> <span class="nav-text">结束</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#趟雷过程中遇到的陷阱"><span class="nav-number">2.</span> <span class="nav-text">趟雷过程中遇到的陷阱</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#结束"><span class="nav-number">3.</span> <span class="nav-text">结束</span></a></li></ol></div>
             
           </div>
         </section>
