@@ -1,0 +1,733 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="../../../../vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="../../../../vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="../../../../css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="React-Native,RN,AppIcon,AppName," />
+
+
+
+
+
+  <link rel="alternate" href="../../../../atom.xml" title="neal.ma" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="../../../../favicon.png?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="前言App开发好了，在你的手机桌面上就能看到，一个好的icon会给人耳目一新的感觉。
+作为一个专业搬砖的来说，很有难度。主要看你的设计和视觉天赋了。我们一般运行个helloworld，
+你会在手机上找你的App，但都是各个平台默认的，iOS里面是多个同心圆，一环一环的，
+具体叫啥还真不知道，Android则是那个呆萌的小机器人。
+
+那如何替换成我们自己的icon呢？
+开发环境：OS: Mac 10">
+<meta property="og:type" content="article">
+<meta property="og:title" content="React Native (十) 给App设置icon">
+<meta property="og:url" content="http://www.nealma.com/2016/09/01/react-native-10-app-icon/index.html">
+<meta property="og:site_name" content="neal.ma">
+<meta property="og:description" content="前言App开发好了，在你的手机桌面上就能看到，一个好的icon会给人耳目一新的感觉。
+作为一个专业搬砖的来说，很有难度。主要看你的设计和视觉天赋了。我们一般运行个helloworld，
+你会在手机上找你的App，但都是各个平台默认的，iOS里面是多个同心圆，一环一环的，
+具体叫啥还真不知道，Android则是那个呆萌的小机器人。
+
+那如何替换成我们自己的icon呢？
+开发环境：OS: Mac 10">
+<meta property="og:image" content="http://www.nealma.com/images/appicon.png">
+<meta property="og:updated_time" content="2016-10-29T22:59:45.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="React Native (十) 给App设置icon">
+<meta name="twitter:description" content="前言App开发好了，在你的手机桌面上就能看到，一个好的icon会给人耳目一新的感觉。
+作为一个专业搬砖的来说，很有难度。主要看你的设计和视觉天赋了。我们一般运行个helloworld，
+你会在手机上找你的App，但都是各个平台默认的，iOS里面是多个同心圆，一环一环的，
+具体叫啥还真不知道，Android则是那个呆萌的小机器人。
+
+那如何替换成我们自己的icon呢？
+开发环境：OS: Mac 10">
+<meta name="twitter:image" content="http://www.nealma.com/images/appicon.png">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Mist',
+    sidebar: {"position":"right","display":"always"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="http://www.nealma.com/2016/09/01/react-native-10-app-icon/"/>
+
+  <title> React Native (十) 给App设置icon | neal.ma </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?14f8b7b0ed1beacee64703963cbeab10";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-right page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta custom-logo">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">neal.ma</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                React Native (十) 给App设置icon
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-09-01T14:46:45+08:00" content="2016-09-01">
+              2016-09-01
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="../../../../categories/React-Native/" itemprop="url" rel="index">
+                    <span itemprop="name">React-Native</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/09/01/react-native-10-app-icon/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><pre><code>App开发好了，在你的手机桌面上就能看到，一个好的icon会给人耳目一新的感觉。
+作为一个专业搬砖的来说，很有难度。主要看你的设计和视觉天赋了。我们一般运行个helloworld，
+你会在手机上找你的App，但都是各个平台默认的，iOS里面是多个同心圆，一环一环的，
+具体叫啥还真不知道，Android则是那个呆萌的小机器人。
+
+那如何替换成我们自己的icon呢？
+</code></pre><p>开发环境：<br>OS: Mac 10.11.6<br>Xcode: Version 8.0 (8A218a)</p>
+<h3 id="For-iOS"><a href="#For-iOS" class="headerlink" title="For iOS"></a>For iOS</h3><ul>
+<li><p>修改应用icon</p>
+<p>  在Xcode中单击Images.xcassets文件夹，右侧会看到AppIcon。<br>  单击AppIcon，映入你眼帘的是一个个待填补的虚线😊方框。<br>  看到这个你不要慌，也不用管这些是什么，你只看每组对应说明的单位即可。</p>
+<p>  比如第一组20pt，2x就是40pt，3x就是60pt，我都是用的像素，也没问题。<br>  按照这些尺寸制作icon即可，其他以此类推。</p>
+<p>  做好所有尺寸的icon后，拖拽到相应的位置上就OK。<br>  即：更新不同的尺寸 29pt 29pt<em>2 29pt</em>3 40pt<em>2 40pt</em>3 57pt 57pt<em>2 60pt</em>2 60pt*3</p>
+</li>
+<li><p>修改应用名称</p>
+<p>  还有一点就是，App name ，默认会是你的项目的名称。我们呢，都用中文，当然得提前设置了。</p>
+<p>  在哪设置呢？</p>
+<p>  在Xcode 8中，单击项目，左侧出现跟项目相关的信息。<br>  选择Targets -&gt; General -&gt; Display Name,值部分就是你要填的<br>  显示在AppIcon 下面的文本部分了。</p>
+</li>
+</ul>
+<p><img src="/images/appicon.png" alt=""></p>
+<h3 id="For-Android"><a href="#For-Android" class="headerlink" title="For Android"></a>For Android</h3><ul>
+<li><p>修改应用icon</p>
+<p>   把 ic_launcher.png 放到文件夹 [PrjDir]/android/app/src/main/res/mipmap-*.</p>
+<p>  相应的尺寸：</p>
+<pre><code>72*72 ic_launcher.png to mipmap-hdpi.
+48*48 ic_launcher.png to mipmap-mdpi.
+96*96 ic_launcher.png to mipmap-xhdpi.
+144*144 ic_launcher.png to mipmap-xxhdpi.
+</code></pre></li>
+<li><p>修改应用名称</p>
+<p>  在a[PrjDir]/ndroid/app/src/main/res/values/strings.xml中，<br>  找到<string name="app_name">MyProject</string>, MyProject替换为你自己的应用名称即可。</p>
+</li>
+</ul>
+<h3 id="结束"><a href="#结束" class="headerlink" title="结束"></a>结束</h3><pre><code>：）～
+</code></pre>
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="../../../../tags/React-Native/" rel="tag">#React-Native</a>
+          
+            <a href="../../../../tags/RN/" rel="tag">#RN</a>
+          
+            <a href="../../../../tags/AppIcon/" rel="tag">#AppIcon</a>
+          
+            <a href="../../../../tags/AppName/" rel="tag">#AppName</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="../../../08/31/react-native-9-TextInput/" rel="next" title="React Native (九) TextInput 文本输入">
+                <i class="fa fa-chevron-left"></i> React Native (九) TextInput 文本输入
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="../../02/react-native-11-bundle/" rel="prev" title="React Native (十一) bundle打离线">
+                React Native (十一) bundle打离线 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2016/09/01/react-native-10-app-icon/"
+           data-title="React Native (十) 给App设置icon" data-url="http://www.nealma.com/2016/09/01/react-native-10-app-icon/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="http://upload.jianshu.io/users/upload_avatars/2649507/df92b5ff1a68.jpeg"
+               alt="neal.ma" />
+          <p class="site-author-name" itemprop="name">neal.ma</p>
+          <p class="site-description motion-element" itemprop="description">Follow your heart, just do it.</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="../../../../archives">
+              <span class="site-state-item-count">31</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="../../../../categories">
+                <span class="site-state-item-count">11</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="../../../../tags">
+                <span class="site-state-item-count">39</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="../../../../atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              Links
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://github.com/nealma" title="GitHub" target="_blank">GitHub</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.jianshu.com/users/9772bc8f9aa0/latest_articles" title="简书" target="_blank">简书</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#For-iOS"><span class="nav-number">2.</span> <span class="nav-text">For iOS</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#For-Android"><span class="nav-number">3.</span> <span class="nav-text">For Android</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#结束"><span class="nav-number">4.</span> <span class="nav-text">结束</span></a></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">neal.ma</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="../../../../vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="../../../../vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="../../../../vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="../../../../vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="../../../../vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="../../../../vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="../../../../js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="../../../../js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="../../../../js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="../../../../js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="../../../../js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"nealma"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+    <script src="../../../../vendors/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="../../../../js/src/hook-duoshuo.js"></script>
+  
+
+
+
+
+
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

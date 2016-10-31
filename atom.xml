@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://www.nealma.com/"/>
-  <updated>2016-10-28T05:59:33.000Z</updated>
+  <updated>2016-10-29T18:16:11.000Z</updated>
   <id>http://www.nealma.com/</id>
   
   <author>
@@ -16,22 +16,230 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>React Native (十二) 导出ipa遇到的问题</title>
+    <link href="http://www.nealma.com/2016/09/03/react-native-12-archive/"/>
+    <id>http://www.nealma.com/2016/09/03/react-native-12-archive/</id>
+    <published>2016-09-03T06:46:45.000Z</published>
+    <updated>2016-10-29T18:16:11.000Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><pre><code>导出分发包的过程中，遇到了许多小问题，做个总结吧
+</code></pre><p>开发环境：<br>OS: Mac 10.11.6<br>Xcode: Version 8.0 (8A218a)</p>
+<h3 id="For-iOS"><a href="#For-iOS" class="headerlink" title="For iOS"></a>For iOS</h3><ul>
+<li><p>突然Products中的archive变成灰色，不能archive了</p>
+<p>  把device换成Generic iOS Device</p>
+</li>
+<li><p>在模拟器中运行出现</p>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">clang: error: no such file or directory: &apos;/Users/neal/Library/Developer/Xcode/DerivedData/haiji-hakrywogbjraxiheecjpbwbxsood/Build/Products/Debug-iphonesimulator/libReact.a&apos;</div></pre></td></tr></table></figure>
+<pre><code>把Build Settings -&gt; Architectures -&gt; Build Active Architectures Only 设置成 NO
+</code></pre><ul>
+<li><p>修改应用名称</p>
+<p>  还有一点就是，App name ，默认会是你的项目的名称。我们呢，都用中文，当然得提前设置了。</p>
+<p>  在哪设置呢？</p>
+<p>  在Xcode中，单击项目，左侧出现跟项目相关的信息。<br>  选择info -&gt; Custom iOS Target Properties , 添加Bundle display name,值部分就是你要填的<br>  显示在AppIcon 下面的文本部分了。</p>
+</li>
+</ul>
+<p><img src="/images/appicon.png" alt=""></p>
+<h3 id="For-Android"><a href="#For-Android" class="headerlink" title="For Android"></a>For Android</h3><ul>
+<li><p>修改应用icon</p>
+<p>   把 ic_launcher.png 放到文件夹 [PrjDir]/android/app/src/main/res/mipmap-*.</p>
+<p>  相应的尺寸：</p>
+<pre><code>72*72 ic_launcher.png to mipmap-hdpi.
+48*48 ic_launcher.png to mipmap-mdpi.
+96*96 ic_launcher.png to mipmap-xhdpi.
+144*144 ic_launcher.png to mipmap-xxhdpi.
+</code></pre></li>
+<li><p>修改应用名称</p>
+<p>  在a[PrjDir]/ndroid/app/src/main/res/values/strings.xml中，<br>  找到<string name="app_name">MyProject</string>, MyProject替换为你自己的应用名称即可。</p>
+</li>
+</ul>
+<h3 id="结束"><a href="#结束" class="headerlink" title="结束"></a>结束</h3><pre><code>：）～
+</code></pre>]]></content>
+    
+    <summary type="html">
+    
+      &lt;h3 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h3&gt;&lt;pre&gt;&lt;code&gt;导出分发包的过程中，遇到了许多小问题，做个总结吧
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;开发环境：&lt;br&gt;OS: Mac 10.1
+    
+    </summary>
+    
+      <category term="React-Native" scheme="http://www.nealma.com/categories/React-Native/"/>
+    
+    
+      <category term="React-Native" scheme="http://www.nealma.com/tags/React-Native/"/>
+    
+      <category term="RN" scheme="http://www.nealma.com/tags/RN/"/>
+    
+      <category term="ipa" scheme="http://www.nealma.com/tags/ipa/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>React Native (十一) bundle打离线</title>
+    <link href="http://www.nealma.com/2016/09/02/react-native-11-bundle/"/>
+    <id>http://www.nealma.com/2016/09/02/react-native-11-bundle/</id>
+    <published>2016-09-02T06:46:45.000Z</published>
+    <updated>2016-10-31T02:53:21.000Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><pre><code>在开发阶段，我们都是通过模拟器，或者自己的手机，直接连接Xcode和Android Studio,
+这样调试代码非常方便，然而我们的App开发好了，最终的目的是上线App Store和各个Android市场。
+最后还是要进行打包，把所有的资源打包成一个最终能够安装的应用包。iOS对应的ipa，Android对应的apk。
+
+那如何打包呢？
+</code></pre><p>开发环境：<br>OS: Mac 10.11.6<br>Xcode: Version 8.0 (8A218a)</p>
+<h3 id="react-native-bundle"><a href="#react-native-bundle" class="headerlink" title="react-native bundle"></a>react-native bundle</h3><ul>
+<li>–entry-file ,ios或者android入口的js名称，比如index.ios.js</li>
+<li>–platform ,平台名称(ios或者android)</li>
+<li>–dev ,设置为false的时候将会对JavaScript代码进行优化处理</li>
+<li>–bundle-output, 生成的jsbundle文件的名称，比如./ios/index.ios.jsbundle</li>
+<li><p>–assets-dest 图片以及其他资源存放的目录,比如./ios 默认会生成一个新的文件夹assets</p>
+</li>
+<li><p>For iOS</p>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">react-native bundle --entry-file index.ios.js --bundle-output ./ios/main.jsbundle --platform ios --assets-dest ./ios --dev false</div></pre></td></tr></table></figure>
+<ul>
+<li>For Android<br>  跟iOS差不多，只不过变量变为android，同时资源文件指定到现有的文件即可。</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">react-native bundle --entry-file index.android.js --bundle-output ./android/app/src/main/assets/index.android.bundle --platform android --assets-dest ./android/app/src/main/res --dev false</div></pre></td></tr></table></figure>
+<ul>
+<li>Repeat Work</li>
+</ul>
+<p>这样的一串命令以后还得用呢，那是不是可以写个脚本留给以后重复用呢？<br>其实可以利用npm的脚本就可以，在package.json中添加（bundle-ios）如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">&quot;scripts&quot;: &#123;</div><div class="line">    &quot;start&quot;: &quot;node node_modules/react-native/local-cli/cli.js start&quot;,</div><div class="line">    &quot;bundle-ios&quot;: &quot;react-native bundle --entry-file index.ios.js --bundle-output ./ios/main.jsbundle --platform ios --assets-dest ./ios --dev false&quot;,</div><div class="line">    &quot;bundle-android&quot;: &quot;react-native bundle --entry-file index.android.js --bundle-output ./android/app/src/main/assets/index.android.bundle --platform android --assets-dest ./android/app/src/main/res --dev false&quot;</div><div class="line">  &#125;,</div></pre></td></tr></table></figure>
+<p>以后每次打包直接运行:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">npm run bundle-ios</div><div class="line"></div><div class="line">npm run bundle-android</div></pre></td></tr></table></figure></p>
+<h3 id="把打包好的资源文件添加到Xcode"><a href="#把打包好的资源文件添加到Xcode" class="headerlink" title="把打包好的资源文件添加到Xcode"></a>把打包好的资源文件添加到Xcode</h3><ul>
+<li>添加文件到项目</li>
+</ul>
+<p><img src="/images/addfilesto.png" alt=""></p>
+<ul>
+<li>找到刚才的assets文件夹</li>
+</ul>
+<p><img src="/images/assets.png" alt=""></p>
+<h3 id="修改程序加载js的方式-AppDelegate-m"><a href="#修改程序加载js的方式-AppDelegate-m" class="headerlink" title="修改程序加载js的方式(AppDelegate.m)"></a>修改程序加载js的方式(AppDelegate.m)</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">//  jsCodeLocation = [[RCTBundleURLProvider sharedSettings] jsBundleURLForBundleRoot:@&quot;index.ios&quot; fallbackResource:nil];</div><div class="line"></div><div class="line">  jsCodeLocation = [[NSBundle mainBundle] URLForResource:@&quot;main&quot; withExtension:@&quot;jsbundle&quot;];</div></pre></td></tr></table></figure>
+<h3 id="结束"><a href="#结束" class="headerlink" title="结束"></a>结束</h3><pre><code>：）～
+</code></pre>]]></content>
+    
+    <summary type="html">
+    
+      &lt;h3 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h3&gt;&lt;pre&gt;&lt;code&gt;在开发阶段，我们都是通过模拟器，或者自己的手机，直接连接Xcode和Android Studio,
+这样调试代码非常方便，然
+    
+    </summary>
+    
+      <category term="React-Native" scheme="http://www.nealma.com/categories/React-Native/"/>
+    
+    
+      <category term="React-Native" scheme="http://www.nealma.com/tags/React-Native/"/>
+    
+      <category term="RN" scheme="http://www.nealma.com/tags/RN/"/>
+    
+      <category term="bundle" scheme="http://www.nealma.com/tags/bundle/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>React Native (十) 给App设置icon</title>
+    <link href="http://www.nealma.com/2016/09/01/react-native-10-app-icon/"/>
+    <id>http://www.nealma.com/2016/09/01/react-native-10-app-icon/</id>
+    <published>2016-09-01T06:46:45.000Z</published>
+    <updated>2016-10-29T22:59:45.000Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><pre><code>App开发好了，在你的手机桌面上就能看到，一个好的icon会给人耳目一新的感觉。
+作为一个专业搬砖的来说，很有难度。主要看你的设计和视觉天赋了。我们一般运行个helloworld，
+你会在手机上找你的App，但都是各个平台默认的，iOS里面是多个同心圆，一环一环的，
+具体叫啥还真不知道，Android则是那个呆萌的小机器人。
+
+那如何替换成我们自己的icon呢？
+</code></pre><p>开发环境：<br>OS: Mac 10.11.6<br>Xcode: Version 8.0 (8A218a)</p>
+<h3 id="For-iOS"><a href="#For-iOS" class="headerlink" title="For iOS"></a>For iOS</h3><ul>
+<li><p>修改应用icon</p>
+<p>  在Xcode中单击Images.xcassets文件夹，右侧会看到AppIcon。<br>  单击AppIcon，映入你眼帘的是一个个待填补的虚线😊方框。<br>  看到这个你不要慌，也不用管这些是什么，你只看每组对应说明的单位即可。</p>
+<p>  比如第一组20pt，2x就是40pt，3x就是60pt，我都是用的像素，也没问题。<br>  按照这些尺寸制作icon即可，其他以此类推。</p>
+<p>  做好所有尺寸的icon后，拖拽到相应的位置上就OK。<br>  即：更新不同的尺寸 29pt 29pt<em>2 29pt</em>3 40pt<em>2 40pt</em>3 57pt 57pt<em>2 60pt</em>2 60pt*3</p>
+</li>
+<li><p>修改应用名称</p>
+<p>  还有一点就是，App name ，默认会是你的项目的名称。我们呢，都用中文，当然得提前设置了。</p>
+<p>  在哪设置呢？</p>
+<p>  在Xcode 8中，单击项目，左侧出现跟项目相关的信息。<br>  选择Targets -&gt; General -&gt; Display Name,值部分就是你要填的<br>  显示在AppIcon 下面的文本部分了。</p>
+</li>
+</ul>
+<p><img src="/images/appicon.png" alt=""></p>
+<h3 id="For-Android"><a href="#For-Android" class="headerlink" title="For Android"></a>For Android</h3><ul>
+<li><p>修改应用icon</p>
+<p>   把 ic_launcher.png 放到文件夹 [PrjDir]/android/app/src/main/res/mipmap-*.</p>
+<p>  相应的尺寸：</p>
+<pre><code>72*72 ic_launcher.png to mipmap-hdpi.
+48*48 ic_launcher.png to mipmap-mdpi.
+96*96 ic_launcher.png to mipmap-xhdpi.
+144*144 ic_launcher.png to mipmap-xxhdpi.
+</code></pre></li>
+<li><p>修改应用名称</p>
+<p>  在a[PrjDir]/ndroid/app/src/main/res/values/strings.xml中，<br>  找到<string name="app_name">MyProject</string>, MyProject替换为你自己的应用名称即可。</p>
+</li>
+</ul>
+<h3 id="结束"><a href="#结束" class="headerlink" title="结束"></a>结束</h3><pre><code>：）～
+</code></pre>]]></content>
+    
+    <summary type="html">
+    
+      &lt;h3 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h3&gt;&lt;pre&gt;&lt;code&gt;App开发好了，在你的手机桌面上就能看到，一个好的icon会给人耳目一新的感觉。
+作为一个专业搬砖的来说，很有难度。主要看你
+    
+    </summary>
+    
+      <category term="React-Native" scheme="http://www.nealma.com/categories/React-Native/"/>
+    
+    
+      <category term="React-Native" scheme="http://www.nealma.com/tags/React-Native/"/>
+    
+      <category term="RN" scheme="http://www.nealma.com/tags/RN/"/>
+    
+      <category term="AppIcon" scheme="http://www.nealma.com/tags/AppIcon/"/>
+    
+      <category term="AppName" scheme="http://www.nealma.com/tags/AppName/"/>
+    
+  </entry>
+  
+  <entry>
     <title>React Native (九) TextInput 文本输入</title>
     <link href="http://www.nealma.com/2016/08/31/react-native-9-TextInput/"/>
     <id>http://www.nealma.com/2016/08/31/react-native-9-TextInput/</id>
     <published>2016-08-31T03:46:45.000Z</published>
-    <updated>2016-10-28T05:59:33.000Z</updated>
+    <updated>2016-10-29T07:44:10.000Z</updated>
     
     <content type="html"><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><pre><code>TextInput组件作为基础部分，必不可少。
 我们在做登录、提交信息时经常使用。
 </code></pre><p>开发环境：<br>OS: Mac 10.11.6<br>Xcode: Version 8.0 (8A218a)</p>
-<h3 id="简单用例"><a href="#简单用例" class="headerlink" title="简单用例"></a>简单用例</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">&lt;TextInput</div><div class="line">    style=&#123;Styles.postTextInput&#125;</div><div class="line">    autoCapitalize=&quot;none&quot;</div><div class="line">    multiline=&#123;true&#125; //是否多行</div><div class="line">    placeholder=&#123;this.state.placeHolder&#125; //占位字符 背景提示,这里犯了错误，当时把颜色和背景设置一样了，死活看不到，满眼都是泪啊</div><div class="line">    placeholderTextColor=&quot;#bfbfbf&quot; //占位符颜色</div><div class="line">    onChangeText=&#123;(text) =&gt; this.setState(&#123;text&#125;)&#125; //文本改变时触发这个事件, 获取本文时需要这个方法</div><div class="line">/&gt;</div></pre></td></tr></table></figure>
+<h3 id="简单用例"><a href="#简单用例" class="headerlink" title="简单用例"></a>简单用例</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">&lt;TextInput</div><div class="line">    style=&#123;Styles.postTextInput&#125;</div><div class="line">    autoCapitalize=&quot;none&quot;</div><div class="line">    multiline=&#123;true&#125; //是否多行</div><div class="line">    keyboardType=&apos;numeric&apos; //键盘类型：default, numeric, </div><div class="line">    placeholder=&#123;this.state.placeHolder&#125; //占位字符 背景提示,这里犯了错误，当时把颜色和背景设置一样了，死活看不到，满眼都是泪啊</div><div class="line">    placeholderTextColor=&quot;#bfbfbf&quot; //占位符颜色</div><div class="line">    onChangeText=&#123;(text) =&gt; this.setState(&#123;text&#125;)&#125; //文本改变时触发这个事件, 获取本文时需要这个方法</div><div class="line">/&gt;</div><div class="line"></div><div class="line"># keyboardType决定键盘类型,是个枚举</div><div class="line"># enum(&apos;default&apos;, &quot;ascii-capable&quot;, &apos;numbers-and-punctuation&apos;, &apos;url&apos;, &apos;number-pad&apos;, &apos;phone-pad&apos;, </div><div class="line">#&apos;name-phone-pad&apos;, &apos;email-address&apos;, &apos;decimal-pad&apos;, &apos;twitter&apos;, &apos;web-search&apos;, &quot;numeric&quot;)</div></pre></td></tr></table></figure>
 <h3 id="获取文本内容"><a href="#获取文本内容" class="headerlink" title="获取文本内容"></a>获取文本内容</h3><pre><code>在onChangeText中，我们已经告知文本内容，并实时保存在了state中，
 
 我们只要在相应的处理函数中进行处理即可。
 </code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">_handleInput() &#123;</div><div class="line">    console.log(this.state.text);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h3 id="设置width和height"><a href="#设置width和height" class="headerlink" title="设置width和height"></a>设置width和height</h3><pre><code>如果你没有设置TextInput的样式，并且没有文本内容，那么默认是wrap的，即不是块元素
-</code></pre><h3 id="结束"><a href="#结束" class="headerlink" title="结束"></a>结束</h3><pre><code>：）～
+<h3 id="设置width和height"><a href="#设置width和height" class="headerlink" title="设置width和height"></a>设置width和height</h3><pre><code>如果你没有设置TextInput的样式，并且没有文本内容，那么默认是wrap的，因为TextInput不是块元素，
+初次调试的时候，总是觉得很蹊跷，怎么看不到内容呢？在这里耽误了很长时间...
+</code></pre><h3 id="获得焦点，呼出键盘"><a href="#获得焦点，呼出键盘" class="headerlink" title="获得焦点，呼出键盘"></a>获得焦点，呼出键盘</h3><pre><code>从使用来看，当你单击输入框的时候，如果单击的位置偏上了或者偏下了，都不会触发onFocus事件，这时候不要谎，
+单击中间部分，看到键盘了吧。
+
+当然如果是iOS，需要打开Simulator-&gt;Hardware-&gt;Keyboard-&gt;Toggle Software Keyboard
+快捷键   Command + K
+</code></pre><h3 id="失去焦点，隐藏键盘"><a href="#失去焦点，隐藏键盘" class="headerlink" title="失去焦点，隐藏键盘"></a>失去焦点，隐藏键盘</h3><pre><code>这里有两个方法，也是经过搜索和尝试的，都可以正常满足你的需求。
+</code></pre><ul>
+<li>把整个视图换成ScrollView</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">&lt;ScrollView style=&#123;styles.container&#125; keyboardShouldPersistTaps=&#123;false&#125;&gt;</div><div class="line">    &lt;TextInput</div><div class="line">        placeholder=&quot;Post Title&quot;</div><div class="line">        onChange=&#123;(event) =&gt; this.updateTitle(event.nativeEvent.text)&#125;</div><div class="line">        style=&#123;styles.default&#125;/&gt;</div><div class="line"> &lt;/ScrollView&gt;</div></pre></td></tr></table></figure>
+<ul>
+<li>使用dismissKeyboard和TouchableWithoutFeedback配合</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line">import DismissKeyboard from &apos;dismissKeyboard&apos;;</div><div class="line"></div><div class="line">&lt;View style=&#123;styles.container&#125;&gt;</div><div class="line"></div><div class="line">  &lt;TouchableWithoutFeedback onPress=&#123; DismissKeyboard &#125;&gt;</div><div class="line"></div><div class="line">    &lt;View&gt;</div><div class="line">      &lt;Text style=&#123;styles.welcome&#125;&gt;</div><div class="line">        Welcome to React Native!</div><div class="line">      &lt;/Text&gt;</div><div class="line">      &lt;Text style=&#123;styles.instructions&#125;&gt;</div><div class="line">        To get started, edit index.ios.js</div><div class="line">      &lt;/Text&gt;</div><div class="line">      &lt;Text style=&#123;styles.instructions&#125;&gt;</div><div class="line">        Press Cmd+R to reload,&#123;&apos;\n&apos;&#125;</div><div class="line">        Cmd+D or shake for dev menu</div><div class="line">      &lt;/Text&gt;</div><div class="line">      &lt;TextInput style=&#123;&#123;height: 40, borderColor: &apos;gray&apos;, borderWidth: 1&#125;&#125; /&gt;</div><div class="line">    &lt;/View&gt;</div><div class="line">  &lt;/TouchableWithoutFeedback&gt;</div><div class="line"></div><div class="line">&lt;/View&gt;</div></pre></td></tr></table></figure>
+<h3 id="Android-取消默认文本下划线"><a href="#Android-取消默认文本下划线" class="headerlink" title="Android 取消默认文本下划线"></a>Android 取消默认文本下划线</h3><pre><code>一开始不知道设置这个属性，导致在Android平台上出现不一致的风格。如果匹配还好，
+
+事实上，很别扭。一开始以为可以通过设置边框可以改变，通过尝试是行不通的。后来发现
+
+下面的属性，一下子解决了我的问题。还是得看书啊
+</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">#TextInput 属性</div><div class="line">   underlineColorAndroid=&#123;&apos;transparent&apos;&#125;</div></pre></td></tr></table></figure>
+<h3 id="结束"><a href="#结束" class="headerlink" title="结束"></a>结束</h3><pre><code>：）～
 </code></pre>]]></content>
     
     <summary type="html">
@@ -281,7 +489,7 @@ RN怎会没有呢。一开始接触RN，总是乐于社区的活跃，你需要�
     <link href="http://www.nealma.com/2016/07/27/react-native-3-icons/"/>
     <id>http://www.nealma.com/2016/07/27/react-native-3-icons/</id>
     <published>2016-07-27T03:46:45.000Z</published>
-    <updated>2016-10-21T09:30:39.000Z</updated>
+    <updated>2016-10-29T22:20:01.000Z</updated>
     
     <content type="html"><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><pre><code>react-native-vector-icons组件,
 对于非设计人员，可以免费使用更多的icons资源
@@ -294,7 +502,9 @@ RN怎会没有呢。一开始接触RN，总是乐于社区的活跃，你需要�
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">project.ext.vectoricons = [</div><div class="line">    iconFontNames: [ &apos;MaterialIcons.ttf&apos;, &apos;EvilIcons.ttf&apos;, &apos;FontAwesome.ttf&apos;, &apos;Entypo.fft&apos;, &apos;EvilIcons.ttf&apos;, &apos;Octicons.ttf&apos;, &apos;Zocial.ttf&apos;, &apos;Ionicons.ttf&apos; ] // Name of the font files you want to copy</div><div class="line">]</div><div class="line"></div><div class="line">apply from: &quot;../../node_modules/react-native-vector-icons/fonts.gradle&quot;</div></pre></td></tr></table></figure>
 <h3 id="Example"><a href="#Example" class="headerlink" title="Example"></a>Example</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">import Icon from &apos;react-native-vector-icons/FontAwesome&apos;;</div><div class="line"></div><div class="line">&lt;Icon name=&quot;navicon&quot; size=&#123;30&#125; color=&quot;#4F8EF7&quot; style=&#123;&#123;marginTop: 20, marginLeft: 20&#125;&#125;/&gt;</div></pre></td></tr></table></figure>
 <pre><code>FontAwesome网站：http://fontawesome.io/icons/,其中name的值对应网站中每个icon的名字。
-</code></pre><h3 id="结束"><a href="#结束" class="headerlink" title="结束"></a>结束</h3><pre><code>：）～
+</code></pre><h3 id="结束"><a href="#结束" class="headerlink" title="结束"></a>结束</h3><pre><code>资源添加玩，别忘了重新run哦。
+
+：）～
 </code></pre>]]></content>
     
     <summary type="html">
@@ -374,7 +584,7 @@ Allow Arbitrary Loads 设置为 YES
     <link href="http://www.nealma.com/2016/07/25/enrollment-1-apple-developer/"/>
     <id>http://www.nealma.com/2016/07/25/enrollment-1-apple-developer/</id>
     <published>2016-07-25T04:46:45.000Z</published>
-    <updated>2016-10-26T05:56:14.000Z</updated>
+    <updated>2016-10-31T15:20:43.000Z</updated>
     
     <content type="html"><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><pre><code>辞职在家了，做了个独立开发者。最近一段时间在做App，大部分的功能可以用Simulator调试，
 可偏偏我用到了相机功能，这个无法使用，只能在真机上开发了。
@@ -399,7 +609,10 @@ Build Setting添加Code Signing Identity为iOS Developer
 可是我的个人号都已经申请好了，既然有结果了，那就继续申请后续流程吧。
 下面是需要提供的内容，填好，回复就可以了
 </code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">1.公司名称(中和英文后缀规范Co., Ltd.或者Inc.)必须填写</div><div class="line"></div><div class="line">2.办公地址(中和英，实际上班地址) 必须填写,地址从后往前翻译</div><div class="line"></div><div class="line">3.邮编</div><div class="line"></div><div class="line">4.企业性质</div><div class="line"></div><div class="line">5.公司有无英文简称</div><div class="line"></div><div class="line">6.有分公司办事处吗</div><div class="line"></div><div class="line">7.公司的主营业务(一个最主要的)</div><div class="line"></div><div class="line">8. 员工总数，联系人姓名（一个）,电话及职位（最好是座机、分机,和手机）</div><div class="line"></div><div class="line">9.营业执照的照片或扫描件(看的清楚就可以)</div></pre></td></tr></table></figure>
-<h3 id="结束"><a href="#结束" class="headerlink" title="结束"></a>结束</h3><pre><code>：）～
+<h3 id="DUNS给我了"><a href="#DUNS给我了" class="headerlink" title="DUNS给我了"></a>DUNS给我了</h3><pre><code>大概一周之后，华夏邓白氏的人发来邮件，我的邓白氏编码终于来了。
+可是我仔细看了下发来的信息，oh my god, 英文公司名字给多加了一个字母，那怎么办呢？
+打客服电话修改吧。
+</code></pre><h3 id="结束"><a href="#结束" class="headerlink" title="结束"></a>结束</h3><pre><code>：）～
 </code></pre>]]></content>
     
     <summary type="html">
@@ -486,6 +699,29 @@ Build Setting添加Code Signing Identity为iOS Developer
   </entry>
   
   <entry>
+    <title>npm 网络难以忍受</title>
+    <link href="http://www.nealma.com/2016/05/30/nodejs-1-very-slow/"/>
+    <id>http://www.nealma.com/2016/05/30/nodejs-1-very-slow/</id>
+    <published>2016-05-30T03:46:45.000Z</published>
+    <updated>2016-10-15T14:09:56.000Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id="那就换成淘宝的吧"><a href="#那就换成淘宝的吧" class="headerlink" title="那就换成淘宝的吧"></a>那就换成淘宝的吧</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">npm --registry=https://registry.npm.taobao.org install cnpm -g</div></pre></td></tr></table></figure>
+<h3 id="或者改变registry"><a href="#或者改变registry" class="headerlink" title="或者改变registry"></a>或者改变registry</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">#vim ~/.npmrc</div><div class="line"></div><div class="line">registry = https://registry.npm.taobao.org</div></pre></td></tr></table></figure>]]></content>
+    
+    <summary type="html">
+    
+      &lt;h3 id=&quot;那就换成淘宝的吧&quot;&gt;&lt;a href=&quot;#那就换成淘宝的吧&quot; class=&quot;headerlink&quot; title=&quot;那就换成淘宝的吧&quot;&gt;&lt;/a&gt;那就换成淘宝的吧&lt;/h3&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td cl
+    
+    </summary>
+    
+      <category term="NodeJS" scheme="http://www.nealma.com/categories/NodeJS/"/>
+    
+    
+      <category term="nodejs" scheme="http://www.nealma.com/tags/nodejs/"/>
+    
+  </entry>
+  
+  <entry>
     <title>Spring-Boot（五) 全局异常处理</title>
     <link href="http://www.nealma.com/2016/05/30/spring-boot-5-exception/"/>
     <id>http://www.nealma.com/2016/05/30/spring-boot-5-exception/</id>
@@ -536,29 +772,6 @@ Build Setting添加Code Signing Identity为iOS Developer
       <category term="Spring-Boot" scheme="http://www.nealma.com/tags/Spring-Boot/"/>
     
       <category term="Exception" scheme="http://www.nealma.com/tags/Exception/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>npm 网络难以忍受</title>
-    <link href="http://www.nealma.com/2016/05/30/nodejs-1-very-slow/"/>
-    <id>http://www.nealma.com/2016/05/30/nodejs-1-very-slow/</id>
-    <published>2016-05-30T03:46:45.000Z</published>
-    <updated>2016-10-15T14:09:56.000Z</updated>
-    
-    <content type="html"><![CDATA[<h3 id="那就换成淘宝的吧"><a href="#那就换成淘宝的吧" class="headerlink" title="那就换成淘宝的吧"></a>那就换成淘宝的吧</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">npm --registry=https://registry.npm.taobao.org install cnpm -g</div></pre></td></tr></table></figure>
-<h3 id="或者改变registry"><a href="#或者改变registry" class="headerlink" title="或者改变registry"></a>或者改变registry</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">#vim ~/.npmrc</div><div class="line"></div><div class="line">registry = https://registry.npm.taobao.org</div></pre></td></tr></table></figure>]]></content>
-    
-    <summary type="html">
-    
-      &lt;h3 id=&quot;那就换成淘宝的吧&quot;&gt;&lt;a href=&quot;#那就换成淘宝的吧&quot; class=&quot;headerlink&quot; title=&quot;那就换成淘宝的吧&quot;&gt;&lt;/a&gt;那就换成淘宝的吧&lt;/h3&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td cl
-    
-    </summary>
-    
-      <category term="NodeJS" scheme="http://www.nealma.com/categories/NodeJS/"/>
-    
-    
-      <category term="nodejs" scheme="http://www.nealma.com/tags/nodejs/"/>
     
   </entry>
   
@@ -680,6 +893,36 @@ so，还是折腾下亲儿
   </entry>
   
   <entry>
+    <title>Vim Plugin 自动补全(NERDTree)</title>
+    <link href="http://www.nealma.com/2016/04/26/vim-plugin-install-nerttree/"/>
+    <id>http://www.nealma.com/2016/04/26/vim-plugin-install-nerttree/</id>
+    <published>2016-04-26T04:46:45.000Z</published>
+    <updated>2016-10-16T10:46:43.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>Vim在安装目录工具NERDTree的时候，遇到了坑。</p>
+<p>本记录使用的开发环境：<br>OS: Mac</p>
+<h3 id="其实也没啥，就是不知道怎么启用，哈哈"><a href="#其实也没啥，就是不知道怎么启用，哈哈" class="headerlink" title="其实也没啥，就是不知道怎么启用，哈哈"></a>其实也没啥，就是不知道怎么启用，哈哈</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">#进入vim</div><div class="line"></div><div class="line">:NERDTree ＃回车，就看到啦</div><div class="line"></div><div class="line">#Crtl + w 是前缀唤醒组合</div><div class="line"></div><div class="line">#左右切换</div><div class="line">h l </div><div class="line"></div><div class="line">#退出</div><div class="line">q</div><div class="line"></div><div class="line">#每次都需要输入NERDTree是不是很麻烦，别怕，可以很省事的</div><div class="line"></div><div class="line">#vim ~/.vimrc 加入</div><div class="line">nnoremap &lt;silent&gt; &lt;F5&gt; :NERDTree&lt;CR&gt;</div></pre></td></tr></table></figure>
+<p>:D-</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;Vim在安装目录工具NERDTree的时候，遇到了坑。&lt;/p&gt;
+&lt;p&gt;本记录使用的开发环境：&lt;br&gt;OS: Mac&lt;/p&gt;
+&lt;h3 id=&quot;其实也没啥，就是不知道怎么启用，哈哈&quot;&gt;&lt;a href=&quot;#其实也没啥，就是不知道怎么启用，哈哈&quot; class=&quot;headerlink
+    
+    </summary>
+    
+      <category term="Vim" scheme="http://www.nealma.com/categories/Vim/"/>
+    
+    
+      <category term="Vim" scheme="http://www.nealma.com/tags/Vim/"/>
+    
+      <category term="NERDTree" scheme="http://www.nealma.com/tags/NERDTree/"/>
+    
+  </entry>
+  
+  <entry>
     <title>Vim Plugin 自动补全(YouCompleteMe)</title>
     <link href="http://www.nealma.com/2016/04/26/vim-plugin-install-youcompleteme/"/>
     <id>http://www.nealma.com/2016/04/26/vim-plugin-install-youcompleteme/</id>
@@ -714,137 +957,6 @@ so，还是折腾下亲儿
       <category term="Vim" scheme="http://www.nealma.com/tags/Vim/"/>
     
       <category term="Plugin" scheme="http://www.nealma.com/tags/Plugin/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Vim Plugin 自动补全(NERDTree)</title>
-    <link href="http://www.nealma.com/2016/04/26/vim-plugin-install-nerttree/"/>
-    <id>http://www.nealma.com/2016/04/26/vim-plugin-install-nerttree/</id>
-    <published>2016-04-26T04:46:45.000Z</published>
-    <updated>2016-10-16T10:46:43.000Z</updated>
-    
-    <content type="html"><![CDATA[<p>Vim在安装目录工具NERDTree的时候，遇到了坑。</p>
-<p>本记录使用的开发环境：<br>OS: Mac</p>
-<h3 id="其实也没啥，就是不知道怎么启用，哈哈"><a href="#其实也没啥，就是不知道怎么启用，哈哈" class="headerlink" title="其实也没啥，就是不知道怎么启用，哈哈"></a>其实也没啥，就是不知道怎么启用，哈哈</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">#进入vim</div><div class="line"></div><div class="line">:NERDTree ＃回车，就看到啦</div><div class="line"></div><div class="line">#Crtl + w 是前缀唤醒组合</div><div class="line"></div><div class="line">#左右切换</div><div class="line">h l </div><div class="line"></div><div class="line">#退出</div><div class="line">q</div><div class="line"></div><div class="line">#每次都需要输入NERDTree是不是很麻烦，别怕，可以很省事的</div><div class="line"></div><div class="line">#vim ~/.vimrc 加入</div><div class="line">nnoremap &lt;silent&gt; &lt;F5&gt; :NERDTree&lt;CR&gt;</div></pre></td></tr></table></figure>
-<p>:D-</p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;Vim在安装目录工具NERDTree的时候，遇到了坑。&lt;/p&gt;
-&lt;p&gt;本记录使用的开发环境：&lt;br&gt;OS: Mac&lt;/p&gt;
-&lt;h3 id=&quot;其实也没啥，就是不知道怎么启用，哈哈&quot;&gt;&lt;a href=&quot;#其实也没啥，就是不知道怎么启用，哈哈&quot; class=&quot;headerlink
-    
-    </summary>
-    
-      <category term="Vim" scheme="http://www.nealma.com/categories/Vim/"/>
-    
-    
-      <category term="Vim" scheme="http://www.nealma.com/tags/Vim/"/>
-    
-      <category term="NERDTree" scheme="http://www.nealma.com/tags/NERDTree/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Vim 增强</title>
-    <link href="http://www.nealma.com/2016/04/26/vim-plugin-enhance/"/>
-    <id>http://www.nealma.com/2016/04/26/vim-plugin-enhance/</id>
-    <published>2016-04-26T03:46:45.000Z</published>
-    <updated>2016-10-16T10:46:30.000Z</updated>
-    
-    <content type="html"><![CDATA[<p>vim我们在用的时候，没有插件和有插件那是天壤之别。<br>快来享受plugin的强大吧</p>
-<p>本记录使用的开发环境：<br>OS: Mac</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">set nocompatible              &quot; be iMproved, required</div><div class="line">filetype off                  &quot; required</div><div class="line"></div><div class="line">set rtp+=~/.vim/bundle/Vundle.vim</div><div class="line">call vundle#begin()</div><div class="line"></div><div class="line">Plugin &apos;VundleVim/Vundle.vim&apos;</div><div class="line">Plugin &apos;scrooloose/nerdtree&apos;</div><div class="line">Plugin &apos;godlygeek/tabular&apos;</div><div class="line">Plugin &apos;raimondi/delimitmate&apos;</div><div class="line">Plugin &apos;terryma/vim-multiple-cursors&apos;</div><div class="line">Plugin &apos;scrooloose/syntastic&apos;</div><div class="line">Plugin &apos;bling/vim-airline&apos;</div><div class="line">Plugin &apos;Valloric/YouCompleteMe&apos;</div><div class="line"></div><div class="line">call vundle#end()            &quot; required</div><div class="line">filetype plugin indent on    &quot; required</div></pre></td></tr></table></figure>]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;vim我们在用的时候，没有插件和有插件那是天壤之别。&lt;br&gt;快来享受plugin的强大吧&lt;/p&gt;
-&lt;p&gt;本记录使用的开发环境：&lt;br&gt;OS: Mac&lt;/p&gt;
-&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutt
-    
-    </summary>
-    
-      <category term="Vim" scheme="http://www.nealma.com/categories/Vim/"/>
-    
-    
-      <category term="Vim" scheme="http://www.nealma.com/tags/Vim/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>MyBatis Generator 改造</title>
-    <link href="http://www.nealma.com/2016/04/25/mybatis-generator-how-to-use/"/>
-    <id>http://www.nealma.com/2016/04/25/mybatis-generator-how-to-use/</id>
-    <published>2016-04-25T03:46:45.000Z</published>
-    <updated>2016-10-15T14:08:45.000Z</updated>
-    
-    <content type="html"><![CDATA[<p>MyBatis在java的ORM地位一致保持，但是我们在写mapper的时候，也是头疼，关键是总是手误，所以呢，就有了mybatis-generator,<br>但是官方的工具又不符合我们自己的口味，像什么不能在pojo类中根据表的字段注释来自动加注释，<br>生成的mapper不够优雅,于是不安分的我们就开始各种改造…</p>
-<p>MyBatis Version : 1.3.4-SNAPSHOT</p>
-<h3 id="在POJO类上添加注释"><a href="#在POJO类上添加注释" class="headerlink" title="在POJO类上添加注释"></a>在POJO类上添加注释</h3><p>修改Field.java类</p>
-<p>＊ 添加remarks成员变量，同时完成setter和getter方法</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">private</span> String remarks;</div><div class="line"></div><div class="line">getter...</div><div class="line">setter...</div></pre></td></tr></table></figure>
-<ul>
-<li>修改getFormattedContent方法</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">sb.append(<span class="string">';'</span>);</div><div class="line"><span class="comment">//新增</span></div><div class="line"><span class="keyword">if</span> (remarks != <span class="keyword">null</span> &amp;&amp; remarks.length() &gt; <span class="number">1</span>)&#123;</div><div class="line">   sb.append(<span class="string">"//"</span>).append(remarks);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>＊ 给remarks赋值，修改JavaBeansUtil.getJavaBeansField方法</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">...</div><div class="line">field.setName(property);</div><div class="line"><span class="comment">//添加如下代码</span></div><div class="line">field.setRemarks(introspectedColumn.getRemarks());</div></pre></td></tr></table></figure>
-<h3 id="mavne配置"><a href="#mavne配置" class="headerlink" title="mavne配置"></a>mavne配置</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div></pre></td><td class="code"><pre><div class="line">&lt;plugin&gt;</div><div class="line">    &lt;groupId&gt;org.mybatis.generator&lt;/groupId&gt;</div><div class="line">    &lt;artifactId&gt;mybatis-generator-maven-plugin&lt;/artifactId&gt;</div><div class="line">    &lt;version&gt;1.3.4-SNAPSHOT&lt;/version&gt;</div><div class="line">    &lt;configuration&gt;</div><div class="line">        &lt;configurationFile&gt;src/main/resources/mybatis/mybatis-generator-config.xml&lt;/configurationFile&gt;</div><div class="line">        &lt;!--允许移动生成的文件--&gt;</div><div class="line">        &lt;verbose&gt;true&lt;/verbose&gt;</div><div class="line">        &lt;!--允许覆盖生成的文件--&gt;</div><div class="line">        &lt;overwrite&gt;true&lt;/overwrite&gt;</div><div class="line">    &lt;/configuration&gt;</div><div class="line">    &lt;executions&gt;</div><div class="line">        &lt;execution&gt;</div><div class="line">            &lt;id&gt;Generate MyBatis Artifacts&lt;/id&gt;</div><div class="line">            &lt;goals&gt;</div><div class="line">                &lt;goal&gt;generate&lt;/goal&gt;</div><div class="line">            &lt;/goals&gt;</div><div class="line">        &lt;/execution&gt;</div><div class="line">    &lt;/executions&gt;</div><div class="line">    &lt;dependencies&gt;</div><div class="line">        &lt;!-- 数据库驱动  --&gt;</div><div class="line">        &lt;dependency&gt;</div><div class="line">            &lt;groupId&gt;mysql&lt;/groupId&gt;</div><div class="line">            &lt;artifactId&gt;mysql-connector-java&lt;/artifactId&gt;</div><div class="line">            &lt;version&gt;5.1.39&lt;/version&gt;</div><div class="line">        &lt;/dependency&gt;</div><div class="line">    &lt;/dependencies&gt;</div><div class="line">&lt;/plugin&gt;</div></pre></td></tr></table></figure>]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;MyBatis在java的ORM地位一致保持，但是我们在写mapper的时候，也是头疼，关键是总是手误，所以呢，就有了mybatis-generator,&lt;br&gt;但是官方的工具又不符合我们自己的口味，像什么不能在pojo类中根据表的字段注释来自动加注释，&lt;br&gt;生成的map
-    
-    </summary>
-    
-      <category term="Java" scheme="http://www.nealma.com/categories/Java/"/>
-    
-    
-      <category term="MyBatis" scheme="http://www.nealma.com/tags/MyBatis/"/>
-    
-      <category term="Generator" scheme="http://www.nealma.com/tags/Generator/"/>
-    
-      <category term="Java" scheme="http://www.nealma.com/tags/Java/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Spring-Boot（一） 环境搭建</title>
-    <link href="http://www.nealma.com/2016/04/20/spring-boot-1-how-to-use/"/>
-    <id>http://www.nealma.com/2016/04/20/spring-boot-1-how-to-use/</id>
-    <published>2016-04-20T03:46:45.000Z</published>
-    <updated>2016-10-25T08:01:34.000Z</updated>
-    
-    <content type="html"><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>Spring发展到现在，在java框架中一直在坚守，也在不断的改进。<br>Spring-Boot的出现，并不是什么新技术，而是简化我们的开发步骤和配置，让我们愉快的玩耍吧。</p>
-<p>开发环境：<br>OS: Mac 10.11.6<br>IDE: IDEA 2016.2<br>Build: Maven</p>
-<h3 id="Run"><a href="#Run" class="headerlink" title="Run"></a>Run</h3><p>Spring-Boot是从run开始的，所以你的项目必须包含类似以下的一段代码<br>我习惯于放在com.domain.project包下</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@SpringBootApplication</span></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Application</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</div><div class="line">        SpringApplication.run(Application.class, args);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h3 id="POM依赖"><a href="#POM依赖" class="headerlink" title="POM依赖"></a>POM依赖</h3><figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="comment">&lt;!-- Inherit defaults from Spring Boot --&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">parent</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-parent<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.3.5.RELEASE<span class="tag">&lt;/<span class="name">version</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">parent</span>&gt;</span></div></pre></td></tr></table></figure>
-<p>当然也可以不依赖，使用scope=import，没有尝试过。</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">parent</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-parent<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.3.5.RELEASE<span class="tag">&lt;/<span class="name">version</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">type</span>&gt;</span>pom<span class="tag">&lt;/<span class="name">type</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">scope</span>&gt;</span>import<span class="tag">&lt;/<span class="name">scope</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">parent</span>&gt;</span></div></pre></td></tr></table></figure>
-<h3 id="使用Spring-Boot-Maven插件"><a href="#使用Spring-Boot-Maven插件" class="headerlink" title="使用Spring-Boot-Maven插件"></a>使用Spring-Boot-Maven插件</h3><p>将项目打包成“flat jars”，独立可执行jar包</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">plugin</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-maven-plugin<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">plugin</span>&gt;</span></div></pre></td></tr></table></figure>
-<h3 id="Starter-POMs"><a href="#Starter-POMs" class="headerlink" title="Starter POMs"></a>Starter POMs</h3><p>starts是开箱即用，方便的的依赖集合，不用在像spring那样一个一个的配置依赖了<br>只需要引入如下就可以跑起来了</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">...</div><div class="line"></div><div class="line">    &lt;dependency&gt;</div><div class="line">        &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;</div><div class="line">        &lt;artifactId&gt;spring-boot-starter&lt;/artifactId&gt;</div><div class="line">    &lt;/dependency</div><div class="line"></div><div class="line">...</div></pre></td></tr></table></figure>
-<h3 id="跑起来"><a href="#跑起来" class="headerlink" title="跑起来"></a>跑起来</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">mvn clean spring-boot:run</div></pre></td></tr></table></figure>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;h3 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h3&gt;&lt;p&gt;Spring发展到现在，在java框架中一直在坚守，也在不断的改进。&lt;br&gt;Spring-Boot的出现，并不是什么新技术，而是简化我们的开
-    
-    </summary>
-    
-      <category term="Java" scheme="http://www.nealma.com/categories/Java/"/>
-    
-    
-      <category term="Java" scheme="http://www.nealma.com/tags/Java/"/>
-    
-      <category term="Spring" scheme="http://www.nealma.com/tags/Spring/"/>
-    
-      <category term="Spring-Boot" scheme="http://www.nealma.com/tags/Spring-Boot/"/>
     
   </entry>
   

@@ -89,7 +89,7 @@
 <meta name="description" content="前言TextInput组件作为基础部分，必不可少。
 我们在做登录、提交信息时经常使用。
 开发环境：OS: Mac 10.11.6Xcode: Version 8.0 (8A218a)
-简单用例12345678&amp;lt;TextInput    style=&amp;#123;Styles.postTextInput&amp;#125;    autoCapitalize=&amp;quot;none&amp;quot;    mu">
+简单用例12345678910111213&amp;lt;TextInput    style=&amp;#123;Styles.postTextInput&amp;#125;    autoCapitalize=&amp;quot;none&amp;qu">
 <meta property="og:type" content="article">
 <meta property="og:title" content="React Native (九) TextInput 文本输入">
 <meta property="og:url" content="http://www.nealma.com/2016/08/31/react-native-9-TextInput/index.html">
@@ -97,14 +97,14 @@
 <meta property="og:description" content="前言TextInput组件作为基础部分，必不可少。
 我们在做登录、提交信息时经常使用。
 开发环境：OS: Mac 10.11.6Xcode: Version 8.0 (8A218a)
-简单用例12345678&amp;lt;TextInput    style=&amp;#123;Styles.postTextInput&amp;#125;    autoCapitalize=&amp;quot;none&amp;quot;    mu">
-<meta property="og:updated_time" content="2016-10-28T05:59:33.000Z">
+简单用例12345678910111213&amp;lt;TextInput    style=&amp;#123;Styles.postTextInput&amp;#125;    autoCapitalize=&amp;quot;none&amp;qu">
+<meta property="og:updated_time" content="2016-10-29T07:44:10.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="React Native (九) TextInput 文本输入">
 <meta name="twitter:description" content="前言TextInput组件作为基础部分，必不可少。
 我们在做登录、提交信息时经常使用。
 开发环境：OS: Mac 10.11.6Xcode: Version 8.0 (8A218a)
-简单用例12345678&amp;lt;TextInput    style=&amp;#123;Styles.postTextInput&amp;#125;    autoCapitalize=&amp;quot;none&amp;quot;    mu">
+简单用例12345678910111213&amp;lt;TextInput    style=&amp;#123;Styles.postTextInput&amp;#125;    autoCapitalize=&amp;quot;none&amp;qu">
 
 
 
@@ -346,13 +346,34 @@
         <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><pre><code>TextInput组件作为基础部分，必不可少。
 我们在做登录、提交信息时经常使用。
 </code></pre><p>开发环境：<br>OS: Mac 10.11.6<br>Xcode: Version 8.0 (8A218a)</p>
-<h3 id="简单用例"><a href="#简单用例" class="headerlink" title="简单用例"></a>简单用例</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">&lt;TextInput</div><div class="line">    style=&#123;Styles.postTextInput&#125;</div><div class="line">    autoCapitalize=&quot;none&quot;</div><div class="line">    multiline=&#123;true&#125; //是否多行</div><div class="line">    placeholder=&#123;this.state.placeHolder&#125; //占位字符 背景提示,这里犯了错误，当时把颜色和背景设置一样了，死活看不到，满眼都是泪啊</div><div class="line">    placeholderTextColor=&quot;#bfbfbf&quot; //占位符颜色</div><div class="line">    onChangeText=&#123;(text) =&gt; this.setState(&#123;text&#125;)&#125; //文本改变时触发这个事件, 获取本文时需要这个方法</div><div class="line">/&gt;</div></pre></td></tr></table></figure>
+<h3 id="简单用例"><a href="#简单用例" class="headerlink" title="简单用例"></a>简单用例</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">&lt;TextInput</div><div class="line">    style=&#123;Styles.postTextInput&#125;</div><div class="line">    autoCapitalize=&quot;none&quot;</div><div class="line">    multiline=&#123;true&#125; //是否多行</div><div class="line">    keyboardType=&apos;numeric&apos; //键盘类型：default, numeric, </div><div class="line">    placeholder=&#123;this.state.placeHolder&#125; //占位字符 背景提示,这里犯了错误，当时把颜色和背景设置一样了，死活看不到，满眼都是泪啊</div><div class="line">    placeholderTextColor=&quot;#bfbfbf&quot; //占位符颜色</div><div class="line">    onChangeText=&#123;(text) =&gt; this.setState(&#123;text&#125;)&#125; //文本改变时触发这个事件, 获取本文时需要这个方法</div><div class="line">/&gt;</div><div class="line"></div><div class="line"># keyboardType决定键盘类型,是个枚举</div><div class="line"># enum(&apos;default&apos;, &quot;ascii-capable&quot;, &apos;numbers-and-punctuation&apos;, &apos;url&apos;, &apos;number-pad&apos;, &apos;phone-pad&apos;, </div><div class="line">#&apos;name-phone-pad&apos;, &apos;email-address&apos;, &apos;decimal-pad&apos;, &apos;twitter&apos;, &apos;web-search&apos;, &quot;numeric&quot;)</div></pre></td></tr></table></figure>
 <h3 id="获取文本内容"><a href="#获取文本内容" class="headerlink" title="获取文本内容"></a>获取文本内容</h3><pre><code>在onChangeText中，我们已经告知文本内容，并实时保存在了state中，
 
 我们只要在相应的处理函数中进行处理即可。
 </code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">_handleInput() &#123;</div><div class="line">    console.log(this.state.text);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h3 id="设置width和height"><a href="#设置width和height" class="headerlink" title="设置width和height"></a>设置width和height</h3><pre><code>如果你没有设置TextInput的样式，并且没有文本内容，那么默认是wrap的，即不是块元素
-</code></pre><h3 id="结束"><a href="#结束" class="headerlink" title="结束"></a>结束</h3><pre><code>：）～
+<h3 id="设置width和height"><a href="#设置width和height" class="headerlink" title="设置width和height"></a>设置width和height</h3><pre><code>如果你没有设置TextInput的样式，并且没有文本内容，那么默认是wrap的，因为TextInput不是块元素，
+初次调试的时候，总是觉得很蹊跷，怎么看不到内容呢？在这里耽误了很长时间...
+</code></pre><h3 id="获得焦点，呼出键盘"><a href="#获得焦点，呼出键盘" class="headerlink" title="获得焦点，呼出键盘"></a>获得焦点，呼出键盘</h3><pre><code>从使用来看，当你单击输入框的时候，如果单击的位置偏上了或者偏下了，都不会触发onFocus事件，这时候不要谎，
+单击中间部分，看到键盘了吧。
+
+当然如果是iOS，需要打开Simulator-&gt;Hardware-&gt;Keyboard-&gt;Toggle Software Keyboard
+快捷键   Command + K
+</code></pre><h3 id="失去焦点，隐藏键盘"><a href="#失去焦点，隐藏键盘" class="headerlink" title="失去焦点，隐藏键盘"></a>失去焦点，隐藏键盘</h3><pre><code>这里有两个方法，也是经过搜索和尝试的，都可以正常满足你的需求。
+</code></pre><ul>
+<li>把整个视图换成ScrollView</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">&lt;ScrollView style=&#123;styles.container&#125; keyboardShouldPersistTaps=&#123;false&#125;&gt;</div><div class="line">    &lt;TextInput</div><div class="line">        placeholder=&quot;Post Title&quot;</div><div class="line">        onChange=&#123;(event) =&gt; this.updateTitle(event.nativeEvent.text)&#125;</div><div class="line">        style=&#123;styles.default&#125;/&gt;</div><div class="line"> &lt;/ScrollView&gt;</div></pre></td></tr></table></figure>
+<ul>
+<li>使用dismissKeyboard和TouchableWithoutFeedback配合</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line">import DismissKeyboard from &apos;dismissKeyboard&apos;;</div><div class="line"></div><div class="line">&lt;View style=&#123;styles.container&#125;&gt;</div><div class="line"></div><div class="line">  &lt;TouchableWithoutFeedback onPress=&#123; DismissKeyboard &#125;&gt;</div><div class="line"></div><div class="line">    &lt;View&gt;</div><div class="line">      &lt;Text style=&#123;styles.welcome&#125;&gt;</div><div class="line">        Welcome to React Native!</div><div class="line">      &lt;/Text&gt;</div><div class="line">      &lt;Text style=&#123;styles.instructions&#125;&gt;</div><div class="line">        To get started, edit index.ios.js</div><div class="line">      &lt;/Text&gt;</div><div class="line">      &lt;Text style=&#123;styles.instructions&#125;&gt;</div><div class="line">        Press Cmd+R to reload,&#123;&apos;\n&apos;&#125;</div><div class="line">        Cmd+D or shake for dev menu</div><div class="line">      &lt;/Text&gt;</div><div class="line">      &lt;TextInput style=&#123;&#123;height: 40, borderColor: &apos;gray&apos;, borderWidth: 1&#125;&#125; /&gt;</div><div class="line">    &lt;/View&gt;</div><div class="line">  &lt;/TouchableWithoutFeedback&gt;</div><div class="line"></div><div class="line">&lt;/View&gt;</div></pre></td></tr></table></figure>
+<h3 id="Android-取消默认文本下划线"><a href="#Android-取消默认文本下划线" class="headerlink" title="Android 取消默认文本下划线"></a>Android 取消默认文本下划线</h3><pre><code>一开始不知道设置这个属性，导致在Android平台上出现不一致的风格。如果匹配还好，
+
+事实上，很别扭。一开始以为可以通过设置边框可以改变，通过尝试是行不通的。后来发现
+
+下面的属性，一下子解决了我的问题。还是得看书啊
+</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">#TextInput 属性</div><div class="line">   underlineColorAndroid=&#123;&apos;transparent&apos;&#125;</div></pre></td></tr></table></figure>
+<h3 id="结束"><a href="#结束" class="headerlink" title="结束"></a>结束</h3><pre><code>：）～
 </code></pre>
       
     </div>
@@ -395,6 +416,10 @@
           </div>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="../../../09/01/react-native-10-app-icon/" rel="prev" title="React Native (十) 给App设置icon">
+                React Native (十) 给App设置icon <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -466,7 +491,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="../../../../archives">
-              <span class="site-state-item-count">28</span>
+              <span class="site-state-item-count">31</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -483,7 +508,7 @@
           
             <div class="site-state-item site-state-tags">
               <a href="../../../../tags">
-                <span class="site-state-item-count">35</span>
+                <span class="site-state-item-count">39</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -537,7 +562,7 @@
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#简单用例"><span class="nav-number">2.</span> <span class="nav-text">简单用例</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#获取文本内容"><span class="nav-number">3.</span> <span class="nav-text">获取文本内容</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#设置width和height"><span class="nav-number">4.</span> <span class="nav-text">设置width和height</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#结束"><span class="nav-number">5.</span> <span class="nav-text">结束</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#简单用例"><span class="nav-number">2.</span> <span class="nav-text">简单用例</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#获取文本内容"><span class="nav-number">3.</span> <span class="nav-text">获取文本内容</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#设置width和height"><span class="nav-number">4.</span> <span class="nav-text">设置width和height</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#获得焦点，呼出键盘"><span class="nav-number">5.</span> <span class="nav-text">获得焦点，呼出键盘</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#失去焦点，隐藏键盘"><span class="nav-number">6.</span> <span class="nav-text">失去焦点，隐藏键盘</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Android-取消默认文本下划线"><span class="nav-number">7.</span> <span class="nav-text">Android 取消默认文本下划线</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#结束"><span class="nav-number">8.</span> <span class="nav-text">结束</span></a></li></ol></div>
             
           </div>
         </section>

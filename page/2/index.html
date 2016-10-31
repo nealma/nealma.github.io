@@ -270,8 +270,8 @@
             
               
                 
-                <a class="post-title-link" href="../../2016/05/30/spring-boot-5-exception/" itemprop="url">
-                  Spring-Boot（五) 全局异常处理
+                <a class="post-title-link" href="../../2016/07/26/react-native-2-image/" itemprop="url">
+                  React Native (二) Image图片组件
                 </a>
               
             
@@ -284,8 +284,8 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-05-30T11:46:45+08:00" content="2016-05-30">
-              2016-05-30
+            <time itemprop="dateCreated" datetime="2016-07-26T11:46:45+08:00" content="2016-07-26">
+              2016-07-26
             </time>
           </span>
 
@@ -298,8 +298,8 @@
               <span class="post-meta-item-text">分类于</span>
               
                 <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="../../categories/Java/" itemprop="url" rel="index">
-                    <span itemprop="name">Java</span>
+                  <a href="../../categories/React-Native/" itemprop="url" rel="index">
+                    <span itemprop="name">React-Native</span>
                   </a>
                 </span>
 
@@ -314,8 +314,8 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="../../2016/05/30/spring-boot-5-exception/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/05/30/spring-boot-5-exception/" itemprop="commentsCount"></span>
+                <a href="../../2016/07/26/react-native-2-image/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/07/26/react-native-2-image/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -340,31 +340,339 @@
       
         
           
-            <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><pre><code>广大码农同胞在写程序的时候，总是会遇到处理各种Exception，神马空指针啦，
-再有就是处理DataBase的IO异常啦，反正哪都有他们的影子，真是阴魂不散啊。但是呢，
-你又不能置之不理，那就求救于Spring的全局处理吧
-</code></pre><p>：）～</p>
-<pre><code>Spring-Boot默认实现了简单的错误页面，但是那个真是惨不忍睹。追求用户体验的你，当然想
-换成自己的页面了，看着美美哒。
+            <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><pre><code>在RN中使用Image组件，即使很简单，总会出现这个那个的问题。
+</code></pre><p>本记录使用的开发环境：<br>OS: Mac 10.11.6<br>Xcode: Version 8.0 (8A218a)</p>
+<h3 id="使用方式"><a href="#使用方式" class="headerlink" title="使用方式"></a>使用方式</h3><ul>
+<li>require</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;Image source=&#123;<span class="built_in">require</span>(<span class="string">'./resources/ly.png'</span>)&#125; style=&#123;&#123;<span class="attr">width</span>: <span class="number">100</span>, <span class="attr">height</span>: <span class="number">100</span>&#125;&#125; /&gt;</div></pre></td></tr></table></figure>
+<pre><code>注意这里面一定要显示定义图片大小，否则一旦图片尺寸很大，会不显示。
+</code></pre><ul>
+<li>uri</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&lt;View style=&#123;&#123;<span class="attr">width</span>: <span class="number">100</span>, <span class="attr">height</span>: <span class="number">100</span>&#125;&#125;&gt;</div><div class="line">    &lt;Image source=&#123;&#123;uri: 'http://cdn.crunchify.com/wp-content/uploads/2013/01/html5-canvas.png'&#125;&#125; /&gt;</div><div class="line">    &lt;Image source=&#123;&#123;uri: 'https://facebook.github.io/react/img/logo_og.png'&#125;&#125; /&gt;</div><div class="line">&lt;/View&gt;</div></pre></td></tr></table></figure>
+<pre><code>注意如果是iOS,HTTP协议的uri会受到限制，可能什么也看不到，
+这是因为iOS9之后，默认HTTPs请求，如需支持HTTP，
+修改info.plist文件, 添加键值对就OK
 
-在实际工作中，我们不可能都是一出错就跳到html页面，根据我们自己的业务，我们通常还要以接口的形式
-返回固定格式的数据，最多的就是json啦。
-</code></pre><p>下面就以html和json两种形式介绍如何实现。</p>
-<h3 id="html"><a href="#html" class="headerlink" title="html"></a>html</h3><pre><code>现在只要能用注解，谁还实用xml来配置啊。
-正好这里涉及到两个annotation类：
-* @ControllerAdvice 全局异常处理类，不再需要每个Controller里一一定义
-* @ExceptionHandler 定义针对每种类型的Exception
+需要在info.plist中设置
 
-当然啦，如果你在业务中已经trycatch啦，那就别指望被处理了，你自己都处理了
-别人当然不操心了
-</code></pre><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"> * 全局异常处理类</div><div class="line"> */</div><div class="line"><span class="meta">@ControllerAdvice</span></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">GlobalExceptionHandler</span> </span>&#123;</div><div class="line"></div><div class="line">    <span class="keyword">protected</span> <span class="keyword">final</span> Logger LOGGER = LoggerFactory.getLogger(getClass());</div><div class="line"></div><div class="line">    <span class="meta">@ExceptionHandler</span>(value = NullPointerException.class)</div><div class="line">    <span class="function"><span class="keyword">public</span> ModelAndView <span class="title">defaultErrorHandler</span><span class="params">(HttpServletRequest req, Exception e)</span> <span class="keyword">throws</span> Exception </span>&#123;</div><div class="line">        LOGGER.error(<span class="string">"[error] --&gt; &#123;&#125;"</span>, e);</div><div class="line">        ModelAndView mav = <span class="keyword">new</span> ModelAndView();</div><div class="line">        mav.addObject(<span class="string">"exception"</span>, e);</div><div class="line">        mav.addObject(<span class="string">"url"</span>, req.getRequestURL());</div><div class="line">        mav.setViewName(<span class="string">"error"</span>);</div><div class="line">        <span class="keyword">return</span> mav;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h3 id="JSON"><a href="#JSON" class="headerlink" title="JSON"></a>JSON</h3><pre><code>在前面的基础上，添加输出json的方法，其中@ResponseBody是必须条件
-</code></pre><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**</span></div><div class="line"> * 全局异常处理类</div><div class="line"> */</div><div class="line"><span class="meta">@ControllerAdvice</span></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">GlobalExceptionHandler</span> </span>&#123;</div><div class="line"></div><div class="line">    <span class="keyword">protected</span> <span class="keyword">final</span> Logger LOGGER = LoggerFactory.getLogger(getClass());</div><div class="line"></div><div class="line">    <span class="meta">@ExceptionHandler</span>(value = NullPointerException.class)</div><div class="line">    <span class="function"><span class="keyword">public</span> ModelAndView <span class="title">defaultErrorHandler</span><span class="params">(HttpServletRequest req, Exception e)</span> <span class="keyword">throws</span> Exception </span>&#123;</div><div class="line">        LOGGER.error(<span class="string">"[error] --&gt; &#123;&#125;"</span>, e);</div><div class="line">        ModelAndView mav = <span class="keyword">new</span> ModelAndView();</div><div class="line">        mav.addObject(<span class="string">"exception"</span>, e);</div><div class="line">        mav.addObject(<span class="string">"url"</span>, req.getRequestURL());</div><div class="line">        mav.setViewName(<span class="string">"error"</span>);</div><div class="line">        <span class="keyword">return</span> mav;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@ExceptionHandler</span>(value = AppException.class)</div><div class="line">    <span class="meta">@ResponseBody</span></div><div class="line">    <span class="function"><span class="keyword">public</span> MsgOut <span class="title">json</span><span class="params">(Exception ex)</span> </span>&#123;</div><div class="line">        <span class="comment">//<span class="doctag">TODO:</span>记录日志</span></div><div class="line">        LOGGER.error(<span class="string">"AppException"</span>, ex);</div><div class="line"></div><div class="line">        <span class="keyword">return</span> MsgOut.error(ex);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h3 id="结束"><a href="#结束" class="headerlink" title="结束"></a>结束</h3><pre><code>在Spring-Boot中，没有被全局处理类（GlobalExceptionHandler）捕获的异常，ErrorController会帮你补漏。
-如果你使用Spring Validation来校验,要成功捕获 MethodArgumentNotValidException，
-在控制器方法上就不能定义 BindingResult 参数接收校验结果，
-不然如果校验失败 Spring 是不会抛出 MethodArgumentNotValidException 异常的，
-自然而然在我们的 GlobalExceptionHandler 就无法处理了。
+App Transport Security Settings
+Allow Arbitrary Loads 设置为 YES
+
+设置好后，重新执行react-native run-ios
+</code></pre><h3 id="结束"><a href="#结束" class="headerlink" title="结束"></a>结束</h3><pre><code>切记下面的内容
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">style=&#123;&#123;width: 100, height: 100&#125;&#125;</div></pre></td></tr></table></figure>
+
+否则，你将看不到图片
+</code></pre>
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="../../2016/07/25/enrollment-1-apple-developer/" itemprop="url">
+                  账号申请(一) 苹果开发者账号
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-07-25T12:46:45+08:00" content="2016-07-25">
+              2016-07-25
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="../../categories/Enrollment/" itemprop="url" rel="index">
+                    <span itemprop="name">Enrollment</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="../../2016/07/25/enrollment-1-apple-developer/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/07/25/enrollment-1-apple-developer/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><pre><code>辞职在家了，做了个独立开发者。最近一段时间在做App，大部分的功能可以用Simulator调试，
+可偏偏我用到了相机功能，这个无法使用，只能在真机上开发了。
+然而，Xcode真机调试必须要有苹果开发者证书才能工作，word天，没办法，那就注册一个吧。
+</code></pre><h3 id="开发者中心"><a href="#开发者中心" class="headerlink" title="开发者中心"></a>开发者中心</h3><pre><code>我也是够笨的啦，想注册开发者，都不知道去哪注册，找了半天注册链接，要了我的命了。
+</code></pre><p><a href="https://developer.apple.com/enroll" target="_blank" rel="external">传送门 开发者注册中心</a></p>
+<pre><code>找到 Enrollment , 这个就是入口了
+</code></pre><h3 id="注册信息及流程"><a href="#注册信息及流程" class="headerlink" title="注册信息及流程"></a>注册信息及流程</h3><pre><code>* 首先你要有Apple ID， 没有的先去注册一个吧
+* Entity Type 是个人还是公司
+* Authority to Sign Legal Agreements 你的角色
+* 系统会查询你的公司是否申请过DUNS Number，如果咩有DUNS Number，可以免费申请一个（大概两周时间）
+</code></pre><h3 id="放弃公司账号-改为个人账号"><a href="#放弃公司账号-改为个人账号" class="headerlink" title="放弃公司账号,改为个人账号"></a>放弃公司账号,改为个人账号</h3><pre><code>跟朋友聊天，无意提到了苹果开发者账号的事儿，才知道个人号4天左右就能申请下来。
+对比了下个人账号和公司账号对于目前的我来说，没有大的影响。晚上回到家立即开始申请
+个人开发者账号，放弃了DUNS码的等待。让人很欣慰啊，注册完个人信息，发票信息，信用卡信息，提交订单，
+这就完事了，白等了很多天...
+</code></pre><h3 id="真机调试"><a href="#真机调试" class="headerlink" title="真机调试"></a>真机调试</h3><pre><code>需要给Xcode添加证书
+添加设备UDID（iTunes可以查看）
+添加Team信息
+添加Test Team信息
+Build Setting添加Code Signing Identity为iOS Developer
+</code></pre><h3 id="DUNS来邮件了"><a href="#DUNS来邮件了" class="headerlink" title="DUNS来邮件了"></a>DUNS来邮件了</h3><pre><code>今天早上带闺女去游泳，一个上海的电话打来，说是华夏邓白氏的，我猜恍然明白过来。
+可是我的个人号都已经申请好了，既然有结果了，那就继续申请后续流程吧。
+下面是需要提供的内容，填好，回复就可以了
+</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">1.公司名称(中和英文后缀规范Co., Ltd.或者Inc.)必须填写</div><div class="line"></div><div class="line">2.办公地址(中和英，实际上班地址) 必须填写,地址从后往前翻译</div><div class="line"></div><div class="line">3.邮编</div><div class="line"></div><div class="line">4.企业性质</div><div class="line"></div><div class="line">5.公司有无英文简称</div><div class="line"></div><div class="line">6.有分公司办事处吗</div><div class="line"></div><div class="line">7.公司的主营业务(一个最主要的)</div><div class="line"></div><div class="line">8. 员工总数，联系人姓名（一个）,电话及职位（最好是座机、分机,和手机）</div><div class="line"></div><div class="line">9.营业执照的照片或扫描件(看的清楚就可以)</div></pre></td></tr></table></figure>
+<h3 id="DUNS给我了"><a href="#DUNS给我了" class="headerlink" title="DUNS给我了"></a>DUNS给我了</h3><pre><code>大概一周之后，华夏邓白氏的人发来邮件，我的邓白氏编码终于来了。
+可是我仔细看了下发来的信息，oh my god, 英文公司名字给多加了一个字母，那怎么办呢？
+打客服电话修改吧。
+</code></pre><h3 id="结束"><a href="#结束" class="headerlink" title="结束"></a>结束</h3><pre><code>：）～
+</code></pre>
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="../../2016/06/26/react-native-1-envirment/" itemprop="url">
+                  React Native (一) 环境搭建
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-06-26T11:46:45+08:00" content="2016-06-26">
+              2016-06-26
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="../../categories/React-Native/" itemprop="url" rel="index">
+                    <span itemprop="name">React-Native</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="../../2016/06/26/react-native-1-envirment/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/06/26/react-native-1-envirment/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><pre><code>对于人员缺少，功能又不复杂的app来说，使用RN这种方式效率还是很高的;
+在使用的过程中，即使你按照参考资料，一个代码一个代码的敲，最后还是报bug，
+总会让你头疼，这个过程中，记录了下遇到的问题，可以让看到的人少走些弯路。
+</code></pre><p>开发环境：<br>OS: Mac 10.11.6<br>Xcode: Version 8.0 (8A218a)</p>
+<h3 id="安装环境"><a href="#安装环境" class="headerlink" title="安装环境"></a>安装环境</h3><pre><code>根据RN中文网的步骤来，都没啥问题。
+</code></pre><h3 id="遇到的坑"><a href="#遇到的坑" class="headerlink" title="遇到的坑"></a>遇到的坑</h3><ul>
+<li>Failure to call AppRegistry.registerComponent</li>
+</ul>
+<p>解决办法：</p>
+<pre><code>可能是你打开了A又打开了B应用，会遇到这种情况；这时候你把所有的terminal窗口kill掉，
+在重新运行react-native run-xxx.
+</code></pre><ul>
+<li>xcrun can’t find Xcode path</li>
+</ul>
+<p>解决办法:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">DEVELOPER_DIR=<span class="string">"/Applications/Xcode.app/Contents/Developer/"</span></div><div class="line"><span class="built_in">export</span> DEVELOPER_DIR</div></pre></td></tr></table></figure>
+<p>最好是放到.bashrc文件中,如果安装了zsh，需要在.zshrc中加入如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">export DEVELOPER_DIR=/Applications/Xcode.app/Contents/Developer/</div></pre></td></tr></table></figure>
+<ul>
+<li>run-android时，总是停留在Download grandle的环节</li>
+</ul>
+<p>解决办法:</p>
+<p>将.properties文件总的URL换成下面的地址</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">http://mta.zttit.com:8080/images/gradle-2.4-all.zip</div></pre></td></tr></table></figure>
+<ul>
+<li>创建avd的时候，检查是否下载了image</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">android avd</div></pre></td></tr></table></figure>
+<ul>
+<li>Android Emulator 找不到Relaod按钮</li>
+</ul>
+<p>解决对策:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">adb shell input keyevent 82</div></pre></td></tr></table></figure>
+<ul>
+<li><p>Expected a component class, got [object, Object]<br>  自定义组件首字母要大写,<br>  在AppRegistry.registerComponent(‘AppName’, () =&gt; mainComponentName)中，<br>  mainComponentName可以是小写字母开头，其他自定义组件要注意<font color="red">大写字母开头</font></p>
+<h3 id="reload菜单shortcut"><a href="#reload菜单shortcut" class="headerlink" title="reload菜单shortcut"></a>reload菜单shortcut</h3></li>
+<li><p>iOS        command + d</p>
+</li>
+<li>Android     command + m</li>
+</ul>
+<h3 id="离线包"><a href="#离线包" class="headerlink" title="离线包"></a>离线包</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">react-native bundle --entry-file index.ios.js --bundle-output ./ios/main.jsbundle --platform ios --assets-dest ./ios --dev false</div></pre></td></tr></table></figure>
+<h3 id="结束"><a href="#结束" class="headerlink" title="结束"></a>结束</h3><pre><code>还是很方便的吗
 </code></pre>
           
         
@@ -486,6 +794,150 @@
           
             <h3 id="那就换成淘宝的吧"><a href="#那就换成淘宝的吧" class="headerlink" title="那就换成淘宝的吧"></a>那就换成淘宝的吧</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">npm --registry=https://registry.npm.taobao.org install cnpm -g</div></pre></td></tr></table></figure>
 <h3 id="或者改变registry"><a href="#或者改变registry" class="headerlink" title="或者改变registry"></a>或者改变registry</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">#vim ~/.npmrc</div><div class="line"></div><div class="line">registry = https://registry.npm.taobao.org</div></pre></td></tr></table></figure>
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="../../2016/05/30/spring-boot-5-exception/" itemprop="url">
+                  Spring-Boot（五) 全局异常处理
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-05-30T11:46:45+08:00" content="2016-05-30">
+              2016-05-30
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="../../categories/Java/" itemprop="url" rel="index">
+                    <span itemprop="name">Java</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="../../2016/05/30/spring-boot-5-exception/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/05/30/spring-boot-5-exception/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><pre><code>广大码农同胞在写程序的时候，总是会遇到处理各种Exception，神马空指针啦，
+再有就是处理DataBase的IO异常啦，反正哪都有他们的影子，真是阴魂不散啊。但是呢，
+你又不能置之不理，那就求救于Spring的全局处理吧
+</code></pre><p>：）～</p>
+<pre><code>Spring-Boot默认实现了简单的错误页面，但是那个真是惨不忍睹。追求用户体验的你，当然想
+换成自己的页面了，看着美美哒。
+
+在实际工作中，我们不可能都是一出错就跳到html页面，根据我们自己的业务，我们通常还要以接口的形式
+返回固定格式的数据，最多的就是json啦。
+</code></pre><p>下面就以html和json两种形式介绍如何实现。</p>
+<h3 id="html"><a href="#html" class="headerlink" title="html"></a>html</h3><pre><code>现在只要能用注解，谁还实用xml来配置啊。
+正好这里涉及到两个annotation类：
+* @ControllerAdvice 全局异常处理类，不再需要每个Controller里一一定义
+* @ExceptionHandler 定义针对每种类型的Exception
+
+当然啦，如果你在业务中已经trycatch啦，那就别指望被处理了，你自己都处理了
+别人当然不操心了
+</code></pre><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"> * 全局异常处理类</div><div class="line"> */</div><div class="line"><span class="meta">@ControllerAdvice</span></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">GlobalExceptionHandler</span> </span>&#123;</div><div class="line"></div><div class="line">    <span class="keyword">protected</span> <span class="keyword">final</span> Logger LOGGER = LoggerFactory.getLogger(getClass());</div><div class="line"></div><div class="line">    <span class="meta">@ExceptionHandler</span>(value = NullPointerException.class)</div><div class="line">    <span class="function"><span class="keyword">public</span> ModelAndView <span class="title">defaultErrorHandler</span><span class="params">(HttpServletRequest req, Exception e)</span> <span class="keyword">throws</span> Exception </span>&#123;</div><div class="line">        LOGGER.error(<span class="string">"[error] --&gt; &#123;&#125;"</span>, e);</div><div class="line">        ModelAndView mav = <span class="keyword">new</span> ModelAndView();</div><div class="line">        mav.addObject(<span class="string">"exception"</span>, e);</div><div class="line">        mav.addObject(<span class="string">"url"</span>, req.getRequestURL());</div><div class="line">        mav.setViewName(<span class="string">"error"</span>);</div><div class="line">        <span class="keyword">return</span> mav;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="JSON"><a href="#JSON" class="headerlink" title="JSON"></a>JSON</h3><pre><code>在前面的基础上，添加输出json的方法，其中@ResponseBody是必须条件
+</code></pre><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**</span></div><div class="line"> * 全局异常处理类</div><div class="line"> */</div><div class="line"><span class="meta">@ControllerAdvice</span></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">GlobalExceptionHandler</span> </span>&#123;</div><div class="line"></div><div class="line">    <span class="keyword">protected</span> <span class="keyword">final</span> Logger LOGGER = LoggerFactory.getLogger(getClass());</div><div class="line"></div><div class="line">    <span class="meta">@ExceptionHandler</span>(value = NullPointerException.class)</div><div class="line">    <span class="function"><span class="keyword">public</span> ModelAndView <span class="title">defaultErrorHandler</span><span class="params">(HttpServletRequest req, Exception e)</span> <span class="keyword">throws</span> Exception </span>&#123;</div><div class="line">        LOGGER.error(<span class="string">"[error] --&gt; &#123;&#125;"</span>, e);</div><div class="line">        ModelAndView mav = <span class="keyword">new</span> ModelAndView();</div><div class="line">        mav.addObject(<span class="string">"exception"</span>, e);</div><div class="line">        mav.addObject(<span class="string">"url"</span>, req.getRequestURL());</div><div class="line">        mav.setViewName(<span class="string">"error"</span>);</div><div class="line">        <span class="keyword">return</span> mav;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@ExceptionHandler</span>(value = AppException.class)</div><div class="line">    <span class="meta">@ResponseBody</span></div><div class="line">    <span class="function"><span class="keyword">public</span> MsgOut <span class="title">json</span><span class="params">(Exception ex)</span> </span>&#123;</div><div class="line">        <span class="comment">//<span class="doctag">TODO:</span>记录日志</span></div><div class="line">        LOGGER.error(<span class="string">"AppException"</span>, ex);</div><div class="line"></div><div class="line">        <span class="keyword">return</span> MsgOut.error(ex);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="结束"><a href="#结束" class="headerlink" title="结束"></a>结束</h3><pre><code>在Spring-Boot中，没有被全局处理类（GlobalExceptionHandler）捕获的异常，ErrorController会帮你补漏。
+如果你使用Spring Validation来校验,要成功捕获 MethodArgumentNotValidException，
+在控制器方法上就不能定义 BindingResult 参数接收校验结果，
+不然如果校验失败 Spring 是不会抛出 MethodArgumentNotValidException 异常的，
+自然而然在我们的 GlobalExceptionHandler 就无法处理了。
+</code></pre>
           
         
       
@@ -921,137 +1373,6 @@ so，还是折腾下亲儿子的东东吧
             
               
                 
-                <a class="post-title-link" href="../../2016/04/26/vim-plugin-install-youcompleteme/" itemprop="url">
-                  Vim Plugin 自动补全(YouCompleteMe)
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-04-26T12:46:45+08:00" content="2016-04-26">
-              2016-04-26
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="../../categories/Vim/" itemprop="url" rel="index">
-                    <span itemprop="name">Vim</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="../../2016/04/26/vim-plugin-install-youcompleteme/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/04/26/vim-plugin-install-youcompleteme/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>Vim在安装自动补全插件YouCompleteMe的时候，遇到了坑。</p>
-<p>本记录使用的开发环境：<br>OS: Mac</p>
-<h3 id="首先Vim版本过低，提示7-3"><a href="#首先Vim版本过低，提示7-3" class="headerlink" title="首先Vim版本过低，提示7.3+"></a>首先Vim版本过低，提示7.3+</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">brew install vim</div><div class="line"></div><div class="line">#安装完之后，查看版本还是7.3的，经过搜索解决办法，发现执行如下可以解决</div><div class="line">exec $SHELL</div><div class="line"></div><div class="line">#重启terminal</div></pre></td></tr></table></figure>
-<h3 id="再次抱错"><a href="#再次抱错" class="headerlink" title="再次抱错"></a>再次抱错</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">YouCompleteMe unavailable: No module named future</div></pre></td></tr></table></figure>
-<p>这次是因为python的问题，<br>于是进入YouCompleteMe目录，执行</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">./install.py -all</div></pre></td></tr></table></figure>
-<p>回车，这时提示你一些第三方依赖缺失，执行下面的命令,</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git submodule update --init --recursive</div></pre></td></tr></table></figure>
-<p>我的网速不给力，需要很长时间，耐心等待吧，要不就干别的去的</p>
-<p>完成之后，重新安装一遍</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">vim +PluginInstall</div></pre></td></tr></table></figure>
-<p>:D-</p>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
                 <a class="post-title-link" href="../../2016/04/26/vim-plugin-install-nerttree/" itemprop="url">
                   Vim Plugin 自动补全(NERDTree)
                 </a>
@@ -1175,8 +1496,8 @@ so，还是折腾下亲儿子的东东吧
             
               
                 
-                <a class="post-title-link" href="../../2016/04/26/vim-plugin-enhance/" itemprop="url">
-                  Vim 增强
+                <a class="post-title-link" href="../../2016/04/26/vim-plugin-install-youcompleteme/" itemprop="url">
+                  Vim Plugin 自动补全(YouCompleteMe)
                 </a>
               
             
@@ -1189,7 +1510,7 @@ so，还是折腾下亲儿子的东东吧
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-04-26T11:46:45+08:00" content="2016-04-26">
+            <time itemprop="dateCreated" datetime="2016-04-26T12:46:45+08:00" content="2016-04-26">
               2016-04-26
             </time>
           </span>
@@ -1219,8 +1540,8 @@ so，还是折腾下亲儿子的东东吧
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="../../2016/04/26/vim-plugin-enhance/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/04/26/vim-plugin-enhance/" itemprop="commentsCount"></span>
+                <a href="../../2016/04/26/vim-plugin-install-youcompleteme/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/04/26/vim-plugin-install-youcompleteme/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -1245,269 +1566,18 @@ so，还是折腾下亲儿子的东东吧
       
         
           
-            <p>vim我们在用的时候，没有插件和有插件那是天壤之别。<br>快来享受plugin的强大吧</p>
+            <p>Vim在安装自动补全插件YouCompleteMe的时候，遇到了坑。</p>
 <p>本记录使用的开发环境：<br>OS: Mac</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">set nocompatible              &quot; be iMproved, required</div><div class="line">filetype off                  &quot; required</div><div class="line"></div><div class="line">set rtp+=~/.vim/bundle/Vundle.vim</div><div class="line">call vundle#begin()</div><div class="line"></div><div class="line">Plugin &apos;VundleVim/Vundle.vim&apos;</div><div class="line">Plugin &apos;scrooloose/nerdtree&apos;</div><div class="line">Plugin &apos;godlygeek/tabular&apos;</div><div class="line">Plugin &apos;raimondi/delimitmate&apos;</div><div class="line">Plugin &apos;terryma/vim-multiple-cursors&apos;</div><div class="line">Plugin &apos;scrooloose/syntastic&apos;</div><div class="line">Plugin &apos;bling/vim-airline&apos;</div><div class="line">Plugin &apos;Valloric/YouCompleteMe&apos;</div><div class="line"></div><div class="line">call vundle#end()            &quot; required</div><div class="line">filetype plugin indent on    &quot; required</div></pre></td></tr></table></figure>
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="../../2016/04/25/mybatis-generator-how-to-use/" itemprop="url">
-                  MyBatis Generator 改造
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-04-25T11:46:45+08:00" content="2016-04-25">
-              2016-04-25
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="../../categories/Java/" itemprop="url" rel="index">
-                    <span itemprop="name">Java</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="../../2016/04/25/mybatis-generator-how-to-use/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/04/25/mybatis-generator-how-to-use/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>MyBatis在java的ORM地位一致保持，但是我们在写mapper的时候，也是头疼，关键是总是手误，所以呢，就有了mybatis-generator,<br>但是官方的工具又不符合我们自己的口味，像什么不能在pojo类中根据表的字段注释来自动加注释，<br>生成的mapper不够优雅,于是不安分的我们就开始各种改造…</p>
-<p>MyBatis Version : 1.3.4-SNAPSHOT</p>
-<h3 id="在POJO类上添加注释"><a href="#在POJO类上添加注释" class="headerlink" title="在POJO类上添加注释"></a>在POJO类上添加注释</h3><p>修改Field.java类</p>
-<p>＊ 添加remarks成员变量，同时完成setter和getter方法</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">private</span> String remarks;</div><div class="line"></div><div class="line">getter...</div><div class="line">setter...</div></pre></td></tr></table></figure>
-<ul>
-<li>修改getFormattedContent方法</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">sb.append(<span class="string">';'</span>);</div><div class="line"><span class="comment">//新增</span></div><div class="line"><span class="keyword">if</span> (remarks != <span class="keyword">null</span> &amp;&amp; remarks.length() &gt; <span class="number">1</span>)&#123;</div><div class="line">   sb.append(<span class="string">"//"</span>).append(remarks);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>＊ 给remarks赋值，修改JavaBeansUtil.getJavaBeansField方法</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">...</div><div class="line">field.setName(property);</div><div class="line"><span class="comment">//添加如下代码</span></div><div class="line">field.setRemarks(introspectedColumn.getRemarks());</div></pre></td></tr></table></figure>
-<h3 id="mavne配置"><a href="#mavne配置" class="headerlink" title="mavne配置"></a>mavne配置</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div></pre></td><td class="code"><pre><div class="line">&lt;plugin&gt;</div><div class="line">    &lt;groupId&gt;org.mybatis.generator&lt;/groupId&gt;</div><div class="line">    &lt;artifactId&gt;mybatis-generator-maven-plugin&lt;/artifactId&gt;</div><div class="line">    &lt;version&gt;1.3.4-SNAPSHOT&lt;/version&gt;</div><div class="line">    &lt;configuration&gt;</div><div class="line">        &lt;configurationFile&gt;src/main/resources/mybatis/mybatis-generator-config.xml&lt;/configurationFile&gt;</div><div class="line">        &lt;!--允许移动生成的文件--&gt;</div><div class="line">        &lt;verbose&gt;true&lt;/verbose&gt;</div><div class="line">        &lt;!--允许覆盖生成的文件--&gt;</div><div class="line">        &lt;overwrite&gt;true&lt;/overwrite&gt;</div><div class="line">    &lt;/configuration&gt;</div><div class="line">    &lt;executions&gt;</div><div class="line">        &lt;execution&gt;</div><div class="line">            &lt;id&gt;Generate MyBatis Artifacts&lt;/id&gt;</div><div class="line">            &lt;goals&gt;</div><div class="line">                &lt;goal&gt;generate&lt;/goal&gt;</div><div class="line">            &lt;/goals&gt;</div><div class="line">        &lt;/execution&gt;</div><div class="line">    &lt;/executions&gt;</div><div class="line">    &lt;dependencies&gt;</div><div class="line">        &lt;!-- 数据库驱动  --&gt;</div><div class="line">        &lt;dependency&gt;</div><div class="line">            &lt;groupId&gt;mysql&lt;/groupId&gt;</div><div class="line">            &lt;artifactId&gt;mysql-connector-java&lt;/artifactId&gt;</div><div class="line">            &lt;version&gt;5.1.39&lt;/version&gt;</div><div class="line">        &lt;/dependency&gt;</div><div class="line">    &lt;/dependencies&gt;</div><div class="line">&lt;/plugin&gt;</div></pre></td></tr></table></figure>
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="../../2016/04/20/spring-boot-1-how-to-use/" itemprop="url">
-                  Spring-Boot（一） 环境搭建
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-04-20T11:46:45+08:00" content="2016-04-20">
-              2016-04-20
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="../../categories/Java/" itemprop="url" rel="index">
-                    <span itemprop="name">Java</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="../../2016/04/20/spring-boot-1-how-to-use/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/04/20/spring-boot-1-how-to-use/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>Spring发展到现在，在java框架中一直在坚守，也在不断的改进。<br>Spring-Boot的出现，并不是什么新技术，而是简化我们的开发步骤和配置，让我们愉快的玩耍吧。</p>
-<p>开发环境：<br>OS: Mac 10.11.6<br>IDE: IDEA 2016.2<br>Build: Maven</p>
-<h3 id="Run"><a href="#Run" class="headerlink" title="Run"></a>Run</h3><p>Spring-Boot是从run开始的，所以你的项目必须包含类似以下的一段代码<br>我习惯于放在com.domain.project包下</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@SpringBootApplication</span></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Application</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</div><div class="line">        SpringApplication.run(Application.class, args);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h3 id="POM依赖"><a href="#POM依赖" class="headerlink" title="POM依赖"></a>POM依赖</h3><figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="comment">&lt;!-- Inherit defaults from Spring Boot --&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">parent</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-parent<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.3.5.RELEASE<span class="tag">&lt;/<span class="name">version</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">parent</span>&gt;</span></div></pre></td></tr></table></figure>
-<p>当然也可以不依赖，使用scope=import，没有尝试过。</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">parent</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-parent<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.3.5.RELEASE<span class="tag">&lt;/<span class="name">version</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">type</span>&gt;</span>pom<span class="tag">&lt;/<span class="name">type</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">scope</span>&gt;</span>import<span class="tag">&lt;/<span class="name">scope</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">parent</span>&gt;</span></div></pre></td></tr></table></figure>
-<h3 id="使用Spring-Boot-Maven插件"><a href="#使用Spring-Boot-Maven插件" class="headerlink" title="使用Spring-Boot-Maven插件"></a>使用Spring-Boot-Maven插件</h3><p>将项目打包成“flat jars”，独立可执行jar包</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">plugin</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-maven-plugin<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">plugin</span>&gt;</span></div></pre></td></tr></table></figure>
-<h3 id="Starter-POMs"><a href="#Starter-POMs" class="headerlink" title="Starter POMs"></a>Starter POMs</h3><p>starts是开箱即用，方便的的依赖集合，不用在像spring那样一个一个的配置依赖了<br>只需要引入如下就可以跑起来了</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">...</div><div class="line"></div><div class="line">    &lt;dependency&gt;</div><div class="line">        &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;</div><div class="line">        &lt;artifactId&gt;spring-boot-starter&lt;/artifactId&gt;</div><div class="line">    &lt;/dependency</div><div class="line"></div><div class="line">...</div></pre></td></tr></table></figure>
-<h3 id="跑起来"><a href="#跑起来" class="headerlink" title="跑起来"></a>跑起来</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">mvn clean spring-boot:run</div></pre></td></tr></table></figure>
+<h3 id="首先Vim版本过低，提示7-3"><a href="#首先Vim版本过低，提示7-3" class="headerlink" title="首先Vim版本过低，提示7.3+"></a>首先Vim版本过低，提示7.3+</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">brew install vim</div><div class="line"></div><div class="line">#安装完之后，查看版本还是7.3的，经过搜索解决办法，发现执行如下可以解决</div><div class="line">exec $SHELL</div><div class="line"></div><div class="line">#重启terminal</div></pre></td></tr></table></figure>
+<h3 id="再次抱错"><a href="#再次抱错" class="headerlink" title="再次抱错"></a>再次抱错</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">YouCompleteMe unavailable: No module named future</div></pre></td></tr></table></figure>
+<p>这次是因为python的问题，<br>于是进入YouCompleteMe目录，执行</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">./install.py -all</div></pre></td></tr></table></figure>
+<p>回车，这时提示你一些第三方依赖缺失，执行下面的命令,</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git submodule update --init --recursive</div></pre></td></tr></table></figure>
+<p>我的网速不给力，需要很长时间，耐心等待吧，要不就干别的去的</p>
+<p>完成之后，重新安装一遍</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">vim +PluginInstall</div></pre></td></tr></table></figure>
+<p>:D-</p>
 
           
         
@@ -1540,7 +1610,7 @@ so，还是折腾下亲儿子的东东吧
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="../../index.html"><i class="fa fa-angle-left"></i></a><a class="page-number" href="../../index.html">1</a><span class="page-number current">2</span><a class="page-number" href="../3/">3</a><a class="extend next" rel="next" href="../3/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="../../index.html"><i class="fa fa-angle-left"></i></a><a class="page-number" href="../../index.html">1</a><span class="page-number current">2</span><a class="page-number" href="../3/">3</a><a class="page-number" href="../4/">4</a><a class="extend next" rel="next" href="../3/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -1581,7 +1651,7 @@ so，还是折腾下亲儿子的东东吧
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="../../archives">
-              <span class="site-state-item-count">28</span>
+              <span class="site-state-item-count">31</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -1598,7 +1668,7 @@ so，还是折腾下亲儿子的东东吧
           
             <div class="site-state-item site-state-tags">
               <a href="../../tags">
-                <span class="site-state-item-count">35</span>
+                <span class="site-state-item-count">39</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>

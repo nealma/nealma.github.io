@@ -2,9 +2,44 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://www.nealma.com/2016/07/25/enrollment-1-apple-developer/</loc>
+    
+    <lastmod>2016-10-31T15:20:43.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://www.nealma.com/2016/09/02/react-native-11-bundle/</loc>
+    
+    <lastmod>2016-10-31T02:53:21.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://www.nealma.com/2016/09/01/react-native-10-app-icon/</loc>
+    
+    <lastmod>2016-10-29T22:59:45.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://www.nealma.com/2016/07/27/react-native-3-icons/</loc>
+    
+    <lastmod>2016-10-29T22:20:01.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://www.nealma.com/2016/09/03/react-native-12-archive/</loc>
+    
+    <lastmod>2016-10-29T18:16:11.000Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://www.nealma.com/2016/08/31/react-native-9-TextInput/</loc>
     
-    <lastmod>2016-10-28T05:59:33.000Z</lastmod>
+    <lastmod>2016-10-29T07:44:10.000Z</lastmod>
     
   </url>
   
@@ -30,13 +65,6 @@
   </url>
   
   <url>
-    <loc>http://www.nealma.com/2016/07/25/enrollment-1-apple-developer/</loc>
-    
-    <lastmod>2016-10-26T05:56:14.000Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>http://www.nealma.com/2016/04/20/spring-boot-1-how-to-use/</loc>
     
     <lastmod>2016-10-25T08:01:34.000Z</lastmod>
@@ -54,13 +82,6 @@
     <loc>http://www.nealma.com/2016/07/29/react-native-6-cameraroll/</loc>
     
     <lastmod>2016-10-24T04:56:01.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://www.nealma.com/2016/07/27/react-native-3-icons/</loc>
-    
-    <lastmod>2016-10-21T09:30:39.000Z</lastmod>
     
   </url>
   
