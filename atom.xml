@@ -76,11 +76,11 @@
   </entry>
   
   <entry>
-    <title>React Native (十一) bundle打离线</title>
+    <title>React Native (十一) bundle打离线包</title>
     <link href="http://www.nealma.com/2016/09/02/react-native-11-bundle/"/>
     <id>http://www.nealma.com/2016/09/02/react-native-11-bundle/</id>
     <published>2016-09-02T06:46:45.000Z</published>
-    <updated>2016-10-31T02:53:21.000Z</updated>
+    <updated>2016-10-31T17:11:18.000Z</updated>
     
     <content type="html"><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><pre><code>在开发阶段，我们都是通过模拟器，或者自己的手机，直接连接Xcode和Android Studio,
 这样调试代码非常方便，然而我们的App开发好了，最终的目的是上线App Store和各个Android市场。
@@ -347,7 +347,7 @@
     <link href="http://www.nealma.com/2016/07/29/react-native-6-cameraroll/"/>
     <id>http://www.nealma.com/2016/07/29/react-native-6-cameraroll/</id>
     <published>2016-07-29T04:46:45.000Z</published>
-    <updated>2016-10-24T04:56:01.000Z</updated>
+    <updated>2016-10-29T22:37:46.000Z</updated>
     
     <content type="html"><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><pre><code>CameraRoll模块提供了访问本地相册的功能。
 </code></pre><p><img src="/images/cameraroll.gif" alt=""></p>
@@ -636,7 +636,7 @@ Build Setting添加Code Signing Identity为iOS Developer
     <link href="http://www.nealma.com/2016/06/26/react-native-1-envirment/"/>
     <id>http://www.nealma.com/2016/06/26/react-native-1-envirment/</id>
     <published>2016-06-26T03:46:45.000Z</published>
-    <updated>2016-10-27T12:20:39.000Z</updated>
+    <updated>2016-10-29T07:42:49.000Z</updated>
     
     <content type="html"><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><pre><code>对于人员缺少，功能又不复杂的app来说，使用RN这种方式效率还是很高的;
 在使用的过程中，即使你按照参考资料，一个代码一个代码的敲，最后还是报bug，
@@ -726,7 +726,7 @@ Build Setting添加Code Signing Identity为iOS Developer
     <link href="http://www.nealma.com/2016/05/30/spring-boot-5-exception/"/>
     <id>http://www.nealma.com/2016/05/30/spring-boot-5-exception/</id>
     <published>2016-05-30T03:46:45.000Z</published>
-    <updated>2016-10-15T14:11:18.000Z</updated>
+    <updated>2016-10-31T17:15:48.000Z</updated>
     
     <content type="html"><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><pre><code>广大码农同胞在写程序的时候，总是会遇到处理各种Exception，神马空指针啦，
 再有就是处理DataBase的IO异常啦，反正哪都有他们的影子，真是阴魂不散啊。但是呢，
@@ -780,11 +780,11 @@ Build Setting添加Code Signing Identity为iOS Developer
     <link href="http://www.nealma.com/2016/04/30/spring-boot-4-security/"/>
     <id>http://www.nealma.com/2016/04/30/spring-boot-4-security/</id>
     <published>2016-04-30T03:46:45.000Z</published>
-    <updated>2016-10-16T10:46:15.000Z</updated>
+    <updated>2016-10-31T17:11:29.000Z</updated>
     
     <content type="html"><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><pre><code>shiro可以完全解决有关安全的问题，但是项目大多使用的是Spring框架，所以没必要在引入其他依赖，
 so，还是折腾下亲儿子的东东吧
-</code></pre><p>使用的开发环境：<br>OS: Mac 10.11.6<br>IDE: idea<br>Build: maven</p>
+</code></pre><p>开发环境：<br>OS: Mac 10.11.6<br>IDE: IDEA<br>Build: Maven</p>
 <pre><code>以前都是使用xml来配置，但是spring-boot提倡Java Config的使用，
 折腾下来还是很多收获的。有关权限管理，行内大都秉承
 以角色为基础的访问控制（Role-based access control, RBAC）
@@ -828,10 +828,10 @@ so，还是折腾下亲儿
     <link href="http://www.nealma.com/2016/04/29/spring-boot-3-mybatis/"/>
     <id>http://www.nealma.com/2016/04/29/spring-boot-3-mybatis/</id>
     <published>2016-04-29T03:46:45.000Z</published>
-    <updated>2016-10-16T10:47:05.000Z</updated>
+    <updated>2016-10-31T17:11:03.000Z</updated>
     
     <content type="html"><![CDATA[<p>MyBatis在国内一直很流行，在ORM框架中使用比例很高。<br>由于MyBatis不是Spring的亲生儿子，所以依赖的版本很发麻，不像其他的依赖，直接引入就可以，还得看版本。<br>经过几次尝试，下文给出的是可以正常使用的。</p>
-<p>本记录使用的开发环境：<br>OS: Mac 10.11.6<br>IDE: idea<br>Build: maven</p>
+<p>开发环境：<br>OS: Mac 10.11.6<br>IDE: IDEA<br>Build: Maven</p>
 <h3 id="POM依赖"><a href="#POM依赖" class="headerlink" title="POM依赖"></a>POM依赖</h3><figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">&lt;!-- properties --&gt;</div><div class="line">&lt;properties&gt;</div><div class="line">    &lt;spring.boot.mybatis&gt;1.0.2&lt;/spring.boot.mybatis&gt;</div><div class="line">    &lt;mybatis.version&gt;3.4.1&lt;/mybatis.version&gt;</div><div class="line">    &lt;mybatis.spring.version&gt;1.3.0&lt;/mybatis.spring.version&gt;</div><div class="line">&lt;/properties</div><div class="line">&lt;!-- mybatis --&gt;</div><div class="line">&lt;dependency&gt;</div><div class="line">    &lt;groupId&gt;org.mybatis&lt;/groupId&gt;</div><div class="line">    &lt;artifactId&gt;mybatis&lt;/artifactId&gt;</div><div class="line">    &lt;version&gt;$&#123;mybatis.version&#125;&lt;/version&gt;</div><div class="line">&lt;/dependency&gt;</div><div class="line">&lt;!-- mybatis-spring --&gt;</div><div class="line">&lt;dependency&gt;</div><div class="line">    &lt;groupId&gt;org.mybatis&lt;/groupId&gt;</div><div class="line">    &lt;artifactId&gt;mybatis-spring&lt;/artifactId&gt;</div><div class="line">    &lt;version&gt;$&#123;mybatis.spring.version&#125;&lt;/version&gt;</div><div class="line">&lt;/dependency&gt;</div></pre></td></tr></table></figure>
 <h3 id="属性配置application-properties"><a href="#属性配置application-properties" class="headerlink" title="属性配置application.properties"></a>属性配置application.properties</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">#datasource</div><div class="line">spring.datasource.url=jdbc:mysql://localhost:3306/db_name?useUnicode=true&amp;characterEncoding=utf-8&amp;useSSL=false</div><div class="line">spring.datasource.username=******</div><div class="line">spring.datasource.password=******</div><div class="line">spring.datasource.driver-class-name=com.mysql.jdbc.Driver</div><div class="line"></div><div class="line">#mybatis</div><div class="line">#mapper路径</div><div class="line">mybatis.mapperLocations=classpath*:**/mappers/*.xml</div><div class="line">#model包</div><div class="line">mybatis.typeAliasesPackage=com.xxxx.domain</div></pre></td></tr></table></figure>
 <h3 id="结束"><a href="#结束" class="headerlink" title="结束"></a>结束</h3><p>是不是很简单，没有太多的配置，清爽多了。</p>
@@ -840,7 +840,7 @@ so，还是折腾下亲儿
     <summary type="html">
     
       &lt;p&gt;MyBatis在国内一直很流行，在ORM框架中使用比例很高。&lt;br&gt;由于MyBatis不是Spring的亲生儿子，所以依赖的版本很发麻，不像其他的依赖，直接引入就可以，还得看版本。&lt;br&gt;经过几次尝试，下文给出的是可以正常使用的。&lt;/p&gt;
-&lt;p&gt;本记录使用的开发环境：&lt;br
+&lt;p&gt;开发环境：&lt;br&gt;OS: M
     
     </summary>
     
@@ -893,36 +893,6 @@ so，还是折腾下亲儿
   </entry>
   
   <entry>
-    <title>Vim Plugin 自动补全(NERDTree)</title>
-    <link href="http://www.nealma.com/2016/04/26/vim-plugin-install-nerttree/"/>
-    <id>http://www.nealma.com/2016/04/26/vim-plugin-install-nerttree/</id>
-    <published>2016-04-26T04:46:45.000Z</published>
-    <updated>2016-10-16T10:46:43.000Z</updated>
-    
-    <content type="html"><![CDATA[<p>Vim在安装目录工具NERDTree的时候，遇到了坑。</p>
-<p>本记录使用的开发环境：<br>OS: Mac</p>
-<h3 id="其实也没啥，就是不知道怎么启用，哈哈"><a href="#其实也没啥，就是不知道怎么启用，哈哈" class="headerlink" title="其实也没啥，就是不知道怎么启用，哈哈"></a>其实也没啥，就是不知道怎么启用，哈哈</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">#进入vim</div><div class="line"></div><div class="line">:NERDTree ＃回车，就看到啦</div><div class="line"></div><div class="line">#Crtl + w 是前缀唤醒组合</div><div class="line"></div><div class="line">#左右切换</div><div class="line">h l </div><div class="line"></div><div class="line">#退出</div><div class="line">q</div><div class="line"></div><div class="line">#每次都需要输入NERDTree是不是很麻烦，别怕，可以很省事的</div><div class="line"></div><div class="line">#vim ~/.vimrc 加入</div><div class="line">nnoremap &lt;silent&gt; &lt;F5&gt; :NERDTree&lt;CR&gt;</div></pre></td></tr></table></figure>
-<p>:D-</p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;Vim在安装目录工具NERDTree的时候，遇到了坑。&lt;/p&gt;
-&lt;p&gt;本记录使用的开发环境：&lt;br&gt;OS: Mac&lt;/p&gt;
-&lt;h3 id=&quot;其实也没啥，就是不知道怎么启用，哈哈&quot;&gt;&lt;a href=&quot;#其实也没啥，就是不知道怎么启用，哈哈&quot; class=&quot;headerlink
-    
-    </summary>
-    
-      <category term="Vim" scheme="http://www.nealma.com/categories/Vim/"/>
-    
-    
-      <category term="Vim" scheme="http://www.nealma.com/tags/Vim/"/>
-    
-      <category term="NERDTree" scheme="http://www.nealma.com/tags/NERDTree/"/>
-    
-  </entry>
-  
-  <entry>
     <title>Vim Plugin 自动补全(YouCompleteMe)</title>
     <link href="http://www.nealma.com/2016/04/26/vim-plugin-install-youcompleteme/"/>
     <id>http://www.nealma.com/2016/04/26/vim-plugin-install-youcompleteme/</id>
@@ -957,6 +927,36 @@ so，还是折腾下亲儿
       <category term="Vim" scheme="http://www.nealma.com/tags/Vim/"/>
     
       <category term="Plugin" scheme="http://www.nealma.com/tags/Plugin/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Vim Plugin 自动补全(NERDTree)</title>
+    <link href="http://www.nealma.com/2016/04/26/vim-plugin-install-nerttree/"/>
+    <id>http://www.nealma.com/2016/04/26/vim-plugin-install-nerttree/</id>
+    <published>2016-04-26T04:46:45.000Z</published>
+    <updated>2016-10-16T10:46:43.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>Vim在安装目录工具NERDTree的时候，遇到了坑。</p>
+<p>本记录使用的开发环境：<br>OS: Mac</p>
+<h3 id="其实也没啥，就是不知道怎么启用，哈哈"><a href="#其实也没啥，就是不知道怎么启用，哈哈" class="headerlink" title="其实也没啥，就是不知道怎么启用，哈哈"></a>其实也没啥，就是不知道怎么启用，哈哈</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">#进入vim</div><div class="line"></div><div class="line">:NERDTree ＃回车，就看到啦</div><div class="line"></div><div class="line">#Crtl + w 是前缀唤醒组合</div><div class="line"></div><div class="line">#左右切换</div><div class="line">h l </div><div class="line"></div><div class="line">#退出</div><div class="line">q</div><div class="line"></div><div class="line">#每次都需要输入NERDTree是不是很麻烦，别怕，可以很省事的</div><div class="line"></div><div class="line">#vim ~/.vimrc 加入</div><div class="line">nnoremap &lt;silent&gt; &lt;F5&gt; :NERDTree&lt;CR&gt;</div></pre></td></tr></table></figure>
+<p>:D-</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;Vim在安装目录工具NERDTree的时候，遇到了坑。&lt;/p&gt;
+&lt;p&gt;本记录使用的开发环境：&lt;br&gt;OS: Mac&lt;/p&gt;
+&lt;h3 id=&quot;其实也没啥，就是不知道怎么启用，哈哈&quot;&gt;&lt;a href=&quot;#其实也没啥，就是不知道怎么启用，哈哈&quot; class=&quot;headerlink
+    
+    </summary>
+    
+      <category term="Vim" scheme="http://www.nealma.com/categories/Vim/"/>
+    
+    
+      <category term="Vim" scheme="http://www.nealma.com/tags/Vim/"/>
+    
+      <category term="NERDTree" scheme="http://www.nealma.com/tags/NERDTree/"/>
     
   </entry>
   

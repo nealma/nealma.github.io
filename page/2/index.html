@@ -1058,7 +1058,7 @@ Build Setting添加Code Signing Identity为iOS Developer
           
             <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><pre><code>shiro可以完全解决有关安全的问题，但是项目大多使用的是Spring框架，所以没必要在引入其他依赖，
 so，还是折腾下亲儿子的东东吧
-</code></pre><p>使用的开发环境：<br>OS: Mac 10.11.6<br>IDE: idea<br>Build: maven</p>
+</code></pre><p>开发环境：<br>OS: Mac 10.11.6<br>IDE: IDEA<br>Build: Maven</p>
 <pre><code>以前都是使用xml来配置，但是spring-boot提倡Java Config的使用，
 折腾下来还是很多收获的。有关权限管理，行内大都秉承
 以角色为基础的访问控制（Role-based access control, RBAC）
@@ -1195,7 +1195,7 @@ so，还是折腾下亲儿子的东东吧
         
           
             <p>MyBatis在国内一直很流行，在ORM框架中使用比例很高。<br>由于MyBatis不是Spring的亲生儿子，所以依赖的版本很发麻，不像其他的依赖，直接引入就可以，还得看版本。<br>经过几次尝试，下文给出的是可以正常使用的。</p>
-<p>本记录使用的开发环境：<br>OS: Mac 10.11.6<br>IDE: idea<br>Build: maven</p>
+<p>开发环境：<br>OS: Mac 10.11.6<br>IDE: IDEA<br>Build: Maven</p>
 <h3 id="POM依赖"><a href="#POM依赖" class="headerlink" title="POM依赖"></a>POM依赖</h3><figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">&lt;!-- properties --&gt;</div><div class="line">&lt;properties&gt;</div><div class="line">    &lt;spring.boot.mybatis&gt;1.0.2&lt;/spring.boot.mybatis&gt;</div><div class="line">    &lt;mybatis.version&gt;3.4.1&lt;/mybatis.version&gt;</div><div class="line">    &lt;mybatis.spring.version&gt;1.3.0&lt;/mybatis.spring.version&gt;</div><div class="line">&lt;/properties</div><div class="line">&lt;!-- mybatis --&gt;</div><div class="line">&lt;dependency&gt;</div><div class="line">    &lt;groupId&gt;org.mybatis&lt;/groupId&gt;</div><div class="line">    &lt;artifactId&gt;mybatis&lt;/artifactId&gt;</div><div class="line">    &lt;version&gt;$&#123;mybatis.version&#125;&lt;/version&gt;</div><div class="line">&lt;/dependency&gt;</div><div class="line">&lt;!-- mybatis-spring --&gt;</div><div class="line">&lt;dependency&gt;</div><div class="line">    &lt;groupId&gt;org.mybatis&lt;/groupId&gt;</div><div class="line">    &lt;artifactId&gt;mybatis-spring&lt;/artifactId&gt;</div><div class="line">    &lt;version&gt;$&#123;mybatis.spring.version&#125;&lt;/version&gt;</div><div class="line">&lt;/dependency&gt;</div></pre></td></tr></table></figure>
 <h3 id="属性配置application-properties"><a href="#属性配置application-properties" class="headerlink" title="属性配置application.properties"></a>属性配置application.properties</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">#datasource</div><div class="line">spring.datasource.url=jdbc:mysql://localhost:3306/db_name?useUnicode=true&amp;characterEncoding=utf-8&amp;useSSL=false</div><div class="line">spring.datasource.username=******</div><div class="line">spring.datasource.password=******</div><div class="line">spring.datasource.driver-class-name=com.mysql.jdbc.Driver</div><div class="line"></div><div class="line">#mybatis</div><div class="line">#mapper路径</div><div class="line">mybatis.mapperLocations=classpath*:**/mappers/*.xml</div><div class="line">#model包</div><div class="line">mybatis.typeAliasesPackage=com.xxxx.domain</div></pre></td></tr></table></figure>
 <h3 id="结束"><a href="#结束" class="headerlink" title="结束"></a>结束</h3><p>是不是很简单，没有太多的配置，清爽多了。</p>
@@ -1373,129 +1373,6 @@ so，还是折腾下亲儿子的东东吧
             
               
                 
-                <a class="post-title-link" href="../../2016/04/26/vim-plugin-install-nerttree/" itemprop="url">
-                  Vim Plugin 自动补全(NERDTree)
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-04-26T12:46:45+08:00" content="2016-04-26">
-              2016-04-26
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="../../categories/Vim/" itemprop="url" rel="index">
-                    <span itemprop="name">Vim</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="../../2016/04/26/vim-plugin-install-nerttree/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/04/26/vim-plugin-install-nerttree/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>Vim在安装目录工具NERDTree的时候，遇到了坑。</p>
-<p>本记录使用的开发环境：<br>OS: Mac</p>
-<h3 id="其实也没啥，就是不知道怎么启用，哈哈"><a href="#其实也没啥，就是不知道怎么启用，哈哈" class="headerlink" title="其实也没啥，就是不知道怎么启用，哈哈"></a>其实也没啥，就是不知道怎么启用，哈哈</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">#进入vim</div><div class="line"></div><div class="line">:NERDTree ＃回车，就看到啦</div><div class="line"></div><div class="line">#Crtl + w 是前缀唤醒组合</div><div class="line"></div><div class="line">#左右切换</div><div class="line">h l </div><div class="line"></div><div class="line">#退出</div><div class="line">q</div><div class="line"></div><div class="line">#每次都需要输入NERDTree是不是很麻烦，别怕，可以很省事的</div><div class="line"></div><div class="line">#vim ~/.vimrc 加入</div><div class="line">nnoremap &lt;silent&gt; &lt;F5&gt; :NERDTree&lt;CR&gt;</div></pre></td></tr></table></figure>
-<p>:D-</p>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
                 <a class="post-title-link" href="../../2016/04/26/vim-plugin-install-youcompleteme/" itemprop="url">
                   Vim Plugin 自动补全(YouCompleteMe)
                 </a>
@@ -1577,6 +1454,129 @@ so，还是折腾下亲儿子的东东吧
 <p>我的网速不给力，需要很长时间，耐心等待吧，要不就干别的去的</p>
 <p>完成之后，重新安装一遍</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">vim +PluginInstall</div></pre></td></tr></table></figure>
+<p>:D-</p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="../../2016/04/26/vim-plugin-install-nerttree/" itemprop="url">
+                  Vim Plugin 自动补全(NERDTree)
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-04-26T12:46:45+08:00" content="2016-04-26">
+              2016-04-26
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="../../categories/Vim/" itemprop="url" rel="index">
+                    <span itemprop="name">Vim</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="../../2016/04/26/vim-plugin-install-nerttree/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/04/26/vim-plugin-install-nerttree/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>Vim在安装目录工具NERDTree的时候，遇到了坑。</p>
+<p>本记录使用的开发环境：<br>OS: Mac</p>
+<h3 id="其实也没啥，就是不知道怎么启用，哈哈"><a href="#其实也没啥，就是不知道怎么启用，哈哈" class="headerlink" title="其实也没啥，就是不知道怎么启用，哈哈"></a>其实也没啥，就是不知道怎么启用，哈哈</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">#进入vim</div><div class="line"></div><div class="line">:NERDTree ＃回车，就看到啦</div><div class="line"></div><div class="line">#Crtl + w 是前缀唤醒组合</div><div class="line"></div><div class="line">#左右切换</div><div class="line">h l </div><div class="line"></div><div class="line">#退出</div><div class="line">q</div><div class="line"></div><div class="line">#每次都需要输入NERDTree是不是很麻烦，别怕，可以很省事的</div><div class="line"></div><div class="line">#vim ~/.vimrc 加入</div><div class="line">nnoremap &lt;silent&gt; &lt;F5&gt; :NERDTree&lt;CR&gt;</div></pre></td></tr></table></figure>
 <p>:D-</p>
 
           
