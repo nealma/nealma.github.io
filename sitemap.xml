@@ -2,23 +2,44 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>http://www.nealma.com/2016/09/03/react-native-12-archive/</loc>
+    <loc>http://www.nealma.com/2016/10/02/vim-command-line-1-replace/</loc>
     
-    <lastmod>2016-10-31T17:23:38.000Z</lastmod>
+    <lastmod>2016-11-06T04:31:18.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://www.nealma.com/2016/10/01/centos-72-1-install-java-envirment/</loc>
+    
+    <lastmod>2016-11-05T02:09:58.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://www.nealma.com/2016/03/16/nginx-configuration/</loc>
+    
+    <lastmod>2016-11-04T23:22:53.000Z</lastmod>
     
   </url>
   
   <url>
     <loc>http://www.nealma.com/2016/05/30/spring-boot-5-exception/</loc>
     
-    <lastmod>2016-10-31T17:15:48.000Z</lastmod>
+    <lastmod>2016-11-04T00:02:50.000Z</lastmod>
     
   </url>
   
   <url>
     <loc>http://www.nealma.com/2016/04/30/spring-boot-4-security/</loc>
     
-    <lastmod>2016-10-31T17:11:29.000Z</lastmod>
+    <lastmod>2016-11-03T12:40:28.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://www.nealma.com/2016/09/03/react-native-12-archive/</loc>
+    
+    <lastmod>2016-10-31T17:24:41.000Z</lastmod>
     
   </url>
   
@@ -166,13 +187,6 @@
     <loc>http://www.nealma.com/2016/05/30/nodejs-1-very-slow/</loc>
     
     <lastmod>2016-10-15T14:09:56.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://www.nealma.com/2016/03/16/nginx-configuration/</loc>
-    
-    <lastmod>2016-10-15T14:09:44.000Z</lastmod>
     
   </url>
   

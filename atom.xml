@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://www.nealma.com/"/>
-  <updated>2016-10-31T17:23:38.000Z</updated>
+  <updated>2016-11-06T04:31:18.000Z</updated>
   <id>http://www.nealma.com/</id>
   
   <author>
@@ -16,11 +16,95 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>Vim Commandline (一) 文本替换</title>
+    <link href="http://www.nealma.com/2016/10/02/vim-command-line-1-replace/"/>
+    <id>http://www.nealma.com/2016/10/02/vim-command-line-1-replace/</id>
+    <published>2016-10-02T03:46:45.000Z</published>
+    <updated>2016-11-06T04:31:18.000Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><pre><code>文本替换在我们的工作中经常被使用，是一个高频的功能。
+可是我总是记不住，每次都得Google一下，还是自己记录下吧...
+</code></pre><h3 id="Replace-Text"><a href="#Replace-Text" class="headerlink" title="Replace Text"></a>Replace Text</h3><ul>
+<li>替换当前行第一个字符</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"># 将当前光标所在的行中，第一个出现的a替换成b</div><div class="line">:$s/a/b</div></pre></td></tr></table></figure>
+<ul>
+<li>替换前光标所在的行所有字符</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"># 将当前光标所在的行中，所有a替换成b</div><div class="line">:$s/a/b/g</div></pre></td></tr></table></figure>
+<ul>
+<li>替换第n行到当前行区间中所有行的第一个字符</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"># 将第n行到当前光标所在的行中，第一个出现的a替换成b</div><div class="line">#n 为行号</div><div class="line">:n,$s/a/b</div></pre></td></tr></table></figure>
+<ul>
+<li>替换前光标所在的行所有字符</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"># 将第n行到当前光标所在的行中，所有a替换成b</div><div class="line">:n,$s/a/b/g</div></pre></td></tr></table></figure>
+<h3 id="结束"><a href="#结束" class="headerlink" title="结束"></a>结束</h3><p>:)~</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h3 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h3&gt;&lt;pre&gt;&lt;code&gt;文本替换在我们的工作中经常被使用，是一个高频的功能。
+可是我总是记不住，每次都得Google一下，还是自己记录下吧...
+&lt;
+    
+    </summary>
+    
+      <category term="Linux" scheme="http://www.nealma.com/categories/Linux/"/>
+    
+    
+      <category term="CentOS" scheme="http://www.nealma.com/tags/CentOS/"/>
+    
+      <category term="Linux" scheme="http://www.nealma.com/tags/Linux/"/>
+    
+      <category term="Vim" scheme="http://www.nealma.com/tags/Vim/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>CentOS7 Java环境搭建</title>
+    <link href="http://www.nealma.com/2016/10/01/centos-72-1-install-java-envirment/"/>
+    <id>http://www.nealma.com/2016/10/01/centos-72-1-install-java-envirment/</id>
+    <published>2016-10-01T03:46:45.000Z</published>
+    <updated>2016-11-05T02:09:58.000Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><pre><code>最近要从0开发新项目，以前都是用的CengOS6.5,觉得太历史了，7.x已经出来很久了。
+而且云上的景象都是7.2了，没理由不用。第一次使用肯定会遇到坑，其实也是自身对这个系统的不了解。
+尝鲜可定会出事，但是只要你打破舒适区，一路下来，你会觉得没那么难
+</code></pre><h3 id="安装-JDK8-0"><a href="#安装-JDK8-0" class="headerlink" title="安装 JDK8.0"></a>安装 JDK8.0</h3><p>直接使用openJDK,直接使用8.0,没必要考虑之前的版本了。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">yum search openJDK</div><div class="line">yun install java-1.8.0-openjdk.x86_64</div></pre></td></tr></table></figure>
+<h3 id="安装-Maven"><a href="#安装-Maven" class="headerlink" title="安装 Maven"></a>安装 Maven</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div></pre></td><td class="code"><pre><div class="line">＃ 去官网下载最新的Maven版本，zip包就行了</div><div class="line">wget http://mirror.bit.edu.cn/apache/maven/maven-3/3.3.9/binaries/apache-maven-3.3.9-bin.zip</div><div class="line"></div><div class="line">unzip apache-maven-3.3.9-bin.zip</div><div class="line"></div><div class="line"># 如果没有unzip工具的，先安装unzip</div><div class="line">yum install unzip</div><div class="line"></div><div class="line">＃ 把解压文件夹移动到/opt/maven下</div><div class="line">mv apache-maven-3.3.9 /opt/maven</div><div class="line"></div><div class="line"># 做个软连接</div><div class="line">ln -s /opt/maven/bin/mvn /usr/bin/mvn</div><div class="line"></div><div class="line">＃设置Maven环境变量</div><div class="line">vim /etc/profile.d/maven.sh</div><div class="line"></div><div class="line">#!/bin/bash</div><div class="line">MAVEN_HOME=/opt/maven</div><div class="line">PATH=$MAVEN_HOME/bin:$PATH</div><div class="line">export PATH MAVEN_HOME</div><div class="line">export CLASSPATH=.</div><div class="line"></div><div class="line"># 添加可执行权限</div><div class="line">chmod +x /etc/profile.d/maven.sh</div><div class="line"></div><div class="line"># 立即生效</div><div class="line">source /etc/profile.d/maven.sh</div><div class="line"></div><div class="line"># 检查是否安装成功</div><div class="line">mvn -version</div></pre></td></tr></table></figure>
+<h3 id="安装-Tomcat-8"><a href="#安装-Tomcat-8" class="headerlink" title="安装 Tomcat 8"></a>安装 Tomcat 8</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div></pre></td><td class="code"><pre><div class="line">＃ download</div><div class="line">wget http://mirrors.cnnic.cn/apache/tomcat/tomcat-8/v8.5.6/bin/apache-tomcat-8.5.6.zip</div><div class="line"></div><div class="line">＃ extract</div><div class="line">unzip apache-tomcat-8.5.6.zip </div><div class="line"></div><div class="line"># move to /opt</div><div class="line">mv apache-tomcat-8.5.6 /opt/tomcat</div><div class="line"></div><div class="line"># set enviroment </div><div class="line">vim /etc/profile.d/tomcat.sh</div><div class="line"></div><div class="line">#!/bin/bash</div><div class="line">CATALINA_HOME=/opt/tomcat</div><div class="line">PATH=$CATALINA_HOME/bin:$PATH</div><div class="line">export PATH CATALINA_HOME</div><div class="line">export CLASSPATH=.</div><div class="line"></div><div class="line"># make it executable</div><div class="line">chmod +x /etc/profile.d/tomcat.sh</div><div class="line"></div><div class="line"># set enviroment permanently</div><div class="line">source /etc/profile.d/tomcat.sh</div><div class="line"></div><div class="line"># make shell executable permisson</div><div class="line">chmod +x $CATALINA_HOME/bin/startup.sh</div><div class="line">chmod +x $CATALINA_HOME/bin/shutdown.sh</div><div class="line">chmod +x $CATALINA_HOME/bin/catalina.sh</div><div class="line"></div><div class="line"># start tomcat</div><div class="line">sh $CATALINA_HOME/bin/startup.sh</div></pre></td></tr></table></figure>
+<h3 id="用浏览器访问的时候，你很可能会失败，那就是firewall在作怪"><a href="#用浏览器访问的时候，你很可能会失败，那就是firewall在作怪" class="headerlink" title="用浏览器访问的时候，你很可能会失败，那就是firewall在作怪"></a>用浏览器访问的时候，你很可能会失败，那就是firewall在作怪</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">＃ Enable Firewalld</div><div class="line">systemctl enable firewalld</div><div class="line"></div><div class="line"># Start Firewalld</div><div class="line">systemctl start firewalld</div><div class="line"></div><div class="line"># check the status</div><div class="line">systemctl status firewalld</div></pre></td></tr></table></figure>
+<h3 id="开启了Firewalld-添加如下"><a href="#开启了Firewalld-添加如下" class="headerlink" title="开启了Firewalld,添加如下"></a>开启了Firewalld,添加如下</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">firewall-cmd --permanent --add-port=8080/tcp</div><div class="line">firewall-cmd --reload</div></pre></td></tr></table></figure>
+<h3 id="开机启动"><a href="#开机启动" class="headerlink" title="开机启动"></a>开机启动</h3><h1 id="创建调用脚本"><a href="#创建调用脚本" class="headerlink" title="创建调用脚本"></a>创建调用脚本</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div></pre></td><td class="code"><pre><div class="line">vim /etc/init.d/tomcat</div><div class="line"></div><div class="line">######################################################</div><div class="line">#!/bin/sh</div><div class="line"># chkconfig: 2345 80 20</div><div class="line"></div><div class="line"># Description: Tomcat Start/Shutdown script</div><div class="line"></div><div class="line">export JAVA_HOME=/usr/lib/jvm/java</div><div class="line"></div><div class="line">case $1 in</div><div class="line">start)</div><div class="line">cd /opt/tomcat/bin/</div><div class="line">./startup.sh</div><div class="line">;;</div><div class="line">stop)</div><div class="line">cd /opt/tomcat/bin/</div><div class="line">./shutdown.sh</div><div class="line">;;</div><div class="line">restart)</div><div class="line">cd /opt/tomcat/bin/</div><div class="line">./shutdown.sh</div><div class="line">cd /opt/tomcat/bin/</div><div class="line">./startup.sh</div><div class="line">;;</div><div class="line">esac</div><div class="line">exit 0</div><div class="line">######################################################</div><div class="line"></div><div class="line"># Make it executable</div><div class="line">chmod a+x /etc/init.d/tomcat</div><div class="line"></div><div class="line"># Add the tomcat to service</div><div class="line">chkconfig --add tomcat</div><div class="line"></div><div class="line"># auto as reboot</div><div class="line">systemctl start tomcat</div><div class="line">chkconfig tomcat on</div></pre></td></tr></table></figure>
+<h3 id="给Tomcat添加管理角色"><a href="#给Tomcat添加管理角色" class="headerlink" title="给Tomcat添加管理角色"></a>给Tomcat添加管理角色</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div></pre></td><td class="code"><pre><div class="line">vim $CATALINA_HOME/conf/tomcat-users.xml</div><div class="line"></div><div class="line">#在&lt;tomcat-users&gt;&lt;/tomcat-users&gt;之间加入如下指令</div><div class="line"></div><div class="line">[...]</div><div class="line">&lt;role rolename=&quot;manager-gui&quot;/&gt;</div><div class="line">&lt;role rolename=&quot;manager-script&quot;/&gt;</div><div class="line">&lt;role rolename=&quot;manager-jmx&quot;/&gt;</div><div class="line">&lt;role rolename=&quot;manager-status&quot;/&gt;</div><div class="line">&lt;role rolename=&quot;admin-gui&quot;/&gt;</div><div class="line">&lt;role rolename=&quot;admin-script&quot;/&gt;</div><div class="line">&lt;user username=&quot;admin&quot; password=&quot;admin&quot; roles=&quot;manager-gui,manager-script,manager-jmx,manager-status,admin-gui,admin-script&quot;/&gt;</div><div class="line">[...]</div><div class="line"></div><div class="line"># Restart tomcat </div><div class="line">systemctl restart tomcat</div><div class="line"></div><div class="line"># 用户名 密码  admin/admin</div><div class="line"></div><div class="line">#如果遇到403 Access Denied, 如下操作</div><div class="line">vim $CATALINA_HOME/webapps/manager/META-INF/context.xml</div><div class="line"></div><div class="line">#注释Value</div><div class="line"></div><div class="line">&lt;Context antiResourceLocking=&quot;false&quot; privileged=&quot;true&quot; &gt;</div><div class="line">&lt;!--</div><div class="line">&lt;Valve className=&quot;org.apache.catalina.valves.RemoteAddrValve&quot; allow=&quot;127\.\d+\.\d+\.\d+|::1|0:0:0:0:0:0:0:1&quot; /&gt;</div><div class="line">--&gt;</div><div class="line">&lt;/Context&gt;</div><div class="line"></div><div class="line">#访问host-manager时 403 Access Denied，操作类似</div><div class="line"></div><div class="line">vim $CATALINA_HOME/webapps/host-manager/META-INF/context.xml</div><div class="line"></div><div class="line">#注释Value</div><div class="line"></div><div class="line">&lt;Context antiResourceLocking=&quot;false&quot; privileged=&quot;true&quot; &gt;</div><div class="line">&lt;!--</div><div class="line">&lt;Valve className=&quot;org.apache.catalina.valves.RemoteAddrValve&quot; allow=&quot;127\.\d+\.\d+\.\d+|::1|0:0:0:0:0:0:0:1&quot; /&gt;</div><div class="line">--&gt;</div><div class="line">&lt;/Context&gt;</div></pre></td></tr></table></figure>
+<h3 id="结束"><a href="#结束" class="headerlink" title="结束"></a>结束</h3><p>:)~</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h3 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h3&gt;&lt;pre&gt;&lt;code&gt;最近要从0开发新项目，以前都是用的CengOS6.5,觉得太历史了，7.x已经出来很久了。
+而且云上的景象都是7.2了，没理
+    
+    </summary>
+    
+      <category term="Linux" scheme="http://www.nealma.com/categories/Linux/"/>
+    
+    
+      <category term="CentOS" scheme="http://www.nealma.com/tags/CentOS/"/>
+    
+      <category term="Linux" scheme="http://www.nealma.com/tags/Linux/"/>
+    
+  </entry>
+  
+  <entry>
     <title>React Native (十二) 趟雷过程中遇到的陷阱</title>
     <link href="http://www.nealma.com/2016/09/03/react-native-12-archive/"/>
     <id>http://www.nealma.com/2016/09/03/react-native-12-archive/</id>
     <published>2016-09-03T06:46:45.000Z</published>
-    <updated>2016-10-31T17:23:38.000Z</updated>
+    <updated>2016-10-31T17:24:41.000Z</updated>
     
     <content type="html"><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><pre><code>导出分发包的过程中，遇到了许多小问题，做个总结吧
 </code></pre><p>开发环境：<br>OS: Mac 10.11.6<br>Xcode: Version 8.0 (8A218a)</p>
@@ -711,12 +795,12 @@ Build Setting添加Code Signing Identity为iOS Developer
     <link href="http://www.nealma.com/2016/05/30/spring-boot-5-exception/"/>
     <id>http://www.nealma.com/2016/05/30/spring-boot-5-exception/</id>
     <published>2016-05-30T03:46:45.000Z</published>
-    <updated>2016-10-31T17:15:48.000Z</updated>
+    <updated>2016-11-04T00:02:50.000Z</updated>
     
     <content type="html"><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><pre><code>广大码农同胞在写程序的时候，总是会遇到处理各种Exception，神马空指针啦，
 再有就是处理DataBase的IO异常啦，反正哪都有他们的影子，真是阴魂不散啊。但是呢，
 你又不能置之不理，那就求救于Spring的全局处理吧
-</code></pre><p>：）～</p>
+</code></pre><p>：）～<br>开发环境：<br>OS: Mac 10.11.6<br>IDE: IDEA<br>Build: Maven</p>
 <pre><code>Spring-Boot默认实现了简单的错误页面，但是那个真是惨不忍睹。追求用户体验的你，当然想
 换成自己的页面了，看着美美哒。
 
@@ -761,11 +845,11 @@ Build Setting添加Code Signing Identity为iOS Developer
   </entry>
   
   <entry>
-    <title>Spring-Boot （四) 集成Spring Security</title>
+    <title>Spring-Boot (四) 集成Spring Security</title>
     <link href="http://www.nealma.com/2016/04/30/spring-boot-4-security/"/>
     <id>http://www.nealma.com/2016/04/30/spring-boot-4-security/</id>
     <published>2016-04-30T03:46:45.000Z</published>
-    <updated>2016-10-31T17:11:29.000Z</updated>
+    <updated>2016-11-03T12:40:28.000Z</updated>
     
     <content type="html"><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><pre><code>shiro可以完全解决有关安全的问题，但是项目大多使用的是Spring框架，所以没必要在引入其他依赖，
 so，还是折腾下亲儿子的东东吧
@@ -874,74 +958,6 @@ so，还是折腾下亲儿
       <category term="Spring" scheme="http://www.nealma.com/tags/Spring/"/>
     
       <category term="Spring-Boot" scheme="http://www.nealma.com/tags/Spring-Boot/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Vim Plugin 自动补全(YouCompleteMe)</title>
-    <link href="http://www.nealma.com/2016/04/26/vim-plugin-install-youcompleteme/"/>
-    <id>http://www.nealma.com/2016/04/26/vim-plugin-install-youcompleteme/</id>
-    <published>2016-04-26T04:46:45.000Z</published>
-    <updated>2016-10-16T10:46:52.000Z</updated>
-    
-    <content type="html"><![CDATA[<p>Vim在安装自动补全插件YouCompleteMe的时候，遇到了坑。</p>
-<p>本记录使用的开发环境：<br>OS: Mac</p>
-<h3 id="首先Vim版本过低，提示7-3"><a href="#首先Vim版本过低，提示7-3" class="headerlink" title="首先Vim版本过低，提示7.3+"></a>首先Vim版本过低，提示7.3+</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">brew install vim</div><div class="line"></div><div class="line">#安装完之后，查看版本还是7.3的，经过搜索解决办法，发现执行如下可以解决</div><div class="line">exec $SHELL</div><div class="line"></div><div class="line">#重启terminal</div></pre></td></tr></table></figure>
-<h3 id="再次抱错"><a href="#再次抱错" class="headerlink" title="再次抱错"></a>再次抱错</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">YouCompleteMe unavailable: No module named future</div></pre></td></tr></table></figure>
-<p>这次是因为python的问题，<br>于是进入YouCompleteMe目录，执行</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">./install.py -all</div></pre></td></tr></table></figure>
-<p>回车，这时提示你一些第三方依赖缺失，执行下面的命令,</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git submodule update --init --recursive</div></pre></td></tr></table></figure>
-<p>我的网速不给力，需要很长时间，耐心等待吧，要不就干别的去的</p>
-<p>完成之后，重新安装一遍</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">vim +PluginInstall</div></pre></td></tr></table></figure>
-<p>:D-</p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;Vim在安装自动补全插件YouCompleteMe的时候，遇到了坑。&lt;/p&gt;
-&lt;p&gt;本记录使用的开发环境：&lt;br&gt;OS: Mac&lt;/p&gt;
-&lt;h3 id=&quot;首先Vim版本过低，提示7-3&quot;&gt;&lt;a href=&quot;#首先Vim版本过低，提示7-3&quot; class=&quot;headerlin
-    
-    </summary>
-    
-      <category term="Vim" scheme="http://www.nealma.com/categories/Vim/"/>
-    
-    
-      <category term="Vim" scheme="http://www.nealma.com/tags/Vim/"/>
-    
-      <category term="Plugin" scheme="http://www.nealma.com/tags/Plugin/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Vim Plugin 自动补全(NERDTree)</title>
-    <link href="http://www.nealma.com/2016/04/26/vim-plugin-install-nerttree/"/>
-    <id>http://www.nealma.com/2016/04/26/vim-plugin-install-nerttree/</id>
-    <published>2016-04-26T04:46:45.000Z</published>
-    <updated>2016-10-16T10:46:43.000Z</updated>
-    
-    <content type="html"><![CDATA[<p>Vim在安装目录工具NERDTree的时候，遇到了坑。</p>
-<p>本记录使用的开发环境：<br>OS: Mac</p>
-<h3 id="其实也没啥，就是不知道怎么启用，哈哈"><a href="#其实也没啥，就是不知道怎么启用，哈哈" class="headerlink" title="其实也没啥，就是不知道怎么启用，哈哈"></a>其实也没啥，就是不知道怎么启用，哈哈</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">#进入vim</div><div class="line"></div><div class="line">:NERDTree ＃回车，就看到啦</div><div class="line"></div><div class="line">#Crtl + w 是前缀唤醒组合</div><div class="line"></div><div class="line">#左右切换</div><div class="line">h l </div><div class="line"></div><div class="line">#退出</div><div class="line">q</div><div class="line"></div><div class="line">#每次都需要输入NERDTree是不是很麻烦，别怕，可以很省事的</div><div class="line"></div><div class="line">#vim ~/.vimrc 加入</div><div class="line">nnoremap &lt;silent&gt; &lt;F5&gt; :NERDTree&lt;CR&gt;</div></pre></td></tr></table></figure>
-<p>:D-</p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;Vim在安装目录工具NERDTree的时候，遇到了坑。&lt;/p&gt;
-&lt;p&gt;本记录使用的开发环境：&lt;br&gt;OS: Mac&lt;/p&gt;
-&lt;h3 id=&quot;其实也没啥，就是不知道怎么启用，哈哈&quot;&gt;&lt;a href=&quot;#其实也没啥，就是不知道怎么启用，哈哈&quot; class=&quot;headerlink
-    
-    </summary>
-    
-      <category term="Vim" scheme="http://www.nealma.com/categories/Vim/"/>
-    
-    
-      <category term="Vim" scheme="http://www.nealma.com/tags/Vim/"/>
-    
-      <category term="NERDTree" scheme="http://www.nealma.com/tags/NERDTree/"/>
     
   </entry>
   

@@ -68,7 +68,7 @@
 <link href="../../../../css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Nginx," />
+  <meta name="keywords" content="CentOS,Linux,Vim," />
 
 
 
@@ -86,22 +86,55 @@
 
 
 
-<meta name="description" content="Download nginx1.8.0
-Download openssl1.0.2h
-Install123456cd nginx_home./configure --prefix=/usr/local/nginx \            --with-http_ssl_module \            --with-openssl=//home/lingyitech/sw/openssl-">
+<meta name="description" content="前言文本替换在我们的工作中经常被使用，是一个高频的功能。
+可是我总是记不住，每次都得Google一下，还是自己记录下吧...
+Replace Text
+替换当前行第一个字符
+
+12# 将当前光标所在的行中，第一个出现的a替换成b:$s/a/b
+
+替换前光标所在的行所有字符
+
+12# 将当前光标所在的行中，所有a替换成b:$s/a/b/g
+
+替换第n行到当前行区间中所有行的第一个字符
+
+123# 将">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Nginx Configuration">
-<meta property="og:url" content="http://www.nealma.com/2016/03/16/nginx-configuration/index.html">
+<meta property="og:title" content="Vim Commandline (一) 文本替换">
+<meta property="og:url" content="http://www.nealma.com/2016/10/02/vim-command-line-1-replace/index.html">
 <meta property="og:site_name" content="neal.ma">
-<meta property="og:description" content="Download nginx1.8.0
-Download openssl1.0.2h
-Install123456cd nginx_home./configure --prefix=/usr/local/nginx \            --with-http_ssl_module \            --with-openssl=//home/lingyitech/sw/openssl-">
-<meta property="og:updated_time" content="2016-11-04T23:22:53.000Z">
+<meta property="og:description" content="前言文本替换在我们的工作中经常被使用，是一个高频的功能。
+可是我总是记不住，每次都得Google一下，还是自己记录下吧...
+Replace Text
+替换当前行第一个字符
+
+12# 将当前光标所在的行中，第一个出现的a替换成b:$s/a/b
+
+替换前光标所在的行所有字符
+
+12# 将当前光标所在的行中，所有a替换成b:$s/a/b/g
+
+替换第n行到当前行区间中所有行的第一个字符
+
+123# 将">
+<meta property="og:updated_time" content="2016-11-06T04:31:18.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Nginx Configuration">
-<meta name="twitter:description" content="Download nginx1.8.0
-Download openssl1.0.2h
-Install123456cd nginx_home./configure --prefix=/usr/local/nginx \            --with-http_ssl_module \            --with-openssl=//home/lingyitech/sw/openssl-">
+<meta name="twitter:title" content="Vim Commandline (一) 文本替换">
+<meta name="twitter:description" content="前言文本替换在我们的工作中经常被使用，是一个高频的功能。
+可是我总是记不住，每次都得Google一下，还是自己记录下吧...
+Replace Text
+替换当前行第一个字符
+
+12# 将当前光标所在的行中，第一个出现的a替换成b:$s/a/b
+
+替换前光标所在的行所有字符
+
+12# 将当前光标所在的行中，所有a替换成b:$s/a/b/g
+
+替换第n行到当前行区间中所有行的第一个字符
+
+123# 将">
 
 
 
@@ -122,9 +155,9 @@ Install123456cd nginx_home./configure --prefix=/usr/local/nginx \            --w
 
 
 
-  <link rel="canonical" href="http://www.nealma.com/2016/03/16/nginx-configuration/"/>
+  <link rel="canonical" href="http://www.nealma.com/2016/10/02/vim-command-line-1-replace/"/>
 
-  <title> Nginx Configuration | neal.ma </title>
+  <title> Vim Commandline (一) 文本替换 | neal.ma </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -274,7 +307,7 @@ Install123456cd nginx_home./configure --prefix=/usr/local/nginx \            --w
             
             
               
-                Nginx Configuration
+                Vim Commandline (一) 文本替换
               
             
           </h1>
@@ -286,8 +319,8 @@ Install123456cd nginx_home./configure --prefix=/usr/local/nginx \            --w
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-03-16T11:46:45+08:00" content="2016-03-16">
-              2016-03-16
+            <time itemprop="dateCreated" datetime="2016-10-02T11:46:45+08:00" content="2016-10-02">
+              2016-10-02
             </time>
           </span>
 
@@ -300,8 +333,8 @@ Install123456cd nginx_home./configure --prefix=/usr/local/nginx \            --w
               <span class="post-meta-item-text">分类于</span>
               
                 <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="../../../../categories/Nginx/" itemprop="url" rel="index">
-                    <span itemprop="name">Nginx</span>
+                  <a href="../../../../categories/Linux/" itemprop="url" rel="index">
+                    <span itemprop="name">Linux</span>
                   </a>
                 </span>
 
@@ -317,7 +350,7 @@ Install123456cd nginx_home./configure --prefix=/usr/local/nginx \            --w
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
                 <a href="#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/03/16/nginx-configuration/" itemprop="commentsCount"></span>
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/10/02/vim-command-line-1-replace/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -340,26 +373,25 @@ Install123456cd nginx_home./configure --prefix=/usr/local/nginx \            --w
       
 
       
-        <h3 id="Download-nginx"><a href="#Download-nginx" class="headerlink" title="Download nginx"></a>Download nginx</h3><p><a href="http://nginx.org/download/nginx-1.8.0.tar.gz" target="_blank" rel="external">1.8.0</a></p>
-<h3 id="Download-openssl"><a href="#Download-openssl" class="headerlink" title="Download openssl"></a>Download openssl</h3><p><a href="https://www.openssl.org/source/openssl-1.0.2h.tar.gz" target="_blank" rel="external">1.0.2h</a></p>
-<h3 id="Install"><a href="#Install" class="headerlink" title="Install"></a>Install</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">cd nginx_home</div><div class="line">./configure --prefix=/usr/local/nginx \</div><div class="line">            --with-http_ssl_module \</div><div class="line">            --with-openssl=//home/lingyitech/sw/openssl-1.0.2h \</div><div class="line">            --with-openssl-opt=&quot;enable-tlsext&quot;</div><div class="line">sudo make &amp;&amp; sudo make install</div></pre></td></tr></table></figure>
-<h3 id="Multiple-Host"><a href="#Multiple-Host" class="headerlink" title="Multiple Host"></a>Multiple Host</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line">server  &#123;</div><div class="line">        listen 443;</div><div class="line">        server_name   www.nealma.com;</div><div class="line">        index index.html index.htm index.php;</div><div class="line">        root  /data/wwwroot/www.nealma.com/webroot;</div><div class="line">        ssl on;</div><div class="line">        ssl_certificate &quot;/usr/local/nginx/conf/ssl/www.nealma.com.public.cer&quot;;</div><div class="line">        ssl_certificate_key &quot;/usr/local/nginx/conf/ssl/www.nealma.com.private.key&quot;;</div><div class="line">        ...</div><div class="line">&#125;</div><div class="line"></div><div class="line">server  &#123;</div><div class="line">        listen 443;</div><div class="line">        server_name   www.malingyi.com;</div><div class="line">        index index.html index.htm index.php;</div><div class="line">        root  /data/wwwroot/www.malingyi.com/webroot;</div><div class="line">        ssl on;</div><div class="line">        ssl_certificate 	  &quot;/usr/local/nginx/conf/ssl/www.malingyi.com.public.cer&quot;;</div><div class="line">        ssl_certificate_key &quot;/usr/local/nginx/conf/ssl/www.malingyi.com.private.key&quot;;</div><div class="line">        ...</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h3 id="可能会出现的问题"><a href="#可能会出现的问题" class="headerlink" title="可能会出现的问题"></a>可能会出现的问题</h3><ul>
-<li>缺少gcc工具</li>
+        <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><pre><code>文本替换在我们的工作中经常被使用，是一个高频的功能。
+可是我总是记不住，每次都得Google一下，还是自己记录下吧...
+</code></pre><h3 id="Replace-Text"><a href="#Replace-Text" class="headerlink" title="Replace Text"></a>Replace Text</h3><ul>
+<li>替换当前行第一个字符</li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ sudo yum -y install gcc gcc-c++ autoconf automake make</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"># 将当前光标所在的行中，第一个出现的a替换成b</div><div class="line">:$s/a/b</div></pre></td></tr></table></figure>
 <ul>
-<li>新的服务器缺少pcre</li>
+<li>替换前光标所在的行所有字符</li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ sudo yum -y install pcre-devel</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"># 将当前光标所在的行中，所有a替换成b</div><div class="line">:$s/a/b/g</div></pre></td></tr></table></figure>
 <ul>
-<li>新的服务器缺少zlib</li>
+<li>替换第n行到当前行区间中所有行的第一个字符</li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ sudo yum -y install zlib-devel</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"># 将第n行到当前光标所在的行中，第一个出现的a替换成b</div><div class="line">#n 为行号</div><div class="line">:n,$s/a/b</div></pre></td></tr></table></figure>
 <ul>
-<li>ngnix 配置缺少</li>
+<li>替换前光标所在的行所有字符</li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">server_names_hash_bucket_size 32;</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"># 将第n行到当前光标所在的行中，所有a替换成b</div><div class="line">:n,$s/a/b/g</div></pre></td></tr></table></figure>
+<h3 id="结束"><a href="#结束" class="headerlink" title="结束"></a>结束</h3><p>:)~</p>
 
       
     </div>
@@ -382,7 +414,11 @@ Install123456cd nginx_home./configure --prefix=/usr/local/nginx \            --w
       
         <div class="post-tags">
           
-            <a href="../../../../tags/Nginx/" rel="tag">#Nginx</a>
+            <a href="../../../../tags/CentOS/" rel="tag">#CentOS</a>
+          
+            <a href="../../../../tags/Linux/" rel="tag">#Linux</a>
+          
+            <a href="../../../../tags/Vim/" rel="tag">#Vim</a>
           
         </div>
       
@@ -391,17 +427,13 @@ Install123456cd nginx_home./configure --prefix=/usr/local/nginx \            --w
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="../../15/centos-65-add-user/" rel="next" title="CentOS 添加用户">
-                <i class="fa fa-chevron-left"></i> CentOS 添加用户
+              <a href="../../01/centos-72-1-install-java-envirment/" rel="next" title="CentOS7 Java环境搭建">
+                <i class="fa fa-chevron-left"></i> CentOS7 Java环境搭建
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="../../18/hexo-how-to-use/" rel="prev" title="Hexo使用攻略">
-                Hexo使用攻略 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -427,8 +459,8 @@ Install123456cd nginx_home./configure --prefix=/usr/local/nginx \            --w
           
   <div class="comments" id="comments">
     
-      <div class="ds-thread" data-thread-key="2016/03/16/nginx-configuration/"
-           data-title="Nginx Configuration" data-url="http://www.nealma.com/2016/03/16/nginx-configuration/">
+      <div class="ds-thread" data-thread-key="2016/10/02/vim-command-line-1-replace/"
+           data-title="Vim Commandline (一) 文本替换" data-url="http://www.nealma.com/2016/10/02/vim-command-line-1-replace/">
       </div>
     
   </div>
@@ -544,7 +576,7 @@ Install123456cd nginx_home./configure --prefix=/usr/local/nginx \            --w
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Download-nginx"><span class="nav-number">1.</span> <span class="nav-text">Download nginx</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Download-openssl"><span class="nav-number">2.</span> <span class="nav-text">Download openssl</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Install"><span class="nav-number">3.</span> <span class="nav-text">Install</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Multiple-Host"><span class="nav-number">4.</span> <span class="nav-text">Multiple Host</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#可能会出现的问题"><span class="nav-number">5.</span> <span class="nav-text">可能会出现的问题</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Replace-Text"><span class="nav-number">2.</span> <span class="nav-text">Replace Text</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#结束"><span class="nav-number">3.</span> <span class="nav-text">结束</span></a></li></ol></div>
             
           </div>
         </section>

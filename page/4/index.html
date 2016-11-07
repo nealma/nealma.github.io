@@ -270,6 +270,255 @@
             
               
                 
+                <a class="post-title-link" href="../../2015/12/18/newrelic/" itemprop="url">
+                  newrelic使用
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2015-12-18T15:46:45+08:00" content="2015-12-18">
+              2015-12-18
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="../../categories/Java/" itemprop="url" rel="index">
+                    <span itemprop="name">Java</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="../../2015/12/18/newrelic/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/12/18/newrelic/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>对于Startup公司，在人员配备不足的情况下，集成各路云服务在所难免，newrelic在APM领域走在前面，这里记录下相关使用。</p>
+<h3 id="Java-agent-for-web-server"><a href="#Java-agent-for-web-server" class="headerlink" title="Java agent for web server"></a>Java agent for web server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">$ unzip newrelic-java-xxx.zip <span class="_">-d</span> /path/to/appserver/</div><div class="line">$ <span class="built_in">cd</span> /path/to/appserver/newrelic</div><div class="line">$ java -jar newrelic.jar install</div></pre></td></tr></table></figure>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="../../2015/12/18/elasticsearch/" itemprop="url">
+                  ElasticSearch
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2015-12-18T15:46:45+08:00" content="2015-12-18">
+              2015-12-18
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="../../categories/ElasticSearch/" itemprop="url" rel="index">
+                    <span itemprop="name">ElasticSearch</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="../../2015/12/18/elasticsearch/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/12/18/elasticsearch/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>ElasticSearch作为分布式搜索引擎，给我们带来了方便。</p>
+<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Get-elasticsearch-amp-jdbc"><a href="#Get-elasticsearch-amp-jdbc" class="headerlink" title="Get elasticsearch &amp; jdbc"></a>Get elasticsearch &amp; jdbc</h3><p>elasticsearch-rtf: <a href="https://github.com/medcl/elasticsearch-rtf/archive/2.1.1.zip" target="_blank" rel="external">branch 2.1.1</a><br>elasticsearch-jdbc: <a href="https://github.com/jprante/elasticsearch-jdbc/archive/2.1.1.2.zip" target="_blank" rel="external">branch 2.1.1.2</a></p>
+<h3 id="Run"><a href="#Run" class="headerlink" title="Run"></a>Run</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ ./bin/elasticsearch &amp;</div></pre></td></tr></table></figure>
+<h3 id="If-do-not-have-lib"><a href="#If-do-not-have-lib" class="headerlink" title="If do not have lib"></a>If do not have lib</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ mvn package</div></pre></td></tr></table></figure>
+<h3 id="Bind-ip"><a href="#Bind-ip" class="headerlink" title="Bind ip"></a>Bind ip</h3><p>！！！！[import]</p>
+<h3 id="Base-command"><a href="#Base-command" class="headerlink" title="Base command"></a>Base command</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$ curl -i http://localhost:9200/</div><div class="line">$ curl -X DELETE http://localhost:9200/_all</div></pre></td></tr></table></figure>
+<h3 id="Create-index-by-mapping-file"><a href="#Create-index-by-mapping-file" class="headerlink" title="Create index by mapping file"></a>Create index by mapping file</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ curl -XPUT <span class="string">'http://localhost:9200/articles'</span> <span class="_">-d</span>  @/Users/nealpc/work/body.json</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div></pre></td><td class="code"><pre><div class="line">#body.json</div><div class="line">&#123;</div><div class="line">  &quot;settings&quot;: &#123;</div><div class="line">     &quot;refresh_interval&quot;: &quot;5s&quot;,</div><div class="line">     &quot;number_of_shards&quot; :   1,</div><div class="line">     &quot;number_of_replicas&quot; : 0</div><div class="line">  &#125;,</div><div class="line">  &quot;mappings&quot;: &#123;</div><div class="line">    &quot;_default_&quot;:&#123;</div><div class="line">      &quot;_all&quot;: &#123; &quot;enabled&quot;:  false &#125;</div><div class="line">    &#125;,</div><div class="line">    &quot;articles&quot;: &#123;</div><div class="line">      &quot;dynamic&quot;: false,</div><div class="line">      &quot;properties&quot;: &#123;</div><div class="line">        &quot;title&quot;: &#123;</div><div class="line">          &quot;type&quot;: &quot;string&quot;,</div><div class="line">          &quot;index&quot;: &quot;analyzed&quot;,</div><div class="line">          &quot;fields&quot;: &#123;</div><div class="line">            &quot;cn&quot;: &#123;</div><div class="line">              &quot;type&quot;: &quot;string&quot;,</div><div class="line">              &quot;analyzer&quot;: &quot;ik&quot;</div><div class="line">            &#125;,</div><div class="line">            &quot;en&quot;: &#123;</div><div class="line">              &quot;type&quot;: &quot;string&quot;,</div><div class="line">              &quot;analyzer&quot;: &quot;english&quot;</div><div class="line">            &#125;</div><div class="line">          &#125;</div><div class="line">        &#125;,</div><div class="line">        &quot;content&quot;: &#123;</div><div class="line">          &quot;type&quot;: &quot;string&quot;,</div><div class="line">          &quot;index&quot;: &quot;analyzed&quot;,</div><div class="line">          &quot;fields&quot;: &#123;</div><div class="line">            &quot;cn&quot;: &#123;</div><div class="line">              &quot;type&quot;: &quot;string&quot;,</div><div class="line">              &quot;analyzer&quot;: &quot;ik&quot;</div><div class="line">            &#125;,</div><div class="line">            &quot;en&quot;: &#123;</div><div class="line">              &quot;type&quot;: &quot;string&quot;,</div><div class="line">              &quot;analyzer&quot;: &quot;english&quot;</div><div class="line">            &#125;</div><div class="line">          &#125;</div><div class="line">        &#125;</div><div class="line">      &#125;</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="Show-all-index-info-of-recovery-…"><a href="#Show-all-index-info-of-recovery-…" class="headerlink" title="Show all index info of recovery …."></a>Show all index info of recovery ….</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ curl -XGET http://localhost:9200/_recovery?pretty=<span class="literal">true</span>&amp;detailed=<span class="literal">true</span></div></pre></td></tr></table></figure>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="../../2015/03/18/github-one-mac-two-github-account/" itemprop="url">
                   一台Mac同时使用两个账号
                 </a>
@@ -421,7 +670,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="../../archives">
-              <span class="site-state-item-count">31</span>
+              <span class="site-state-item-count">33</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
