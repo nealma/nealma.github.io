@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://www.nealma.com/"/>
-  <updated>2016-11-14T01:43:27.000Z</updated>
+  <updated>2016-11-14T09:25:47.000Z</updated>
   <id>http://www.nealma.com/</id>
   
   <author>
@@ -16,11 +16,64 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>Spring-Boot（六) Thymeleaf 模版引擎</title>
+    <link href="http://www.nealma.com/2016/11/02/spring-boot-7-thymeleaf/"/>
+    <id>http://www.nealma.com/2016/11/02/spring-boot-7-thymeleaf/</id>
+    <published>2016-11-02T03:46:45.000Z</published>
+    <updated>2016-11-14T09:25:47.000Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><pre><code>模版引擎千千万，今个说说Thymeleaf，主要是不想在混用jsp标签和使用jsp后缀文件，
+直接使用html文件，便于前后端分离。
+</code></pre><p>开发环境：<br>OS: Mac 10.11.6<br>IDE: IDEA<br>Build: Maven</p>
+<h3 id="依赖"><a href="#依赖" class="headerlink" title="依赖"></a>依赖</h3><pre><code>Spring Boot天生内置了对Thymeleaf的支持，简化了配置，加速开发。只需要引入如下
+</code></pre> <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"> &lt;dependency&gt;</div><div class="line">  &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;</div><div class="line">  &lt;artifactId&gt;spring-boot-starter-thymeleaf&lt;/artifactId&gt;</div><div class="line">&lt;/dependency&gt;</div></pre></td></tr></table></figure>
+<h3 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h3><pre><code>在application.properties文件里加入如下
+</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">#thymeleaf</div><div class="line">spring.thymeleaf.prefix=classpath:/templates/</div><div class="line">spring.thymeleaf.suffix=.html</div><div class="line">spring.thymeleaf.mode=HTML5</div><div class="line">spring.thymeleaf.encoding=UTF-8</div><div class="line">spring.thymeleaf.content-type=text/html</div></pre></td></tr></table></figure>
+<pre><code>在src/main/resources/templates/文件夹下，存放你的模版文件,其实在应用启动的时候，
+TemplateEngine，ThymeleafViewResolver会自用实例化。
+</code></pre><h3 id="空间指定"><a href="#空间指定" class="headerlink" title="空间指定"></a>空间指定</h3><pre><code>没有指定空间，总是飘红，还是加上吧
+</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">&lt;html xmlns=&quot;http://www.w3.org/1999/xhtml&quot;</div><div class="line">      xmlns:th=&quot;http://www.thymeleaf.org&quot;&gt;</div></pre></td></tr></table></figure>
+<h3 id="最简用例"><a href="#最简用例" class="headerlink" title="最简用例"></a>最简用例</h3><ul>
+<li>Controller</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line">/**</div><div class="line"> *</div><div class="line"> * 商品信息</div><div class="line"> */</div><div class="line">@RestController</div><div class="line">public class GoodsPageController extends BaseController &#123;</div><div class="line">    /**</div><div class="line">     * 商品列表</div><div class="line">     */</div><div class="line">    @RequestMapping(value = &#123;&quot;/goods/list&quot;&#125;, method = RequestMethod.GET)</div><div class="line">    @PermitAll</div><div class="line">    public ModelAndView list(Model model) &#123;</div><div class="line">        LOGGER.info(&quot;|--&gt; &#123;&#125;&quot;, this.getRequest().getRequestURI());</div><div class="line">        model.addAttribute(&quot;name&quot;, &quot;neal&quot;);</div><div class="line">        Map&lt;String, Object&gt; map = new HashMap&lt;&gt;();</div><div class="line">        map.put(&quot;id&quot;, 1);</div><div class="line">        map.put(&quot;title&quot;, &quot;小怪兽来了&quot;);</div><div class="line">        Map&lt;String, Object&gt; map1 = new HashMap&lt;&gt;();</div><div class="line">        map1.put(&quot;id&quot;, 2);</div><div class="line">        map1.put(&quot;title&quot;, &quot;小怪兽来了&quot;);</div><div class="line">        model.addAttribute(&quot;list&quot;, Arrays.asList(new Object[]&#123;map,map1&#125;));</div><div class="line">        return new ModelAndView(&quot;/index&quot;);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<ul>
+<li>创建src/main/resources/templates/index.html</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">&lt;!DOCTYPE html&gt;</div><div class="line">&lt;html xmlns=&quot;http://www.w3.org/1999/xhtml&quot;</div><div class="line">      xmlns:th=&quot;http://www.thymeleaf.org&quot;&gt;</div><div class="line">&lt;head&gt;</div><div class="line">    &lt;meta charset=&quot;UTF-8&quot;/&gt;</div><div class="line">    &lt;title&gt;Thymeleaf Mini Demo&lt;/title&gt;</div><div class="line">&lt;/head&gt;</div><div class="line">&lt;body&gt;</div><div class="line">Hello, &lt;b th:text=&quot;$&#123;name&#125;&quot;&gt;Name&lt;/b&gt;</div><div class="line">&lt;div th:each=&quot;item:$&#123;list&#125;&quot;&gt;</div><div class="line">    &lt;b th:text=&quot;$&#123;item.id&#125;&quot;&gt;ID&lt;/b&gt;</div><div class="line">    &lt;b th:text=&quot;$&#123;item.title&#125;&quot;&gt;Title&lt;/b&gt;</div><div class="line">&lt;/div&gt;</div><div class="line">&lt;/body&gt;</div><div class="line">&lt;/html&gt;</div></pre></td></tr></table></figure>
+<p>不用管这个</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line">&lt;body onload=&quot;changeImage()&quot;&gt;</div><div class="line">&lt;img id=&quot;myimg&quot; src=&quot;&quot; style=&quot;width:100%; height:auto&quot;&gt;</div><div class="line">&lt;/body&gt;</div><div class="line"></div><div class="line">&lt;script&gt;</div><div class="line">var big=&apos;http://i.imgur.com/nE2Ej4e.jpg&apos;;</div><div class="line">var small=&apos;http://i.imgur.com/ymW13Pp.jpg&apos;;</div><div class="line">function IsPC()&#123;</div><div class="line">     var userAgentInfo = navigator.userAgent;  </div><div class="line">     var Agents = new Array(&quot;Android&quot;, &quot;iPhone&quot;, &quot;SymbianOS&quot;, &quot;Windows Phone&quot;, &quot;iPad&quot;, &quot;iPod&quot;);    </div><div class="line">     var flag = true;    </div><div class="line">     for (var v = 0; v &lt; Agents.length; v++) &#123;    </div><div class="line">         if (userAgentInfo.indexOf(Agents[v]) &gt; 0) &#123; flag = false; break; &#125;    </div><div class="line">     &#125;    </div><div class="line">     return flag;</div><div class="line">  &#125;  </div><div class="line"></div><div class="line">function changeImage()&#123;</div><div class="line">	if(IsPC())&#123;</div><div class="line">     	document.getElementById(&quot;myimg&quot;).src = big;</div><div class="line">	&#125;else&#123;</div><div class="line">		document.getElementById(&quot;myimg&quot;).src = small;</div><div class="line">	&#125;</div><div class="line">  &#125;</div><div class="line">&lt;/script&gt;</div></pre></td></tr></table></figure>
+<h3 id="结束"><a href="#结束" class="headerlink" title="结束"></a>结束</h3><pre><code>使用过程中，发现thymeleaf对于html的语法要求的很严格，每个标签都要有结束tag。我的一个页面
+&lt;link &gt; 没有&quot;/&quot;,导致报错；还有就是属性必须是&quot;=&quot;,即key=value, 在input中我使用了disable,结果报错了
+于是改成disable=&quot;disable&quot;.
+</code></pre>]]></content>
+    
+    <summary type="html">
+    
+      &lt;h3 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h3&gt;&lt;pre&gt;&lt;code&gt;模版引擎千千万，今个说说Thymeleaf，主要是不想在混用jsp标签和使用jsp后缀文件，
+直接使用html文件，便于前后
+    
+    </summary>
+    
+      <category term="Java" scheme="http://www.nealma.com/categories/Java/"/>
+    
+    
+      <category term="Java" scheme="http://www.nealma.com/tags/Java/"/>
+    
+      <category term="Spring" scheme="http://www.nealma.com/tags/Spring/"/>
+    
+      <category term="Spring-Boot" scheme="http://www.nealma.com/tags/Spring-Boot/"/>
+    
+      <category term="Template" scheme="http://www.nealma.com/tags/Template/"/>
+    
+  </entry>
+  
+  <entry>
     <title>Spring-Boot（六) Spring Session 分布式会话管理</title>
     <link href="http://www.nealma.com/2016/11/01/spring-boot-6-spring-session/"/>
     <id>http://www.nealma.com/2016/11/01/spring-boot-6-spring-session/</id>
     <published>2016-11-01T03:46:45.000Z</published>
-    <updated>2016-11-14T01:43:27.000Z</updated>
+    <updated>2016-11-14T07:24:06.000Z</updated>
     
     <content type="html"><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><pre><code>使用Spring Security的时候，觉得省了好多的事情。但是它使用的是内存来存储CurrentUser的信息
 和登录凭证，一旦单机不能承受大用户量，就需要水平扩展，就会涉及到session的问题。怎么才能实现
@@ -151,42 +204,6 @@ CookieHttpSessionStrategy，如果是API就用HeaderHttpSessionStrategy，具体
   </entry>
   
   <entry>
-    <title>CentOS7（二）Install MySQL (MariaDB)</title>
-    <link href="http://www.nealma.com/2016/10/01/centos-72-2-install-mariadb/"/>
-    <id>http://www.nealma.com/2016/10/01/centos-72-2-install-mariadb/</id>
-    <published>2016-10-01T03:46:45.000Z</published>
-    <updated>2016-11-11T05:53:30.000Z</updated>
-    
-    <content type="html"><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><pre><code>今天在CentOS 7.2上安装MySQL（MariaDB）,记录一下
-</code></pre><h3 id="Install-MariaDB"><a href="#Install-MariaDB" class="headerlink" title="Install MariaDB"></a>Install MariaDB</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">yum install mariadb-server mariadb</div></pre></td></tr></table></figure>
-<h3 id="Start-MariaDB"><a href="#Start-MariaDB" class="headerlink" title="Start MariaDB"></a>Start MariaDB</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">systemsctl start mariadb</div></pre></td></tr></table></figure>
-<h3 id="Setting-Secure"><a href="#Setting-Secure" class="headerlink" title="Setting Secure"></a>Setting Secure</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line"># 设置root密码，是否允许远程，test数据库等	</div><div class="line"></div><div class="line">mysql_secure_installation</div><div class="line"></div><div class="line"># Or</div><div class="line"></div><div class="line">set password for &apos;root&apos;@&apos;localhost&apos; =password(&apos;password&apos;);</div><div class="line"></div><div class="line"># 远程连接设置</div><div class="line">grant all privileges on *.* to root@&apos;%&apos; identified by &apos;password&apos;;</div><div class="line">flush privileges;</div><div class="line"></div><div class="line">#Or</div><div class="line"></div><div class="line">mysql&gt; use mysql</div><div class="line"></div><div class="line">mysql&gt; update user set Host=&apos;%&apos; where User=&apos;root&apos;;</div><div class="line"></div><div class="line">mysql&gt; flush privileges;</div><div class="line"></div><div class="line"># 创建新用户</div><div class="line">create user &apos;username&apos;@&apos;%&apos; identified by &apos;password&apos;;</div></pre></td></tr></table></figure>
-<h3 id="Start-on-boot"><a href="#Start-on-boot" class="headerlink" title="Start on boot"></a>Start on boot</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">systemctl enable mariadb.service</div></pre></td></tr></table></figure>
-<h3 id="MySQL-配置防火墙"><a href="#MySQL-配置防火墙" class="headerlink" title="MySQL 配置防火墙"></a>MySQL 配置防火墙</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">firewall-cmd --permanent --zone=public --add-service=mysql</div><div class="line">firewall-cmd --reload</div></pre></td></tr></table></figure>
-<h3 id="结束"><a href="#结束" class="headerlink" title="结束"></a>结束</h3><p>:)~</p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;h3 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h3&gt;&lt;pre&gt;&lt;code&gt;今天在CentOS 7.2上安装MySQL（MariaDB）,记录一下
-&lt;/code&gt;&lt;/pre&gt;&lt;h3 id=&quot;Insta
-    
-    </summary>
-    
-      <category term="Linux" scheme="http://www.nealma.com/categories/Linux/"/>
-    
-    
-      <category term="CentOS" scheme="http://www.nealma.com/tags/CentOS/"/>
-    
-      <category term="Linux" scheme="http://www.nealma.com/tags/Linux/"/>
-    
-      <category term="MySQL" scheme="http://www.nealma.com/tags/MySQL/"/>
-    
-      <category term="MariaDB" scheme="http://www.nealma.com/tags/MariaDB/"/>
-    
-  </entry>
-  
-  <entry>
     <title>CentOS7（三）Install PHP</title>
     <link href="http://www.nealma.com/2016/10/01/centos-72-3-php/"/>
     <id>http://www.nealma.com/2016/10/01/centos-72-3-php/</id>
@@ -226,6 +243,42 @@ CookieHttpSessionStrategy，如果是API就用HeaderHttpSessionStrategy，具体
       <category term="Linux" scheme="http://www.nealma.com/tags/Linux/"/>
     
       <category term="PHP" scheme="http://www.nealma.com/tags/PHP/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>CentOS7（二）Install MySQL (MariaDB)</title>
+    <link href="http://www.nealma.com/2016/10/01/centos-72-2-install-mariadb/"/>
+    <id>http://www.nealma.com/2016/10/01/centos-72-2-install-mariadb/</id>
+    <published>2016-10-01T03:46:45.000Z</published>
+    <updated>2016-11-14T07:24:02.000Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><pre><code>今天在CentOS 7.2上安装MySQL（MariaDB）,记录一下
+</code></pre><h3 id="Install-MariaDB"><a href="#Install-MariaDB" class="headerlink" title="Install MariaDB"></a>Install MariaDB</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">yum install mariadb-server mariadb</div></pre></td></tr></table></figure>
+<h3 id="Start-MariaDB"><a href="#Start-MariaDB" class="headerlink" title="Start MariaDB"></a>Start MariaDB</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">systemsctl start mariadb</div></pre></td></tr></table></figure>
+<h3 id="Setting-Secure"><a href="#Setting-Secure" class="headerlink" title="Setting Secure"></a>Setting Secure</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line"># 设置root密码，是否允许远程，test数据库等	</div><div class="line"></div><div class="line">mysql_secure_installation</div><div class="line"></div><div class="line"># Or</div><div class="line"></div><div class="line">set password for &apos;root&apos;@&apos;localhost&apos; =password(&apos;password&apos;);</div><div class="line"></div><div class="line"># 远程连接设置</div><div class="line">grant all privileges on *.* to root@&apos;%&apos; identified by &apos;password&apos;;</div><div class="line">flush privileges;</div><div class="line"></div><div class="line">#Or</div><div class="line"></div><div class="line">mysql&gt; use mysql</div><div class="line"></div><div class="line">mysql&gt; update user set Host=&apos;%&apos; where User=&apos;root&apos;;</div><div class="line"></div><div class="line">mysql&gt; flush privileges;</div><div class="line"></div><div class="line"># 创建新用户</div><div class="line">create user &apos;username&apos;@&apos;%&apos; identified by &apos;password&apos;;</div></pre></td></tr></table></figure>
+<h3 id="Start-on-boot"><a href="#Start-on-boot" class="headerlink" title="Start on boot"></a>Start on boot</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">systemctl enable mariadb.service</div></pre></td></tr></table></figure>
+<h3 id="MySQL-配置防火墙"><a href="#MySQL-配置防火墙" class="headerlink" title="MySQL 配置防火墙"></a>MySQL 配置防火墙</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">firewall-cmd --permanent --zone=public --add-service=mysql</div><div class="line">firewall-cmd --reload</div></pre></td></tr></table></figure>
+<h3 id="结束"><a href="#结束" class="headerlink" title="结束"></a>结束</h3><p>:)~</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h3 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h3&gt;&lt;pre&gt;&lt;code&gt;今天在CentOS 7.2上安装MySQL（MariaDB）,记录一下
+&lt;/code&gt;&lt;/pre&gt;&lt;h3 id=&quot;Insta
+    
+    </summary>
+    
+      <category term="Linux" scheme="http://www.nealma.com/categories/Linux/"/>
+    
+    
+      <category term="CentOS" scheme="http://www.nealma.com/tags/CentOS/"/>
+    
+      <category term="Linux" scheme="http://www.nealma.com/tags/Linux/"/>
+    
+      <category term="MySQL" scheme="http://www.nealma.com/tags/MySQL/"/>
+    
+      <category term="MariaDB" scheme="http://www.nealma.com/tags/MariaDB/"/>
     
   </entry>
   
@@ -894,36 +947,6 @@ Build Setting添加Code Signing Identity为iOS Developer
       <category term="React-Native" scheme="http://www.nealma.com/tags/React-Native/"/>
     
       <category term="RN" scheme="http://www.nealma.com/tags/RN/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>curl（一) 常用命令</title>
-    <link href="http://www.nealma.com/2016/05/30/curl-1-how-to-use/"/>
-    <id>http://www.nealma.com/2016/05/30/curl-1-how-to-use/</id>
-    <published>2016-05-30T03:46:45.000Z</published>
-    <updated>2016-11-12T09:43:12.000Z</updated>
-    
-    <content type="html"><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><pre><code>curl在我们的开发过程中经常被用到，脑子记不住啊，总是过段时间就记不清楚了
-记录之，以备所用之需
-</code></pre><h3 id="GET请求"><a href="#GET请求" class="headerlink" title="GET请求"></a>GET请求</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">curl -i -v &quot;http://a.b.c/login?k1=v1&amp;k2=v2&quot;</div></pre></td></tr></table></figure>
-<h3 id="POST请求"><a href="#POST请求" class="headerlink" title="POST请求"></a>POST请求</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">curl -i -v -X POST http://a.b.c/login -d &quot;k1=v1&amp;k2=v2&quot;</div></pre></td></tr></table></figure>
-<h3 id="POST请求-JSON格式"><a href="#POST请求-JSON格式" class="headerlink" title="POST请求,JSON格式"></a>POST请求,JSON格式</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">curl -l -H &quot;Content-type: application/json&quot; -X POST -d &apos;&#123;&quot;phone&quot;:&quot;13521389587&quot;,&quot;password&quot;:&quot;test&quot;&#125;&apos;  http://a.b.c/login</div></pre></td></tr></table></figure>
-<h3 id="结束"><a href="#结束" class="headerlink" title="结束"></a>结束</h3><pre><code>：）～
-</code></pre>]]></content>
-    
-    <summary type="html">
-    
-      &lt;h3 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h3&gt;&lt;pre&gt;&lt;code&gt;curl在我们的开发过程中经常被用到，脑子记不住啊，总是过段时间就记不清楚了
-记录之，以备所用之需
-&lt;/code&gt;&lt;/pre
-    
-    </summary>
-    
-      <category term="curl" scheme="http://www.nealma.com/categories/curl/"/>
-    
-    
-      <category term="curl" scheme="http://www.nealma.com/tags/curl/"/>
     
   </entry>
   
