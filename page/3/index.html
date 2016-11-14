@@ -270,8 +270,8 @@
             
               
                 
-                <a class="post-title-link" href="../../2016/04/26/vim-plugin-install-nerttree/" itemprop="url">
-                  Vim Plugin 自动补全(NERDTree)
+                <a class="post-title-link" href="../../2016/05/30/nodejs-1-very-slow/" itemprop="url">
+                  npm 网络难以忍受
                 </a>
               
             
@@ -284,8 +284,8 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-04-26T12:46:45+08:00" content="2016-04-26">
-              2016-04-26
+            <time itemprop="dateCreated" datetime="2016-05-30T11:46:45+08:00" content="2016-05-30">
+              2016-05-30
             </time>
           </span>
 
@@ -298,8 +298,8 @@
               <span class="post-meta-item-text">分类于</span>
               
                 <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="../../categories/Vim/" itemprop="url" rel="index">
-                    <span itemprop="name">Vim</span>
+                  <a href="../../categories/NodeJS/" itemprop="url" rel="index">
+                    <span itemprop="name">NodeJS</span>
                   </a>
                 </span>
 
@@ -314,8 +314,8 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="../../2016/04/26/vim-plugin-install-nerttree/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/04/26/vim-plugin-install-nerttree/" itemprop="commentsCount"></span>
+                <a href="../../2016/05/30/nodejs-1-very-slow/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/05/30/nodejs-1-very-slow/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -340,10 +340,517 @@
       
         
           
-            <p>Vim在安装目录工具NERDTree的时候，遇到了坑。</p>
-<p>本记录使用的开发环境：<br>OS: Mac</p>
-<h3 id="其实也没啥，就是不知道怎么启用，哈哈"><a href="#其实也没啥，就是不知道怎么启用，哈哈" class="headerlink" title="其实也没啥，就是不知道怎么启用，哈哈"></a>其实也没啥，就是不知道怎么启用，哈哈</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">#进入vim</div><div class="line"></div><div class="line">:NERDTree ＃回车，就看到啦</div><div class="line"></div><div class="line">#Crtl + w 是前缀唤醒组合</div><div class="line"></div><div class="line">#左右切换</div><div class="line">h l </div><div class="line"></div><div class="line">#退出</div><div class="line">q</div><div class="line"></div><div class="line">#每次都需要输入NERDTree是不是很麻烦，别怕，可以很省事的</div><div class="line"></div><div class="line">#vim ~/.vimrc 加入</div><div class="line">nnoremap &lt;silent&gt; &lt;F5&gt; :NERDTree&lt;CR&gt;</div></pre></td></tr></table></figure>
-<p>:D-</p>
+            <h3 id="那就换成淘宝的吧"><a href="#那就换成淘宝的吧" class="headerlink" title="那就换成淘宝的吧"></a>那就换成淘宝的吧</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">npm --registry=https://registry.npm.taobao.org install cnpm -g</div></pre></td></tr></table></figure>
+<h3 id="或者改变registry"><a href="#或者改变registry" class="headerlink" title="或者改变registry"></a>或者改变registry</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">#vim ~/.npmrc</div><div class="line"></div><div class="line">registry = https://registry.npm.taobao.org</div></pre></td></tr></table></figure>
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="../../2016/05/20/redis-1-del-data/" itemprop="url">
+                  Redis (一) 删除数据
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-05-20T11:46:45+08:00" content="2016-05-20">
+              2016-05-20
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="../../categories/Redis/" itemprop="url" rel="index">
+                    <span itemprop="name">Redis</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="../../2016/05/20/redis-1-del-data/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/05/20/redis-1-del-data/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="删除单一key"><a href="#删除单一key" class="headerlink" title="删除单一key"></a>删除单一key</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">del key1</div></pre></td></tr></table></figure>
+<h3 id="查询所有的key"><a href="#查询所有的key" class="headerlink" title="查询所有的key"></a>查询所有的key</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">keys &apos;*&apos;</div><div class="line"></div><div class="line"># Or</div><div class="line"></div><div class="line">redis-cli keys &apos;*&apos;</div></pre></td></tr></table></figure>
+<h3 id="删除所有的key"><a href="#删除所有的key" class="headerlink" title="删除所有的key"></a>删除所有的key</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">#Del all keys that selected database</div><div class="line">#1 </div><div class="line">redis-cli -n &lt;database number&gt; flushdb</div><div class="line"></div><div class="line">#2 </div><div class="line">redis-cli keys &apos;*&apos; |awk &apos;&#123;print $1&#125;&apos; |xargs redis-cli del</div><div class="line"></div><div class="line">#Del all keys that all databases</div><div class="line">redis-cli flushall</div></pre></td></tr></table></figure>
+<h3 id="结束"><a href="#结束" class="headerlink" title="结束"></a>结束</h3><p>:)~</p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="../../2016/04/30/spring-boot-4-security/" itemprop="url">
+                  Spring-Boot (四) 集成Spring Security
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-04-30T11:46:45+08:00" content="2016-04-30">
+              2016-04-30
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="../../categories/Java/" itemprop="url" rel="index">
+                    <span itemprop="name">Java</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="../../2016/04/30/spring-boot-4-security/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/04/30/spring-boot-4-security/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><pre><code>shiro可以完全解决有关安全的问题，但是项目大多使用的是Spring框架，所以没必要在引入其他依赖，
+so，还是折腾下亲儿子的东东吧
+</code></pre><p>开发环境：<br>OS: Mac 10.11.6<br>IDE: IDEA<br>Build: Maven</p>
+<pre><code>以前都是使用xml来配置，但是spring-boot提倡Java Config的使用，
+折腾下来还是很多收获的。有关权限管理，行内大都秉承
+以角色为基础的访问控制（Role-based access control, RBAC）
+在Spring Security中，实现原理很简单，通过AOP对所要管理的资源（url或者method）进行拦截，
+在其内部维护了一条安全过滤链，有用户服务（UserDetailsService)、身份认证服务（AuthenticationProvider）、
+访问决策管理（AccessDecisionManager）、记住我(remember-me)等普世功能。
+当然，使用Spring-boot离不开Java Config，come on,just do it.
+</code></pre><h3 id="WebSecurityConfig"><a href="#WebSecurityConfig" class="headerlink" title="WebSecurityConfig"></a>WebSecurityConfig</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="meta">@Configuration</span></div><div class="line"><span class="meta">@ComponentScan</span>(<span class="string">"com.caogen"</span>)</div><div class="line"><span class="meta">@EnableWebSecurity</span></div><div class="line"><span class="meta">@EnableGlobalMethodSecurity</span>(prePostEnabled = <span class="keyword">true</span>, jsr250Enabled = <span class="keyword">true</span>)</div><div class="line"><span class="meta">@PropertySource</span>(<span class="string">"classpath:application.properties"</span>)</div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">WebSecurityConfig</span> <span class="keyword">extends</span> <span class="title">WebSecurityConfigurerAdapter</span> </span>&#123;</div><div class="line"></div><div class="line">    <span class="keyword">protected</span> <span class="keyword">final</span> Logger LOGGER = LoggerFactory.getLogger(getClass());</div><div class="line"></div><div class="line">    <span class="meta">@Autowired</span></div><div class="line">    <span class="keyword">private</span> MyAuthenticationProvider authenticationProvider;<span class="comment">//自定义验证</span></div><div class="line"></div><div class="line">    <span class="meta">@Autowired</span></div><div class="line">    <span class="keyword">private</span> MyUserDetailsService userDetailsService;</div><div class="line"></div><div class="line">    <span class="meta">@Autowired</span></div><div class="line">    <span class="keyword">private</span> MyPersistentTokenRepository tokenRepository;</div><div class="line"></div><div class="line">    <span class="meta">@Autowired</span></div><div class="line">    <span class="keyword">private</span> MyAccessDecisionManager accessDecisionManager;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">configure</span><span class="params">(AuthenticationManagerBuilder auth)</span> <span class="keyword">throws</span> Exception </span>&#123;</div><div class="line">        auth.authenticationProvider(authenticationProvider);</div><div class="line">        auth.userDetailsService(userDetailsService);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">configure</span><span class="params">(HttpSecurity http)</span> <span class="keyword">throws</span> Exception </span>&#123;</div><div class="line">        http</div><div class="line">                .headers()</div><div class="line">                    .frameOptions().sameOrigin().disable()<span class="comment">//disable X-Frame-Options</span></div><div class="line">                .authorizeRequests()</div><div class="line"><span class="comment">//                    .accessDecisionManager(accessDecisionManager)//用注解替换,如果不使用注解，取消注释</span></div><div class="line">                    .anyRequest().fullyAuthenticated()<span class="comment">//其他url需要鉴权</span></div><div class="line">                .and()</div><div class="line">                    .formLogin()</div><div class="line">                        .usernameParameter(<span class="string">"username"</span>)</div><div class="line">                        .passwordParameter(<span class="string">"password"</span>)</div><div class="line">                        .loginProcessingUrl(<span class="string">"/login"</span>)</div><div class="line">                        .loginPage(<span class="string">"/login"</span>)</div><div class="line">                        .failureUrl(<span class="string">"/login?error"</span>)</div><div class="line">                        .permitAll()</div><div class="line">                .and()</div><div class="line">                    .logout()</div><div class="line">                        .deleteCookies(<span class="string">"JSESSIONID"</span>)</div><div class="line">                        .logoutRequestMatcher(<span class="keyword">new</span> AntPathRequestMatcher(<span class="string">"/logout"</span>))</div><div class="line">                        .logoutSuccessUrl(<span class="string">"/login"</span>)</div><div class="line">                .and()</div><div class="line">                    .rememberMe()</div><div class="line">                        .tokenRepository(tokenRepository)</div><div class="line">                        .rememberMeServices(rememberMeServices())</div><div class="line">                        .rememberMeParameter(<span class="string">"remember-me"</span>).key(<span class="string">"key"</span>)</div><div class="line">                        .tokenValiditySeconds(<span class="number">86400</span>)</div><div class="line">                .and()</div><div class="line">                    .csrf().disable() <span class="comment">//disable csrf</span></div><div class="line">                    .sessionManagement().maximumSessions(<span class="number">1</span>);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@Bean</span></div><div class="line">    <span class="function"><span class="keyword">public</span> RememberMeServices <span class="title">rememberMeServices</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="comment">// Key must be equal to rememberMe().key()</span></div><div class="line">        PersistentTokenBasedRememberMeServices rememberMeServices =</div><div class="line">                <span class="keyword">new</span> PersistentTokenBasedRememberMeServices(<span class="string">"key"</span>, userDetailsService, tokenRepository);</div><div class="line">        rememberMeServices.setCookieName(<span class="string">"remember-me"</span>);</div><div class="line">        rememberMeServices.setParameter(<span class="string">"remember-me"</span>);</div><div class="line">        rememberMeServices.setTokenValiditySeconds(<span class="number">864000</span>);</div><div class="line">        <span class="keyword">return</span> rememberMeServices;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="MyUserDetailsService"><a href="#MyUserDetailsService" class="headerlink" title="MyUserDetailsService"></a>MyUserDetailsService</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**</span></div><div class="line"> * SPRING SECURITY用户登录处理</div><div class="line"> */</div><div class="line"><span class="meta">@Service</span>(<span class="string">"MyUserDetailsServiceImpl"</span>)</div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyUserDetailsService</span> <span class="keyword">implements</span> <span class="title">UserDetailsService</span> </span>&#123;</div><div class="line"></div><div class="line">    <span class="keyword">protected</span> <span class="keyword">final</span> Logger LOGGER = LoggerFactory.getLogger(getClass());</div><div class="line"></div><div class="line">    <span class="meta">@Autowired</span></div><div class="line">    <span class="keyword">private</span> SysUserMapper sysUserMapper;</div><div class="line">    <span class="meta">@Autowired</span></div><div class="line">    <span class="keyword">private</span> RoleMapper roleMapper;</div><div class="line">    <span class="meta">@Autowired</span></div><div class="line">    <span class="keyword">private</span> UserRoleLinkMapper userRoleLinkMapper;</div><div class="line"></div><div class="line">    <span class="meta">@Autowired</span></div><div class="line">    <span class="keyword">private</span> ResourceService resourceService;</div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> UserDetails <span class="title">loadUserByUsername</span><span class="params">(String username)</span> <span class="keyword">throws</span> UsernameNotFoundException </span>&#123;</div><div class="line"></div><div class="line">        LOGGER.info(<span class="string">"loadUserByUsername --&gt; [&#123;&#125;]"</span>, username);</div><div class="line"></div><div class="line">        SysUser sysUser = <span class="keyword">new</span> SysUser();</div><div class="line">        sysUser.setUsername(username);</div><div class="line">        List&lt;SysUser&gt; userList = sysUserMapper.select(sysUser);</div><div class="line">        <span class="keyword">if</span> (userList == <span class="keyword">null</span> || userList.size() == <span class="number">0</span>) &#123;</div><div class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> UsernameNotFoundException(<span class="string">"username not found."</span>);</div><div class="line">        &#125;</div><div class="line">        sysUser = userList.get(<span class="number">0</span>);</div><div class="line">        UserRoleLink userRoleLink = <span class="keyword">new</span> UserRoleLink();</div><div class="line">        userRoleLink.setUserId(sysUser.getId());</div><div class="line"></div><div class="line">        List&lt;UserRoleLink&gt; userRoleLinks = userRoleLinkMapper.select(userRoleLink);</div><div class="line">        List&lt;GrantedAuthority&gt; grantedAuthorities = <span class="keyword">new</span> ArrayList&lt;&gt;();</div><div class="line"></div><div class="line">        List&lt;Long&gt; roleIds = <span class="keyword">new</span> ArrayList&lt;&gt;();</div><div class="line"></div><div class="line">        Optional&lt;List&lt;UserRoleLink&gt;&gt; userRoleLinksOptional = Optional.ofNullable(userRoleLinks);</div><div class="line">        userRoleLinksOptional.ifPresent(userRoleLinks1 -&gt; &#123;</div><div class="line">            userRoleLinks1.forEach(userRoleLink1 -&gt; &#123;</div><div class="line">                roleIds.add(userRoleLink1.getRoleId());</div><div class="line">                <span class="keyword">if</span>(userRoleLink1.getRoleId() == <span class="number">1L</span>)&#123;</div><div class="line">                    GrantedAuthority grantedAuthority = <span class="keyword">new</span> SimpleGrantedAuthority(<span class="string">"ROLE_root"</span>);<span class="comment">//root角色特权</span></div><div class="line">                    grantedAuthorities.add(grantedAuthority);</div><div class="line">                &#125;</div><div class="line">            &#125;);</div><div class="line">        &#125;);</div><div class="line"></div><div class="line"></div><div class="line"><span class="comment">//        List&lt;Role&gt; roles = roleMapper.selectBatch(roleIds);//V1.0</span></div><div class="line">        List&lt;Resource&gt; resources = resourceService.selectByRoleId(roleIds.toArray(<span class="keyword">new</span> Long[<span class="number">0</span>]));</div><div class="line"></div><div class="line">        <span class="keyword">if</span>(resources != <span class="keyword">null</span> &amp;&amp; resources.size() &gt; <span class="number">0</span>)&#123;</div><div class="line">            resources.forEach(resource -&gt; &#123;</div><div class="line">                GrantedAuthority grantedAuthority = <span class="keyword">new</span> SimpleGrantedAuthority(<span class="string">"ROLE_"</span>+resource.getLink());<span class="comment">//必须ROLE_为前缀</span></div><div class="line">                grantedAuthorities.add(grantedAuthority);</div><div class="line">            &#125;);</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        LOGGER.info(<span class="string">"grantedAuthorities --&gt; &#123;&#125;"</span>, grantedAuthorities);</div><div class="line">        <span class="keyword">return</span> <span class="keyword">new</span> User(username, sysUser.getPassword(), <span class="keyword">true</span>, <span class="keyword">true</span>, <span class="keyword">true</span>, <span class="keyword">true</span>, grantedAuthorities);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="MyAuthenticationProvider"><a href="#MyAuthenticationProvider" class="headerlink" title="MyAuthenticationProvider"></a>MyAuthenticationProvider</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"> * 自定义验证方式</div><div class="line"> */</div><div class="line"><span class="meta">@Component</span></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyAuthenticationProvider</span> <span class="keyword">implements</span> <span class="title">AuthenticationProvider</span></span>&#123;</div><div class="line"></div><div class="line">    <span class="keyword">protected</span> <span class="keyword">final</span> Logger LOGGER = LoggerFactory.getLogger(getClass());</div><div class="line"></div><div class="line">    <span class="meta">@Autowired</span></div><div class="line">    <span class="keyword">private</span> MyUserDetailsService userService;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> Authentication <span class="title">authenticate</span><span class="params">(Authentication authentication)</span></span></div><div class="line">                                                <span class="keyword">throws</span> AuthenticationException &#123;</div><div class="line">        String username = authentication.getName();</div><div class="line">        String password = (String) authentication.getCredentials();</div><div class="line"></div><div class="line">        UserDetails user = userService.loadUserByUsername(username);</div><div class="line"></div><div class="line">        LOGGER.info(<span class="string">"password=&#123;&#125;, needPassword=&#123;&#125;"</span>, password, user.getPassword());</div><div class="line">        <span class="comment">//密码匹配验证</span></div><div class="line">        <span class="keyword">if</span> (passwordEncoder().matches(password, user.getPassword())) &#123;</div><div class="line">            Collection&lt;? extends GrantedAuthority&gt; authorities = user.getAuthorities();</div><div class="line">            <span class="keyword">return</span> <span class="keyword">new</span> UsernamePasswordAuthenticationToken(user, password, authorities);</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> BadCredentialsException(<span class="string">"Wrong password."</span>);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">   <span class="meta">@Bean</span></div><div class="line">   <span class="function"><span class="keyword">public</span> PasswordEncoder <span class="title">passwordEncoder</span><span class="params">()</span></span>&#123;</div><div class="line">       <span class="keyword">return</span> <span class="keyword">new</span> BCryptPasswordEncoder();</div><div class="line">   &#125;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">supports</span><span class="params">(Class&lt;?&gt; aClass)</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">true</span>;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="MyAccessDecisionManager"><a href="#MyAccessDecisionManager" class="headerlink" title="MyAccessDecisionManager"></a>MyAccessDecisionManager</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**</span></div><div class="line"> * 验证资源跟角色之间的关系</div><div class="line"> */</div><div class="line"><span class="meta">@Component</span></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyAccessDecisionManager</span> <span class="keyword">implements</span> <span class="title">AccessDecisionManager</span> </span>&#123;</div><div class="line"></div><div class="line">    <span class="keyword">protected</span> <span class="keyword">final</span> Logger LOGGER = LoggerFactory.getLogger(getClass());</div><div class="line"></div><div class="line">    <span class="meta">@Autowired</span></div><div class="line">    <span class="keyword">private</span> RoleService roleService;</div><div class="line"></div><div class="line">    <span class="comment">/**</span></div><div class="line">     * // authentication 为用户所被赋予的权限, configAttributes 为访问相应的资源应该具有的权限。</div><div class="line">     * <span class="doctag">@param</span> authentication</div><div class="line">     * <span class="doctag">@param</span> object</div><div class="line">     * <span class="doctag">@param</span> configAttributes</div><div class="line">     * <span class="doctag">@throws</span> AccessDeniedException</div><div class="line">     * <span class="doctag">@throws</span> InsufficientAuthenticationException</div><div class="line">     */</div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">decide</span><span class="params">(Authentication authentication, Object object, Collection&lt;ConfigAttribute&gt; configAttributes)</span></span></div><div class="line">            <span class="keyword">throws</span> AccessDeniedException, InsufficientAuthenticationException &#123;</div><div class="line"></div><div class="line">        Collection&lt;GrantedAuthority&gt; userHasRoles =</div><div class="line">                (Collection&lt;GrantedAuthority&gt;) authentication.getAuthorities();</div><div class="line"></div><div class="line">        LOGGER.info(<span class="string">"CurrentUser=&#123;&#125; CurrentHasRoles = &#123;&#125;"</span>, authentication.getName(), Arrays.asList(userHasRoles));</div><div class="line"></div><div class="line">        <span class="comment">//放行[超级管理员]角色</span></div><div class="line">        Iterator&lt;GrantedAuthority&gt; iterator = userHasRoles.iterator();</div><div class="line">        <span class="keyword">while</span> (iterator.hasNext())&#123;</div><div class="line">            GrantedAuthority grantedAuthority = iterator.next();</div><div class="line">            <span class="keyword">if</span>(<span class="string">"系统管理员"</span>.equals(grantedAuthority.getAuthority()))&#123;</div><div class="line">                <span class="keyword">return</span>;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        LOGGER.info(<span class="string">"1 CurrentUser=&#123;&#125; CurrentHasRoles = &#123;&#125;"</span>, authentication.getName(), Arrays.asList(userHasRoles));</div><div class="line"></div><div class="line">        Collection&lt;GrantedAuthority&gt; uriHasRoles = getGrantedAuthoritys(object);</div><div class="line">        <span class="keyword">if</span> (uriHasRoles == <span class="keyword">null</span> || uriHasRoles.size() == <span class="number">0</span>) &#123;</div><div class="line">            <span class="keyword">return</span>;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        Optional&lt;Collection&lt;GrantedAuthority&gt;&gt; grantedAuthoritiesForOptional =</div><div class="line">                Optional.ofNullable(userHasRoles);</div><div class="line"></div><div class="line">        <span class="keyword">try</span>&#123;</div><div class="line">            grantedAuthoritiesForOptional.ifPresent(userHasRolesNotNull -&gt; &#123;</div><div class="line">                userHasRolesNotNull.forEach(userHasRole -&gt; &#123;</div><div class="line">                    uriHasRoles.forEach(uriHasRole -&gt; &#123;</div><div class="line">                        LOGGER.info(<span class="string">"userHasRole=&#123;&#125;, uriHasRole=&#123;&#125;"</span>, userHasRole, uriHasRole);</div><div class="line">                        <span class="keyword">if</span> (userHasRole.getAuthority().equals(uriHasRole.getAuthority())) &#123;</div><div class="line">                            <span class="keyword">throw</span> <span class="keyword">new</span> AppException(<span class="string">"break"</span>);</div><div class="line">                        &#125;</div><div class="line">                    &#125;);</div><div class="line">                &#125;);</div><div class="line">            &#125;);</div><div class="line">        &#125;<span class="keyword">catch</span>(AppException be)&#123;</div><div class="line">            <span class="keyword">return</span>;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> AccessDeniedException(<span class="string">"Access Denied."</span>);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">private</span> Collection&lt;GrantedAuthority&gt; <span class="title">getGrantedAuthoritys</span><span class="params">(Object object)</span> </span>&#123;</div><div class="line">        FilterInvocation filterInvocation = (FilterInvocation) object;</div><div class="line">        String uri = <span class="keyword">new</span> StringBuilder(filterInvocation.getRequestUrl()).deleteCharAt(<span class="number">0</span>).toString();</div><div class="line">        <span class="keyword">if</span>(<span class="string">""</span>.equals(uri))&#123;</div><div class="line">            <span class="keyword">return</span> <span class="keyword">null</span>;</div><div class="line">        &#125;</div><div class="line">        List&lt;Role&gt; uriHasRoles = roleService.selectByResourceURI(uri);</div><div class="line">        LOGGER.info(<span class="string">"fullRequestUrl=&#123;&#125;, requestUrl=&#123;&#125;, uriHasRoles=&#123;&#125;"</span>,</div><div class="line">                filterInvocation.getFullRequestUrl(),</div><div class="line">                filterInvocation.getRequestUrl(),</div><div class="line">                uriHasRoles);</div><div class="line"></div><div class="line">        <span class="keyword">if</span> (uriHasRoles == <span class="keyword">null</span> || uriHasRoles.size() == <span class="number">0</span>) &#123;</div><div class="line">            <span class="keyword">return</span> <span class="keyword">null</span>;</div><div class="line">        &#125;</div><div class="line">        Collection&lt;GrantedAuthority&gt; grantedAuthorities = <span class="keyword">new</span> ArrayList&lt;&gt;();</div><div class="line">        uriHasRoles.forEach(item -&gt; &#123;</div><div class="line">            GrantedAuthority grantedAuthority = <span class="keyword">new</span> SimpleGrantedAuthority(item.getName());</div><div class="line">            grantedAuthorities.add(grantedAuthority);</div><div class="line">        &#125;);</div><div class="line">        <span class="keyword">return</span> grantedAuthorities;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">supports</span><span class="params">(ConfigAttribute configAttribute)</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">true</span>;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">supports</span><span class="params">(Class&lt;?&gt; aClass)</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">true</span>;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="Remember-Me-使用database方式，MyPersistentTokenRepository"><a href="#Remember-Me-使用database方式，MyPersistentTokenRepository" class="headerlink" title="Remember-Me 使用database方式，MyPersistentTokenRepository"></a>Remember-Me 使用database方式，MyPersistentTokenRepository</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"> * 记住我 持久化方式</div><div class="line"> */</div><div class="line"><span class="meta">@Component</span></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyPersistentTokenRepository</span> <span class="keyword">implements</span> <span class="title">PersistentTokenRepository</span> </span>&#123;</div><div class="line"></div><div class="line">    <span class="keyword">protected</span> <span class="keyword">final</span> Logger LOGGER = LoggerFactory.getLogger(getClass());</div><div class="line"></div><div class="line">    <span class="meta">@Autowired</span></div><div class="line">    <span class="keyword">private</span> RememberMeMapper remembermeMapper;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">createNewToken</span><span class="params">(PersistentRememberMeToken persistentRememberMeToken)</span> </span>&#123;</div><div class="line">        RememberMe rememberMe = <span class="keyword">new</span> RememberMe();</div><div class="line">        rememberMe.setUsername(persistentRememberMeToken.getUsername());</div><div class="line">        rememberMe.setSeries(persistentRememberMeToken.getSeries());</div><div class="line">        rememberMe.setDate(persistentRememberMeToken.getDate());</div><div class="line">        rememberMe.setTokenValue(persistentRememberMeToken.getTokenValue());</div><div class="line">        remembermeMapper.insert(rememberMe);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">updateToken</span><span class="params">(String s, String s1, Date date)</span> </span>&#123;</div><div class="line">        RememberMe rememberMe = <span class="keyword">new</span> RememberMe();</div><div class="line">        rememberMe.setUsername(<span class="string">""</span>);</div><div class="line">        rememberMe.setSeries(s);</div><div class="line">        rememberMe.setTokenValue(s1);</div><div class="line">        rememberMe.setDate(date);</div><div class="line">        remembermeMapper.updateByPK(rememberMe);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> PersistentRememberMeToken <span class="title">getTokenForSeries</span><span class="params">(String s)</span> </span>&#123;</div><div class="line">        RememberMe rememberMe = remembermeMapper.selectByPK(s);</div><div class="line">        PersistentRememberMeToken persistentRememberMeToken =</div><div class="line">                <span class="keyword">new</span> PersistentRememberMeToken(rememberMe.getUsername(),</div><div class="line">                        rememberMe.getSeries(),</div><div class="line">                        rememberMe.getTokenValue(),</div><div class="line">                        rememberMe.getDate()</div><div class="line">                );</div><div class="line">        <span class="keyword">return</span> persistentRememberMeToken;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">removeUserTokens</span><span class="params">(String s)</span> </span>&#123;</div><div class="line">        remembermeMapper.deleteByPK(s);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="如果用注解的方式，及-RolesAllowed（jsr250）"><a href="#如果用注解的方式，及-RolesAllowed（jsr250）" class="headerlink" title="如果用注解的方式，及@RolesAllowed（jsr250）"></a>如果用注解的方式，及@RolesAllowed（jsr250）</h3><p>   那么务必将jsr250Enabled＝true在config中声明，然后再所需控制的方法上加上注解，<br>   jsr250有三个注解，分别是@RolesAllowed,@PermitAll,@DenyAll,功能跟名字一样，<br>   一目了然，如果有多个角色，可以@RolesAllowed({“ROLE_A”, “ROLE<em>B”}),这里角色的前缀<br>   一定是”ROLE</em>“,约定好的，就不要计较了。</p>
+<h3 id="结束"><a href="#结束" class="headerlink" title="结束"></a>结束</h3><p>   使用过程中，总是下意识的按照Spring Security提供的思路去实现，无可厚非，但是我仔细琢磨后，<br>   觉得从便利性和实用方面考虑，每个方法上的注解要约定好名称，例如：</p>
+   <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">@RolesAllowed(&#123;&quot;ROLE_roles:view&quot;&#125;)</div><div class="line">public void find&#123;...&#125;</div><div class="line"></div><div class="line">@RolesAllowed(&#123;&quot;ROLE_roles:update&quot;&#125;)</div><div class="line">public void update&#123;...&#125;</div><div class="line"></div><div class="line">@RolesAllowed(&#123;&quot;ROLE_roles:delete&quot;&#125;)</div><div class="line">public void delete&#123;...&#125;</div><div class="line"></div><div class="line">@RolesAllowed(&#123;&quot;ROLE_roles:create&quot;&#125;)</div><div class="line">public void create&#123;...&#125;</div><div class="line"></div><div class="line">`</div></pre></td></tr></table></figure>
+<p>   这样，表面是把权限赋予了角色，还能Dynamic Resource，何乐而不为呢。</p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="../../2016/04/29/spring-boot-3-mybatis/" itemprop="url">
+                  Spring-Boot（三） 集成MyBatis
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-04-29T11:46:45+08:00" content="2016-04-29">
+              2016-04-29
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="../../categories/Java/" itemprop="url" rel="index">
+                    <span itemprop="name">Java</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="../../2016/04/29/spring-boot-3-mybatis/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/04/29/spring-boot-3-mybatis/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>MyBatis在国内一直很流行，在ORM框架中使用比例很高。<br>由于MyBatis不是Spring的亲生儿子，所以依赖的版本很发麻，不像其他的依赖，直接引入就可以，还得看版本。<br>经过几次尝试，下文给出的是可以正常使用的。</p>
+<p>开发环境：<br>OS: Mac 10.11.6<br>IDE: IDEA<br>Build: Maven</p>
+<h3 id="POM依赖"><a href="#POM依赖" class="headerlink" title="POM依赖"></a>POM依赖</h3><figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">&lt;!-- properties --&gt;</div><div class="line">&lt;properties&gt;</div><div class="line">    &lt;spring.boot.mybatis&gt;1.0.2&lt;/spring.boot.mybatis&gt;</div><div class="line">    &lt;mybatis.version&gt;3.4.1&lt;/mybatis.version&gt;</div><div class="line">    &lt;mybatis.spring.version&gt;1.3.0&lt;/mybatis.spring.version&gt;</div><div class="line">&lt;/properties</div><div class="line">&lt;!-- mybatis --&gt;</div><div class="line">&lt;dependency&gt;</div><div class="line">    &lt;groupId&gt;org.mybatis&lt;/groupId&gt;</div><div class="line">    &lt;artifactId&gt;mybatis&lt;/artifactId&gt;</div><div class="line">    &lt;version&gt;$&#123;mybatis.version&#125;&lt;/version&gt;</div><div class="line">&lt;/dependency&gt;</div><div class="line">&lt;!-- mybatis-spring --&gt;</div><div class="line">&lt;dependency&gt;</div><div class="line">    &lt;groupId&gt;org.mybatis&lt;/groupId&gt;</div><div class="line">    &lt;artifactId&gt;mybatis-spring&lt;/artifactId&gt;</div><div class="line">    &lt;version&gt;$&#123;mybatis.spring.version&#125;&lt;/version&gt;</div><div class="line">&lt;/dependency&gt;</div></pre></td></tr></table></figure>
+<h3 id="属性配置application-properties"><a href="#属性配置application-properties" class="headerlink" title="属性配置application.properties"></a>属性配置application.properties</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">#datasource</div><div class="line">spring.datasource.url=jdbc:mysql://localhost:3306/db_name?useUnicode=true&amp;characterEncoding=utf-8&amp;useSSL=false</div><div class="line">spring.datasource.username=******</div><div class="line">spring.datasource.password=******</div><div class="line">spring.datasource.driver-class-name=com.mysql.jdbc.Driver</div><div class="line"></div><div class="line">#mybatis</div><div class="line">#mapper路径</div><div class="line">mybatis.mapperLocations=classpath*:**/mappers/*.xml</div><div class="line">#model包</div><div class="line">mybatis.typeAliasesPackage=com.xxxx.domain</div></pre></td></tr></table></figure>
+<h3 id="结束"><a href="#结束" class="headerlink" title="结束"></a>结束</h3><p>是不是很简单，没有太多的配置，清爽多了。</p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="../../2016/04/28/spring-boot-2-hot-swap/" itemprop="url">
+                  Spring-Boot（二） 集成springloaded
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-04-28T11:46:45+08:00" content="2016-04-28">
+              2016-04-28
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="../../categories/Java/" itemprop="url" rel="index">
+                    <span itemprop="name">Java</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="../../2016/04/28/spring-boot-2-hot-swap/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/04/28/spring-boot-2-hot-swap/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><pre><code>我在开发的时候，总是会及时对自己的程序进行测试，总是频繁的重启web server，容器不烦我们都觉得烦了。
+福音来了，正好有springloaded，解决了我们的烦恼。
+</code></pre><p>开发环境：<br>OS: Mac 10.11.6<br>IDE: idea<br>Build: maven<br>spring-boot-version: 1.4.0.RELEASE</p>
+<h3 id="POM依赖"><a href="#POM依赖" class="headerlink" title="POM依赖"></a>POM依赖</h3><figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-devtools<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>springloaded<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.2.6.RELEASE<span class="tag">&lt;/<span class="name">version</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">dependency</span></span></div></pre></td></tr></table></figure>
+<h3 id="Maven-Plugin"><a href="#Maven-Plugin" class="headerlink" title="Maven Plugin"></a>Maven Plugin</h3><figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">plugin</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-maven-plugin<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">dependencies</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>springloaded<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.2.6.RELEASE<span class="tag">&lt;/<span class="name">version</span>&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">dependencies</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">plugin</span>&gt;</span></div></pre></td></tr></table></figure>
+<h3 id="结束"><a href="#结束" class="headerlink" title="结束"></a>结束</h3><p> 一开始以为直接在maven plugin中加入依赖就可以了，而在实际当中没有任何动静，直到把devtools和springloaded加入依赖，才能如愿以偿。</p>
 
           
         
@@ -474,6 +981,129 @@
 <p>我的网速不给力，需要很长时间，耐心等待吧，要不就干别的去的</p>
 <p>完成之后，重新安装一遍</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">vim +PluginInstall</div></pre></td></tr></table></figure>
+<p>:D-</p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="../../2016/04/26/vim-plugin-install-nerttree/" itemprop="url">
+                  Vim Plugin 自动补全(NERDTree)
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-04-26T12:46:45+08:00" content="2016-04-26">
+              2016-04-26
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="../../categories/Vim/" itemprop="url" rel="index">
+                    <span itemprop="name">Vim</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="../../2016/04/26/vim-plugin-install-nerttree/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/04/26/vim-plugin-install-nerttree/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>Vim在安装目录工具NERDTree的时候，遇到了坑。</p>
+<p>本记录使用的开发环境：<br>OS: Mac</p>
+<h3 id="其实也没啥，就是不知道怎么启用，哈哈"><a href="#其实也没啥，就是不知道怎么启用，哈哈" class="headerlink" title="其实也没啥，就是不知道怎么启用，哈哈"></a>其实也没啥，就是不知道怎么启用，哈哈</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">#进入vim</div><div class="line"></div><div class="line">:NERDTree ＃回车，就看到啦</div><div class="line"></div><div class="line">#Crtl + w 是前缀唤醒组合</div><div class="line"></div><div class="line">#左右切换</div><div class="line">h l </div><div class="line"></div><div class="line">#退出</div><div class="line">q</div><div class="line"></div><div class="line">#每次都需要输入NERDTree是不是很麻烦，别怕，可以很省事的</div><div class="line"></div><div class="line">#vim ~/.vimrc 加入</div><div class="line">nnoremap &lt;silent&gt; &lt;F5&gt; :NERDTree&lt;CR&gt;</div></pre></td></tr></table></figure>
 <p>:D-</p>
 
           
@@ -885,653 +1515,6 @@
 
 
     
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="../../2016/03/30/mac-used-2-shortcut-capture/" itemprop="url">
-                  如何在Mac OS X上屏幕截图
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-03-30T11:46:45+08:00" content="2016-03-30">
-              2016-03-30
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="../../categories/Mac/" itemprop="url" rel="index">
-                    <span itemprop="name">Mac</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="../../2016/03/30/mac-used-2-shortcut-capture/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/03/30/mac-used-2-shortcut-capture/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><pre><code>我们在工作和生活中经常遇到截图的情景，QQ截图是经常用的
-可是Mac自身也很方便截图，特别是当QQ全屏时，截图比较麻烦
-试试Mac原生的功能吧
-</code></pre><h3 id="截取窗口中某个子窗口"><a href="#截取窗口中某个子窗口" class="headerlink" title="截取窗口中某个子窗口"></a>截取窗口中某个子窗口</h3><pre><code>command + shift + 4                        
-
-出现区域选择按钮后可选取，如果想直接选子窗口，
-* 首先移动十字按钮，移动到子窗口上，
-* 然后敲击space键，出现相机图标，单击即可。
-</code></pre><h3 id="截取当前整个窗口"><a href="#截取当前整个窗口" class="headerlink" title="截取当前整个窗口"></a>截取当前整个窗口</h3><pre><code>command + shift + 3        
-</code></pre><h3 id="QQ截图"><a href="#QQ截图" class="headerlink" title="QQ截图"></a>QQ截图</h3><pre><code>ctrl + alt + a            
-</code></pre><h3 id="结束"><a href="#结束" class="headerlink" title="结束"></a>结束</h3><pre><code>:)~
-</code></pre>
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="../../2016/03/29/mac-used-1-app/" itemprop="url">
-                  我的 Mac OS 软件列表
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-03-29T11:46:45+08:00" content="2016-03-29">
-              2016-03-29
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="../../categories/Mac/" itemprop="url" rel="index">
-                    <span itemprop="name">Mac</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="../../2016/03/29/mac-used-1-app/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/03/29/mac-used-1-app/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>自己在使用过程中积累的一些应用软件，推荐给大家。</p>
-<h3 id="Command-Line"><a href="#Command-Line" class="headerlink" title="Command Line"></a>Command Line</h3><p><a href="http://brew.sh/" target="_blank" rel="external">homebrew</a>                                应用程序管理工具<br><a href="https://github.com/robbyrussell/oh-my-zsh" target="_blank" rel="external">oh-my-zsh</a>    包装过的zsh<br><a href="https://github.com/wting/autojump" target="_blank" rel="external">autojump</a>            高效跳转到历史路径的命令行辅助工具<br><a href="https://tmux.github.io/" target="_blank" rel="external">tmux</a>                            终端加强工具</p>
-<h3 id="Dev-Tools"><a href="#Dev-Tools" class="headerlink" title="Dev Tools"></a>Dev Tools</h3><p><a href="https://www.jetbrains.com/idea/" target="_blank" rel="external">idea</a>                    IDE高效开发工具<br><a href="https://www.sublimetext.com/" target="_blank" rel="external">Sublime Text</a>            漂亮文本编辑器<br><a href="https://www.charlesproxy.com/" target="_blank" rel="external">Charles</a>                网络抓包工具<br><a href="https://www.mysql.com/products/workbench/" target="_blank" rel="external">MySQL Workbench</a>                                        数据库工具</p>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="../../2016/03/18/hexo-how-to-use/" itemprop="url">
-                  Hexo使用攻略
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-03-18T11:46:45+08:00" content="2016-03-18">
-              2016-03-18
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="../../categories/Hexo/" itemprop="url" rel="index">
-                    <span itemprop="name">Hexo</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="../../2016/03/18/hexo-how-to-use/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/03/18/hexo-how-to-use/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <pre><code>对生活、学习或者工作中，遇到的问题以及解决的方案，已blog的形式存于互联网，共享给需要帮助的人。
-但是从各大博客网站辗转于免费空间，最后落脚在github，hexo给我们提供了方便的blog模版，
-让我们可以安心的写内容了，hexo使用过程中的一些记录，便于后来人。
-</code></pre><h3 id="1-安装"><a href="#1-安装" class="headerlink" title="1 安装"></a>1 安装</h3><p>nodejs、git、hexo,具体步骤，请Google。<br>我的环境是Mac OS<br>so ：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">brew install npm（Node Packaged Modules）</div><div class="line">brew install n -g</div><div class="line">n ls</div><div class="line">n 6.5.0</div><div class="line">brew install git</div><div class="line">npm install hexo-cli -g</div><div class="line">npm install hexo --save</div><div class="line">hexo g</div><div class="line">hexo s</div><div class="line">hexo d</div><div class="line"></div><div class="line">#如果报错的话，执行</div><div class="line">npm install hexo --no-optional</div><div class="line"></div><div class="line">#如果还是报错</div><div class="line">rm -rf node_modules/ &amp;&amp; npm install --no-optional</div></pre></td></tr></table></figure></p>
-<h3 id="2-创建分类页面-新建一个页面-命名为-categories-关于、标签类似"><a href="#2-创建分类页面-新建一个页面-命名为-categories-关于、标签类似" class="headerlink" title="2 创建分类页面, 新建一个页面, 命名为 categories, 关于、标签类似"></a>2 创建分类页面, 新建一个页面, 命名为 categories, 关于、标签类似</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo new page categories</div></pre></td></tr></table></figure>
-<h3 id="3-编辑categories页面-内容"><a href="#3-编辑categories页面-内容" class="headerlink" title="3 编辑categories页面, 内容:"></a>3 编辑categories页面, 内容:</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">---</div><div class="line">title: 分类</div><div class="line">type: categories</div><div class="line">comments: false</div><div class="line">---</div></pre></td></tr></table></figure>
-<h3 id="4-设置分类列表"><a href="#4-设置分类列表" class="headerlink" title="4 设置分类列表"></a>4 设置分类列表</h3><p>不需要特别的配置，只需要在写文章的时候，加上<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">#eg. tech</div><div class="line">categories: tech</div></pre></td></tr></table></figure></p>
-<h3 id="github绑定域名问题"><a href="#github绑定域名问题" class="headerlink" title="github绑定域名问题"></a>github绑定域名问题</h3><pre><code>github上有个绑定自己的域名功能，可是每次重新部署(hexo deploy)的时候，都需要重新设置，简直死的心都有了。
-幸好看到一个blog说可以在source目录下新建CNAME文件，注意全部大写并且没有后缀。
-CNAME文件中只能有一行：例如:xxx.com
-不要有http(s)://，写多个域名也没用。
-</code></pre><h3 id="引用本地图片"><a href="#引用本地图片" class="headerlink" title="引用本地图片"></a>引用本地图片</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">![](image_url)</div><div class="line"></div><div class="line">#eg. images是sources下面的文件夹</div><div class="line">![](/images/img.jpg)</div></pre></td></tr></table></figure>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="../../2016/03/16/nginx-configuration/" itemprop="url">
-                  Nginx Configuration
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-03-16T11:46:45+08:00" content="2016-03-16">
-              2016-03-16
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="../../categories/Nginx/" itemprop="url" rel="index">
-                    <span itemprop="name">Nginx</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="../../2016/03/16/nginx-configuration/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/03/16/nginx-configuration/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h3 id="Download-nginx"><a href="#Download-nginx" class="headerlink" title="Download nginx"></a>Download nginx</h3><p><a href="http://nginx.org/download/nginx-1.8.0.tar.gz" target="_blank" rel="external">1.8.0</a></p>
-<h3 id="Download-openssl"><a href="#Download-openssl" class="headerlink" title="Download openssl"></a>Download openssl</h3><p><a href="https://www.openssl.org/source/openssl-1.0.2h.tar.gz" target="_blank" rel="external">1.0.2h</a></p>
-<h3 id="Install"><a href="#Install" class="headerlink" title="Install"></a>Install</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">cd nginx_home</div><div class="line">./configure --prefix=/usr/local/nginx \</div><div class="line">            --with-http_ssl_module \</div><div class="line">            --with-openssl=//home/lingyitech/sw/openssl-1.0.2h \</div><div class="line">            --with-openssl-opt=&quot;enable-tlsext&quot;</div><div class="line">sudo make &amp;&amp; sudo make install</div></pre></td></tr></table></figure>
-<h3 id="Multiple-Host"><a href="#Multiple-Host" class="headerlink" title="Multiple Host"></a>Multiple Host</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line">server  &#123;</div><div class="line">        listen 443;</div><div class="line">        server_name   www.nealma.com;</div><div class="line">        index index.html index.htm index.php;</div><div class="line">        root  /data/wwwroot/www.nealma.com/webroot;</div><div class="line">        ssl on;</div><div class="line">        ssl_certificate &quot;/usr/local/nginx/conf/ssl/www.nealma.com.public.cer&quot;;</div><div class="line">        ssl_certificate_key &quot;/usr/local/nginx/conf/ssl/www.nealma.com.private.key&quot;;</div><div class="line">        ...</div><div class="line">&#125;</div><div class="line"></div><div class="line">server  &#123;</div><div class="line">        listen 443;</div><div class="line">        server_name   www.malingyi.com;</div><div class="line">        index index.html index.htm index.php;</div><div class="line">        root  /data/wwwroot/www.malingyi.com/webroot;</div><div class="line">        ssl on;</div><div class="line">        ssl_certificate 	  &quot;/usr/local/nginx/conf/ssl/www.malingyi.com.public.cer&quot;;</div><div class="line">        ssl_certificate_key &quot;/usr/local/nginx/conf/ssl/www.malingyi.com.private.key&quot;;</div><div class="line">        ...</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h3 id="可能会出现的问题"><a href="#可能会出现的问题" class="headerlink" title="可能会出现的问题"></a>可能会出现的问题</h3><ul>
-<li>缺少gcc工具</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ sudo yum -y install gcc gcc-c++ autoconf automake make</div></pre></td></tr></table></figure>
-<ul>
-<li>新的服务器缺少pcre</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ sudo yum -y install pcre-devel</div></pre></td></tr></table></figure>
-<ul>
-<li>新的服务器缺少zlib</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ sudo yum -y install zlib-devel</div></pre></td></tr></table></figure>
-<ul>
-<li>ngnix 配置缺少</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">server_names_hash_bucket_size 32;</div></pre></td></tr></table></figure>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="../../2016/03/15/centos-65-add-user/" itemprop="url">
-                  CentOS 添加用户
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-03-15T11:46:45+08:00" content="2016-03-15">
-              2016-03-15
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="../../categories/Linux/" itemprop="url" rel="index">
-                    <span itemprop="name">Linux</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="../../2016/03/15/centos-65-add-user/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/03/15/centos-65-add-user/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>每次添加用户总是忘记，总是Google一下，没办法，只好记录下来。</p>
-<h3 id="添加普通用户-用户名为lingyitech"><a href="#添加普通用户-用户名为lingyitech" class="headerlink" title="添加普通用户,用户名为lingyitech"></a>添加普通用户,用户名为lingyitech</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ useradd lingyitech</div></pre></td></tr></table></figure>
-<h3 id="更新用户lingyitech密码"><a href="#更新用户lingyitech密码" class="headerlink" title="更新用户lingyitech密码"></a>更新用户lingyitech密码</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ password lingyitech</div></pre></td></tr></table></figure>
-<h3 id="更改lingyitech的用户组，属于root组"><a href="#更改lingyitech的用户组，属于root组" class="headerlink" title="更改lingyitech的用户组，属于root组"></a>更改lingyitech的用户组，属于root组</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ usermod -g root lingyitech</div></pre></td></tr></table></figure>
-<h3 id="也可以修改-etc-sudoers文件，添加一行"><a href="#也可以修改-etc-sudoers文件，添加一行" class="headerlink" title="也可以修改/etc/sudoers文件，添加一行"></a>也可以修改/etc/sudoers文件，添加一行</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">lingyitech    ALL=(ALL)       ALL</div></pre></td></tr></table></figure>
-<h3 id="还可以修改-etc-passwd文件，将lingyitech的id修改为0"><a href="#还可以修改-etc-passwd文件，将lingyitech的id修改为0" class="headerlink" title="还可以修改/etc/passwd文件，将lingyitech的id修改为0"></a>还可以修改/etc/passwd文件，将lingyitech的id修改为0</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">lingyitech:x:500:500::/home/lingyitech:/bin/bash</div><div class="line">             －－</div><div class="line">＃modify</div><div class="line">lingyitech:x:0:500::/home/lingyitech:/bin/bash</div><div class="line">           －</div></pre></td></tr></table></figure>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -1577,7 +1560,7 @@ CNAME文件中只能有一行：例如:xxx.com
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="../../archives">
-              <span class="site-state-item-count">33</span>
+              <span class="site-state-item-count">38</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -1585,7 +1568,7 @@ CNAME文件中只能有一行：例如:xxx.com
           
             <div class="site-state-item site-state-categories">
               <a href="../../categories">
-                <span class="site-state-item-count">11</span>
+                <span class="site-state-item-count">13</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -1594,7 +1577,7 @@ CNAME文件中只能有一行：例如:xxx.com
           
             <div class="site-state-item site-state-tags">
               <a href="../../tags">
-                <span class="site-state-item-count">39</span>
+                <span class="site-state-item-count">44</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>

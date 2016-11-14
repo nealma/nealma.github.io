@@ -270,6 +270,147 @@
             
               
                 
+                <a class="post-title-link" href="2016/11/01/spring-boot-6-spring-session/" itemprop="url">
+                  Spring-Boot（六) Spring Session 分布式会话管理
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-11-01T11:46:45+08:00" content="2016-11-01">
+              2016-11-01
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="categories/Java/" itemprop="url" rel="index">
+                    <span itemprop="name">Java</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="2016/11/01/spring-boot-6-spring-session/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/11/01/spring-boot-6-spring-session/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><pre><code>使用Spring Security的时候，觉得省了好多的事情。但是它使用的是内存来存储CurrentUser的信息
+和登录凭证，一旦单机不能承受大用户量，就需要水平扩展，就会涉及到session的问题。怎么才能实现
+平滑扩展呢？还好有Sping Session，怎么用呢？
+</code></pre><p>开发环境：<br>OS: Mac 10.11.6<br>IDE: IDEA<br>Build: Maven</p>
+<h3 id="Spring-Session-是什么"><a href="#Spring-Session-是什么" class="headerlink" title="Spring Session 是什么"></a>Spring Session 是什么</h3><pre><code>其实也不是什么新鲜的事儿？我们在实现用户登录，授权的时候，最初是web场景，我们只需要在Cookies中
+操作即可，现在我们面临移动端、open API等多种场景，单纯的Cookies已经不满足或者不能优雅的体现Restful
+风格，此时需要在Header上动手脚，也就是把原来存放在Cookies中的信息移到了Header中，换汤不换药
+</code></pre><h3 id="在Web中使用CookieHttpSessionStrategy"><a href="#在Web中使用CookieHttpSessionStrategy" class="headerlink" title="在Web中使用CookieHttpSessionStrategy"></a>在Web中使用CookieHttpSessionStrategy</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="meta">@Bean</span></div><div class="line"><span class="function"><span class="keyword">public</span> HttpSessionStrategy <span class="title">httpSessionStrategy</span><span class="params">()</span> </span>&#123;</div><div class="line">    <span class="keyword">return</span> <span class="keyword">new</span> CookieHttpSessionStrategy();</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="在Header中使用HeaderHttpSessionStrategy"><a href="#在Header中使用HeaderHttpSessionStrategy" class="headerlink" title="在Header中使用HeaderHttpSessionStrategy"></a>在Header中使用HeaderHttpSessionStrategy</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="meta">@Bean</span></div><div class="line"><span class="function"><span class="keyword">public</span> HttpSessionStrategy <span class="title">httpSessionStrategy</span><span class="params">()</span> </span>&#123;</div><div class="line">    <span class="keyword">return</span> <span class="keyword">new</span> HeaderHttpSessionStrategy();</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="Session-外部存储"><a href="#Session-外部存储" class="headerlink" title="Session 外部存储"></a>Session 外部存储</h3><pre><code>单纯的把Session信息存在JVM内容已经不适合现在的技术架构，再加上外部存储的开源产品足够成熟(Redis等)，
+于是Sping Session对HttpSession进行了重新包装，使其很容易结合Redis等开源产品，节省了我们的开发时间。
+只需要在你自己实现的WebSecurityConfigurerAdapter中加上如下注解：
+</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">@EnableRedisHttpSession</div></pre></td></tr></table></figure>
+<h3 id="Cookies和Header混合支持"><a href="#Cookies和Header混合支持" class="headerlink" title="Cookies和Header混合支持"></a>Cookies和Header混合支持</h3><pre><code>但是在使用的过程中遇到一个问题，需要Cookie和Header都支持，这下麻烦了，还需要自己去实现，
+怎么才能都支持呢？那就是在自己实现的AllHttpSessionStrategy中，对Request进行判断，如果是html，就使用
+CookieHttpSessionStrategy，如果是API就用HeaderHttpSessionStrategy，具体如下：
+</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">@Bean</div><div class="line">  public HttpSessionStrategy httpSessionStrategy() &#123;</div><div class="line">      return new MyHttpSessionStrategy(new HeaderContentNegotiationStrategy());</div><div class="line">  &#125;</div></pre></td></tr></table></figure>
+<p>这里的MyHttpSessionStrategy是要自己实现的</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div></pre></td><td class="code"><pre><div class="line">public class MyHttpSessionStrategy implements HttpSessionStrategy &#123;</div><div class="line">    private HttpSessionStrategy browser;</div><div class="line"></div><div class="line">    private HttpSessionStrategy api;</div><div class="line"></div><div class="line">    private RequestMatcher browserMatcher;</div><div class="line"></div><div class="line">    @Autowired</div><div class="line">    public MyHttpSessionStrategy(ContentNegotiationStrategy contentNegotiationStrategy) &#123;</div><div class="line">        this(new CookieHttpSessionStrategy(), new HeaderHttpSessionStrategy());</div><div class="line">        MediaTypeRequestMatcher matcher = new MediaTypeRequestMatcher(contentNegotiationStrategy,</div><div class="line">                Arrays.asList(MediaType.TEXT_HTML));</div><div class="line">        matcher.setIgnoredMediaTypes(Collections.singleton(MediaType.ALL));</div><div class="line"></div><div class="line">        RequestHeaderRequestMatcher javascript = new RequestHeaderRequestMatcher(&quot;X-Requested-With&quot;);</div><div class="line"></div><div class="line">        this.browserMatcher = new OrRequestMatcher(Arrays.asList(matcher, javascript));</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    public MyHttpSessionStrategy(HttpSessionStrategy browser, HttpSessionStrategy api) &#123;</div><div class="line">        this.browser = browser;</div><div class="line">        this.api = api;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    @Override</div><div class="line">    public String getRequestedSessionId(HttpServletRequest request) &#123;</div><div class="line">        return getStrategy(request).getRequestedSessionId(request);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    @Override</div><div class="line">    public void onNewSession(Session session, HttpServletRequest request, HttpServletResponse response) &#123;</div><div class="line">        getStrategy(request).onNewSession(session, request, response);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    @Override</div><div class="line">    public void onInvalidateSession(HttpServletRequest request, HttpServletResponse response) &#123;</div><div class="line">        getStrategy(request).onInvalidateSession(request, response);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    private HttpSessionStrategy getStrategy(HttpServletRequest request) &#123;</div><div class="line">        return this.browserMatcher.matches(request) ? this.browser : this.api;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="结束"><a href="#结束" class="headerlink" title="结束"></a>结束</h3><pre><code>这样无论是网页端还是RESTFull API，都可以正常支持了。
+网页端通过cookie来传递session，API使用的是x-auth-token。
+这里有个问题就是还不知道怎么去更新Redis中会话信息,待续...
+</code></pre>
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="2016/10/02/vim-command-line-1-replace/" itemprop="url">
                   Vim Commandline (一) 文本替换
                 </a>
@@ -409,7 +550,7 @@
               
                 
                 <a class="post-title-link" href="2016/10/01/centos-72-1-install-java-envirment/" itemprop="url">
-                  CentOS7 Java环境搭建
+                  CentOS7（一）Java环境搭建
                 </a>
               
             
@@ -539,7 +680,268 @@
             
               
                 
-                <a class="post-title-link" href="2016/09/03/react-native-12-archive/" itemprop="url">
+                <a class="post-title-link" href="2016/10/01/centos-72-2-install-mariadb/" itemprop="url">
+                  CentOS7（二）Install MySQL (MariaDB)
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-10-01T11:46:45+08:00" content="2016-10-01">
+              2016-10-01
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="categories/Linux/" itemprop="url" rel="index">
+                    <span itemprop="name">Linux</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="2016/10/01/centos-72-2-install-mariadb/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/10/01/centos-72-2-install-mariadb/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><pre><code>今天在CentOS 7.2上安装MySQL（MariaDB）,记录一下
+</code></pre><h3 id="Install-MariaDB"><a href="#Install-MariaDB" class="headerlink" title="Install MariaDB"></a>Install MariaDB</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">yum install mariadb-server mariadb</div></pre></td></tr></table></figure>
+<h3 id="Start-MariaDB"><a href="#Start-MariaDB" class="headerlink" title="Start MariaDB"></a>Start MariaDB</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">systemsctl start mariadb</div></pre></td></tr></table></figure>
+<h3 id="Setting-Secure"><a href="#Setting-Secure" class="headerlink" title="Setting Secure"></a>Setting Secure</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line"># 设置root密码，是否允许远程，test数据库等	</div><div class="line"></div><div class="line">mysql_secure_installation</div><div class="line"></div><div class="line"># Or</div><div class="line"></div><div class="line">set password for &apos;root&apos;@&apos;localhost&apos; =password(&apos;password&apos;);</div><div class="line"></div><div class="line"># 远程连接设置</div><div class="line">grant all privileges on *.* to root@&apos;%&apos; identified by &apos;password&apos;;</div><div class="line">flush privileges;</div><div class="line"></div><div class="line">#Or</div><div class="line"></div><div class="line">mysql&gt; use mysql</div><div class="line"></div><div class="line">mysql&gt; update user set Host=&apos;%&apos; where User=&apos;root&apos;;</div><div class="line"></div><div class="line">mysql&gt; flush privileges;</div><div class="line"></div><div class="line"># 创建新用户</div><div class="line">create user &apos;username&apos;@&apos;%&apos; identified by &apos;password&apos;;</div></pre></td></tr></table></figure>
+<h3 id="Start-on-boot"><a href="#Start-on-boot" class="headerlink" title="Start on boot"></a>Start on boot</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">systemctl enable mariadb.service</div></pre></td></tr></table></figure>
+<h3 id="MySQL-配置防火墙"><a href="#MySQL-配置防火墙" class="headerlink" title="MySQL 配置防火墙"></a>MySQL 配置防火墙</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">firewall-cmd --permanent --zone=public --add-service=mysql</div><div class="line">firewall-cmd --reload</div></pre></td></tr></table></figure>
+<h3 id="结束"><a href="#结束" class="headerlink" title="结束"></a>结束</h3><p>:)~</p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="2016/10/01/centos-72-3-php/" itemprop="url">
+                  CentOS7（三）Install PHP
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-10-01T11:46:45+08:00" content="2016-10-01">
+              2016-10-01
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="categories/Linux/" itemprop="url" rel="index">
+                    <span itemprop="name">Linux</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="2016/10/01/centos-72-3-php/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/10/01/centos-72-3-php/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><pre><code>今天在CentOS 7.2上安装PHP,记录一下
+</code></pre><h3 id="Install-PHP"><a href="#Install-PHP" class="headerlink" title="Install PHP"></a>Install PHP</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">yum install php php-mysql</div></pre></td></tr></table></figure>
+<h3 id="Restart-Apache-web-server"><a href="#Restart-Apache-web-server" class="headerlink" title="Restart Apache web server"></a>Restart Apache web server</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">yum -y install httpd</div><div class="line"></div><div class="line">systemctl restart httpd.service</div></pre></td></tr></table></figure>
+<h3 id="Install-PHP-Modules"><a href="#Install-PHP-Modules" class="headerlink" title="Install PHP Modules"></a>Install PHP Modules</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">yum install php-fpm</div></pre></td></tr></table></figure>
+<h3 id="Test-php"><a href="#Test-php" class="headerlink" title="Test php"></a>Test php</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">vim /var/www/html/info.php</div><div class="line"></div><div class="line">#文件内容</div><div class="line">&lt;?php phpinfo(); ?&gt;</div></pre></td></tr></table></figure>
+<h3 id="如果开启了firewall，请允许HTTP和HTTPS-Traffic"><a href="#如果开启了firewall，请允许HTTP和HTTPS-Traffic" class="headerlink" title="如果开启了firewall，请允许HTTP和HTTPS Traffic"></a>如果开启了firewall，请允许HTTP和HTTPS Traffic</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">firewall-cmd --permanent --zone=public --add-service=http </div><div class="line">firewall-cmd --permanent --zone=public --add-service=https</div><div class="line">firewall-cmd --reload</div></pre></td></tr></table></figure>
+<h3 id="Install-phpMyAdmin"><a href="#Install-phpMyAdmin" class="headerlink" title="Install phpMyAdmin"></a>Install phpMyAdmin</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">yum -y update</div><div class="line">yum -y install phpmyadmin</div></pre></td></tr></table></figure>
+<h3 id="安装完后，发现还是5-x-x，还得继续，升级到7-x"><a href="#安装完后，发现还是5-x-x，还得继续，升级到7-x" class="headerlink" title="安装完后，发现还是5.x.x，还得继续，升级到7.x"></a>安装完后，发现还是5.x.x，还得继续，升级到7.x</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">rpm -Uvh https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm</div><div class="line">rpm -Uvh https://mirror.webtatic.com/yum/el7/webtatic-release.rpm</div><div class="line"></div><div class="line">yum install php70w php70w-opcache</div><div class="line"></div><div class="line">yum install yum-plugin-replace</div><div class="line"></div><div class="line">yum replace php-common --replace-with=php70w-common -y</div><div class="line"></div><div class="line">yum install php70w-opcache -y</div></pre></td></tr></table></figure>
+<h3 id="安装ecshop-检查结果，文件不可写"><a href="#安装ecshop-检查结果，文件不可写" class="headerlink" title="安装ecshop,检查结果，文件不可写"></a>安装ecshop,检查结果，文件不可写</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">chmod -R 777 /var/www/html/ecshop/</div></pre></td></tr></table></figure>
+<h3 id="安装依赖"><a href="#安装依赖" class="headerlink" title="安装依赖"></a>安装依赖</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">yum -y install mysql mysql-server mysql-devel php-mysql gd gd-devel httpd php php-gd</div></pre></td></tr></table></figure>
+<h3 id="如果想删除php，更换版本，如下："><a href="#如果想删除php，更换版本，如下：" class="headerlink" title="如果想删除php，更换版本，如下："></a>如果想删除php，更换版本，如下：</h3><p>```</p>
+<h1 id="remove"><a href="#remove" class="headerlink" title="remove"></a>remove</h1><p>yum remove php</p>
+<p>＃ search<br>yum search php</p>
+<h1 id="remove-common"><a href="#remove-common" class="headerlink" title="remove common"></a>remove common</h1><p>yum remove php-commen(以search的结果为准)</p>
+<p># </p>
+<h3 id="结束"><a href="#结束" class="headerlink" title="结束"></a>结束</h3><p>:)~</p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="2016/09/03/react-native-912-archive/" itemprop="url">
                   React Native (十二) 趟雷过程中遇到的陷阱
                 </a>
               
@@ -583,8 +985,8 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="2016/09/03/react-native-12-archive/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/09/03/react-native-12-archive/" itemprop="commentsCount"></span>
+                <a href="2016/09/03/react-native-912-archive/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/09/03/react-native-912-archive/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -676,7 +1078,7 @@
             
               
                 
-                <a class="post-title-link" href="2016/09/02/react-native-11-bundle/" itemprop="url">
+                <a class="post-title-link" href="2016/09/02/react-native-911-bundle/" itemprop="url">
                   React Native (十一) bundle打离线包
                 </a>
               
@@ -720,8 +1122,8 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="2016/09/02/react-native-11-bundle/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/09/02/react-native-11-bundle/" itemprop="commentsCount"></span>
+                <a href="2016/09/02/react-native-911-bundle/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/09/02/react-native-911-bundle/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -832,7 +1234,7 @@
             
               
                 
-                <a class="post-title-link" href="2016/09/01/react-native-10-app-icon/" itemprop="url">
+                <a class="post-title-link" href="2016/09/01/react-native-910-app-icon/" itemprop="url">
                   React Native (十) 给App设置icon
                 </a>
               
@@ -876,8 +1278,8 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="2016/09/01/react-native-10-app-icon/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/09/01/react-native-10-app-icon/" itemprop="commentsCount"></span>
+                <a href="2016/09/01/react-native-910-app-icon/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/09/01/react-native-910-app-icon/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -1250,418 +1652,6 @@
 
 
     
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="2016/07/30/react-native-7-navigator/" itemprop="url">
-                  React Native (七) Navigator 导航组件
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-07-30T11:46:45+08:00" content="2016-07-30">
-              2016-07-30
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="categories/React-Native/" itemprop="url" rel="index">
-                    <span itemprop="name">React-Native</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="2016/07/30/react-native-7-navigator/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/07/30/react-native-7-navigator/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><pre><code>Navigator组件作为基础部分，必不可少。前面我们使用了sidemenu，每个menu的触发事件都会跳到
-一个新的视图，此时就要用Navigator了。说白了，就是控制路由的这么一个东西，从一个视图跳到另一个视图。
-</code></pre><p><img src="/images/navigator.gif" alt=""></p>
-<p>开发环境：<br>OS: Mac 10.11.6<br>Xcode: Version 8.0 (8A218a)</p>
-<h3 id="首先要定义Navigator作为入口"><a href="#首先要定义Navigator作为入口" class="headerlink" title="首先要定义Navigator作为入口"></a>首先要定义Navigator作为入口</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">import FirstPage from &apos;./navigator-first-page&apos;;</div><div class="line"></div><div class="line">export default class Main extends React.Component &#123;</div><div class="line">    render() &#123;</div><div class="line">        let defaultName = &apos;FirstPage&apos;;</div><div class="line">        let defaultComponent = FirstPage;</div><div class="line">        return (</div><div class="line">            &lt;Navigator</div><div class="line">                initialRoute=&#123;&#123; name: defaultName, component: defaultComponent &#125;&#125;</div><div class="line">                configureScene=&#123;(route) =&gt; &#123;</div><div class="line">                    return Navigator.SceneConfigs.VerticalDownSwipeJump;</div><div class="line">                &#125;&#125;</div><div class="line">                renderScene=&#123;(route, navigator) =&gt; &#123;</div><div class="line">                const Component = route.component;</div><div class="line">                    return (&lt;Component &#123;...route.params&#125; navigator=&#123;navigator&#125; /&gt;);</div><div class="line">                &#125;&#125; /&gt;</div><div class="line">        );</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<pre><code>＊ initialRoute: 初始化首屏视图，name可以看作页面的ID; component: 视图组件，即要显示的内容
-＊ configureScene: 过场动画
-＊ renderScene: 动态路由
-</code></pre><h3 id="定义第一个页面navigator-first-page-js"><a href="#定义第一个页面navigator-first-page-js" class="headerlink" title="定义第一个页面navigator-first-page.js"></a>定义第一个页面navigator-first-page.js</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div></pre></td><td class="code"><pre><div class="line">import SecondPage from &apos;./navigator-second-page&apos;;</div><div class="line"></div><div class="line">export default class FirstPage extends React.Component &#123;</div><div class="line">    constructor(props) &#123;</div><div class="line">        super(props);</div><div class="line">        this.state = &#123;&#125;;</div><div class="line">    &#125;</div><div class="line">    _pressButton() &#123;</div><div class="line">        const &#123; navigator &#125; = this.props;</div><div class="line">        if(navigator) &#123;</div><div class="line">            navigator.push(&#123;</div><div class="line">                name: &apos;SecondPage&apos;,</div><div class="line">                component: SecondPage</div><div class="line">            &#125;);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    render() &#123;</div><div class="line">        return (</div><div class="line">            &lt;View style=&#123;&#123;flex: 1, backgroundColor: &apos;#fcb064&apos;, justifyContent: &apos;center&apos;, alignItems: &apos;center&apos;&#125;&#125;&gt;</div><div class="line">                &lt;TouchableOpacity onPress=&#123;()=&gt;&#123;this._pressButton();&#125;&#125;&gt;</div><div class="line">                            &lt;Text style=&#123;&#123;height: 30, width: 80&#125;&#125;&gt;第一页&lt;/Text&gt;</div><div class="line">                &lt;/TouchableOpacity&gt;</div><div class="line">            &lt;/View&gt;</div><div class="line">        );</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h3 id="定义第二个页面navigator-second-page-js"><a href="#定义第二个页面navigator-second-page-js" class="headerlink" title="定义第二个页面navigator-second-page.js"></a>定义第二个页面navigator-second-page.js</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line">export default class SecondPage extends React.Component &#123;</div><div class="line"></div><div class="line">    constructor(props) &#123;</div><div class="line">        super(props);</div><div class="line">        this.state = &#123;&#125;;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    _pressButton() &#123;</div><div class="line">        const &#123; navigator &#125; = this.props;</div><div class="line">        if(navigator) &#123;</div><div class="line">            //入栈出栈, 把当前的页面pop掉，返回到了上一个页面:FirstPage</div><div class="line">            navigator.pop();</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    render() &#123;</div><div class="line">        return (</div><div class="line">            &lt;View style=&#123;&#123;flex: 1, backgroundColor: &apos;#fb9696&apos;, justifyContent: &apos;center&apos;, alignItems: &apos;center&apos;&#125;&#125;&gt;</div><div class="line">                &lt;TouchableOpacity onPress=&#123;()=&gt;&#123;this._pressButton();&#125;&#125;&gt;</div><div class="line">                    &lt;Text style=&#123;&#123;height: 30, width: 80&#125;&#125;&gt;第二页&lt;/Text&gt;</div><div class="line">                &lt;/TouchableOpacity&gt;</div><div class="line">            &lt;/View&gt;</div><div class="line">        );</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<pre><code>总体上很清晰，如果涉及到事件，待续...
-</code></pre><h3 id="结束"><a href="#结束" class="headerlink" title="结束"></a>结束</h3><pre><code>：）～
-</code></pre>
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="2016/07/29/react-native-6-cameraroll/" itemprop="url">
-                  React Native (六) CameraRoll 相册组件
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-07-29T12:46:45+08:00" content="2016-07-29">
-              2016-07-29
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="categories/React-Native/" itemprop="url" rel="index">
-                    <span itemprop="name">React-Native</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="2016/07/29/react-native-6-cameraroll/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/07/29/react-native-6-cameraroll/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><pre><code>CameraRoll模块提供了访问本地相册的功能。
-</code></pre><p><img src="/images/cameraroll.gif" alt=""></p>
-<p>开发环境：<br>OS: Mac 10.11.6<br>Xcode: Version 8.0 (8A218a)</p>
-<h3 id="简单用例"><a href="#简单用例" class="headerlink" title="简单用例"></a>简单用例</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div><div class="line">106</div></pre></td><td class="code"><pre><div class="line">export default class HaiJiCameraRoll extends Component &#123;</div><div class="line">    constructor(props) &#123;</div><div class="line">        super(props);</div><div class="line">        this.state = &#123;</div><div class="line">            photos: [],</div><div class="line">            selected: &apos;&apos;,</div><div class="line">            placeHolder: &apos;这一刻的想法...&apos;,</div><div class="line">            text: null</div><div class="line">        &#125;;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    componentDidMount() &#123;</div><div class="line">        let fetchParams = &#123;</div><div class="line">            first: 10,</div><div class="line">            assetType: &apos;Photos&apos;</div><div class="line">        &#125;;</div><div class="line">        CameraRoll.getPhotos(fetchParams).then((data) =&gt; &#123;</div><div class="line">            const edges = data.edges;</div><div class="line">            let photos = edges.map(photo=&gt;&#123;</div><div class="line">                return photo.node.image.uri</div><div class="line">            &#125;);</div><div class="line">            this.setState(&#123;</div><div class="line">                photos: photos</div><div class="line">            &#125;);</div><div class="line">        &#125;).catch(alert);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    selectImage(image) &#123;</div><div class="line">        this.setState(&#123;</div><div class="line">            selected: image</div><div class="line">        &#125;);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    render() &#123;</div><div class="line"></div><div class="line">        const photos = this.state.photos || [];</div><div class="line">        let photosView = [];</div><div class="line">        for(let i = 0; i &lt; photos.length; i+=4) &#123;</div><div class="line">            let imageUri = photos[parseInt(i)];</div><div class="line">            let imageUri1 = photos[parseInt(i+1)];</div><div class="line">            let imageUri2 = photos[parseInt(i+2)];</div><div class="line">            let imageUri3 = photos[parseInt(i+3)];</div><div class="line">            photosView.push(</div><div class="line">                &lt;View style=&#123;Styles.postCameraRollRow&#125; key=&#123;i&#125;&gt;</div><div class="line">                    &lt;View style=&#123;Styles.container&#125;&gt;</div><div class="line">                        &lt;TouchableOpacity  onPress=&#123;this.selectImage.bind(this,imageUri)&#125;&gt;</div><div class="line">                            &lt;Image</div><div class="line">                                resizeMode=&apos;stretch&apos;</div><div class="line">                                style=&#123;[Styles.postCameraRollPhoto]&#125;</div><div class="line">                                source=&#123;&#123;uri: imageUri&#125;&#125; /&gt;</div><div class="line">                        &lt;/TouchableOpacity&gt;</div><div class="line">                    &lt;/View&gt;</div><div class="line">                    &lt;View style=&#123;Styles.container&#125;&gt;</div><div class="line">                        &lt;TouchableOpacity  onPress=&#123;this.selectImage.bind(this,imageUri1)&#125;&gt;</div><div class="line">                            &lt;Image</div><div class="line">                                resizeMode=&apos;stretch&apos;</div><div class="line">                                style=&#123;[Styles.postCameraRollPhoto]&#125;</div><div class="line">                                source=&#123;&#123;uri: imageUri1&#125;&#125; /&gt;</div><div class="line">                        &lt;/TouchableOpacity&gt;</div><div class="line">                    &lt;/View&gt;</div><div class="line">                    &lt;View style=&#123;Styles.container&#125;&gt;</div><div class="line">                        &lt;TouchableOpacity  onPress=&#123;this.selectImage.bind(this,imageUri2)&#125;&gt;</div><div class="line">                            &lt;Image</div><div class="line">                                resizeMode=&apos;stretch&apos;</div><div class="line">                                style=&#123;[Styles.postCameraRollPhoto]&#125;</div><div class="line">                                source=&#123;&#123;uri: imageUri2&#125;&#125; /&gt;</div><div class="line">                        &lt;/TouchableOpacity&gt;</div><div class="line">                    &lt;/View&gt;</div><div class="line">                    &lt;View style=&#123;Styles.container&#125;&gt;</div><div class="line">                        &lt;TouchableOpacity  onPress=&#123;this.selectImage.bind(this,imageUri3)&#125;&gt;</div><div class="line">                            &lt;Image</div><div class="line">                                resizeMode=&apos;stretch&apos;</div><div class="line">                                style=&#123;[Styles.postCameraRollPhoto]&#125;</div><div class="line">                                source=&#123;&#123;uri: imageUri3&#125;&#125; /&gt;</div><div class="line">                        &lt;/TouchableOpacity&gt;</div><div class="line">                    &lt;/View&gt;</div><div class="line">                &lt;/View&gt;</div><div class="line">            );</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        return (</div><div class="line">            &lt;View style=&#123;[Styles.postContainer, Styles.bgColorWhite]&#125;&gt;</div><div class="line">                &lt;TextInput</div><div class="line">                    style=&#123;Styles.postTextInput&#125;</div><div class="line">                    multiline=&#123;true&#125;</div><div class="line">                    placeholder=&apos;这一刻的想法...&apos;</div><div class="line">                    placeholderTextColor=&#123;&apos;#f8f8f8&apos;&#125;</div><div class="line">                    onChangeText=&#123;(text) =&gt; this.setState(&#123;text&#125;)&#125;</div><div class="line">                    defaultValue=&#123;this.state.placeHolder&#125;</div><div class="line">                    value=&#123;this.state.text&#125;/&gt;</div><div class="line">                &lt;Image</div><div class="line">                    resizeMode=&apos;stretch&apos;</div><div class="line">                    style=&#123;[Styles.postPreviewPhoto]&#125;</div><div class="line">                    source=&#123;&#123;uri: this.state.selected&#125;&#125;/&gt;</div><div class="line">                &lt;TouchableOpacity style=&#123;[Styles.postButton,Styles.bgColorLightGray]&#125;&gt;</div><div class="line">                    &lt;Text style=&#123;[Styles.postButtonText]&#125;&gt;发布&lt;/Text&gt;</div><div class="line">                &lt;/TouchableOpacity&gt;</div><div class="line">                &lt;ScrollView style=&#123;[Styles.postCameraRoll]&#125;&gt;</div><div class="line">                    &lt;View&gt;</div><div class="line">                        &#123;photosView&#125;</div><div class="line">                    &lt;/View&gt;</div><div class="line">                &lt;/ScrollView&gt;</div><div class="line">            &lt;/View&gt;</div><div class="line">        );</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h3 id="主要方法"><a href="#主要方法" class="headerlink" title="主要方法"></a>主要方法</h3><ul>
-<li>CameraRoll.getPhotos(fetchParams)<br>  返回的是Promise</li>
-</ul>
-<h3 id="踩到的坑"><a href="#踩到的坑" class="headerlink" title="踩到的坑"></a>踩到的坑</h3><ul>
-<li><p>(iOS)解决ReactNative使用CameraRoll时undefined错误</p>
-<p>  1, 将 node_modules/react-native/Libraries/CameraRoll/RCTCameraRoll.xcodeproj 工程添加到现有工程中<br>  2, 添加静态库依赖： (Build Phases -&gt; Binary With Libraries -&gt; libRCTCameraRoll.a)</p>
-</li>
-<li><p>(iOS)NSPhotoLibraryUsageDescription key must be present in Info.plist to use camera roll.</p>
-<p>  在info.plist添加键值对</p>
-<p>  1， Privacy - Camera Usage Description  使用相册<br>  2， Privacy - Photo Library Usage Description 使用相机</p>
-</li>
-<li><p>(Android)Error: /path/to/file: open failed: ENOENT (No such file or directory)<br>  Android上出现bug，还没有解决，待续…</p>
-</li>
-</ul>
-<h3 id="新技能GET"><a href="#新技能GET" class="headerlink" title="新技能GET"></a>新技能GET</h3><p>＊ onPress 事件在<image>中失效，如果给<image>加onPress事件，需要用<touchableopacity>包裹</touchableopacity></image></image></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&lt;TouchableOpacity onPress=&#123;()=&gt;alert(1)&#125;&gt;</div><div class="line">	&lt;Image /&gt;</div><div class="line">&lt;/TouchableOpacity&gt;</div></pre></td></tr></table></figure>
-<h3 id="结束"><a href="#结束" class="headerlink" title="结束"></a>结束</h3><pre><code>：）～
-</code></pre>
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="2016/07/28/react-native-5-listview/" itemprop="url">
-                  React Native (五) ListView 组件
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-07-28T12:46:45+08:00" content="2016-07-28">
-              2016-07-28
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="categories/React-Native/" itemprop="url" rel="index">
-                    <span itemprop="name">React-Native</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="2016/07/28/react-native-5-listview/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/07/28/react-native-5-listview/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><pre><code>ListView组件是每个App都用到的核心组件，RN当然也不能少。
-</code></pre><p><img src="/images/listview.gif" alt=""></p>
-<pre><code>开发环境：
-OS: Mac 10.11.6
-Xcode: Version 8.0 (8A218a)
-</code></pre><h3 id="核心配置介绍"><a href="#核心配置介绍" class="headerlink" title="核心配置介绍"></a>核心配置介绍</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">...</div><div class="line">constructor(props) &#123;</div><div class="line">    super(props);</div><div class="line">    const ds = new ListView.DataSource(&#123;</div><div class="line">        rowHasChanged: (r1, r2) =&gt; r1 !== r2, //1, 对变化的行渲染</div><div class="line">        sectionHeaderHasChanged : (s1, s2) =&gt; s1 !== s2 //2, 分组头部信息变更</div><div class="line">    &#125;);</div><div class="line">    let rowData = Array.from(new Array(10)).map((val, i) =&gt; (&#123;title: &apos;初始化数据 &apos; + i&#125;));</div><div class="line">    this.state = &#123;</div><div class="line">        dataSource: ds.cloneWithRows(rowData),</div><div class="line">        data: rowData,</div><div class="line">        isLoaded: false,</div><div class="line">        isRefreshing: false</div><div class="line">    &#125;;</div><div class="line">&#125;</div><div class="line"></div><div class="line">render() &#123;</div><div class="line">    if (!this.state.isLoaded) &#123;//3, loading</div><div class="line">        return &lt;Loading/&gt;;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    return (</div><div class="line">        &lt;ListView</div><div class="line">            style=&#123;styles.container&#125;</div><div class="line">            dataSource=&#123;this.state.dataSource&#125;/* 要渲染的数据源，类型是数组 */</div><div class="line">            renderRow=&#123;(rowData) =&gt; this._renderRowView(rowData, this._onPress)&#125;</div><div class="line">            onEndReached=&#123;this._handleLoadMore.bind(this)&#125; /* 滑动偏移量 &gt; onEndReachedThreshold的像素值时，触发 */</div><div class="line">            onEndReachedThreshold=&#123;5&#125; /* 调用onEndReached之前的临界值，单位是像素 */</div><div class="line">            initialListSize=&#123;8&#125; /* 初始值 */</div><div class="line">            pageSize=&#123;8&#125;/* 每次事件循环（每帧）渲染的行数 */</div><div class="line">            renderHeader=&#123; this._renderHeader.bind(this)&#125;</div><div class="line">            renderFooter=&#123;this._renderFooter.bind(this)&#125;</div><div class="line">            renderSectionHeader=&#123;this._renderSectionHeader.bind(this)&#125;</div><div class="line">            refreshControl=&#123;</div><div class="line">                &lt;RefreshControl // 下拉刷新</div><div class="line">                    refreshing=&#123;this.state.isRefreshing&#125;</div><div class="line">                    onRefresh=&#123;this._onRefresh.bind(this)&#125;/* 下拉刷新时，触发此事件*/</div><div class="line">                    title=&#123;this.state.isRefreshing? &apos;刷新中....&apos;:&apos;下拉刷新&apos;&#125;</div><div class="line">                    colors=&#123;[&apos;#fb96cf&apos;, &apos;#fb96cf&apos;,&apos;#fb96cf&apos;,&apos;#fb96cf&apos;]&#125;</div><div class="line">                    tintColor=&apos;#fb96cf&apos;</div><div class="line">                    progressBackgroundColor=&quot;#fb96cf&quot;</div><div class="line">                /&gt;</div><div class="line">            &#125;</div><div class="line">        /&gt;</div><div class="line">    );</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h3 id="添加loading状态"><a href="#添加loading状态" class="headerlink" title="添加loading状态"></a>添加loading状态</h3><pre><code>获取网络数据，必然会消耗时间。在等待的过程中，为了给用户很好的提示，我们都会添加loading图标，
-如果什么都没有，让用户傻傻的干等，用户也不会对你的app有好的印象
-</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">class Loading extends Component &#123;</div><div class="line">    render()&#123;</div><div class="line">        return (</div><div class="line">            &lt;View style=&#123;styles.container&#125;&gt;</div><div class="line">                &lt;View style=&#123;styles.loading&#125;&gt;</div><div class="line">                    &lt;ActivityIndicator</div><div class="line">                        size=&apos;large&apos;</div><div class="line">                        color=&apos;#eabb33&apos;/&gt;</div><div class="line">                &lt;/View&gt;</div><div class="line">            &lt;/View&gt;</div><div class="line">        );</div><div class="line">    &#125;;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h3 id="列表中Item的onPress事件"><a href="#列表中Item的onPress事件" class="headerlink" title="列表中Item的onPress事件"></a>列表中Item的onPress事件</h3><pre><code>因为this的变更问题，_renderRowView做如下修改，onPress作为传递的处理函数
-这里如果你用this._onPress, 会抛出异常，就是this已经不是原来的this了，
-但是onPress还是原来的onPress。
-</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">_renderRowView(rowData, onPress) &#123;</div><div class="line">    return (</div><div class="line">        &lt;TouchableOpacity</div><div class="line">            underlayColor=&apos;#484848&apos;</div><div class="line">            onPress=&#123;(rowData) =&gt; onPress(rowData)&#125;&gt;</div><div class="line">            &lt;View style=&#123;styles.row&#125;&gt;</div><div class="line">                &lt;View style=&#123;&#123;flex: 1, backgroundColor: &apos;#c8c7cc&apos;&#125;&#125;/&gt;</div><div class="line">                &lt;View style=&#123;&#123;flex: 20, backgroundColor: &apos;#EFE&apos;,justifyContent: &apos;center&apos;, alignItems: &apos;center&apos; &#125;&#125;&gt;</div><div class="line">                    &lt;Text style=&#123;&#123;</div><div class="line">                        borderColor: &apos;#d1d1d1&apos;,</div><div class="line">                        borderWidth: 2,</div><div class="line">                        borderRadius: 5 &#125;&#125;&gt;&#123;rowData.title&#125;&lt;/Text&gt;</div><div class="line">                &lt;/View&gt;</div><div class="line">            &lt;/View&gt;</div><div class="line">        &lt;/TouchableOpacity&gt;</div><div class="line">    );</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h3 id="下拉刷新"><a href="#下拉刷新" class="headerlink" title="下拉刷新"></a>下拉刷新</h3><pre><code>需要用RefreshControl组件，通过isRefreshing改变 正在刷新(true)、刷新完成(false),
-onRefresh触发该事件，进入onRefresh时，设置isRefreshing=true,处理完成onRefresh时，设置isRefreshing=false
-</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">_onRefresh() &#123;</div><div class="line">    // 刷新</div><div class="line">    this.setState(&#123;isRefreshing: true&#125;);</div><div class="line">    console.log(&apos;refresh&apos;, this.state.data);</div><div class="line">    setTimeout(() =&gt; &#123;</div><div class="line">        this._onFetch(false);</div><div class="line">        this.setState(&#123;isRefreshing: false&#125;);</div><div class="line">    &#125;,2000);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h3 id="Load-More-指示器"><a href="#Load-More-指示器" class="headerlink" title="Load More 指示器"></a>Load More 指示器</h3><pre><code>ListView可以使用renderFooter属性实现加载更多指示器，这里只用简单的文字实现，更多的效果请自行玩耍
-</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line">...</div><div class="line">_renderFooter()&#123;</div><div class="line">    return(</div><div class="line">        &lt;Footer /&gt;</div><div class="line">    );</div><div class="line">&#125;</div><div class="line">...</div><div class="line"></div><div class="line">class Footer extends Component &#123;</div><div class="line">    render()&#123;</div><div class="line">        return(</div><div class="line">            &lt;StaticContainer&gt;</div><div class="line">                &lt;View style=&#123;&#123; flex:1, flexDirection: &apos;row&apos;, justifyContent: &apos;space-between&apos;,</div><div class="line">                    alignItems: &apos;center&apos;, height:50, backgroundColor:&apos;#fb96cf&apos;&#125;&#125;&gt;</div><div class="line">                    &lt;Text&gt;&lt;/Text&gt;</div><div class="line">                    &lt;Text&gt;加载更多&lt;/Text&gt;</div><div class="line">                    &lt;Text&gt;&lt;/Text&gt;</div><div class="line">                &lt;/View&gt;</div><div class="line">            &lt;/StaticContainer&gt;</div><div class="line">        );</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h3 id="有关显示隐藏"><a href="#有关显示隐藏" class="headerlink" title="有关显示隐藏"></a>有关显示隐藏</h3><pre><code>RN中没有display:none可用，可以换一种方式实现
-</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">isHidden?&lt;View/&gt;:null</div></pre></td></tr></table></figure>
-<h3 id="结束"><a href="#结束" class="headerlink" title="结束"></a>结束</h3><pre><code>这里用到了StaticContainer，据说性能好，没有具体看呢？了解的同学可以给我留言
-：）～
-</code></pre>
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -1707,7 +1697,7 @@ onRefresh触发该事件，进入onRefresh时，设置isRefreshing=true,处理�
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">33</span>
+              <span class="site-state-item-count">38</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -1715,7 +1705,7 @@ onRefresh触发该事件，进入onRefresh时，设置isRefreshing=true,处理�
           
             <div class="site-state-item site-state-categories">
               <a href="/categories">
-                <span class="site-state-item-count">11</span>
+                <span class="site-state-item-count">13</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -1724,7 +1714,7 @@ onRefresh触发该事件，进入onRefresh时，设置isRefreshing=true,处理�
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">39</span>
+                <span class="site-state-item-count">44</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
