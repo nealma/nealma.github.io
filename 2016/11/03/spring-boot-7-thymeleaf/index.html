@@ -68,7 +68,7 @@
 <link href="../../../../css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Vim," />
+  <meta name="keywords" content="Java,Spring,Spring-Boot,Template,Thymeleaf," />
 
 
 
@@ -86,22 +86,28 @@
 
 
 
-<meta name="description" content="vim我们在用的时候，没有插件和有插件那是天壤之别。快来享受plugin的强大吧
-本记录使用的开发环境：OS: Mac
-1234567891011121314151617set nocompatible              &amp;quot; be iMproved, requiredfiletype off                  &amp;quot; requiredset rtp+=~/.">
+<meta name="description" content="前言模版引擎千千万，今个说说Thymeleaf，主要是不想在混用jsp标签和使用jsp后缀文件，
+直接使用html文件，便于前后端分离。
+开发环境：OS: Mac 10.11.6IDE: IDEABuild: Maven
+依赖Spring Boot天生内置了对Thymeleaf的支持，简化了配置，加速开发。只需要引入如下
+ 1234 &amp;lt;dependency&amp;gt;  &amp;lt;groupId&amp;">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Vim 增强">
-<meta property="og:url" content="http://www.nealma.com/2016/04/26/vim-plugin-enhance/index.html">
+<meta property="og:title" content="Spring-Boot（七) Thymeleaf 模版引擎">
+<meta property="og:url" content="http://www.nealma.com/2016/11/03/spring-boot-7-thymeleaf/index.html">
 <meta property="og:site_name" content="neal.ma">
-<meta property="og:description" content="vim我们在用的时候，没有插件和有插件那是天壤之别。快来享受plugin的强大吧
-本记录使用的开发环境：OS: Mac
-1234567891011121314151617set nocompatible              &amp;quot; be iMproved, requiredfiletype off                  &amp;quot; requiredset rtp+=~/.">
-<meta property="og:updated_time" content="2016-10-16T10:46:30.000Z">
+<meta property="og:description" content="前言模版引擎千千万，今个说说Thymeleaf，主要是不想在混用jsp标签和使用jsp后缀文件，
+直接使用html文件，便于前后端分离。
+开发环境：OS: Mac 10.11.6IDE: IDEABuild: Maven
+依赖Spring Boot天生内置了对Thymeleaf的支持，简化了配置，加速开发。只需要引入如下
+ 1234 &amp;lt;dependency&amp;gt;  &amp;lt;groupId&amp;">
+<meta property="og:updated_time" content="2016-11-16T01:17:33.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Vim 增强">
-<meta name="twitter:description" content="vim我们在用的时候，没有插件和有插件那是天壤之别。快来享受plugin的强大吧
-本记录使用的开发环境：OS: Mac
-1234567891011121314151617set nocompatible              &amp;quot; be iMproved, requiredfiletype off                  &amp;quot; requiredset rtp+=~/.">
+<meta name="twitter:title" content="Spring-Boot（七) Thymeleaf 模版引擎">
+<meta name="twitter:description" content="前言模版引擎千千万，今个说说Thymeleaf，主要是不想在混用jsp标签和使用jsp后缀文件，
+直接使用html文件，便于前后端分离。
+开发环境：OS: Mac 10.11.6IDE: IDEABuild: Maven
+依赖Spring Boot天生内置了对Thymeleaf的支持，简化了配置，加速开发。只需要引入如下
+ 1234 &amp;lt;dependency&amp;gt;  &amp;lt;groupId&amp;">
 
 
 
@@ -122,9 +128,9 @@
 
 
 
-  <link rel="canonical" href="http://www.nealma.com/2016/04/26/vim-plugin-enhance/"/>
+  <link rel="canonical" href="http://www.nealma.com/2016/11/03/spring-boot-7-thymeleaf/"/>
 
-  <title> Vim 增强 | neal.ma </title>
+  <title> Spring-Boot（七) Thymeleaf 模版引擎 | neal.ma </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -274,7 +280,7 @@
             
             
               
-                Vim 增强
+                Spring-Boot（七) Thymeleaf 模版引擎
               
             
           </h1>
@@ -286,8 +292,8 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-04-26T11:46:45+08:00" content="2016-04-26">
-              2016-04-26
+            <time itemprop="dateCreated" datetime="2016-11-03T11:46:45+08:00" content="2016-11-03">
+              2016-11-03
             </time>
           </span>
 
@@ -300,8 +306,8 @@
               <span class="post-meta-item-text">分类于</span>
               
                 <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="../../../../categories/Vim/" itemprop="url" rel="index">
-                    <span itemprop="name">Vim</span>
+                  <a href="../../../../categories/Java/" itemprop="url" rel="index">
+                    <span itemprop="name">Java</span>
                   </a>
                 </span>
 
@@ -317,7 +323,7 @@
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
                 <a href="#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/04/26/vim-plugin-enhance/" itemprop="commentsCount"></span>
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/11/03/spring-boot-7-thymeleaf/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -340,9 +346,29 @@
       
 
       
-        <p>vim我们在用的时候，没有插件和有插件那是天壤之别。<br>快来享受plugin的强大吧</p>
-<p>本记录使用的开发环境：<br>OS: Mac</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">set nocompatible              &quot; be iMproved, required</div><div class="line">filetype off                  &quot; required</div><div class="line"></div><div class="line">set rtp+=~/.vim/bundle/Vundle.vim</div><div class="line">call vundle#begin()</div><div class="line"></div><div class="line">Plugin &apos;VundleVim/Vundle.vim&apos;</div><div class="line">Plugin &apos;scrooloose/nerdtree&apos;</div><div class="line">Plugin &apos;godlygeek/tabular&apos;</div><div class="line">Plugin &apos;raimondi/delimitmate&apos;</div><div class="line">Plugin &apos;terryma/vim-multiple-cursors&apos;</div><div class="line">Plugin &apos;scrooloose/syntastic&apos;</div><div class="line">Plugin &apos;bling/vim-airline&apos;</div><div class="line">Plugin &apos;Valloric/YouCompleteMe&apos;</div><div class="line"></div><div class="line">call vundle#end()            &quot; required</div><div class="line">filetype plugin indent on    &quot; required</div></pre></td></tr></table></figure>
+        <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><pre><code>模版引擎千千万，今个说说Thymeleaf，主要是不想在混用jsp标签和使用jsp后缀文件，
+直接使用html文件，便于前后端分离。
+</code></pre><p>开发环境：<br>OS: Mac 10.11.6<br>IDE: IDEA<br>Build: Maven</p>
+<h3 id="依赖"><a href="#依赖" class="headerlink" title="依赖"></a>依赖</h3><pre><code>Spring Boot天生内置了对Thymeleaf的支持，简化了配置，加速开发。只需要引入如下
+</code></pre> <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"> &lt;dependency&gt;</div><div class="line">  &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;</div><div class="line">  &lt;artifactId&gt;spring-boot-starter-thymeleaf&lt;/artifactId&gt;</div><div class="line">&lt;/dependency&gt;</div></pre></td></tr></table></figure>
+<h3 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h3><pre><code>在application.properties文件里加入如下
+</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">#thymeleaf</div><div class="line">#我倾向于放在webapp/WEB-INF的目录下,spring.thymeleaf.prefix=/templates</div><div class="line">spring.thymeleaf.prefix=classpath:/templates/</div><div class="line">spring.thymeleaf.suffix=.html</div><div class="line">spring.thymeleaf.mode=HTML5</div><div class="line">spring.thymeleaf.encoding=UTF-8</div><div class="line">spring.thymeleaf.content-type=text/html</div></pre></td></tr></table></figure>
+<pre><code>在src/main/resources/templates/文件夹下，存放你的模版文件,其实在应用启动的时候，
+TemplateEngine，ThymeleafViewResolver会自用实例化。
+</code></pre><h3 id="空间指定"><a href="#空间指定" class="headerlink" title="空间指定"></a>空间指定</h3><pre><code>没有指定空间，总是飘红，还是加上吧
+</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">&lt;html xmlns=&quot;http://www.w3.org/1999/xhtml&quot;</div><div class="line">      xmlns:th=&quot;http://www.thymeleaf.org&quot;&gt;</div></pre></td></tr></table></figure>
+<h3 id="最简用例"><a href="#最简用例" class="headerlink" title="最简用例"></a>最简用例</h3><ul>
+<li>Controller</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line">/**</div><div class="line"> *</div><div class="line"> * 商品信息</div><div class="line"> */</div><div class="line">@RestController</div><div class="line">public class GoodsPageController extends BaseController &#123;</div><div class="line">    /**</div><div class="line">     * 商品列表</div><div class="line">     */</div><div class="line">    @RequestMapping(value = &#123;&quot;/goods/list&quot;&#125;, method = RequestMethod.GET)</div><div class="line">    @PermitAll</div><div class="line">    public ModelAndView list(Model model) &#123;</div><div class="line">        LOGGER.info(&quot;|--&gt; &#123;&#125;&quot;, this.getRequest().getRequestURI());</div><div class="line">        model.addAttribute(&quot;name&quot;, &quot;neal&quot;);</div><div class="line">        Map&lt;String, Object&gt; map = new HashMap&lt;&gt;();</div><div class="line">        map.put(&quot;id&quot;, 1);</div><div class="line">        map.put(&quot;title&quot;, &quot;小怪兽来了&quot;);</div><div class="line">        Map&lt;String, Object&gt; map1 = new HashMap&lt;&gt;();</div><div class="line">        map1.put(&quot;id&quot;, 2);</div><div class="line">        map1.put(&quot;title&quot;, &quot;小怪兽来了&quot;);</div><div class="line">        model.addAttribute(&quot;list&quot;, Arrays.asList(new Object[]&#123;map,map1&#125;));</div><div class="line">        return new ModelAndView(&quot;/index&quot;);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<ul>
+<li>创建src/main/resources/templates/index.html</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">&lt;!DOCTYPE html&gt;</div><div class="line">&lt;html xmlns=&quot;http://www.w3.org/1999/xhtml&quot;</div><div class="line">      xmlns:th=&quot;http://www.thymeleaf.org&quot;&gt;</div><div class="line">&lt;head&gt;</div><div class="line">    &lt;meta charset=&quot;UTF-8&quot;/&gt;</div><div class="line">    &lt;title&gt;Thymeleaf Mini Demo&lt;/title&gt;</div><div class="line">&lt;/head&gt;</div><div class="line">&lt;body&gt;</div><div class="line">Hello, &lt;b th:text=&quot;$&#123;name&#125;&quot;&gt;Name&lt;/b&gt;</div><div class="line">&lt;div th:each=&quot;item:$&#123;list&#125;&quot;&gt;</div><div class="line">    &lt;b th:text=&quot;$&#123;item.id&#125;&quot;&gt;ID&lt;/b&gt;</div><div class="line">    &lt;b th:text=&quot;$&#123;item.title&#125;&quot;&gt;Title&lt;/b&gt;</div><div class="line">&lt;/div&gt;</div><div class="line">&lt;/body&gt;</div><div class="line">&lt;/html&gt;</div></pre></td></tr></table></figure>
+<h3 id="结束"><a href="#结束" class="headerlink" title="结束"></a>结束</h3><pre><code>使用过程中，发现thymeleaf对于html的语法要求的很严格，每个标签都要有结束tag。我的一个页面
+&lt;link &gt; &lt;img&gt; 没有&quot;/&quot;,导致报错；还有就是属性必须是&quot;=&quot;,即key=value, 在input中我使用了disable,结果报错了
+于是改成disable=&quot;disable&quot;.
+</code></pre>
       
     </div>
 
@@ -364,7 +390,15 @@
       
         <div class="post-tags">
           
-            <a href="../../../../tags/Vim/" rel="tag">#Vim</a>
+            <a href="../../../../tags/Java/" rel="tag">#Java</a>
+          
+            <a href="../../../../tags/Spring/" rel="tag">#Spring</a>
+          
+            <a href="../../../../tags/Spring-Boot/" rel="tag">#Spring-Boot</a>
+          
+            <a href="../../../../tags/Template/" rel="tag">#Template</a>
+          
+            <a href="../../../../tags/Thymeleaf/" rel="tag">#Thymeleaf</a>
           
         </div>
       
@@ -373,17 +407,13 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="../../25/mybatis-generator-how-to-use/" rel="next" title="MyBatis Generator 改造">
-                <i class="fa fa-chevron-left"></i> MyBatis Generator 改造
+              <a href="../../01/spring-boot-6-spring-session/" rel="next" title="Spring-Boot（六) Spring Session 分布式会话管理">
+                <i class="fa fa-chevron-left"></i> Spring-Boot（六) Spring Session 分布式会话管理
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="../vim-plugin-install-youcompleteme/" rel="prev" title="Vim Plugin 自动补全(YouCompleteMe)">
-                Vim Plugin 自动补全(YouCompleteMe) <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -409,8 +439,8 @@
           
   <div class="comments" id="comments">
     
-      <div class="ds-thread" data-thread-key="2016/04/26/vim-plugin-enhance/"
-           data-title="Vim 增强" data-url="http://www.nealma.com/2016/04/26/vim-plugin-enhance/">
+      <div class="ds-thread" data-thread-key="2016/11/03/spring-boot-7-thymeleaf/"
+           data-title="Spring-Boot（七) Thymeleaf 模版引擎" data-url="http://www.nealma.com/2016/11/03/spring-boot-7-thymeleaf/">
       </div>
     
   </div>
@@ -526,7 +556,7 @@
               
             
             
-              <p class="post-toc-empty">此文章未包含目录</p>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#依赖"><span class="nav-number">2.</span> <span class="nav-text">依赖</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#配置"><span class="nav-number">3.</span> <span class="nav-text">配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#空间指定"><span class="nav-number">4.</span> <span class="nav-text">空间指定</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#最简用例"><span class="nav-number">5.</span> <span class="nav-text">最简用例</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#结束"><span class="nav-number">6.</span> <span class="nav-text">结束</span></a></li></ol></div>
             
           </div>
         </section>

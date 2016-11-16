@@ -1540,8 +1540,8 @@ Build Setting添加Code Signing Identity为iOS Developer
             
               
                 
-                <a class="post-title-link" href="../../2016/05/30/spring-boot-5-exception/" itemprop="url">
-                  Spring-Boot（五) 全局异常处理
+                <a class="post-title-link" href="../../2016/05/30/nodejs-1-very-slow/" itemprop="url">
+                  npm 网络难以忍受
                 </a>
               
             
@@ -1568,8 +1568,8 @@ Build Setting添加Code Signing Identity为iOS Developer
               <span class="post-meta-item-text">分类于</span>
               
                 <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="../../categories/Java/" itemprop="url" rel="index">
-                    <span itemprop="name">Java</span>
+                  <a href="../../categories/NodeJS/" itemprop="url" rel="index">
+                    <span itemprop="name">NodeJS</span>
                   </a>
                 </span>
 
@@ -1584,8 +1584,8 @@ Build Setting添加Code Signing Identity为iOS Developer
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="../../2016/05/30/spring-boot-5-exception/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/05/30/spring-boot-5-exception/" itemprop="commentsCount"></span>
+                <a href="../../2016/05/30/nodejs-1-very-slow/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/05/30/nodejs-1-very-slow/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -1610,32 +1610,8 @@ Build Setting添加Code Signing Identity为iOS Developer
       
         
           
-            <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><pre><code>广大码农同胞在写程序的时候，总是会遇到处理各种Exception，神马空指针啦，
-再有就是处理DataBase的IO异常啦，反正哪都有他们的影子，真是阴魂不散啊。但是呢，
-你又不能置之不理，那就求救于Spring的全局处理吧
-</code></pre><p>：）～<br>开发环境：<br>OS: Mac 10.11.6<br>IDE: IDEA<br>Build: Maven</p>
-<pre><code>Spring-Boot默认实现了简单的错误页面，但是那个真是惨不忍睹。追求用户体验的你，当然想
-换成自己的页面了，看着美美哒。
-
-在实际工作中，我们不可能都是一出错就跳到html页面，根据我们自己的业务，我们通常还要以接口的形式
-返回固定格式的数据，最多的就是json啦。
-</code></pre><p>下面就以html和json两种形式介绍如何实现。</p>
-<h3 id="html"><a href="#html" class="headerlink" title="html"></a>html</h3><pre><code>现在只要能用注解，谁还实用xml来配置啊。
-正好这里涉及到两个annotation类：
-* @ControllerAdvice 全局异常处理类，不再需要每个Controller里一一定义
-* @ExceptionHandler 定义针对每种类型的Exception
-
-当然啦，如果你在业务中已经trycatch啦，那就别指望被处理了，你自己都处理了
-别人当然不操心了
-</code></pre><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"> * 全局异常处理类</div><div class="line"> */</div><div class="line"><span class="meta">@ControllerAdvice</span></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">GlobalExceptionHandler</span> </span>&#123;</div><div class="line"></div><div class="line">    <span class="keyword">protected</span> <span class="keyword">final</span> Logger LOGGER = LoggerFactory.getLogger(getClass());</div><div class="line"></div><div class="line">    <span class="meta">@ExceptionHandler</span>(value = NullPointerException.class)</div><div class="line">    <span class="function"><span class="keyword">public</span> ModelAndView <span class="title">defaultErrorHandler</span><span class="params">(HttpServletRequest req, Exception e)</span> <span class="keyword">throws</span> Exception </span>&#123;</div><div class="line">        LOGGER.error(<span class="string">"[error] --&gt; &#123;&#125;"</span>, e);</div><div class="line">        ModelAndView mav = <span class="keyword">new</span> ModelAndView();</div><div class="line">        mav.addObject(<span class="string">"exception"</span>, e);</div><div class="line">        mav.addObject(<span class="string">"url"</span>, req.getRequestURL());</div><div class="line">        mav.setViewName(<span class="string">"error"</span>);</div><div class="line">        <span class="keyword">return</span> mav;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h3 id="JSON"><a href="#JSON" class="headerlink" title="JSON"></a>JSON</h3><pre><code>在前面的基础上，添加输出json的方法，其中@ResponseBody是必须条件
-</code></pre><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**</span></div><div class="line"> * 全局异常处理类</div><div class="line"> */</div><div class="line"><span class="meta">@ControllerAdvice</span></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">GlobalExceptionHandler</span> </span>&#123;</div><div class="line"></div><div class="line">    <span class="keyword">protected</span> <span class="keyword">final</span> Logger LOGGER = LoggerFactory.getLogger(getClass());</div><div class="line"></div><div class="line">    <span class="meta">@ExceptionHandler</span>(value = NullPointerException.class)</div><div class="line">    <span class="function"><span class="keyword">public</span> ModelAndView <span class="title">defaultErrorHandler</span><span class="params">(HttpServletRequest req, Exception e)</span> <span class="keyword">throws</span> Exception </span>&#123;</div><div class="line">        LOGGER.error(<span class="string">"[error] --&gt; &#123;&#125;"</span>, e);</div><div class="line">        ModelAndView mav = <span class="keyword">new</span> ModelAndView();</div><div class="line">        mav.addObject(<span class="string">"exception"</span>, e);</div><div class="line">        mav.addObject(<span class="string">"url"</span>, req.getRequestURL());</div><div class="line">        mav.setViewName(<span class="string">"error"</span>);</div><div class="line">        <span class="keyword">return</span> mav;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@ExceptionHandler</span>(value = AppException.class)</div><div class="line">    <span class="meta">@ResponseBody</span></div><div class="line">    <span class="function"><span class="keyword">public</span> MsgOut <span class="title">json</span><span class="params">(Exception ex)</span> </span>&#123;</div><div class="line">        <span class="comment">//<span class="doctag">TODO:</span>记录日志</span></div><div class="line">        LOGGER.error(<span class="string">"AppException"</span>, ex);</div><div class="line"></div><div class="line">        <span class="keyword">return</span> MsgOut.error(ex);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h3 id="结束"><a href="#结束" class="headerlink" title="结束"></a>结束</h3><pre><code>在Spring-Boot中，没有被全局处理类（GlobalExceptionHandler）捕获的异常，ErrorController会帮你补漏。
-如果你使用Spring Validation来校验,要成功捕获 MethodArgumentNotValidException，
-在控制器方法上就不能定义 BindingResult 参数接收校验结果，
-不然如果校验失败 Spring 是不会抛出 MethodArgumentNotValidException 异常的，
-自然而然在我们的 GlobalExceptionHandler 就无法处理了。
-</code></pre>
+            <h3 id="那就换成淘宝的吧"><a href="#那就换成淘宝的吧" class="headerlink" title="那就换成淘宝的吧"></a>那就换成淘宝的吧</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">npm --registry=https://registry.npm.taobao.org install cnpm -g</div></pre></td></tr></table></figure>
+<h3 id="或者改变registry"><a href="#或者改变registry" class="headerlink" title="或者改变registry"></a>或者改变registry</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">#vim ~/.npmrc</div><div class="line"></div><div class="line">registry = https://registry.npm.taobao.org</div></pre></td></tr></table></figure>
           
         
       
@@ -1725,7 +1701,7 @@ Build Setting添加Code Signing Identity为iOS Developer
           
             <div class="site-state-item site-state-tags">
               <a href="../../tags">
-                <span class="site-state-item-count">45</span>
+                <span class="site-state-item-count">46</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
