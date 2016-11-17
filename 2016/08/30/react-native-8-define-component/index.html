@@ -74,7 +74,7 @@
 
 
 
-  <link rel="alternate" href="../../../../atom.xml" title="neal.ma" type="application/atom+xml" />
+  <link rel="alternate" href="../../../../atom.xml" title="nealma.com" type="application/atom+xml" />
 
 
 
@@ -86,28 +86,25 @@
 
 
 
-<meta name="description" content="前言再前面一篇文章中，我使用了listview，当加载到最后，没有更多了，要更新提示；
+<meta name="description" content="再前面一篇文章中，我使用了listview，当加载到最后，没有更多了，要更新提示；
 一个方法是定义两个class，一个加载更多Footer，一个没有更多啦Footer, 很显热
 只是为了一个string的变量，定义两个class有点浪费，从组件服用角度也是不合理的。
-那怎么办呢？下面慢慢分解...
-开发环境：OS: Mac 10.11.6Xcode: Version 8.0 (8A218a)">
+那怎么办呢？下面慢慢分解...">
 <meta property="og:type" content="article">
 <meta property="og:title" content="React Native (八) 自定义组件">
 <meta property="og:url" content="http://www.nealma.com/2016/08/30/react-native-8-define-component/index.html">
-<meta property="og:site_name" content="neal.ma">
-<meta property="og:description" content="前言再前面一篇文章中，我使用了listview，当加载到最后，没有更多了，要更新提示；
+<meta property="og:site_name" content="nealma.com">
+<meta property="og:description" content="再前面一篇文章中，我使用了listview，当加载到最后，没有更多了，要更新提示；
 一个方法是定义两个class，一个加载更多Footer，一个没有更多啦Footer, 很显热
 只是为了一个string的变量，定义两个class有点浪费，从组件服用角度也是不合理的。
-那怎么办呢？下面慢慢分解...
-开发环境：OS: Mac 10.11.6Xcode: Version 8.0 (8A218a)">
-<meta property="og:updated_time" content="2016-10-28T05:51:08.000Z">
+那怎么办呢？下面慢慢分解...">
+<meta property="og:updated_time" content="2016-11-17T01:58:11.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="React Native (八) 自定义组件">
-<meta name="twitter:description" content="前言再前面一篇文章中，我使用了listview，当加载到最后，没有更多了，要更新提示；
+<meta name="twitter:description" content="再前面一篇文章中，我使用了listview，当加载到最后，没有更多了，要更新提示；
 一个方法是定义两个class，一个加载更多Footer，一个没有更多啦Footer, 很显热
 只是为了一个string的变量，定义两个class有点浪费，从组件服用角度也是不合理的。
-那怎么办呢？下面慢慢分解...
-开发环境：OS: Mac 10.11.6Xcode: Version 8.0 (8A218a)">
+那怎么办呢？下面慢慢分解...">
 
 
 
@@ -130,7 +127,7 @@
 
   <link rel="canonical" href="http://www.nealma.com/2016/08/30/react-native-8-define-component/"/>
 
-  <title> React Native (八) 自定义组件 | neal.ma </title>
+  <title> React Native (八) 自定义组件 | nealma.com </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -171,7 +168,7 @@
   <div class="custom-logo-site-title">
     <a href="/"  class="brand" rel="start">
       <span class="logo-line-before"><i></i></span>
-      <span class="site-title">neal.ma</span>
+      <span class="site-title">nealma.com</span>
       <span class="logo-line-after"><i></i></span>
     </a>
   </div>
@@ -346,7 +343,12 @@
       
 
       
-        <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><pre><code>再前面一篇文章中，我使用了listview，当加载到最后，没有更多了，要更新提示；
+        <pre><code>再前面一篇文章中，我使用了listview，当加载到最后，没有更多了，要更新提示；
+一个方法是定义两个class，一个加载更多Footer，一个没有更多啦Footer, 很显热
+只是为了一个string的变量，定义两个class有点浪费，从组件服用角度也是不合理的。
+那怎么办呢？下面慢慢分解...
+</code></pre><a id="more"></a>
+<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><pre><code>再前面一篇文章中，我使用了listview，当加载到最后，没有更多了，要更新提示；
 一个方法是定义两个class，一个加载更多Footer，一个没有更多啦Footer, 很显热
 只是为了一个string的变量，定义两个class有点浪费，从组件服用角度也是不合理的。
 那怎么办呢？下面慢慢分解...
@@ -365,6 +367,7 @@
 </code></pre><h3 id="结束"><a href="#结束" class="headerlink" title="结束"></a>结束</h3><pre><code>：）～
 </code></pre>
       
+
     </div>
 
     <div>
@@ -471,8 +474,8 @@
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="http://upload.jianshu.io/users/upload_avatars/2649507/df92b5ff1a68.jpeg"
-               alt="neal.ma" />
-          <p class="site-author-name" itemprop="name">neal.ma</p>
+               alt="马英乘Neal" />
+          <p class="site-author-name" itemprop="name">马英乘Neal</p>
           <p class="site-description motion-element" itemprop="description">Follow your heart, just do it.</p>
         </div>
         <nav class="site-state motion-element">
@@ -572,7 +575,7 @@
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
-  <span class="author" itemprop="copyrightHolder">neal.ma</span>
+  <span class="author" itemprop="copyrightHolder">马英乘Neal</span>
 </div>
 
 <div class="powered-by">

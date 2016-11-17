@@ -74,7 +74,7 @@
 
 
 
-  <link rel="alternate" href="../../../../atom.xml" title="neal.ma" type="application/atom+xml" />
+  <link rel="alternate" href="../../../../atom.xml" title="nealma.com" type="application/atom+xml" />
 
 
 
@@ -86,22 +86,16 @@
 
 
 
-<meta name="description" content="前言Spring发展到现在，在java框架中一直在坚守，也在不断的改进。Spring-Boot的出现，并不是什么新技术，而是简化我们的开发步骤和配置，让我们愉快的玩耍吧。
-开发环境：OS: Mac 10.11.6IDE: IDEA 2016.2Build: Maven
-RunSpring-Boot是从run开始的，所以你的项目必须包含类似以下的一段代码我习惯于放在com.domain.projec">
+<meta name="description" content="Spring发展到现在，在java框架中一直在坚守，也在不断的改进。Spring-Boot的出现，并不是什么新技术，而是简化我们的开发步骤和配置，让我们愉快的玩耍吧。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Spring-Boot（一） 环境搭建">
 <meta property="og:url" content="http://www.nealma.com/2016/04/20/spring-boot-1-how-to-use/index.html">
-<meta property="og:site_name" content="neal.ma">
-<meta property="og:description" content="前言Spring发展到现在，在java框架中一直在坚守，也在不断的改进。Spring-Boot的出现，并不是什么新技术，而是简化我们的开发步骤和配置，让我们愉快的玩耍吧。
-开发环境：OS: Mac 10.11.6IDE: IDEA 2016.2Build: Maven
-RunSpring-Boot是从run开始的，所以你的项目必须包含类似以下的一段代码我习惯于放在com.domain.projec">
-<meta property="og:updated_time" content="2016-10-25T08:01:34.000Z">
+<meta property="og:site_name" content="nealma.com">
+<meta property="og:description" content="Spring发展到现在，在java框架中一直在坚守，也在不断的改进。Spring-Boot的出现，并不是什么新技术，而是简化我们的开发步骤和配置，让我们愉快的玩耍吧。">
+<meta property="og:updated_time" content="2016-11-17T01:56:49.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Spring-Boot（一） 环境搭建">
-<meta name="twitter:description" content="前言Spring发展到现在，在java框架中一直在坚守，也在不断的改进。Spring-Boot的出现，并不是什么新技术，而是简化我们的开发步骤和配置，让我们愉快的玩耍吧。
-开发环境：OS: Mac 10.11.6IDE: IDEA 2016.2Build: Maven
-RunSpring-Boot是从run开始的，所以你的项目必须包含类似以下的一段代码我习惯于放在com.domain.projec">
+<meta name="twitter:description" content="Spring发展到现在，在java框架中一直在坚守，也在不断的改进。Spring-Boot的出现，并不是什么新技术，而是简化我们的开发步骤和配置，让我们愉快的玩耍吧。">
 
 
 
@@ -124,7 +118,7 @@ RunSpring-Boot是从run开始的，所以你的项目必须包含类似以下的
 
   <link rel="canonical" href="http://www.nealma.com/2016/04/20/spring-boot-1-how-to-use/"/>
 
-  <title> Spring-Boot（一） 环境搭建 | neal.ma </title>
+  <title> Spring-Boot（一） 环境搭建 | nealma.com </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -165,7 +159,7 @@ RunSpring-Boot是从run开始的，所以你的项目必须包含类似以下的
   <div class="custom-logo-site-title">
     <a href="/"  class="brand" rel="start">
       <span class="logo-line-before"><i></i></span>
-      <span class="site-title">neal.ma</span>
+      <span class="site-title">nealma.com</span>
       <span class="logo-line-after"><i></i></span>
     </a>
   </div>
@@ -340,7 +334,9 @@ RunSpring-Boot是从run开始的，所以你的项目必须包含类似以下的
       
 
       
-        <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>Spring发展到现在，在java框架中一直在坚守，也在不断的改进。<br>Spring-Boot的出现，并不是什么新技术，而是简化我们的开发步骤和配置，让我们愉快的玩耍吧。</p>
+        <p>Spring发展到现在，在java框架中一直在坚守，也在不断的改进。<br>Spring-Boot的出现，并不是什么新技术，而是简化我们的开发步骤和配置，让我们愉快的玩耍吧。</p>
+<a id="more"></a>
+<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>Spring发展到现在，在java框架中一直在坚守，也在不断的改进。<br>Spring-Boot的出现，并不是什么新技术，而是简化我们的开发步骤和配置，让我们愉快的玩耍吧。</p>
 <p>开发环境：<br>OS: Mac 10.11.6<br>IDE: IDEA 2016.2<br>Build: Maven</p>
 <h3 id="Run"><a href="#Run" class="headerlink" title="Run"></a>Run</h3><p>Spring-Boot是从run开始的，所以你的项目必须包含类似以下的一段代码<br>我习惯于放在com.domain.project包下</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@SpringBootApplication</span></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Application</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</div><div class="line">        SpringApplication.run(Application.class, args);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
@@ -354,6 +350,7 @@ RunSpring-Boot是从run开始的，所以你的项目必须包含类似以下的
 <h3 id="跑起来"><a href="#跑起来" class="headerlink" title="跑起来"></a>跑起来</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">mvn clean spring-boot:run</div></pre></td></tr></table></figure>
 
       
+
     </div>
 
     <div>
@@ -462,8 +459,8 @@ RunSpring-Boot是从run开始的，所以你的项目必须包含类似以下的
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="http://upload.jianshu.io/users/upload_avatars/2649507/df92b5ff1a68.jpeg"
-               alt="neal.ma" />
-          <p class="site-author-name" itemprop="name">neal.ma</p>
+               alt="马英乘Neal" />
+          <p class="site-author-name" itemprop="name">马英乘Neal</p>
           <p class="site-description motion-element" itemprop="description">Follow your heart, just do it.</p>
         </div>
         <nav class="site-state motion-element">
@@ -563,7 +560,7 @@ RunSpring-Boot是从run开始的，所以你的项目必须包含类似以下的
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
-  <span class="author" itemprop="copyrightHolder">neal.ma</span>
+  <span class="author" itemprop="copyrightHolder">马英乘Neal</span>
 </div>
 
 <div class="powered-by">

@@ -74,7 +74,7 @@
 
 
 
-  <link rel="alternate" href="atom.xml" title="neal.ma" type="application/atom+xml" />
+  <link rel="alternate" href="atom.xml" title="nealma.com" type="application/atom+xml" />
 
 
 
@@ -88,12 +88,12 @@
 
 <meta name="description" content="Follow your heart, just do it.">
 <meta property="og:type" content="website">
-<meta property="og:title" content="neal.ma">
+<meta property="og:title" content="nealma.com">
 <meta property="og:url" content="http://www.nealma.com/index.html">
-<meta property="og:site_name" content="neal.ma">
+<meta property="og:site_name" content="nealma.com">
 <meta property="og:description" content="Follow your heart, just do it.">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="neal.ma">
+<meta name="twitter:title" content="nealma.com">
 <meta name="twitter:description" content="Follow your heart, just do it.">
 
 
@@ -117,7 +117,7 @@
 
   <link rel="canonical" href="http://www.nealma.com/"/>
 
-  <title> neal.ma </title>
+  <title> nealma.com </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -160,7 +160,7 @@
   <div class="custom-logo-site-title">
     <a href="/"  class="brand" rel="start">
       <span class="logo-line-before"><i></i></span>
-      <span class="site-title">neal.ma</span>
+      <span class="site-title">nealma.com</span>
       <span class="logo-line-after"><i></i></span>
     </a>
   </div>
@@ -338,34 +338,19 @@
       
 
       
+
         
-          
-            <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><pre><code>模版引擎千千万，今个说说Thymeleaf，主要是不想在混用jsp标签和使用jsp后缀文件，
+          <pre><code>模版引擎千千万，今个说说Thymeleaf，主要是不想在混用jsp标签和使用jsp后缀文件，
 直接使用html文件，便于前后端分离。
-</code></pre><p>开发环境：<br>OS: Mac 10.11.6<br>IDE: IDEA<br>Build: Maven</p>
-<h3 id="依赖"><a href="#依赖" class="headerlink" title="依赖"></a>依赖</h3><pre><code>Spring Boot天生内置了对Thymeleaf的支持，简化了配置，加速开发。只需要引入如下
-</code></pre> <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"> &lt;dependency&gt;</div><div class="line">  &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;</div><div class="line">  &lt;artifactId&gt;spring-boot-starter-thymeleaf&lt;/artifactId&gt;</div><div class="line">&lt;/dependency&gt;</div></pre></td></tr></table></figure>
-<h3 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h3><pre><code>在application.properties文件里加入如下
-</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">#thymeleaf</div><div class="line">#我倾向于放在webapp/WEB-INF的目录下,spring.thymeleaf.prefix=/templates</div><div class="line">spring.thymeleaf.prefix=classpath:/templates/</div><div class="line">spring.thymeleaf.suffix=.html</div><div class="line">spring.thymeleaf.mode=HTML5</div><div class="line">spring.thymeleaf.encoding=UTF-8</div><div class="line">spring.thymeleaf.content-type=text/html</div></pre></td></tr></table></figure>
-<pre><code>在src/main/resources/templates/文件夹下，存放你的模版文件,其实在应用启动的时候，
-TemplateEngine，ThymeleafViewResolver会自用实例化。
-</code></pre><h3 id="空间指定"><a href="#空间指定" class="headerlink" title="空间指定"></a>空间指定</h3><pre><code>没有指定空间，总是飘红，还是加上吧
-</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">&lt;html xmlns=&quot;http://www.w3.org/1999/xhtml&quot;</div><div class="line">      xmlns:th=&quot;http://www.thymeleaf.org&quot;&gt;</div></pre></td></tr></table></figure>
-<h3 id="最简用例"><a href="#最简用例" class="headerlink" title="最简用例"></a>最简用例</h3><ul>
-<li>Controller</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line">/**</div><div class="line"> *</div><div class="line"> * 商品信息</div><div class="line"> */</div><div class="line">@RestController</div><div class="line">public class GoodsPageController extends BaseController &#123;</div><div class="line">    /**</div><div class="line">     * 商品列表</div><div class="line">     */</div><div class="line">    @RequestMapping(value = &#123;&quot;/goods/list&quot;&#125;, method = RequestMethod.GET)</div><div class="line">    @PermitAll</div><div class="line">    public ModelAndView list(Model model) &#123;</div><div class="line">        LOGGER.info(&quot;|--&gt; &#123;&#125;&quot;, this.getRequest().getRequestURI());</div><div class="line">        model.addAttribute(&quot;name&quot;, &quot;neal&quot;);</div><div class="line">        Map&lt;String, Object&gt; map = new HashMap&lt;&gt;();</div><div class="line">        map.put(&quot;id&quot;, 1);</div><div class="line">        map.put(&quot;title&quot;, &quot;小怪兽来了&quot;);</div><div class="line">        Map&lt;String, Object&gt; map1 = new HashMap&lt;&gt;();</div><div class="line">        map1.put(&quot;id&quot;, 2);</div><div class="line">        map1.put(&quot;title&quot;, &quot;小怪兽来了&quot;);</div><div class="line">        model.addAttribute(&quot;list&quot;, Arrays.asList(new Object[]&#123;map,map1&#125;));</div><div class="line">        return new ModelAndView(&quot;/index&quot;);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<ul>
-<li>创建src/main/resources/templates/index.html</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">&lt;!DOCTYPE html&gt;</div><div class="line">&lt;html xmlns=&quot;http://www.w3.org/1999/xhtml&quot;</div><div class="line">      xmlns:th=&quot;http://www.thymeleaf.org&quot;&gt;</div><div class="line">&lt;head&gt;</div><div class="line">    &lt;meta charset=&quot;UTF-8&quot;/&gt;</div><div class="line">    &lt;title&gt;Thymeleaf Mini Demo&lt;/title&gt;</div><div class="line">&lt;/head&gt;</div><div class="line">&lt;body&gt;</div><div class="line">Hello, &lt;b th:text=&quot;$&#123;name&#125;&quot;&gt;Name&lt;/b&gt;</div><div class="line">&lt;div th:each=&quot;item:$&#123;list&#125;&quot;&gt;</div><div class="line">    &lt;b th:text=&quot;$&#123;item.id&#125;&quot;&gt;ID&lt;/b&gt;</div><div class="line">    &lt;b th:text=&quot;$&#123;item.title&#125;&quot;&gt;Title&lt;/b&gt;</div><div class="line">&lt;/div&gt;</div><div class="line">&lt;/body&gt;</div><div class="line">&lt;/html&gt;</div></pre></td></tr></table></figure>
-<h3 id="结束"><a href="#结束" class="headerlink" title="结束"></a>结束</h3><pre><code>使用过程中，发现thymeleaf对于html的语法要求的很严格，每个标签都要有结束tag。我的一个页面
-&lt;link &gt; &lt;img&gt; 没有&quot;/&quot;,导致报错；还有就是属性必须是&quot;=&quot;,即key=value, 在input中我使用了disable,结果报错了
-于是改成disable=&quot;disable&quot;.
 </code></pre>
-          
+          <div class="post-more-link text-center">
+            <a class="btn" href="2016/11/03/spring-boot-7-thymeleaf/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
         
       
+
     </div>
 
     <div>
@@ -479,34 +464,20 @@ TemplateEngine，ThymeleafViewResolver会自用实例化。
       
 
       
+
         
-          
-            <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><pre><code>使用Spring Security的时候，觉得省了好多的事情。但是它使用的是内存来存储CurrentUser的信息
+          <pre><code>使用Spring Security的时候，觉得省了好多的事情。但是它使用的是内存来存储CurrentUser的信息
 和登录凭证，一旦单机不能承受大用户量，就需要水平扩展，就会涉及到session的问题。怎么才能实现
 平滑扩展呢？还好有Sping Session，怎么用呢？
-</code></pre><p>开发环境：<br>OS: Mac 10.11.6<br>IDE: IDEA<br>Build: Maven</p>
-<h3 id="Spring-Session-是什么"><a href="#Spring-Session-是什么" class="headerlink" title="Spring Session 是什么"></a>Spring Session 是什么</h3><pre><code>其实也不是什么新鲜的事儿？我们在实现用户登录，授权的时候，最初是web场景，我们只需要在Cookies中
-操作即可，现在我们面临移动端、open API等多种场景，单纯的Cookies已经不满足或者不能优雅的体现Restful
-风格，此时需要在Header上动手脚，也就是把原来存放在Cookies中的信息移到了Header中，换汤不换药
-</code></pre><h3 id="在Web中使用CookieHttpSessionStrategy"><a href="#在Web中使用CookieHttpSessionStrategy" class="headerlink" title="在Web中使用CookieHttpSessionStrategy"></a>在Web中使用CookieHttpSessionStrategy</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="meta">@Bean</span></div><div class="line"><span class="function"><span class="keyword">public</span> HttpSessionStrategy <span class="title">httpSessionStrategy</span><span class="params">()</span> </span>&#123;</div><div class="line">    <span class="keyword">return</span> <span class="keyword">new</span> CookieHttpSessionStrategy();</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h3 id="在Header中使用HeaderHttpSessionStrategy"><a href="#在Header中使用HeaderHttpSessionStrategy" class="headerlink" title="在Header中使用HeaderHttpSessionStrategy"></a>在Header中使用HeaderHttpSessionStrategy</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="meta">@Bean</span></div><div class="line"><span class="function"><span class="keyword">public</span> HttpSessionStrategy <span class="title">httpSessionStrategy</span><span class="params">()</span> </span>&#123;</div><div class="line">    <span class="keyword">return</span> <span class="keyword">new</span> HeaderHttpSessionStrategy();</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h3 id="Session-外部存储"><a href="#Session-外部存储" class="headerlink" title="Session 外部存储"></a>Session 外部存储</h3><pre><code>单纯的把Session信息存在JVM内容已经不适合现在的技术架构，再加上外部存储的开源产品足够成熟(Redis等)，
-于是Sping Session对HttpSession进行了重新包装，使其很容易结合Redis等开源产品，节省了我们的开发时间。
-只需要在你自己实现的WebSecurityConfigurerAdapter中加上如下注解：
-</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">@EnableRedisHttpSession</div></pre></td></tr></table></figure>
-<h3 id="Cookies和Header混合支持"><a href="#Cookies和Header混合支持" class="headerlink" title="Cookies和Header混合支持"></a>Cookies和Header混合支持</h3><pre><code>但是在使用的过程中遇到一个问题，需要Cookie和Header都支持，这下麻烦了，还需要自己去实现，
-怎么才能都支持呢？那就是在自己实现的AllHttpSessionStrategy中，对Request进行判断，如果是html，就使用
-CookieHttpSessionStrategy，如果是API就用HeaderHttpSessionStrategy，具体如下：
-</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">@Bean</div><div class="line">  public HttpSessionStrategy httpSessionStrategy() &#123;</div><div class="line">      return new MyHttpSessionStrategy(new HeaderContentNegotiationStrategy());</div><div class="line">  &#125;</div></pre></td></tr></table></figure>
-<p>这里的MyHttpSessionStrategy是要自己实现的</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div></pre></td><td class="code"><pre><div class="line">public class MyHttpSessionStrategy implements HttpSessionStrategy &#123;</div><div class="line">    private HttpSessionStrategy browser;</div><div class="line"></div><div class="line">    private HttpSessionStrategy api;</div><div class="line"></div><div class="line">    private RequestMatcher browserMatcher;</div><div class="line"></div><div class="line">    @Autowired</div><div class="line">    public MyHttpSessionStrategy(ContentNegotiationStrategy contentNegotiationStrategy) &#123;</div><div class="line">        this(new CookieHttpSessionStrategy(), new HeaderHttpSessionStrategy());</div><div class="line">        MediaTypeRequestMatcher matcher = new MediaTypeRequestMatcher(contentNegotiationStrategy,</div><div class="line">                Arrays.asList(MediaType.TEXT_HTML));</div><div class="line">        matcher.setIgnoredMediaTypes(Collections.singleton(MediaType.ALL));</div><div class="line"></div><div class="line">        RequestHeaderRequestMatcher javascript = new RequestHeaderRequestMatcher(&quot;X-Requested-With&quot;);</div><div class="line"></div><div class="line">        this.browserMatcher = new OrRequestMatcher(Arrays.asList(matcher, javascript));</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    public MyHttpSessionStrategy(HttpSessionStrategy browser, HttpSessionStrategy api) &#123;</div><div class="line">        this.browser = browser;</div><div class="line">        this.api = api;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    @Override</div><div class="line">    public String getRequestedSessionId(HttpServletRequest request) &#123;</div><div class="line">        return getStrategy(request).getRequestedSessionId(request);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    @Override</div><div class="line">    public void onNewSession(Session session, HttpServletRequest request, HttpServletResponse response) &#123;</div><div class="line">        getStrategy(request).onNewSession(session, request, response);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    @Override</div><div class="line">    public void onInvalidateSession(HttpServletRequest request, HttpServletResponse response) &#123;</div><div class="line">        getStrategy(request).onInvalidateSession(request, response);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    private HttpSessionStrategy getStrategy(HttpServletRequest request) &#123;</div><div class="line">        return this.browserMatcher.matches(request) ? this.browser : this.api;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h3 id="结束"><a href="#结束" class="headerlink" title="结束"></a>结束</h3><pre><code>这样无论是网页端还是RESTFull API，都可以正常支持了。
-网页端通过cookie来传递session，API使用的是x-auth-token。
-这里有个问题就是还不知道怎么去更新Redis中会话信息,待续...
 </code></pre>
-          
+          <div class="post-more-link text-center">
+            <a class="btn" href="2016/11/01/spring-boot-6-spring-session/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
         
       
+
     </div>
 
     <div>
@@ -620,166 +591,19 @@ CookieHttpSessionStrategy，如果是API就用HeaderHttpSessionStrategy，具体
       
 
       
+
         
-          
-            <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><pre><code>文本替换在我们的工作中经常被使用，是一个高频的功能。
+          <pre><code>文本替换在我们的工作中经常被使用，是一个高频的功能。
 可是我总是记不住，每次都得Google一下，还是自己记录下吧...
-</code></pre><h3 id="Replace-Text"><a href="#Replace-Text" class="headerlink" title="Replace Text"></a>Replace Text</h3><ul>
-<li>替换当前行第一个字符</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"># 将当前光标所在的行中，第一个出现的a替换成b</div><div class="line">:$s/a/b</div></pre></td></tr></table></figure>
-<ul>
-<li>替换前光标所在的行所有字符</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"># 将当前光标所在的行中，所有a替换成b</div><div class="line">:$s/a/b/g</div></pre></td></tr></table></figure>
-<ul>
-<li>替换第n行到当前行区间中所有行的第一个字符</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"># 将第n行到当前光标所在的行中，第一个出现的a替换成b</div><div class="line">#n 为行号</div><div class="line">:n,$s/a/b</div></pre></td></tr></table></figure>
-<ul>
-<li>替换前光标所在的行所有字符</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"># 将第n行到当前光标所在的行中，所有a替换成b</div><div class="line">:n,$s/a/b/g</div></pre></td></tr></table></figure>
-<h3 id="结束"><a href="#结束" class="headerlink" title="结束"></a>结束</h3><p>:)~</p>
-
-          
+</code></pre>
+          <div class="post-more-link text-center">
+            <a class="btn" href="2016/10/02/vim-command-line-1-replace/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
         
       
-    </div>
 
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="2016/10/01/centos-72-3-php/" itemprop="url">
-                  CentOS7（三）Install PHP
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-10-01T11:46:45+08:00" content="2016-10-01">
-              2016-10-01
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="categories/Linux/" itemprop="url" rel="index">
-                    <span itemprop="name">Linux</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="2016/10/01/centos-72-3-php/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/10/01/centos-72-3-php/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><pre><code>今天在CentOS 7.2上安装PHP,记录一下
-</code></pre><h3 id="Install-PHP"><a href="#Install-PHP" class="headerlink" title="Install PHP"></a>Install PHP</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">yum install php php-mysql</div></pre></td></tr></table></figure>
-<h3 id="Restart-Apache-web-server"><a href="#Restart-Apache-web-server" class="headerlink" title="Restart Apache web server"></a>Restart Apache web server</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">yum -y install httpd</div><div class="line"></div><div class="line">systemctl restart httpd.service</div></pre></td></tr></table></figure>
-<h3 id="Install-PHP-Modules"><a href="#Install-PHP-Modules" class="headerlink" title="Install PHP Modules"></a>Install PHP Modules</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">yum install php-fpm</div></pre></td></tr></table></figure>
-<h3 id="Test-php"><a href="#Test-php" class="headerlink" title="Test php"></a>Test php</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">vim /var/www/html/info.php</div><div class="line"></div><div class="line">#文件内容</div><div class="line">&lt;?php phpinfo(); ?&gt;</div></pre></td></tr></table></figure>
-<h3 id="如果开启了firewall，请允许HTTP和HTTPS-Traffic"><a href="#如果开启了firewall，请允许HTTP和HTTPS-Traffic" class="headerlink" title="如果开启了firewall，请允许HTTP和HTTPS Traffic"></a>如果开启了firewall，请允许HTTP和HTTPS Traffic</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">firewall-cmd --permanent --zone=public --add-service=http </div><div class="line">firewall-cmd --permanent --zone=public --add-service=https</div><div class="line">firewall-cmd --reload</div></pre></td></tr></table></figure>
-<h3 id="Install-phpMyAdmin"><a href="#Install-phpMyAdmin" class="headerlink" title="Install phpMyAdmin"></a>Install phpMyAdmin</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">yum -y update</div><div class="line">yum -y install phpmyadmin</div></pre></td></tr></table></figure>
-<h3 id="安装完后，发现还是5-x-x，还得继续，升级到7-x"><a href="#安装完后，发现还是5-x-x，还得继续，升级到7-x" class="headerlink" title="安装完后，发现还是5.x.x，还得继续，升级到7.x"></a>安装完后，发现还是5.x.x，还得继续，升级到7.x</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">rpm -Uvh https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm</div><div class="line">rpm -Uvh https://mirror.webtatic.com/yum/el7/webtatic-release.rpm</div><div class="line"></div><div class="line">yum install php70w php70w-opcache</div><div class="line"></div><div class="line">yum install yum-plugin-replace</div><div class="line"></div><div class="line">yum replace php-common --replace-with=php70w-common -y</div><div class="line"></div><div class="line">yum install php70w-opcache -y</div></pre></td></tr></table></figure>
-<h3 id="安装ecshop-检查结果，文件不可写"><a href="#安装ecshop-检查结果，文件不可写" class="headerlink" title="安装ecshop,检查结果，文件不可写"></a>安装ecshop,检查结果，文件不可写</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">chmod -R 777 /var/www/html/ecshop/</div></pre></td></tr></table></figure>
-<h3 id="安装依赖"><a href="#安装依赖" class="headerlink" title="安装依赖"></a>安装依赖</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">yum -y install mysql mysql-server mysql-devel php-mysql gd gd-devel httpd php php-gd</div></pre></td></tr></table></figure>
-<h3 id="如果想删除php，更换版本，如下："><a href="#如果想删除php，更换版本，如下：" class="headerlink" title="如果想删除php，更换版本，如下："></a>如果想删除php，更换版本，如下：</h3><p>```</p>
-<h1 id="remove"><a href="#remove" class="headerlink" title="remove"></a>remove</h1><p>yum remove php</p>
-<p>＃ search<br>yum search php</p>
-<h1 id="remove-common"><a href="#remove-common" class="headerlink" title="remove common"></a>remove common</h1><p>yum remove php-commen(以search的结果为准)</p>
-<p># </p>
-<h3 id="结束"><a href="#结束" class="headerlink" title="结束"></a>结束</h3><p>:)~</p>
-
-          
-        
-      
     </div>
 
     <div>
@@ -893,19 +717,143 @@ CookieHttpSessionStrategy，如果是API就用HeaderHttpSessionStrategy，具体
       
 
       
-        
-          
-            <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><pre><code>今天在CentOS 7.2上安装MySQL（MariaDB）,记录一下
-</code></pre><h3 id="Install-MariaDB"><a href="#Install-MariaDB" class="headerlink" title="Install MariaDB"></a>Install MariaDB</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">yum install mariadb-server mariadb</div></pre></td></tr></table></figure>
-<h3 id="Start-MariaDB"><a href="#Start-MariaDB" class="headerlink" title="Start MariaDB"></a>Start MariaDB</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">systemsctl start mariadb</div></pre></td></tr></table></figure>
-<h3 id="Setting-Secure"><a href="#Setting-Secure" class="headerlink" title="Setting Secure"></a>Setting Secure</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line"># 设置root密码，是否允许远程，test数据库等	</div><div class="line"></div><div class="line">mysql_secure_installation</div><div class="line"></div><div class="line"># Or</div><div class="line"></div><div class="line">set password for &apos;root&apos;@&apos;localhost&apos; =password(&apos;password&apos;);</div><div class="line"></div><div class="line"># 远程连接设置</div><div class="line">grant all privileges on *.* to root@&apos;%&apos; identified by &apos;password&apos;;</div><div class="line">flush privileges;</div><div class="line"></div><div class="line">#Or</div><div class="line"></div><div class="line">mysql&gt; use mysql</div><div class="line"></div><div class="line">mysql&gt; update user set Host=&apos;%&apos; where User=&apos;root&apos;;</div><div class="line"></div><div class="line">mysql&gt; flush privileges;</div><div class="line"></div><div class="line"># 创建新用户</div><div class="line">create user &apos;username&apos;@&apos;%&apos; identified by &apos;password&apos;;</div></pre></td></tr></table></figure>
-<h3 id="Start-on-boot"><a href="#Start-on-boot" class="headerlink" title="Start on boot"></a>Start on boot</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">systemctl enable mariadb.service</div></pre></td></tr></table></figure>
-<h3 id="MySQL-配置防火墙"><a href="#MySQL-配置防火墙" class="headerlink" title="MySQL 配置防火墙"></a>MySQL 配置防火墙</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">firewall-cmd --permanent --zone=public --add-service=mysql</div><div class="line">firewall-cmd --reload</div></pre></td></tr></table></figure>
-<h3 id="结束"><a href="#结束" class="headerlink" title="结束"></a>结束</h3><p>:)~</p>
 
-          
+        
+          <pre><code>今天在CentOS 7.2上安装MySQL（MariaDB）,记录一下
+</code></pre>
+          <div class="post-more-link text-center">
+            <a class="btn" href="2016/10/01/centos-72-2-install-mariadb/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
         
       
+
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="2016/10/01/centos-72-3-php/" itemprop="url">
+                  CentOS7（三）Install PHP
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-10-01T11:46:45+08:00" content="2016-10-01">
+              2016-10-01
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="categories/Linux/" itemprop="url" rel="index">
+                    <span itemprop="name">Linux</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="2016/10/01/centos-72-3-php/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/10/01/centos-72-3-php/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+
+        
+          <pre><code>今天在CentOS 7.2上安装PHP,记录一下
+</code></pre>
+          <div class="post-more-link text-center">
+            <a class="btn" href="2016/10/01/centos-72-3-php/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+
     </div>
 
     <div>
@@ -1019,24 +967,20 @@ CookieHttpSessionStrategy，如果是API就用HeaderHttpSessionStrategy，具体
       
 
       
+
         
-          
-            <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><pre><code>最近要从0开发新项目，以前都是用的CengOS6.5,觉得太历史了，7.x已经出来很久了。
+          <pre><code>最近要从0开发新项目，以前都是用的CengOS6.5,觉得太历史了，7.x已经出来很久了。
 而且云上的景象都是7.2了，没理由不用。第一次使用肯定会遇到坑，其实也是自身对这个系统的不了解。
 尝鲜可定会出事，但是只要你打破舒适区，一路下来，你会觉得没那么难
-</code></pre><h3 id="安装-JDK8-0"><a href="#安装-JDK8-0" class="headerlink" title="安装 JDK8.0"></a>安装 JDK8.0</h3><p>直接使用openJDK,直接使用8.0,没必要考虑之前的版本了。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">yum search openJDK</div><div class="line">yun install java-1.8.0-openjdk.x86_64</div></pre></td></tr></table></figure>
-<h3 id="安装-Maven"><a href="#安装-Maven" class="headerlink" title="安装 Maven"></a>安装 Maven</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div></pre></td><td class="code"><pre><div class="line">＃ 去官网下载最新的Maven版本，zip包就行了</div><div class="line">wget http://mirror.bit.edu.cn/apache/maven/maven-3/3.3.9/binaries/apache-maven-3.3.9-bin.zip</div><div class="line"></div><div class="line">unzip apache-maven-3.3.9-bin.zip</div><div class="line"></div><div class="line"># 如果没有unzip工具的，先安装unzip</div><div class="line">yum install unzip</div><div class="line"></div><div class="line">＃ 把解压文件夹移动到/opt/maven下</div><div class="line">mv apache-maven-3.3.9 /opt/maven</div><div class="line"></div><div class="line"># 做个软连接</div><div class="line">ln -s /opt/maven/bin/mvn /usr/bin/mvn</div><div class="line"></div><div class="line">＃设置Maven环境变量</div><div class="line">vim /etc/profile.d/maven.sh</div><div class="line"></div><div class="line">#!/bin/bash</div><div class="line">MAVEN_HOME=/opt/maven</div><div class="line">PATH=$MAVEN_HOME/bin:$PATH</div><div class="line">export PATH MAVEN_HOME</div><div class="line">export CLASSPATH=.</div><div class="line"></div><div class="line"># 添加可执行权限</div><div class="line">chmod +x /etc/profile.d/maven.sh</div><div class="line"></div><div class="line"># 立即生效</div><div class="line">source /etc/profile.d/maven.sh</div><div class="line"></div><div class="line"># 检查是否安装成功</div><div class="line">mvn -version</div></pre></td></tr></table></figure>
-<h3 id="安装-Tomcat-8"><a href="#安装-Tomcat-8" class="headerlink" title="安装 Tomcat 8"></a>安装 Tomcat 8</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div></pre></td><td class="code"><pre><div class="line">＃ download</div><div class="line">wget http://mirrors.cnnic.cn/apache/tomcat/tomcat-8/v8.5.6/bin/apache-tomcat-8.5.6.zip</div><div class="line"></div><div class="line">＃ extract</div><div class="line">unzip apache-tomcat-8.5.6.zip </div><div class="line"></div><div class="line"># move to /opt</div><div class="line">mv apache-tomcat-8.5.6 /opt/tomcat</div><div class="line"></div><div class="line"># set enviroment </div><div class="line">vim /etc/profile.d/tomcat.sh</div><div class="line"></div><div class="line">#!/bin/bash</div><div class="line">CATALINA_HOME=/opt/tomcat</div><div class="line">PATH=$CATALINA_HOME/bin:$PATH</div><div class="line">export PATH CATALINA_HOME</div><div class="line">export CLASSPATH=.</div><div class="line"></div><div class="line"># make it executable</div><div class="line">chmod +x /etc/profile.d/tomcat.sh</div><div class="line"></div><div class="line"># set enviroment permanently</div><div class="line">source /etc/profile.d/tomcat.sh</div><div class="line"></div><div class="line"># make shell executable permisson</div><div class="line">chmod +x $CATALINA_HOME/bin/startup.sh</div><div class="line">chmod +x $CATALINA_HOME/bin/shutdown.sh</div><div class="line">chmod +x $CATALINA_HOME/bin/catalina.sh</div><div class="line"></div><div class="line"># start tomcat</div><div class="line">sh $CATALINA_HOME/bin/startup.sh</div></pre></td></tr></table></figure>
-<h3 id="用浏览器访问的时候，你很可能会失败，那就是firewall在作怪"><a href="#用浏览器访问的时候，你很可能会失败，那就是firewall在作怪" class="headerlink" title="用浏览器访问的时候，你很可能会失败，那就是firewall在作怪"></a>用浏览器访问的时候，你很可能会失败，那就是firewall在作怪</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">＃ Enable Firewalld</div><div class="line">systemctl enable firewalld</div><div class="line"></div><div class="line"># Start Firewalld</div><div class="line">systemctl start firewalld</div><div class="line"></div><div class="line"># check the status</div><div class="line">systemctl status firewalld</div></pre></td></tr></table></figure>
-<h3 id="开启了Firewalld-添加如下"><a href="#开启了Firewalld-添加如下" class="headerlink" title="开启了Firewalld,添加如下"></a>开启了Firewalld,添加如下</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">firewall-cmd --permanent --add-port=8080/tcp</div><div class="line">firewall-cmd --reload</div></pre></td></tr></table></figure>
-<h3 id="开机启动"><a href="#开机启动" class="headerlink" title="开机启动"></a>开机启动</h3><h1 id="创建调用脚本"><a href="#创建调用脚本" class="headerlink" title="创建调用脚本"></a>创建调用脚本</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div></pre></td><td class="code"><pre><div class="line">vim /etc/init.d/tomcat</div><div class="line"></div><div class="line">######################################################</div><div class="line">#!/bin/sh</div><div class="line"># chkconfig: 2345 80 20</div><div class="line"></div><div class="line"># Description: Tomcat Start/Shutdown script</div><div class="line"></div><div class="line">export JAVA_HOME=/usr/lib/jvm/java</div><div class="line"></div><div class="line">case $1 in</div><div class="line">start)</div><div class="line">cd /opt/tomcat/bin/</div><div class="line">./startup.sh</div><div class="line">;;</div><div class="line">stop)</div><div class="line">cd /opt/tomcat/bin/</div><div class="line">./shutdown.sh</div><div class="line">;;</div><div class="line">restart)</div><div class="line">cd /opt/tomcat/bin/</div><div class="line">./shutdown.sh</div><div class="line">cd /opt/tomcat/bin/</div><div class="line">./startup.sh</div><div class="line">;;</div><div class="line">esac</div><div class="line">exit 0</div><div class="line">######################################################</div><div class="line"></div><div class="line"># Make it executable</div><div class="line">chmod a+x /etc/init.d/tomcat</div><div class="line"></div><div class="line"># Add the tomcat to service</div><div class="line">chkconfig --add tomcat</div><div class="line"></div><div class="line"># auto as reboot</div><div class="line">systemctl start tomcat</div><div class="line">chkconfig tomcat on</div></pre></td></tr></table></figure>
-<h3 id="给Tomcat添加管理角色"><a href="#给Tomcat添加管理角色" class="headerlink" title="给Tomcat添加管理角色"></a>给Tomcat添加管理角色</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div></pre></td><td class="code"><pre><div class="line">vim $CATALINA_HOME/conf/tomcat-users.xml</div><div class="line"></div><div class="line">#在&lt;tomcat-users&gt;&lt;/tomcat-users&gt;之间加入如下指令</div><div class="line"></div><div class="line">[...]</div><div class="line">&lt;role rolename=&quot;manager-gui&quot;/&gt;</div><div class="line">&lt;role rolename=&quot;manager-script&quot;/&gt;</div><div class="line">&lt;role rolename=&quot;manager-jmx&quot;/&gt;</div><div class="line">&lt;role rolename=&quot;manager-status&quot;/&gt;</div><div class="line">&lt;role rolename=&quot;admin-gui&quot;/&gt;</div><div class="line">&lt;role rolename=&quot;admin-script&quot;/&gt;</div><div class="line">&lt;user username=&quot;admin&quot; password=&quot;admin&quot; roles=&quot;manager-gui,manager-script,manager-jmx,manager-status,admin-gui,admin-script&quot;/&gt;</div><div class="line">[...]</div><div class="line"></div><div class="line"># Restart tomcat </div><div class="line">systemctl restart tomcat</div><div class="line"></div><div class="line"># 用户名 密码  admin/admin</div><div class="line"></div><div class="line">#如果遇到403 Access Denied, 如下操作</div><div class="line">vim $CATALINA_HOME/webapps/manager/META-INF/context.xml</div><div class="line"></div><div class="line">#注释Value</div><div class="line"></div><div class="line">&lt;Context antiResourceLocking=&quot;false&quot; privileged=&quot;true&quot; &gt;</div><div class="line">&lt;!--</div><div class="line">&lt;Valve className=&quot;org.apache.catalina.valves.RemoteAddrValve&quot; allow=&quot;127\.\d+\.\d+\.\d+|::1|0:0:0:0:0:0:0:1&quot; /&gt;</div><div class="line">--&gt;</div><div class="line">&lt;/Context&gt;</div><div class="line"></div><div class="line">#访问host-manager时 403 Access Denied，操作类似</div><div class="line"></div><div class="line">vim $CATALINA_HOME/webapps/host-manager/META-INF/context.xml</div><div class="line"></div><div class="line">#注释Value</div><div class="line"></div><div class="line">&lt;Context antiResourceLocking=&quot;false&quot; privileged=&quot;true&quot; &gt;</div><div class="line">&lt;!--</div><div class="line">&lt;Valve className=&quot;org.apache.catalina.valves.RemoteAddrValve&quot; allow=&quot;127\.\d+\.\d+\.\d+|::1|0:0:0:0:0:0:0:1&quot; /&gt;</div><div class="line">--&gt;</div><div class="line">&lt;/Context&gt;</div></pre></td></tr></table></figure>
-<h3 id="结束"><a href="#结束" class="headerlink" title="结束"></a>结束</h3><p>:)~</p>
-
-          
+</code></pre>
+          <div class="post-more-link text-center">
+            <a class="btn" href="2016/10/01/centos-72-1-install-java-envirment/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
         
       
+
     </div>
 
     <div>
@@ -1150,30 +1094,17 @@ CookieHttpSessionStrategy，如果是API就用HeaderHttpSessionStrategy，具体
       
 
       
+
         
-          
-            <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><pre><code>导出分发包的过程中，遇到了许多小问题，做个总结吧
-</code></pre><p>开发环境：<br>OS: Mac 10.11.6<br>Xcode: Version 8.0 (8A218a)</p>
-<h3 id="趟雷过程中遇到的陷阱"><a href="#趟雷过程中遇到的陷阱" class="headerlink" title="趟雷过程中遇到的陷阱"></a>趟雷过程中遇到的陷阱</h3><ul>
-<li><p>{For iOS} 突然Products中的archive变成灰色，不能archive了</p>
-<p>  把device换成Generic iOS Device</p>
-</li>
-<li><p>在模拟器中运行出现</p>
-</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">clang: error: no such file or directory: &apos;/Users/neal/Library/Developer/Xcode/DerivedData/haiji-hakrywogbjraxiheecjpbwbxsood/Build/Products/Debug-iphonesimulator/libReact.a&apos;</div></pre></td></tr></table></figure>
-<pre><code>把Build Settings -&gt; Architectures -&gt; Build Active Architectures Only 设置成 NO
-</code></pre><ul>
-<li><p>Duplicate module name: XXX</p>
-<p>   有可能是React的版本不一样，我的做法是  </p>
-</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">rm -rf node_modules &amp;&amp; npm install</div></pre></td></tr></table></figure>
-<h3 id="结束"><a href="#结束" class="headerlink" title="结束"></a>结束</h3><pre><code>：）～
-</code></pre>
-          
+          <p>导出分发包的过程中，遇到了许多小问题，做个总结吧</p>
+          <div class="post-more-link text-center">
+            <a class="btn" href="2016/09/03/react-native-912-archive/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
         
       
+
     </div>
 
     <div>
@@ -1287,49 +1218,20 @@ CookieHttpSessionStrategy，如果是API就用HeaderHttpSessionStrategy，具体
       
 
       
+
         
-          
-            <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><pre><code>在开发阶段，我们都是通过模拟器，或者自己的手机，直接连接Xcode和Android Studio,
+          <pre><code>在开发阶段，我们都是通过模拟器，或者自己的手机，直接连接Xcode和Android Studio,
 这样调试代码非常方便，然而我们的App开发好了，最终的目的是上线App Store和各个Android市场。
 最后还是要进行打包，把所有的资源打包成一个最终能够安装的应用包。iOS对应的ipa，Android对应的apk。
-
-那如何打包呢？
-</code></pre><p>开发环境：<br>OS: Mac 10.11.6<br>Xcode: Version 8.0 (8A218a)</p>
-<h3 id="react-native-bundle"><a href="#react-native-bundle" class="headerlink" title="react-native bundle"></a>react-native bundle</h3><ul>
-<li>–entry-file ,ios或者android入口的js名称，比如index.ios.js</li>
-<li>–platform ,平台名称(ios或者android)</li>
-<li>–dev ,设置为false的时候将会对JavaScript代码进行优化处理</li>
-<li>–bundle-output, 生成的jsbundle文件的名称，比如./ios/index.ios.jsbundle</li>
-<li><p>–assets-dest 图片以及其他资源存放的目录,比如./ios 默认会生成一个新的文件夹assets</p>
-</li>
-<li><p>For iOS</p>
-</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">react-native bundle --entry-file index.ios.js --bundle-output ./ios/main.jsbundle --platform ios --assets-dest ./ios --dev false</div></pre></td></tr></table></figure>
-<ul>
-<li>For Android<br>  跟iOS差不多，只不过变量变为android，同时资源文件指定到现有的文件即可。</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">react-native bundle --entry-file index.android.js --bundle-output ./android/app/src/main/assets/index.android.bundle --platform android --assets-dest ./android/app/src/main/res --dev false</div></pre></td></tr></table></figure>
-<ul>
-<li>Repeat Work</li>
-</ul>
-<p>这样的一串命令以后还得用呢，那是不是可以写个脚本留给以后重复用呢？<br>其实可以利用npm的脚本就可以，在package.json中添加（bundle-ios）如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">&quot;scripts&quot;: &#123;</div><div class="line">    &quot;start&quot;: &quot;node node_modules/react-native/local-cli/cli.js start&quot;,</div><div class="line">    &quot;bundle-ios&quot;: &quot;react-native bundle --entry-file index.ios.js --bundle-output ./ios/main.jsbundle --platform ios --assets-dest ./ios --dev false&quot;,</div><div class="line">    &quot;bundle-android&quot;: &quot;react-native bundle --entry-file index.android.js --bundle-output ./android/app/src/main/assets/index.android.bundle --platform android --assets-dest ./android/app/src/main/res --dev false&quot;</div><div class="line">  &#125;,</div></pre></td></tr></table></figure>
-<p>以后每次打包直接运行:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">npm run bundle-ios</div><div class="line"></div><div class="line">npm run bundle-android</div></pre></td></tr></table></figure></p>
-<h3 id="把打包好的资源文件添加到Xcode"><a href="#把打包好的资源文件添加到Xcode" class="headerlink" title="把打包好的资源文件添加到Xcode"></a>把打包好的资源文件添加到Xcode</h3><ul>
-<li>添加文件到项目</li>
-</ul>
-<p><img src="/images/addfilesto.png" alt=""></p>
-<ul>
-<li>找到刚才的assets文件夹</li>
-</ul>
-<p><img src="/images/assets.png" alt=""></p>
-<h3 id="修改程序加载js的方式-AppDelegate-m"><a href="#修改程序加载js的方式-AppDelegate-m" class="headerlink" title="修改程序加载js的方式(AppDelegate.m)"></a>修改程序加载js的方式(AppDelegate.m)</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">//  jsCodeLocation = [[RCTBundleURLProvider sharedSettings] jsBundleURLForBundleRoot:@&quot;index.ios&quot; fallbackResource:nil];</div><div class="line"></div><div class="line">  jsCodeLocation = [[NSBundle mainBundle] URLForResource:@&quot;main&quot; withExtension:@&quot;jsbundle&quot;];</div></pre></td></tr></table></figure>
-<h3 id="结束"><a href="#结束" class="headerlink" title="结束"></a>结束</h3><pre><code>：）～
 </code></pre>
-          
+          <div class="post-more-link text-center">
+            <a class="btn" href="2016/09/02/react-native-911-bundle/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
         
       
+
     </div>
 
     <div>
@@ -1443,46 +1345,21 @@ CookieHttpSessionStrategy，如果是API就用HeaderHttpSessionStrategy，具体
       
 
       
+
         
-          
-            <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><pre><code>App开发好了，在你的手机桌面上就能看到，一个好的icon会给人耳目一新的感觉。
+          <pre><code>App开发好了，在你的手机桌面上就能看到，一个好的icon会给人耳目一新的感觉。
 作为一个专业搬砖的来说，很有难度。主要看你的设计和视觉天赋了。我们一般运行个helloworld，
 你会在手机上找你的App，但都是各个平台默认的，iOS里面是多个同心圆，一环一环的，
 具体叫啥还真不知道，Android则是那个呆萌的小机器人。
-
-那如何替换成我们自己的icon呢？
-</code></pre><p>开发环境：<br>OS: Mac 10.11.6<br>Xcode: Version 8.0 (8A218a)</p>
-<h3 id="For-iOS"><a href="#For-iOS" class="headerlink" title="For iOS"></a>For iOS</h3><ul>
-<li><p>修改应用icon</p>
-<p>  在Xcode中单击Images.xcassets文件夹，右侧会看到AppIcon。<br>  单击AppIcon，映入你眼帘的是一个个待填补的虚线😊方框。<br>  看到这个你不要慌，也不用管这些是什么，你只看每组对应说明的单位即可。</p>
-<p>  比如第一组20pt，2x就是40pt，3x就是60pt，我都是用的像素，也没问题。<br>  按照这些尺寸制作icon即可，其他以此类推。</p>
-<p>  做好所有尺寸的icon后，拖拽到相应的位置上就OK。<br>  即：更新不同的尺寸 29pt 29pt<em>2 29pt</em>3 40pt<em>2 40pt</em>3 57pt 57pt<em>2 60pt</em>2 60pt*3</p>
-</li>
-<li><p>修改应用名称</p>
-<p>  还有一点就是，App name ，默认会是你的项目的名称。我们呢，都用中文，当然得提前设置了。</p>
-<p>  在哪设置呢？</p>
-<p>  在Xcode 8中，单击项目，左侧出现跟项目相关的信息。<br>  选择Targets -&gt; General -&gt; Display Name,值部分就是你要填的<br>  显示在AppIcon 下面的文本部分了。</p>
-</li>
-</ul>
-<p><img src="/images/appicon.png" alt=""></p>
-<h3 id="For-Android"><a href="#For-Android" class="headerlink" title="For Android"></a>For Android</h3><ul>
-<li><p>修改应用icon</p>
-<p>   把 ic_launcher.png 放到文件夹 [PrjDir]/android/app/src/main/res/mipmap-*.</p>
-<p>  相应的尺寸：</p>
-<pre><code>72*72 ic_launcher.png to mipmap-hdpi.
-48*48 ic_launcher.png to mipmap-mdpi.
-96*96 ic_launcher.png to mipmap-xhdpi.
-144*144 ic_launcher.png to mipmap-xxhdpi.
-</code></pre></li>
-<li><p>修改应用名称</p>
-<p>  在a[PrjDir]/ndroid/app/src/main/res/values/strings.xml中，<br>  找到<string name="app_name">MyProject</string>, MyProject替换为你自己的应用名称即可。</p>
-</li>
-</ul>
-<h3 id="结束"><a href="#结束" class="headerlink" title="结束"></a>结束</h3><pre><code>：）～
 </code></pre>
-          
+          <div class="post-more-link text-center">
+            <a class="btn" href="2016/09/01/react-native-910-app-icon/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
         
       
+
     </div>
 
     <div>
@@ -1596,43 +1473,17 @@ CookieHttpSessionStrategy，如果是API就用HeaderHttpSessionStrategy，具体
       
 
       
+
         
-          
-            <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><pre><code>TextInput组件作为基础部分，必不可少。
-我们在做登录、提交信息时经常使用。
-</code></pre><p>开发环境：<br>OS: Mac 10.11.6<br>Xcode: Version 8.0 (8A218a)</p>
-<h3 id="简单用例"><a href="#简单用例" class="headerlink" title="简单用例"></a>简单用例</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">&lt;TextInput</div><div class="line">    style=&#123;Styles.postTextInput&#125;</div><div class="line">    autoCapitalize=&quot;none&quot;</div><div class="line">    multiline=&#123;true&#125; //是否多行</div><div class="line">    keyboardType=&apos;numeric&apos; //键盘类型：default, numeric, </div><div class="line">    placeholder=&#123;this.state.placeHolder&#125; //占位字符 背景提示,这里犯了错误，当时把颜色和背景设置一样了，死活看不到，满眼都是泪啊</div><div class="line">    placeholderTextColor=&quot;#bfbfbf&quot; //占位符颜色</div><div class="line">    onChangeText=&#123;(text) =&gt; this.setState(&#123;text&#125;)&#125; //文本改变时触发这个事件, 获取本文时需要这个方法</div><div class="line">/&gt;</div><div class="line"></div><div class="line"># keyboardType决定键盘类型,是个枚举</div><div class="line"># enum(&apos;default&apos;, &quot;ascii-capable&quot;, &apos;numbers-and-punctuation&apos;, &apos;url&apos;, &apos;number-pad&apos;, &apos;phone-pad&apos;, </div><div class="line">#&apos;name-phone-pad&apos;, &apos;email-address&apos;, &apos;decimal-pad&apos;, &apos;twitter&apos;, &apos;web-search&apos;, &quot;numeric&quot;)</div></pre></td></tr></table></figure>
-<h3 id="获取文本内容"><a href="#获取文本内容" class="headerlink" title="获取文本内容"></a>获取文本内容</h3><pre><code>在onChangeText中，我们已经告知文本内容，并实时保存在了state中，
-
-我们只要在相应的处理函数中进行处理即可。
-</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">_handleInput() &#123;</div><div class="line">    console.log(this.state.text);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h3 id="设置width和height"><a href="#设置width和height" class="headerlink" title="设置width和height"></a>设置width和height</h3><pre><code>如果你没有设置TextInput的样式，并且没有文本内容，那么默认是wrap的，因为TextInput不是块元素，
-初次调试的时候，总是觉得很蹊跷，怎么看不到内容呢？在这里耽误了很长时间...
-</code></pre><h3 id="获得焦点，呼出键盘"><a href="#获得焦点，呼出键盘" class="headerlink" title="获得焦点，呼出键盘"></a>获得焦点，呼出键盘</h3><pre><code>从使用来看，当你单击输入框的时候，如果单击的位置偏上了或者偏下了，都不会触发onFocus事件，这时候不要谎，
-单击中间部分，看到键盘了吧。
-
-当然如果是iOS，需要打开Simulator-&gt;Hardware-&gt;Keyboard-&gt;Toggle Software Keyboard
-快捷键   Command + K
-</code></pre><h3 id="失去焦点，隐藏键盘"><a href="#失去焦点，隐藏键盘" class="headerlink" title="失去焦点，隐藏键盘"></a>失去焦点，隐藏键盘</h3><pre><code>这里有两个方法，也是经过搜索和尝试的，都可以正常满足你的需求。
-</code></pre><ul>
-<li>把整个视图换成ScrollView</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">&lt;ScrollView style=&#123;styles.container&#125; keyboardShouldPersistTaps=&#123;false&#125;&gt;</div><div class="line">    &lt;TextInput</div><div class="line">        placeholder=&quot;Post Title&quot;</div><div class="line">        onChange=&#123;(event) =&gt; this.updateTitle(event.nativeEvent.text)&#125;</div><div class="line">        style=&#123;styles.default&#125;/&gt;</div><div class="line"> &lt;/ScrollView&gt;</div></pre></td></tr></table></figure>
-<ul>
-<li>使用dismissKeyboard和TouchableWithoutFeedback配合</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line">import DismissKeyboard from &apos;dismissKeyboard&apos;;</div><div class="line"></div><div class="line">&lt;View style=&#123;styles.container&#125;&gt;</div><div class="line"></div><div class="line">  &lt;TouchableWithoutFeedback onPress=&#123; DismissKeyboard &#125;&gt;</div><div class="line"></div><div class="line">    &lt;View&gt;</div><div class="line">      &lt;Text style=&#123;styles.welcome&#125;&gt;</div><div class="line">        Welcome to React Native!</div><div class="line">      &lt;/Text&gt;</div><div class="line">      &lt;Text style=&#123;styles.instructions&#125;&gt;</div><div class="line">        To get started, edit index.ios.js</div><div class="line">      &lt;/Text&gt;</div><div class="line">      &lt;Text style=&#123;styles.instructions&#125;&gt;</div><div class="line">        Press Cmd+R to reload,&#123;&apos;\n&apos;&#125;</div><div class="line">        Cmd+D or shake for dev menu</div><div class="line">      &lt;/Text&gt;</div><div class="line">      &lt;TextInput style=&#123;&#123;height: 40, borderColor: &apos;gray&apos;, borderWidth: 1&#125;&#125; /&gt;</div><div class="line">    &lt;/View&gt;</div><div class="line">  &lt;/TouchableWithoutFeedback&gt;</div><div class="line"></div><div class="line">&lt;/View&gt;</div></pre></td></tr></table></figure>
-<h3 id="Android-取消默认文本下划线"><a href="#Android-取消默认文本下划线" class="headerlink" title="Android 取消默认文本下划线"></a>Android 取消默认文本下划线</h3><pre><code>一开始不知道设置这个属性，导致在Android平台上出现不一致的风格。如果匹配还好，
-
-事实上，很别扭。一开始以为可以通过设置边框可以改变，通过尝试是行不通的。后来发现
-
-下面的属性，一下子解决了我的问题。还是得看书啊
-</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">#TextInput 属性</div><div class="line">   underlineColorAndroid=&#123;&apos;transparent&apos;&#125;</div></pre></td></tr></table></figure>
-<h3 id="结束"><a href="#结束" class="headerlink" title="结束"></a>结束</h3><pre><code>：）～
-</code></pre>
-          
+          <p>  TextInput组件作为基础部分，必不可少。<br>  我们在做登录、提交信息时经常使用。</p>
+          <div class="post-more-link text-center">
+            <a class="btn" href="2016/08/31/react-native-9-TextInput/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
         
       
+
     </div>
 
     <div>
@@ -1695,8 +1546,8 @@ CookieHttpSessionStrategy，如果是API就用HeaderHttpSessionStrategy，具体
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="http://upload.jianshu.io/users/upload_avatars/2649507/df92b5ff1a68.jpeg"
-               alt="neal.ma" />
-          <p class="site-author-name" itemprop="name">neal.ma</p>
+               alt="马英乘Neal" />
+          <p class="site-author-name" itemprop="name">马英乘Neal</p>
           <p class="site-description motion-element" itemprop="description">Follow your heart, just do it.</p>
         </div>
         <nav class="site-state motion-element">
@@ -1785,7 +1636,7 @@ CookieHttpSessionStrategy，如果是API就用HeaderHttpSessionStrategy，具体
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
-  <span class="author" itemprop="copyrightHolder">neal.ma</span>
+  <span class="author" itemprop="copyrightHolder">马英乘Neal</span>
 </div>
 
 <div class="powered-by">

@@ -74,7 +74,7 @@
 
 
 
-  <link rel="alternate" href="../../../../atom.xml" title="neal.ma" type="application/atom+xml" />
+  <link rel="alternate" href="../../../../atom.xml" title="nealma.com" type="application/atom+xml" />
 
 
 
@@ -86,32 +86,26 @@
 
 
 
-<meta name="description" content="前言侧滑菜单在实际工作中，很常见，是比较流行的一种设计，
+<meta name="description" content="侧滑菜单在实际工作中，很常见，是比较流行的一种设计，
 RN怎会没有呢。一开始接触RN，总是乐于社区的活跃，你需要什么，大都会能找到
 现成，最初使用了react-native-jelly-side-menu，但是在安卓上死活run不起来，
-后来辗转到了react-native-side-menu,可以很好的在iOS、Android中玩耍。
-
-开发环境OS: Mac 10.11.6Xcode: V">
+后来辗转到了react-native-side-menu,可以很好的在iOS、Android中玩耍。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="React Native (四) react-native-side-menu组件">
 <meta property="og:url" content="http://www.nealma.com/2016/07/28/react-native-4-sidemenu/index.html">
-<meta property="og:site_name" content="neal.ma">
-<meta property="og:description" content="前言侧滑菜单在实际工作中，很常见，是比较流行的一种设计，
+<meta property="og:site_name" content="nealma.com">
+<meta property="og:description" content="侧滑菜单在实际工作中，很常见，是比较流行的一种设计，
 RN怎会没有呢。一开始接触RN，总是乐于社区的活跃，你需要什么，大都会能找到
 现成，最初使用了react-native-jelly-side-menu，但是在安卓上死活run不起来，
-后来辗转到了react-native-side-menu,可以很好的在iOS、Android中玩耍。
-
-开发环境OS: Mac 10.11.6Xcode: V">
+后来辗转到了react-native-side-menu,可以很好的在iOS、Android中玩耍。">
 <meta property="og:image" content="http://www.nealma.com/images/sidemenu.gif">
-<meta property="og:updated_time" content="2016-10-20T13:39:05.000Z">
+<meta property="og:updated_time" content="2016-11-17T01:58:57.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="React Native (四) react-native-side-menu组件">
-<meta name="twitter:description" content="前言侧滑菜单在实际工作中，很常见，是比较流行的一种设计，
+<meta name="twitter:description" content="侧滑菜单在实际工作中，很常见，是比较流行的一种设计，
 RN怎会没有呢。一开始接触RN，总是乐于社区的活跃，你需要什么，大都会能找到
 现成，最初使用了react-native-jelly-side-menu，但是在安卓上死活run不起来，
-后来辗转到了react-native-side-menu,可以很好的在iOS、Android中玩耍。
-
-开发环境OS: Mac 10.11.6Xcode: V">
+后来辗转到了react-native-side-menu,可以很好的在iOS、Android中玩耍。">
 <meta name="twitter:image" content="http://www.nealma.com/images/sidemenu.gif">
 
 
@@ -135,7 +129,7 @@ RN怎会没有呢。一开始接触RN，总是乐于社区的活跃，你需要�
 
   <link rel="canonical" href="http://www.nealma.com/2016/07/28/react-native-4-sidemenu/"/>
 
-  <title> React Native (四) react-native-side-menu组件 | neal.ma </title>
+  <title> React Native (四) react-native-side-menu组件 | nealma.com </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -176,7 +170,7 @@ RN怎会没有呢。一开始接触RN，总是乐于社区的活跃，你需要�
   <div class="custom-logo-site-title">
     <a href="/"  class="brand" rel="start">
       <span class="logo-line-before"><i></i></span>
-      <span class="site-title">neal.ma</span>
+      <span class="site-title">nealma.com</span>
       <span class="logo-line-after"><i></i></span>
     </a>
   </div>
@@ -351,7 +345,12 @@ RN怎会没有呢。一开始接触RN，总是乐于社区的活跃，你需要�
       
 
       
-        <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><pre><code>侧滑菜单在实际工作中，很常见，是比较流行的一种设计，
+        <pre><code>侧滑菜单在实际工作中，很常见，是比较流行的一种设计，
+RN怎会没有呢。一开始接触RN，总是乐于社区的活跃，你需要什么，大都会能找到
+现成，最初使用了react-native-jelly-side-menu，但是在安卓上死活run不起来，
+后来辗转到了react-native-side-menu,可以很好的在iOS、Android中玩耍。
+</code></pre><a id="more"></a>
+<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><pre><code>侧滑菜单在实际工作中，很常见，是比较流行的一种设计，
 RN怎会没有呢。一开始接触RN，总是乐于社区的活跃，你需要什么，大都会能找到
 现成，最初使用了react-native-jelly-side-menu，但是在安卓上死活run不起来，
 后来辗转到了react-native-side-menu,可以很好的在iOS、Android中玩耍。
@@ -371,6 +370,7 @@ RN怎会没有呢。一开始接触RN，总是乐于社区的活跃，你需要�
 ：）～
 </code></pre>
       
+
     </div>
 
     <div>
@@ -479,8 +479,8 @@ RN怎会没有呢。一开始接触RN，总是乐于社区的活跃，你需要�
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="http://upload.jianshu.io/users/upload_avatars/2649507/df92b5ff1a68.jpeg"
-               alt="neal.ma" />
-          <p class="site-author-name" itemprop="name">neal.ma</p>
+               alt="马英乘Neal" />
+          <p class="site-author-name" itemprop="name">马英乘Neal</p>
           <p class="site-description motion-element" itemprop="description">Follow your heart, just do it.</p>
         </div>
         <nav class="site-state motion-element">
@@ -580,7 +580,7 @@ RN怎会没有呢。一开始接触RN，总是乐于社区的活跃，你需要�
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
-  <span class="author" itemprop="copyrightHolder">neal.ma</span>
+  <span class="author" itemprop="copyrightHolder">马英乘Neal</span>
 </div>
 
 <div class="powered-by">

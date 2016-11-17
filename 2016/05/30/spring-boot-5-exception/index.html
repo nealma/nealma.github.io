@@ -74,7 +74,7 @@
 
 
 
-  <link rel="alternate" href="../../../../atom.xml" title="neal.ma" type="application/atom+xml" />
+  <link rel="alternate" href="../../../../atom.xml" title="nealma.com" type="application/atom+xml" />
 
 
 
@@ -86,28 +86,22 @@
 
 
 
-<meta name="description" content="前言广大码农同胞在写程序的时候，总是会遇到处理各种Exception，神马空指针啦，
+<meta name="description" content="广大码农同胞在写程序的时候，总是会遇到处理各种Exception，神马空指针啦，
 再有就是处理DataBase的IO异常啦，反正哪都有他们的影子，真是阴魂不散啊。但是呢，
-你又不能置之不理，那就求救于Spring的全局处理吧
-：）～开发环境：OS: Mac 10.11.6IDE: IDEABuild: Maven
-Spring-Boot默认实现了简单的错误页面，但是那个真是惨不忍睹。追求用户体">
+你又不能置之不理，那就求救于Spring的全局处理吧">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Spring-Boot（五) 全局异常处理">
 <meta property="og:url" content="http://www.nealma.com/2016/05/30/spring-boot-5-exception/index.html">
-<meta property="og:site_name" content="neal.ma">
-<meta property="og:description" content="前言广大码农同胞在写程序的时候，总是会遇到处理各种Exception，神马空指针啦，
+<meta property="og:site_name" content="nealma.com">
+<meta property="og:description" content="广大码农同胞在写程序的时候，总是会遇到处理各种Exception，神马空指针啦，
 再有就是处理DataBase的IO异常啦，反正哪都有他们的影子，真是阴魂不散啊。但是呢，
-你又不能置之不理，那就求救于Spring的全局处理吧
-：）～开发环境：OS: Mac 10.11.6IDE: IDEABuild: Maven
-Spring-Boot默认实现了简单的错误页面，但是那个真是惨不忍睹。追求用户体">
-<meta property="og:updated_time" content="2016-11-04T00:02:50.000Z">
+你又不能置之不理，那就求救于Spring的全局处理吧">
+<meta property="og:updated_time" content="2016-11-17T01:56:09.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Spring-Boot（五) 全局异常处理">
-<meta name="twitter:description" content="前言广大码农同胞在写程序的时候，总是会遇到处理各种Exception，神马空指针啦，
+<meta name="twitter:description" content="广大码农同胞在写程序的时候，总是会遇到处理各种Exception，神马空指针啦，
 再有就是处理DataBase的IO异常啦，反正哪都有他们的影子，真是阴魂不散啊。但是呢，
-你又不能置之不理，那就求救于Spring的全局处理吧
-：）～开发环境：OS: Mac 10.11.6IDE: IDEABuild: Maven
-Spring-Boot默认实现了简单的错误页面，但是那个真是惨不忍睹。追求用户体">
+你又不能置之不理，那就求救于Spring的全局处理吧">
 
 
 
@@ -130,7 +124,7 @@ Spring-Boot默认实现了简单的错误页面，但是那个真是惨不忍睹
 
   <link rel="canonical" href="http://www.nealma.com/2016/05/30/spring-boot-5-exception/"/>
 
-  <title> Spring-Boot（五) 全局异常处理 | neal.ma </title>
+  <title> Spring-Boot（五) 全局异常处理 | nealma.com </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -171,7 +165,7 @@ Spring-Boot默认实现了简单的错误页面，但是那个真是惨不忍睹
   <div class="custom-logo-site-title">
     <a href="/"  class="brand" rel="start">
       <span class="logo-line-before"><i></i></span>
-      <span class="site-title">neal.ma</span>
+      <span class="site-title">nealma.com</span>
       <span class="logo-line-after"><i></i></span>
     </a>
   </div>
@@ -346,7 +340,11 @@ Spring-Boot默认实现了简单的错误页面，但是那个真是惨不忍睹
       
 
       
-        <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><pre><code>广大码农同胞在写程序的时候，总是会遇到处理各种Exception，神马空指针啦，
+        <pre><code>广大码农同胞在写程序的时候，总是会遇到处理各种Exception，神马空指针啦，
+再有就是处理DataBase的IO异常啦，反正哪都有他们的影子，真是阴魂不散啊。但是呢，
+你又不能置之不理，那就求救于Spring的全局处理吧
+</code></pre><a id="more"></a>
+<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><pre><code>广大码农同胞在写程序的时候，总是会遇到处理各种Exception，神马空指针啦，
 再有就是处理DataBase的IO异常啦，反正哪都有他们的影子，真是阴魂不散啊。但是呢，
 你又不能置之不理，那就求救于Spring的全局处理吧
 </code></pre><p>：）～<br>开发环境：<br>OS: Mac 10.11.6<br>IDE: IDEA<br>Build: Maven</p>
@@ -373,6 +371,7 @@ Spring-Boot默认实现了简单的错误页面，但是那个真是惨不忍睹
 自然而然在我们的 GlobalExceptionHandler 就无法处理了。
 </code></pre>
       
+
     </div>
 
     <div>
@@ -408,16 +407,16 @@ Spring-Boot默认实现了简单的错误页面，但是那个真是惨不忍睹
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="../curl-1-how-to-use/" rel="next" title="curl（一) 常用命令">
-                <i class="fa fa-chevron-left"></i> curl（一) 常用命令
+              <a href="../../20/redis-1-del-data/" rel="next" title="Redis (一) 删除数据">
+                <i class="fa fa-chevron-left"></i> Redis (一) 删除数据
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="../nodejs-1-very-slow/" rel="prev" title="npm 网络难以忍受">
-                npm 网络难以忍受 <i class="fa fa-chevron-right"></i>
+              <a href="../curl-1-how-to-use/" rel="prev" title="curl（一) 常用命令">
+                curl（一) 常用命令 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -483,8 +482,8 @@ Spring-Boot默认实现了简单的错误页面，但是那个真是惨不忍睹
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="http://upload.jianshu.io/users/upload_avatars/2649507/df92b5ff1a68.jpeg"
-               alt="neal.ma" />
-          <p class="site-author-name" itemprop="name">neal.ma</p>
+               alt="马英乘Neal" />
+          <p class="site-author-name" itemprop="name">马英乘Neal</p>
           <p class="site-description motion-element" itemprop="description">Follow your heart, just do it.</p>
         </div>
         <nav class="site-state motion-element">
@@ -584,7 +583,7 @@ Spring-Boot默认实现了简单的错误页面，但是那个真是惨不忍睹
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
-  <span class="author" itemprop="copyrightHolder">neal.ma</span>
+  <span class="author" itemprop="copyrightHolder">马英乘Neal</span>
 </div>
 
 <div class="powered-by">

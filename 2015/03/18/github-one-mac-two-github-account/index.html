@@ -68,13 +68,13 @@
 <link href="../../../../css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="ssh,blog,github,git," />
+  <meta name="keywords" content="blog,ssh,github,git," />
 
 
 
 
 
-  <link rel="alternate" href="../../../../atom.xml" title="neal.ma" type="application/atom+xml" />
+  <link rel="alternate" href="../../../../atom.xml" title="nealma.com" type="application/atom+xml" />
 
 
 
@@ -86,22 +86,19 @@
 
 
 
-<meta name="description" content="最近申请了两个github账号，可是我都是在一台Mac上操作，这时问题就出现了。两个账号不可能使用一个sshkey，只能另外再生成一个ssh-key了。
-创建新的ssh-key1$ssh-keygen -t rsa -C &quot;another_email@example.com&quot;
-Enter file in which to save the key (/Users/you/.ssh/id_rsa_s">
+<meta name="description" content="最近申请了两个github账号，可是我都是在一台Mac上操作，这时问题就出现了。
+两个账号不可能使用一个sshkey，只能另外再生成一个ssh-key了。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="一台Mac同时使用两个账号">
 <meta property="og:url" content="http://www.nealma.com/2015/03/18/github-one-mac-two-github-account/index.html">
-<meta property="og:site_name" content="neal.ma">
-<meta property="og:description" content="最近申请了两个github账号，可是我都是在一台Mac上操作，这时问题就出现了。两个账号不可能使用一个sshkey，只能另外再生成一个ssh-key了。
-创建新的ssh-key1$ssh-keygen -t rsa -C &quot;another_email@example.com&quot;
-Enter file in which to save the key (/Users/you/.ssh/id_rsa_s">
-<meta property="og:updated_time" content="2016-10-15T14:07:33.000Z">
+<meta property="og:site_name" content="nealma.com">
+<meta property="og:description" content="最近申请了两个github账号，可是我都是在一台Mac上操作，这时问题就出现了。
+两个账号不可能使用一个sshkey，只能另外再生成一个ssh-key了。">
+<meta property="og:updated_time" content="2016-11-17T01:48:30.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="一台Mac同时使用两个账号">
-<meta name="twitter:description" content="最近申请了两个github账号，可是我都是在一台Mac上操作，这时问题就出现了。两个账号不可能使用一个sshkey，只能另外再生成一个ssh-key了。
-创建新的ssh-key1$ssh-keygen -t rsa -C &quot;another_email@example.com&quot;
-Enter file in which to save the key (/Users/you/.ssh/id_rsa_s">
+<meta name="twitter:description" content="最近申请了两个github账号，可是我都是在一台Mac上操作，这时问题就出现了。
+两个账号不可能使用一个sshkey，只能另外再生成一个ssh-key了。">
 
 
 
@@ -124,7 +121,7 @@ Enter file in which to save the key (/Users/you/.ssh/id_rsa_s">
 
   <link rel="canonical" href="http://www.nealma.com/2015/03/18/github-one-mac-two-github-account/"/>
 
-  <title> 一台Mac同时使用两个账号 | neal.ma </title>
+  <title> 一台Mac同时使用两个账号 | nealma.com </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -165,7 +162,7 @@ Enter file in which to save the key (/Users/you/.ssh/id_rsa_s">
   <div class="custom-logo-site-title">
     <a href="/"  class="brand" rel="start">
       <span class="logo-line-before"><i></i></span>
-      <span class="site-title">neal.ma</span>
+      <span class="site-title">nealma.com</span>
       <span class="logo-line-after"><i></i></span>
     </a>
   </div>
@@ -340,7 +337,9 @@ Enter file in which to save the key (/Users/you/.ssh/id_rsa_s">
       
 
       
-        <p>最近申请了两个github账号，可是我都是在一台Mac上操作，这时问题就出现了。<br>两个账号不可能使用一个sshkey，只能另外再生成一个ssh-key了。</p>
+        <pre><code>最近申请了两个github账号，可是我都是在一台Mac上操作，这时问题就出现了。
+两个账号不可能使用一个sshkey，只能另外再生成一个ssh-key了。
+</code></pre><a id="more"></a>
 <h3 id="创建新的ssh-key"><a href="#创建新的ssh-key" class="headerlink" title="创建新的ssh-key"></a>创建新的ssh-key</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="variable">$ssh</span>-keygen -t rsa -C <span class="string">"another_email@example.com"</span></div></pre></td></tr></table></figure>
 <p>Enter file in which to save the key (/Users/you/.ssh/id_rsa_second): <font color="red">/Users/username/.ssh/id_rsa_second</font></p>
 <p>[Please Enter]</p>
@@ -350,6 +349,7 @@ Enter file in which to save the key (/Users/you/.ssh/id_rsa_s">
 如果要两个账号的话，你需要设置git config email=&quot;&quot;,具体请Google。
 </code></pre>
       
+
     </div>
 
     <div>
@@ -370,9 +370,9 @@ Enter file in which to save the key (/Users/you/.ssh/id_rsa_s">
       
         <div class="post-tags">
           
-            <a href="../../../../tags/ssh/" rel="tag">#ssh</a>
-          
             <a href="../../../../tags/blog/" rel="tag">#blog</a>
+          
+            <a href="../../../../tags/ssh/" rel="tag">#ssh</a>
           
             <a href="../../../../tags/github/" rel="tag">#github</a>
           
@@ -389,8 +389,8 @@ Enter file in which to save the key (/Users/you/.ssh/id_rsa_s">
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="../../../12/18/newrelic/" rel="prev" title="newrelic使用">
-                newrelic使用 <i class="fa fa-chevron-right"></i>
+              <a href="../../../12/18/elasticsearch/" rel="prev" title="ElasticSearch">
+                ElasticSearch <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -456,8 +456,8 @@ Enter file in which to save the key (/Users/you/.ssh/id_rsa_s">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="http://upload.jianshu.io/users/upload_avatars/2649507/df92b5ff1a68.jpeg"
-               alt="neal.ma" />
-          <p class="site-author-name" itemprop="name">neal.ma</p>
+               alt="马英乘Neal" />
+          <p class="site-author-name" itemprop="name">马英乘Neal</p>
           <p class="site-description motion-element" itemprop="description">Follow your heart, just do it.</p>
         </div>
         <nav class="site-state motion-element">
@@ -557,7 +557,7 @@ Enter file in which to save the key (/Users/you/.ssh/id_rsa_s">
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
-  <span class="author" itemprop="copyrightHolder">neal.ma</span>
+  <span class="author" itemprop="copyrightHolder">马英乘Neal</span>
 </div>
 
 <div class="powered-by">

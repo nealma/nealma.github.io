@@ -74,7 +74,7 @@
 
 
 
-  <link rel="alternate" href="../../../../atom.xml" title="neal.ma" type="application/atom+xml" />
+  <link rel="alternate" href="../../../../atom.xml" title="nealma.com" type="application/atom+xml" />
 
 
 
@@ -86,25 +86,19 @@
 
 
 
-<meta name="description" content="前言我在开发的时候，总是会及时对自己的程序进行测试，总是频繁的重启web server，容器不烦我们都觉得烦了。
-福音来了，正好有springloaded，解决了我们的烦恼。
-开发环境：OS: Mac 10.11.6IDE: ideaBuild: mavenspring-boot-version: 1.4.0.RELEASE
-POM依赖123456789&amp;lt;dependency&amp;gt;">
+<meta name="description" content="我在开发的时候，总是会及时对自己的程序进行测试，总是频繁的重启web server，容器不烦我们都觉得烦了。
+福音来了，正好有springloaded，解决了我们的烦恼。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Spring-Boot（二） 集成springloaded">
 <meta property="og:url" content="http://www.nealma.com/2016/04/28/spring-boot-2-hot-swap/index.html">
-<meta property="og:site_name" content="neal.ma">
-<meta property="og:description" content="前言我在开发的时候，总是会及时对自己的程序进行测试，总是频繁的重启web server，容器不烦我们都觉得烦了。
-福音来了，正好有springloaded，解决了我们的烦恼。
-开发环境：OS: Mac 10.11.6IDE: ideaBuild: mavenspring-boot-version: 1.4.0.RELEASE
-POM依赖123456789&amp;lt;dependency&amp;gt;">
-<meta property="og:updated_time" content="2016-10-27T12:22:54.000Z">
+<meta property="og:site_name" content="nealma.com">
+<meta property="og:description" content="我在开发的时候，总是会及时对自己的程序进行测试，总是频繁的重启web server，容器不烦我们都觉得烦了。
+福音来了，正好有springloaded，解决了我们的烦恼。">
+<meta property="og:updated_time" content="2016-11-17T01:56:32.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Spring-Boot（二） 集成springloaded">
-<meta name="twitter:description" content="前言我在开发的时候，总是会及时对自己的程序进行测试，总是频繁的重启web server，容器不烦我们都觉得烦了。
-福音来了，正好有springloaded，解决了我们的烦恼。
-开发环境：OS: Mac 10.11.6IDE: ideaBuild: mavenspring-boot-version: 1.4.0.RELEASE
-POM依赖123456789&amp;lt;dependency&amp;gt;">
+<meta name="twitter:description" content="我在开发的时候，总是会及时对自己的程序进行测试，总是频繁的重启web server，容器不烦我们都觉得烦了。
+福音来了，正好有springloaded，解决了我们的烦恼。">
 
 
 
@@ -127,7 +121,7 @@ POM依赖123456789&amp;lt;dependency&amp;gt;">
 
   <link rel="canonical" href="http://www.nealma.com/2016/04/28/spring-boot-2-hot-swap/"/>
 
-  <title> Spring-Boot（二） 集成springloaded | neal.ma </title>
+  <title> Spring-Boot（二） 集成springloaded | nealma.com </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -168,7 +162,7 @@ POM依赖123456789&amp;lt;dependency&amp;gt;">
   <div class="custom-logo-site-title">
     <a href="/"  class="brand" rel="start">
       <span class="logo-line-before"><i></i></span>
-      <span class="site-title">neal.ma</span>
+      <span class="site-title">nealma.com</span>
       <span class="logo-line-after"><i></i></span>
     </a>
   </div>
@@ -343,7 +337,10 @@ POM依赖123456789&amp;lt;dependency&amp;gt;">
       
 
       
-        <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><pre><code>我在开发的时候，总是会及时对自己的程序进行测试，总是频繁的重启web server，容器不烦我们都觉得烦了。
+        <pre><code>我在开发的时候，总是会及时对自己的程序进行测试，总是频繁的重启web server，容器不烦我们都觉得烦了。
+福音来了，正好有springloaded，解决了我们的烦恼。
+</code></pre><a id="more"></a>
+<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><pre><code>我在开发的时候，总是会及时对自己的程序进行测试，总是频繁的重启web server，容器不烦我们都觉得烦了。
 福音来了，正好有springloaded，解决了我们的烦恼。
 </code></pre><p>开发环境：<br>OS: Mac 10.11.6<br>IDE: idea<br>Build: maven<br>spring-boot-version: 1.4.0.RELEASE</p>
 <h3 id="POM依赖"><a href="#POM依赖" class="headerlink" title="POM依赖"></a>POM依赖</h3><figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-devtools<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>springloaded<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.2.6.RELEASE<span class="tag">&lt;/<span class="name">version</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">dependency</span></span></div></pre></td></tr></table></figure>
@@ -351,6 +348,7 @@ POM依赖123456789&amp;lt;dependency&amp;gt;">
 <h3 id="结束"><a href="#结束" class="headerlink" title="结束"></a>结束</h3><p> 一开始以为直接在maven plugin中加入依赖就可以了，而在实际当中没有任何动静，直到把devtools和springloaded加入依赖，才能如愿以偿。</p>
 
       
+
     </div>
 
     <div>
@@ -461,8 +459,8 @@ POM依赖123456789&amp;lt;dependency&amp;gt;">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="http://upload.jianshu.io/users/upload_avatars/2649507/df92b5ff1a68.jpeg"
-               alt="neal.ma" />
-          <p class="site-author-name" itemprop="name">neal.ma</p>
+               alt="马英乘Neal" />
+          <p class="site-author-name" itemprop="name">马英乘Neal</p>
           <p class="site-description motion-element" itemprop="description">Follow your heart, just do it.</p>
         </div>
         <nav class="site-state motion-element">
@@ -562,7 +560,7 @@ POM依赖123456789&amp;lt;dependency&amp;gt;">
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
-  <span class="author" itemprop="copyrightHolder">neal.ma</span>
+  <span class="author" itemprop="copyrightHolder">马英乘Neal</span>
 </div>
 
 <div class="powered-by">

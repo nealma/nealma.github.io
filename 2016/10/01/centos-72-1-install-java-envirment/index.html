@@ -74,7 +74,7 @@
 
 
 
-  <link rel="alternate" href="../../../../atom.xml" title="neal.ma" type="application/atom+xml" />
+  <link rel="alternate" href="../../../../atom.xml" title="nealma.com" type="application/atom+xml" />
 
 
 
@@ -86,28 +86,22 @@
 
 
 
-<meta name="description" content="前言最近要从0开发新项目，以前都是用的CengOS6.5,觉得太历史了，7.x已经出来很久了。
+<meta name="description" content="最近要从0开发新项目，以前都是用的CengOS6.5,觉得太历史了，7.x已经出来很久了。
 而且云上的景象都是7.2了，没理由不用。第一次使用肯定会遇到坑，其实也是自身对这个系统的不了解。
-尝鲜可定会出事，但是只要你打破舒适区，一路下来，你会觉得没那么难
-安装 JDK8.0直接使用openJDK,直接使用8.0,没必要考虑之前的版本了。
-12yum search openJDKyun inst">
+尝鲜可定会出事，但是只要你打破舒适区，一路下来，你会觉得没那么难">
 <meta property="og:type" content="article">
 <meta property="og:title" content="CentOS7（一）Java环境搭建">
 <meta property="og:url" content="http://www.nealma.com/2016/10/01/centos-72-1-install-java-envirment/index.html">
-<meta property="og:site_name" content="neal.ma">
-<meta property="og:description" content="前言最近要从0开发新项目，以前都是用的CengOS6.5,觉得太历史了，7.x已经出来很久了。
+<meta property="og:site_name" content="nealma.com">
+<meta property="og:description" content="最近要从0开发新项目，以前都是用的CengOS6.5,觉得太历史了，7.x已经出来很久了。
 而且云上的景象都是7.2了，没理由不用。第一次使用肯定会遇到坑，其实也是自身对这个系统的不了解。
-尝鲜可定会出事，但是只要你打破舒适区，一路下来，你会觉得没那么难
-安装 JDK8.0直接使用openJDK,直接使用8.0,没必要考虑之前的版本了。
-12yum search openJDKyun inst">
-<meta property="og:updated_time" content="2016-11-09T06:22:19.000Z">
+尝鲜可定会出事，但是只要你打破舒适区，一路下来，你会觉得没那么难">
+<meta property="og:updated_time" content="2016-11-17T01:47:13.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="CentOS7（一）Java环境搭建">
-<meta name="twitter:description" content="前言最近要从0开发新项目，以前都是用的CengOS6.5,觉得太历史了，7.x已经出来很久了。
+<meta name="twitter:description" content="最近要从0开发新项目，以前都是用的CengOS6.5,觉得太历史了，7.x已经出来很久了。
 而且云上的景象都是7.2了，没理由不用。第一次使用肯定会遇到坑，其实也是自身对这个系统的不了解。
-尝鲜可定会出事，但是只要你打破舒适区，一路下来，你会觉得没那么难
-安装 JDK8.0直接使用openJDK,直接使用8.0,没必要考虑之前的版本了。
-12yum search openJDKyun inst">
+尝鲜可定会出事，但是只要你打破舒适区，一路下来，你会觉得没那么难">
 
 
 
@@ -130,7 +124,7 @@
 
   <link rel="canonical" href="http://www.nealma.com/2016/10/01/centos-72-1-install-java-envirment/"/>
 
-  <title> CentOS7（一）Java环境搭建 | neal.ma </title>
+  <title> CentOS7（一）Java环境搭建 | nealma.com </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -171,7 +165,7 @@
   <div class="custom-logo-site-title">
     <a href="/"  class="brand" rel="start">
       <span class="logo-line-before"><i></i></span>
-      <span class="site-title">neal.ma</span>
+      <span class="site-title">nealma.com</span>
       <span class="logo-line-after"><i></i></span>
     </a>
   </div>
@@ -346,7 +340,11 @@
       
 
       
-        <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><pre><code>最近要从0开发新项目，以前都是用的CengOS6.5,觉得太历史了，7.x已经出来很久了。
+        <pre><code>最近要从0开发新项目，以前都是用的CengOS6.5,觉得太历史了，7.x已经出来很久了。
+而且云上的景象都是7.2了，没理由不用。第一次使用肯定会遇到坑，其实也是自身对这个系统的不了解。
+尝鲜可定会出事，但是只要你打破舒适区，一路下来，你会觉得没那么难
+</code></pre><a id="more"></a>
+<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><pre><code>最近要从0开发新项目，以前都是用的CengOS6.5,觉得太历史了，7.x已经出来很久了。
 而且云上的景象都是7.2了，没理由不用。第一次使用肯定会遇到坑，其实也是自身对这个系统的不了解。
 尝鲜可定会出事，但是只要你打破舒适区，一路下来，你会觉得没那么难
 </code></pre><h3 id="安装-JDK8-0"><a href="#安装-JDK8-0" class="headerlink" title="安装 JDK8.0"></a>安装 JDK8.0</h3><p>直接使用openJDK,直接使用8.0,没必要考虑之前的版本了。</p>
@@ -360,6 +358,7 @@
 <h3 id="结束"><a href="#结束" class="headerlink" title="结束"></a>结束</h3><p>:)~</p>
 
       
+
     </div>
 
     <div>
@@ -399,8 +398,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="../centos-72-2-install-mariadb/" rel="prev" title="CentOS7（二）Install MySQL (MariaDB)">
-                CentOS7（二）Install MySQL (MariaDB) <i class="fa fa-chevron-right"></i>
+              <a href="../centos-72-3-php/" rel="prev" title="CentOS7（三）Install PHP">
+                CentOS7（三）Install PHP <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -466,8 +465,8 @@
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="http://upload.jianshu.io/users/upload_avatars/2649507/df92b5ff1a68.jpeg"
-               alt="neal.ma" />
-          <p class="site-author-name" itemprop="name">neal.ma</p>
+               alt="马英乘Neal" />
+          <p class="site-author-name" itemprop="name">马英乘Neal</p>
           <p class="site-description motion-element" itemprop="description">Follow your heart, just do it.</p>
         </div>
         <nav class="site-state motion-element">
@@ -567,7 +566,7 @@
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
-  <span class="author" itemprop="copyrightHolder">neal.ma</span>
+  <span class="author" itemprop="copyrightHolder">马英乘Neal</span>
 </div>
 
 <div class="powered-by">

@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
-  <title>neal.ma</title>
+  <title>nealma.com</title>
   
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://www.nealma.com/"/>
-  <updated>2016-11-16T01:17:33.000Z</updated>
+  <updated>2016-11-17T01:52:14.000Z</updated>
   <id>http://www.nealma.com/</id>
   
   <author>
-    <name>neal.ma</name>
+    <name>马英乘Neal</name>
     
   </author>
   
@@ -20,9 +20,12 @@
     <link href="http://www.nealma.com/2016/11/03/spring-boot-7-thymeleaf/"/>
     <id>http://www.nealma.com/2016/11/03/spring-boot-7-thymeleaf/</id>
     <published>2016-11-03T03:46:45.000Z</published>
-    <updated>2016-11-16T01:17:33.000Z</updated>
+    <updated>2016-11-17T01:52:14.000Z</updated>
     
-    <content type="html"><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><pre><code>模版引擎千千万，今个说说Thymeleaf，主要是不想在混用jsp标签和使用jsp后缀文件，
+    <content type="html"><![CDATA[<pre><code>模版引擎千千万，今个说说Thymeleaf，主要是不想在混用jsp标签和使用jsp后缀文件，
+直接使用html文件，便于前后端分离。
+</code></pre><a id="more"></a>
+<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><pre><code>模版引擎千千万，今个说说Thymeleaf，主要是不想在混用jsp标签和使用jsp后缀文件，
 直接使用html文件，便于前后端分离。
 </code></pre><p>开发环境：<br>OS: Mac 10.11.6<br>IDE: IDEA<br>Build: Maven</p>
 <h3 id="依赖"><a href="#依赖" class="headerlink" title="依赖"></a>依赖</h3><pre><code>Spring Boot天生内置了对Thymeleaf的支持，简化了配置，加速开发。只需要引入如下
@@ -48,8 +51,9 @@ TemplateEngine，ThymeleafViewResolver会自用实例化。
     
     <summary type="html">
     
-      &lt;h3 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h3&gt;&lt;pre&gt;&lt;code&gt;模版引擎千千万，今个说说Thymeleaf，主要是不想在混用jsp标签和使用jsp后缀文件，
-直接使用html文件，便于前后
+      &lt;pre&gt;&lt;code&gt;模版引擎千千万，今个说说Thymeleaf，主要是不想在混用jsp标签和使用jsp后缀文件，
+直接使用html文件，便于前后端分离。
+&lt;/code&gt;&lt;/pre&gt;
     
     </summary>
     
@@ -73,9 +77,13 @@ TemplateEngine，ThymeleafViewResolver会自用实例化。
     <link href="http://www.nealma.com/2016/11/01/spring-boot-6-spring-session/"/>
     <id>http://www.nealma.com/2016/11/01/spring-boot-6-spring-session/</id>
     <published>2016-11-01T03:46:45.000Z</published>
-    <updated>2016-11-14T07:24:06.000Z</updated>
+    <updated>2016-11-17T01:54:06.000Z</updated>
     
-    <content type="html"><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><pre><code>使用Spring Security的时候，觉得省了好多的事情。但是它使用的是内存来存储CurrentUser的信息
+    <content type="html"><![CDATA[<pre><code>使用Spring Security的时候，觉得省了好多的事情。但是它使用的是内存来存储CurrentUser的信息
+和登录凭证，一旦单机不能承受大用户量，就需要水平扩展，就会涉及到session的问题。怎么才能实现
+平滑扩展呢？还好有Sping Session，怎么用呢？
+</code></pre><a id="more"></a>
+<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><pre><code>使用Spring Security的时候，觉得省了好多的事情。但是它使用的是内存来存储CurrentUser的信息
 和登录凭证，一旦单机不能承受大用户量，就需要水平扩展，就会涉及到session的问题。怎么才能实现
 平滑扩展呢？还好有Sping Session，怎么用呢？
 </code></pre><p>开发环境：<br>OS: Mac 10.11.6<br>IDE: IDEA<br>Build: Maven</p>
@@ -101,8 +109,10 @@ CookieHttpSessionStrategy，如果是API就用HeaderHttpSessionStrategy，具体
     
     <summary type="html">
     
-      &lt;h3 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h3&gt;&lt;pre&gt;&lt;code&gt;使用Spring Security的时候，觉得省了好多的事情。但是它使用的是内存来存储CurrentUser的信息
-和登录凭
+      &lt;pre&gt;&lt;code&gt;使用Spring Security的时候，觉得省了好多的事情。但是它使用的是内存来存储CurrentUser的信息
+和登录凭证，一旦单机不能承受大用户量，就需要水平扩展，就会涉及到session的问题。怎么才能实现
+平滑扩展呢？还好有Sping Session，怎么用呢？
+&lt;/code&gt;&lt;/pre&gt;
     
     </summary>
     
@@ -124,9 +134,12 @@ CookieHttpSessionStrategy，如果是API就用HeaderHttpSessionStrategy，具体
     <link href="http://www.nealma.com/2016/10/02/vim-command-line-1-replace/"/>
     <id>http://www.nealma.com/2016/10/02/vim-command-line-1-replace/</id>
     <published>2016-10-02T03:46:45.000Z</published>
-    <updated>2016-11-06T04:31:18.000Z</updated>
+    <updated>2016-11-17T01:54:55.000Z</updated>
     
-    <content type="html"><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><pre><code>文本替换在我们的工作中经常被使用，是一个高频的功能。
+    <content type="html"><![CDATA[<pre><code>文本替换在我们的工作中经常被使用，是一个高频的功能。
+可是我总是记不住，每次都得Google一下，还是自己记录下吧...
+</code></pre><a id="more"></a>
+<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><pre><code>文本替换在我们的工作中经常被使用，是一个高频的功能。
 可是我总是记不住，每次都得Google一下，还是自己记录下吧...
 </code></pre><h3 id="Replace-Text"><a href="#Replace-Text" class="headerlink" title="Replace Text"></a>Replace Text</h3><ul>
 <li>替换当前行第一个字符</li>
@@ -149,9 +162,9 @@ CookieHttpSessionStrategy，如果是API就用HeaderHttpSessionStrategy，具体
     
     <summary type="html">
     
-      &lt;h3 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h3&gt;&lt;pre&gt;&lt;code&gt;文本替换在我们的工作中经常被使用，是一个高频的功能。
+      &lt;pre&gt;&lt;code&gt;文本替换在我们的工作中经常被使用，是一个高频的功能。
 可是我总是记不住，每次都得Google一下，还是自己记录下吧...
-&lt;
+&lt;/code&gt;&lt;/pre&gt;
     
     </summary>
     
@@ -167,13 +180,53 @@ CookieHttpSessionStrategy，如果是API就用HeaderHttpSessionStrategy，具体
   </entry>
   
   <entry>
+    <title>CentOS7（二）Install MySQL (MariaDB)</title>
+    <link href="http://www.nealma.com/2016/10/01/centos-72-2-install-mariadb/"/>
+    <id>http://www.nealma.com/2016/10/01/centos-72-2-install-mariadb/</id>
+    <published>2016-10-01T03:46:45.000Z</published>
+    <updated>2016-11-17T01:47:28.000Z</updated>
+    
+    <content type="html"><![CDATA[<pre><code>今天在CentOS 7.2上安装MySQL（MariaDB）,记录一下
+</code></pre><a id="more"></a>
+<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><pre><code>今天在CentOS 7.2上安装MySQL（MariaDB）,记录一下
+</code></pre><h3 id="Install-MariaDB"><a href="#Install-MariaDB" class="headerlink" title="Install MariaDB"></a>Install MariaDB</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">yum install mariadb-server mariadb</div></pre></td></tr></table></figure>
+<h3 id="Start-MariaDB"><a href="#Start-MariaDB" class="headerlink" title="Start MariaDB"></a>Start MariaDB</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">systemsctl start mariadb</div></pre></td></tr></table></figure>
+<h3 id="Setting-Secure"><a href="#Setting-Secure" class="headerlink" title="Setting Secure"></a>Setting Secure</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line"># 设置root密码，是否允许远程，test数据库等	</div><div class="line"></div><div class="line">mysql_secure_installation</div><div class="line"></div><div class="line"># Or</div><div class="line"></div><div class="line">set password for &apos;root&apos;@&apos;localhost&apos; =password(&apos;password&apos;);</div><div class="line"></div><div class="line"># 远程连接设置</div><div class="line">grant all privileges on *.* to root@&apos;%&apos; identified by &apos;password&apos;;</div><div class="line">flush privileges;</div><div class="line"></div><div class="line">#Or</div><div class="line"></div><div class="line">mysql&gt; use mysql</div><div class="line"></div><div class="line">mysql&gt; update user set Host=&apos;%&apos; where User=&apos;root&apos;;</div><div class="line"></div><div class="line">mysql&gt; flush privileges;</div><div class="line"></div><div class="line"># 创建新用户</div><div class="line">create user &apos;username&apos;@&apos;%&apos; identified by &apos;password&apos;;</div></pre></td></tr></table></figure>
+<h3 id="Start-on-boot"><a href="#Start-on-boot" class="headerlink" title="Start on boot"></a>Start on boot</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">systemctl enable mariadb.service</div></pre></td></tr></table></figure>
+<h3 id="MySQL-配置防火墙"><a href="#MySQL-配置防火墙" class="headerlink" title="MySQL 配置防火墙"></a>MySQL 配置防火墙</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">firewall-cmd --permanent --zone=public --add-service=mysql</div><div class="line">firewall-cmd --reload</div></pre></td></tr></table></figure>
+<h3 id="结束"><a href="#结束" class="headerlink" title="结束"></a>结束</h3><p>:)~</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;pre&gt;&lt;code&gt;今天在CentOS 7.2上安装MySQL（MariaDB）,记录一下
+&lt;/code&gt;&lt;/pre&gt;
+    
+    </summary>
+    
+      <category term="Linux" scheme="http://www.nealma.com/categories/Linux/"/>
+    
+    
+      <category term="CentOS" scheme="http://www.nealma.com/tags/CentOS/"/>
+    
+      <category term="Linux" scheme="http://www.nealma.com/tags/Linux/"/>
+    
+      <category term="MySQL" scheme="http://www.nealma.com/tags/MySQL/"/>
+    
+      <category term="MariaDB" scheme="http://www.nealma.com/tags/MariaDB/"/>
+    
+  </entry>
+  
+  <entry>
     <title>CentOS7（三）Install PHP</title>
     <link href="http://www.nealma.com/2016/10/01/centos-72-3-php/"/>
     <id>http://www.nealma.com/2016/10/01/centos-72-3-php/</id>
     <published>2016-10-01T03:46:45.000Z</published>
-    <updated>2016-11-10T15:37:19.000Z</updated>
+    <updated>2016-11-17T02:02:12.000Z</updated>
     
-    <content type="html"><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><pre><code>今天在CentOS 7.2上安装PHP,记录一下
+    <content type="html"><![CDATA[<pre><code>今天在CentOS 7.2上安装PHP,记录一下
+</code></pre><a id="more"></a>
+<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><pre><code>今天在CentOS 7.2上安装PHP,记录一下
 </code></pre><h3 id="Install-PHP"><a href="#Install-PHP" class="headerlink" title="Install PHP"></a>Install PHP</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">yum install php php-mysql</div></pre></td></tr></table></figure>
 <h3 id="Restart-Apache-web-server"><a href="#Restart-Apache-web-server" class="headerlink" title="Restart Apache web server"></a>Restart Apache web server</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">yum -y install httpd</div><div class="line"></div><div class="line">systemctl restart httpd.service</div></pre></td></tr></table></figure>
 <h3 id="Install-PHP-Modules"><a href="#Install-PHP-Modules" class="headerlink" title="Install PHP Modules"></a>Install PHP Modules</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">yum install php-fpm</div></pre></td></tr></table></figure>
@@ -193,8 +246,8 @@ CookieHttpSessionStrategy，如果是API就用HeaderHttpSessionStrategy，具体
     
     <summary type="html">
     
-      &lt;h3 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h3&gt;&lt;pre&gt;&lt;code&gt;今天在CentOS 7.2上安装PHP,记录一下
-&lt;/code&gt;&lt;/pre&gt;&lt;h3 id=&quot;Install-PHP&quot;&gt;&lt;a 
+      &lt;pre&gt;&lt;code&gt;今天在CentOS 7.2上安装PHP,记录一下
+&lt;/code&gt;&lt;/pre&gt;
     
     </summary>
     
@@ -210,49 +263,17 @@ CookieHttpSessionStrategy，如果是API就用HeaderHttpSessionStrategy，具体
   </entry>
   
   <entry>
-    <title>CentOS7（二）Install MySQL (MariaDB)</title>
-    <link href="http://www.nealma.com/2016/10/01/centos-72-2-install-mariadb/"/>
-    <id>http://www.nealma.com/2016/10/01/centos-72-2-install-mariadb/</id>
-    <published>2016-10-01T03:46:45.000Z</published>
-    <updated>2016-11-14T07:24:02.000Z</updated>
-    
-    <content type="html"><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><pre><code>今天在CentOS 7.2上安装MySQL（MariaDB）,记录一下
-</code></pre><h3 id="Install-MariaDB"><a href="#Install-MariaDB" class="headerlink" title="Install MariaDB"></a>Install MariaDB</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">yum install mariadb-server mariadb</div></pre></td></tr></table></figure>
-<h3 id="Start-MariaDB"><a href="#Start-MariaDB" class="headerlink" title="Start MariaDB"></a>Start MariaDB</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">systemsctl start mariadb</div></pre></td></tr></table></figure>
-<h3 id="Setting-Secure"><a href="#Setting-Secure" class="headerlink" title="Setting Secure"></a>Setting Secure</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line"># 设置root密码，是否允许远程，test数据库等	</div><div class="line"></div><div class="line">mysql_secure_installation</div><div class="line"></div><div class="line"># Or</div><div class="line"></div><div class="line">set password for &apos;root&apos;@&apos;localhost&apos; =password(&apos;password&apos;);</div><div class="line"></div><div class="line"># 远程连接设置</div><div class="line">grant all privileges on *.* to root@&apos;%&apos; identified by &apos;password&apos;;</div><div class="line">flush privileges;</div><div class="line"></div><div class="line">#Or</div><div class="line"></div><div class="line">mysql&gt; use mysql</div><div class="line"></div><div class="line">mysql&gt; update user set Host=&apos;%&apos; where User=&apos;root&apos;;</div><div class="line"></div><div class="line">mysql&gt; flush privileges;</div><div class="line"></div><div class="line"># 创建新用户</div><div class="line">create user &apos;username&apos;@&apos;%&apos; identified by &apos;password&apos;;</div></pre></td></tr></table></figure>
-<h3 id="Start-on-boot"><a href="#Start-on-boot" class="headerlink" title="Start on boot"></a>Start on boot</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">systemctl enable mariadb.service</div></pre></td></tr></table></figure>
-<h3 id="MySQL-配置防火墙"><a href="#MySQL-配置防火墙" class="headerlink" title="MySQL 配置防火墙"></a>MySQL 配置防火墙</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">firewall-cmd --permanent --zone=public --add-service=mysql</div><div class="line">firewall-cmd --reload</div></pre></td></tr></table></figure>
-<h3 id="结束"><a href="#结束" class="headerlink" title="结束"></a>结束</h3><p>:)~</p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;h3 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h3&gt;&lt;pre&gt;&lt;code&gt;今天在CentOS 7.2上安装MySQL（MariaDB）,记录一下
-&lt;/code&gt;&lt;/pre&gt;&lt;h3 id=&quot;Insta
-    
-    </summary>
-    
-      <category term="Linux" scheme="http://www.nealma.com/categories/Linux/"/>
-    
-    
-      <category term="CentOS" scheme="http://www.nealma.com/tags/CentOS/"/>
-    
-      <category term="Linux" scheme="http://www.nealma.com/tags/Linux/"/>
-    
-      <category term="MySQL" scheme="http://www.nealma.com/tags/MySQL/"/>
-    
-      <category term="MariaDB" scheme="http://www.nealma.com/tags/MariaDB/"/>
-    
-  </entry>
-  
-  <entry>
     <title>CentOS7（一）Java环境搭建</title>
     <link href="http://www.nealma.com/2016/10/01/centos-72-1-install-java-envirment/"/>
     <id>http://www.nealma.com/2016/10/01/centos-72-1-install-java-envirment/</id>
     <published>2016-10-01T03:46:45.000Z</published>
-    <updated>2016-11-09T06:22:19.000Z</updated>
+    <updated>2016-11-17T01:47:13.000Z</updated>
     
-    <content type="html"><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><pre><code>最近要从0开发新项目，以前都是用的CengOS6.5,觉得太历史了，7.x已经出来很久了。
+    <content type="html"><![CDATA[<pre><code>最近要从0开发新项目，以前都是用的CengOS6.5,觉得太历史了，7.x已经出来很久了。
+而且云上的景象都是7.2了，没理由不用。第一次使用肯定会遇到坑，其实也是自身对这个系统的不了解。
+尝鲜可定会出事，但是只要你打破舒适区，一路下来，你会觉得没那么难
+</code></pre><a id="more"></a>
+<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><pre><code>最近要从0开发新项目，以前都是用的CengOS6.5,觉得太历史了，7.x已经出来很久了。
 而且云上的景象都是7.2了，没理由不用。第一次使用肯定会遇到坑，其实也是自身对这个系统的不了解。
 尝鲜可定会出事，但是只要你打破舒适区，一路下来，你会觉得没那么难
 </code></pre><h3 id="安装-JDK8-0"><a href="#安装-JDK8-0" class="headerlink" title="安装 JDK8.0"></a>安装 JDK8.0</h3><p>直接使用openJDK,直接使用8.0,没必要考虑之前的版本了。</p>
@@ -268,8 +289,10 @@ CookieHttpSessionStrategy，如果是API就用HeaderHttpSessionStrategy，具体
     
     <summary type="html">
     
-      &lt;h3 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h3&gt;&lt;pre&gt;&lt;code&gt;最近要从0开发新项目，以前都是用的CengOS6.5,觉得太历史了，7.x已经出来很久了。
-而且云上的景象都是7.2了，没理
+      &lt;pre&gt;&lt;code&gt;最近要从0开发新项目，以前都是用的CengOS6.5,觉得太历史了，7.x已经出来很久了。
+而且云上的景象都是7.2了，没理由不用。第一次使用肯定会遇到坑，其实也是自身对这个系统的不了解。
+尝鲜可定会出事，但是只要你打破舒适区，一路下来，你会觉得没那么难
+&lt;/code&gt;&lt;/pre&gt;
     
     </summary>
     
@@ -287,9 +310,11 @@ CookieHttpSessionStrategy，如果是API就用HeaderHttpSessionStrategy，具体
     <link href="http://www.nealma.com/2016/09/03/react-native-912-archive/"/>
     <id>http://www.nealma.com/2016/09/03/react-native-912-archive/</id>
     <published>2016-09-03T06:46:45.000Z</published>
-    <updated>2016-10-31T17:24:41.000Z</updated>
+    <updated>2016-11-17T01:57:23.000Z</updated>
     
-    <content type="html"><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><pre><code>导出分发包的过程中，遇到了许多小问题，做个总结吧
+    <content type="html"><![CDATA[<p>导出分发包的过程中，遇到了许多小问题，做个总结吧</p>
+<a id="more"></a>
+<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><pre><code>导出分发包的过程中，遇到了许多小问题，做个总结吧
 </code></pre><p>开发环境：<br>OS: Mac 10.11.6<br>Xcode: Version 8.0 (8A218a)</p>
 <h3 id="趟雷过程中遇到的陷阱"><a href="#趟雷过程中遇到的陷阱" class="headerlink" title="趟雷过程中遇到的陷阱"></a>趟雷过程中遇到的陷阱</h3><ul>
 <li><p>{For iOS} 突然Products中的archive变成灰色，不能archive了</p>
@@ -311,8 +336,7 @@ CookieHttpSessionStrategy，如果是API就用HeaderHttpSessionStrategy，具体
     
     <summary type="html">
     
-      &lt;h3 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h3&gt;&lt;pre&gt;&lt;code&gt;导出分发包的过程中，遇到了许多小问题，做个总结吧
-&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;开发环境：&lt;br&gt;OS: Mac 10.1
+      &lt;p&gt;导出分发包的过程中，遇到了许多小问题，做个总结吧&lt;/p&gt;
     
     </summary>
     
@@ -332,9 +356,13 @@ CookieHttpSessionStrategy，如果是API就用HeaderHttpSessionStrategy，具体
     <link href="http://www.nealma.com/2016/09/02/react-native-911-bundle/"/>
     <id>http://www.nealma.com/2016/09/02/react-native-911-bundle/</id>
     <published>2016-09-02T06:46:45.000Z</published>
-    <updated>2016-10-31T17:11:18.000Z</updated>
+    <updated>2016-11-17T01:57:36.000Z</updated>
     
-    <content type="html"><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><pre><code>在开发阶段，我们都是通过模拟器，或者自己的手机，直接连接Xcode和Android Studio,
+    <content type="html"><![CDATA[<pre><code>在开发阶段，我们都是通过模拟器，或者自己的手机，直接连接Xcode和Android Studio,
+这样调试代码非常方便，然而我们的App开发好了，最终的目的是上线App Store和各个Android市场。
+最后还是要进行打包，把所有的资源打包成一个最终能够安装的应用包。iOS对应的ipa，Android对应的apk。
+</code></pre><a id="more"></a>
+<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><pre><code>在开发阶段，我们都是通过模拟器，或者自己的手机，直接连接Xcode和Android Studio,
 这样调试代码非常方便，然而我们的App开发好了，最终的目的是上线App Store和各个Android市场。
 最后还是要进行打包，把所有的资源打包成一个最终能够安装的应用包。iOS对应的ipa，Android对应的apk。
 
@@ -375,8 +403,10 @@ CookieHttpSessionStrategy，如果是API就用HeaderHttpSessionStrategy，具体
     
     <summary type="html">
     
-      &lt;h3 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h3&gt;&lt;pre&gt;&lt;code&gt;在开发阶段，我们都是通过模拟器，或者自己的手机，直接连接Xcode和Android Studio,
-这样调试代码非常方便，然
+      &lt;pre&gt;&lt;code&gt;在开发阶段，我们都是通过模拟器，或者自己的手机，直接连接Xcode和Android Studio,
+这样调试代码非常方便，然而我们的App开发好了，最终的目的是上线App Store和各个Android市场。
+最后还是要进行打包，把所有的资源打包成一个最终能够安装的应用包。iOS对应的ipa，Android对应的apk。
+&lt;/code&gt;&lt;/pre&gt;
     
     </summary>
     
@@ -396,9 +426,14 @@ CookieHttpSessionStrategy，如果是API就用HeaderHttpSessionStrategy，具体
     <link href="http://www.nealma.com/2016/09/01/react-native-910-app-icon/"/>
     <id>http://www.nealma.com/2016/09/01/react-native-910-app-icon/</id>
     <published>2016-09-01T06:46:45.000Z</published>
-    <updated>2016-10-29T22:59:45.000Z</updated>
+    <updated>2016-11-17T01:57:48.000Z</updated>
     
-    <content type="html"><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><pre><code>App开发好了，在你的手机桌面上就能看到，一个好的icon会给人耳目一新的感觉。
+    <content type="html"><![CDATA[<pre><code>App开发好了，在你的手机桌面上就能看到，一个好的icon会给人耳目一新的感觉。
+作为一个专业搬砖的来说，很有难度。主要看你的设计和视觉天赋了。我们一般运行个helloworld，
+你会在手机上找你的App，但都是各个平台默认的，iOS里面是多个同心圆，一环一环的，
+具体叫啥还真不知道，Android则是那个呆萌的小机器人。
+</code></pre><a id="more"></a>
+<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><pre><code>App开发好了，在你的手机桌面上就能看到，一个好的icon会给人耳目一新的感觉。
 作为一个专业搬砖的来说，很有难度。主要看你的设计和视觉天赋了。我们一般运行个helloworld，
 你会在手机上找你的App，但都是各个平台默认的，iOS里面是多个同心圆，一环一环的，
 具体叫啥还真不知道，Android则是那个呆萌的小机器人。
@@ -436,8 +471,11 @@ CookieHttpSessionStrategy，如果是API就用HeaderHttpSessionStrategy，具体
     
     <summary type="html">
     
-      &lt;h3 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h3&gt;&lt;pre&gt;&lt;code&gt;App开发好了，在你的手机桌面上就能看到，一个好的icon会给人耳目一新的感觉。
-作为一个专业搬砖的来说，很有难度。主要看你
+      &lt;pre&gt;&lt;code&gt;App开发好了，在你的手机桌面上就能看到，一个好的icon会给人耳目一新的感觉。
+作为一个专业搬砖的来说，很有难度。主要看你的设计和视觉天赋了。我们一般运行个helloworld，
+你会在手机上找你的App，但都是各个平台默认的，iOS里面是多个同心圆，一环一环的，
+具体叫啥还真不知道，Android则是那个呆萌的小机器人。
+&lt;/code&gt;&lt;/pre&gt;
     
     </summary>
     
@@ -459,9 +497,11 @@ CookieHttpSessionStrategy，如果是API就用HeaderHttpSessionStrategy，具体
     <link href="http://www.nealma.com/2016/08/31/react-native-9-TextInput/"/>
     <id>http://www.nealma.com/2016/08/31/react-native-9-TextInput/</id>
     <published>2016-08-31T03:46:45.000Z</published>
-    <updated>2016-10-29T07:44:10.000Z</updated>
+    <updated>2016-11-17T01:57:59.000Z</updated>
     
-    <content type="html"><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><pre><code>TextInput组件作为基础部分，必不可少。
+    <content type="html"><![CDATA[<p>  TextInput组件作为基础部分，必不可少。<br>  我们在做登录、提交信息时经常使用。</p>
+<a id="more"></a>
+<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><pre><code>TextInput组件作为基础部分，必不可少。
 我们在做登录、提交信息时经常使用。
 </code></pre><p>开发环境：<br>OS: Mac 10.11.6<br>Xcode: Version 8.0 (8A218a)</p>
 <h3 id="简单用例"><a href="#简单用例" class="headerlink" title="简单用例"></a>简单用例</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">&lt;TextInput</div><div class="line">    style=&#123;Styles.postTextInput&#125;</div><div class="line">    autoCapitalize=&quot;none&quot;</div><div class="line">    multiline=&#123;true&#125; //是否多行</div><div class="line">    keyboardType=&apos;numeric&apos; //键盘类型：default, numeric, </div><div class="line">    placeholder=&#123;this.state.placeHolder&#125; //占位字符 背景提示,这里犯了错误，当时把颜色和背景设置一样了，死活看不到，满眼都是泪啊</div><div class="line">    placeholderTextColor=&quot;#bfbfbf&quot; //占位符颜色</div><div class="line">    onChangeText=&#123;(text) =&gt; this.setState(&#123;text&#125;)&#125; //文本改变时触发这个事件, 获取本文时需要这个方法</div><div class="line">/&gt;</div><div class="line"></div><div class="line"># keyboardType决定键盘类型,是个枚举</div><div class="line"># enum(&apos;default&apos;, &quot;ascii-capable&quot;, &apos;numbers-and-punctuation&apos;, &apos;url&apos;, &apos;number-pad&apos;, &apos;phone-pad&apos;, </div><div class="line">#&apos;name-phone-pad&apos;, &apos;email-address&apos;, &apos;decimal-pad&apos;, &apos;twitter&apos;, &apos;web-search&apos;, &quot;numeric&quot;)</div></pre></td></tr></table></figure>
@@ -496,9 +536,7 @@ CookieHttpSessionStrategy，如果是API就用HeaderHttpSessionStrategy，具体
     
     <summary type="html">
     
-      &lt;h3 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h3&gt;&lt;pre&gt;&lt;code&gt;TextInput组件作为基础部分，必不可少。
-我们在做登录、提交信息时经常使用。
-&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;开发环境
+      &lt;p&gt;  TextInput组件作为基础部分，必不可少。&lt;br&gt;  我们在做登录、提交信息时经常使用。&lt;/p&gt;
     
     </summary>
     
@@ -518,9 +556,14 @@ CookieHttpSessionStrategy，如果是API就用HeaderHttpSessionStrategy，具体
     <link href="http://www.nealma.com/2016/08/30/react-native-8-define-component/"/>
     <id>http://www.nealma.com/2016/08/30/react-native-8-define-component/</id>
     <published>2016-08-30T03:46:45.000Z</published>
-    <updated>2016-10-28T05:51:08.000Z</updated>
+    <updated>2016-11-17T01:58:11.000Z</updated>
     
-    <content type="html"><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><pre><code>再前面一篇文章中，我使用了listview，当加载到最后，没有更多了，要更新提示；
+    <content type="html"><![CDATA[<pre><code>再前面一篇文章中，我使用了listview，当加载到最后，没有更多了，要更新提示；
+一个方法是定义两个class，一个加载更多Footer，一个没有更多啦Footer, 很显热
+只是为了一个string的变量，定义两个class有点浪费，从组件服用角度也是不合理的。
+那怎么办呢？下面慢慢分解...
+</code></pre><a id="more"></a>
+<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><pre><code>再前面一篇文章中，我使用了listview，当加载到最后，没有更多了，要更新提示；
 一个方法是定义两个class，一个加载更多Footer，一个没有更多啦Footer, 很显热
 只是为了一个string的变量，定义两个class有点浪费，从组件服用角度也是不合理的。
 那怎么办呢？下面慢慢分解...
@@ -541,8 +584,11 @@ CookieHttpSessionStrategy，如果是API就用HeaderHttpSessionStrategy，具体
     
     <summary type="html">
     
-      &lt;h3 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h3&gt;&lt;pre&gt;&lt;code&gt;再前面一篇文章中，我使用了listview，当加载到最后，没有更多了，要更新提示；
-一个方法是定义两个class，一个加载更
+      &lt;pre&gt;&lt;code&gt;再前面一篇文章中，我使用了listview，当加载到最后，没有更多了，要更新提示；
+一个方法是定义两个class，一个加载更多Footer，一个没有更多啦Footer, 很显热
+只是为了一个string的变量，定义两个class有点浪费，从组件服用角度也是不合理的。
+那怎么办呢？下面慢慢分解...
+&lt;/code&gt;&lt;/pre&gt;
     
     </summary>
     
@@ -560,9 +606,12 @@ CookieHttpSessionStrategy，如果是API就用HeaderHttpSessionStrategy，具体
     <link href="http://www.nealma.com/2016/07/30/react-native-7-navigator/"/>
     <id>http://www.nealma.com/2016/07/30/react-native-7-navigator/</id>
     <published>2016-07-30T03:46:45.000Z</published>
-    <updated>2016-10-24T16:11:36.000Z</updated>
+    <updated>2016-11-17T01:58:24.000Z</updated>
     
-    <content type="html"><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><pre><code>Navigator组件作为基础部分，必不可少。前面我们使用了sidemenu，每个menu的触发事件都会跳到
+    <content type="html"><![CDATA[<pre><code>Navigator组件作为基础部分，必不可少。前面我们使用了sidemenu，每个menu的触发事件都会跳到
+一个新的视图，此时就要用Navigator了。说白了，就是控制路由的这么一个东西，从一个视图跳到另一个视图。
+</code></pre><a id="more"></a>
+<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><pre><code>Navigator组件作为基础部分，必不可少。前面我们使用了sidemenu，每个menu的触发事件都会跳到
 一个新的视图，此时就要用Navigator了。说白了，就是控制路由的这么一个东西，从一个视图跳到另一个视图。
 </code></pre><p><img src="/images/navigator.gif" alt=""></p>
 <p>开发环境：<br>OS: Mac 10.11.6<br>Xcode: Version 8.0 (8A218a)</p>
@@ -578,8 +627,9 @@ CookieHttpSessionStrategy，如果是API就用HeaderHttpSessionStrategy，具体
     
     <summary type="html">
     
-      &lt;h3 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h3&gt;&lt;pre&gt;&lt;code&gt;Navigator组件作为基础部分，必不可少。前面我们使用了sidemenu，每个menu的触发事件都会跳到
-一个新的视图，
+      &lt;pre&gt;&lt;code&gt;Navigator组件作为基础部分，必不可少。前面我们使用了sidemenu，每个menu的触发事件都会跳到
+一个新的视图，此时就要用Navigator了。说白了，就是控制路由的这么一个东西，从一个视图跳到另一个视图。
+&lt;/code&gt;&lt;/pre&gt;
     
     </summary>
     
@@ -599,9 +649,11 @@ CookieHttpSessionStrategy，如果是API就用HeaderHttpSessionStrategy，具体
     <link href="http://www.nealma.com/2016/07/29/react-native-6-cameraroll/"/>
     <id>http://www.nealma.com/2016/07/29/react-native-6-cameraroll/</id>
     <published>2016-07-29T04:46:45.000Z</published>
-    <updated>2016-10-29T22:37:46.000Z</updated>
+    <updated>2016-11-17T01:58:34.000Z</updated>
     
-    <content type="html"><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><pre><code>CameraRoll模块提供了访问本地相册的功能。
+    <content type="html"><![CDATA[<pre><code>CameraRoll模块提供了访问本地相册的功能。
+</code></pre><a id="more"></a>
+<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><pre><code>CameraRoll模块提供了访问本地相册的功能。
 </code></pre><p><img src="/images/cameraroll.gif" alt=""></p>
 <p>开发环境：<br>OS: Mac 10.11.6<br>Xcode: Version 8.0 (8A218a)</p>
 <h3 id="简单用例"><a href="#简单用例" class="headerlink" title="简单用例"></a>简单用例</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div><div class="line">106</div></pre></td><td class="code"><pre><div class="line">export default class HaiJiCameraRoll extends Component &#123;</div><div class="line">    constructor(props) &#123;</div><div class="line">        super(props);</div><div class="line">        this.state = &#123;</div><div class="line">            photos: [],</div><div class="line">            selected: &apos;&apos;,</div><div class="line">            placeHolder: &apos;这一刻的想法...&apos;,</div><div class="line">            text: null</div><div class="line">        &#125;;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    componentDidMount() &#123;</div><div class="line">        let fetchParams = &#123;</div><div class="line">            first: 10,</div><div class="line">            assetType: &apos;Photos&apos;</div><div class="line">        &#125;;</div><div class="line">        CameraRoll.getPhotos(fetchParams).then((data) =&gt; &#123;</div><div class="line">            const edges = data.edges;</div><div class="line">            let photos = edges.map(photo=&gt;&#123;</div><div class="line">                return photo.node.image.uri</div><div class="line">            &#125;);</div><div class="line">            this.setState(&#123;</div><div class="line">                photos: photos</div><div class="line">            &#125;);</div><div class="line">        &#125;).catch(alert);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    selectImage(image) &#123;</div><div class="line">        this.setState(&#123;</div><div class="line">            selected: image</div><div class="line">        &#125;);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    render() &#123;</div><div class="line"></div><div class="line">        const photos = this.state.photos || [];</div><div class="line">        let photosView = [];</div><div class="line">        for(let i = 0; i &lt; photos.length; i+=4) &#123;</div><div class="line">            let imageUri = photos[parseInt(i)];</div><div class="line">            let imageUri1 = photos[parseInt(i+1)];</div><div class="line">            let imageUri2 = photos[parseInt(i+2)];</div><div class="line">            let imageUri3 = photos[parseInt(i+3)];</div><div class="line">            photosView.push(</div><div class="line">                &lt;View style=&#123;Styles.postCameraRollRow&#125; key=&#123;i&#125;&gt;</div><div class="line">                    &lt;View style=&#123;Styles.container&#125;&gt;</div><div class="line">                        &lt;TouchableOpacity  onPress=&#123;this.selectImage.bind(this,imageUri)&#125;&gt;</div><div class="line">                            &lt;Image</div><div class="line">                                resizeMode=&apos;stretch&apos;</div><div class="line">                                style=&#123;[Styles.postCameraRollPhoto]&#125;</div><div class="line">                                source=&#123;&#123;uri: imageUri&#125;&#125; /&gt;</div><div class="line">                        &lt;/TouchableOpacity&gt;</div><div class="line">                    &lt;/View&gt;</div><div class="line">                    &lt;View style=&#123;Styles.container&#125;&gt;</div><div class="line">                        &lt;TouchableOpacity  onPress=&#123;this.selectImage.bind(this,imageUri1)&#125;&gt;</div><div class="line">                            &lt;Image</div><div class="line">                                resizeMode=&apos;stretch&apos;</div><div class="line">                                style=&#123;[Styles.postCameraRollPhoto]&#125;</div><div class="line">                                source=&#123;&#123;uri: imageUri1&#125;&#125; /&gt;</div><div class="line">                        &lt;/TouchableOpacity&gt;</div><div class="line">                    &lt;/View&gt;</div><div class="line">                    &lt;View style=&#123;Styles.container&#125;&gt;</div><div class="line">                        &lt;TouchableOpacity  onPress=&#123;this.selectImage.bind(this,imageUri2)&#125;&gt;</div><div class="line">                            &lt;Image</div><div class="line">                                resizeMode=&apos;stretch&apos;</div><div class="line">                                style=&#123;[Styles.postCameraRollPhoto]&#125;</div><div class="line">                                source=&#123;&#123;uri: imageUri2&#125;&#125; /&gt;</div><div class="line">                        &lt;/TouchableOpacity&gt;</div><div class="line">                    &lt;/View&gt;</div><div class="line">                    &lt;View style=&#123;Styles.container&#125;&gt;</div><div class="line">                        &lt;TouchableOpacity  onPress=&#123;this.selectImage.bind(this,imageUri3)&#125;&gt;</div><div class="line">                            &lt;Image</div><div class="line">                                resizeMode=&apos;stretch&apos;</div><div class="line">                                style=&#123;[Styles.postCameraRollPhoto]&#125;</div><div class="line">                                source=&#123;&#123;uri: imageUri3&#125;&#125; /&gt;</div><div class="line">                        &lt;/TouchableOpacity&gt;</div><div class="line">                    &lt;/View&gt;</div><div class="line">                &lt;/View&gt;</div><div class="line">            );</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        return (</div><div class="line">            &lt;View style=&#123;[Styles.postContainer, Styles.bgColorWhite]&#125;&gt;</div><div class="line">                &lt;TextInput</div><div class="line">                    style=&#123;Styles.postTextInput&#125;</div><div class="line">                    multiline=&#123;true&#125;</div><div class="line">                    placeholder=&apos;这一刻的想法...&apos;</div><div class="line">                    placeholderTextColor=&#123;&apos;#f8f8f8&apos;&#125;</div><div class="line">                    onChangeText=&#123;(text) =&gt; this.setState(&#123;text&#125;)&#125;</div><div class="line">                    defaultValue=&#123;this.state.placeHolder&#125;</div><div class="line">                    value=&#123;this.state.text&#125;/&gt;</div><div class="line">                &lt;Image</div><div class="line">                    resizeMode=&apos;stretch&apos;</div><div class="line">                    style=&#123;[Styles.postPreviewPhoto]&#125;</div><div class="line">                    source=&#123;&#123;uri: this.state.selected&#125;&#125;/&gt;</div><div class="line">                &lt;TouchableOpacity style=&#123;[Styles.postButton,Styles.bgColorLightGray]&#125;&gt;</div><div class="line">                    &lt;Text style=&#123;[Styles.postButtonText]&#125;&gt;发布&lt;/Text&gt;</div><div class="line">                &lt;/TouchableOpacity&gt;</div><div class="line">                &lt;ScrollView style=&#123;[Styles.postCameraRoll]&#125;&gt;</div><div class="line">                    &lt;View&gt;</div><div class="line">                        &#123;photosView&#125;</div><div class="line">                    &lt;/View&gt;</div><div class="line">                &lt;/ScrollView&gt;</div><div class="line">            &lt;/View&gt;</div><div class="line">        );</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
@@ -626,8 +678,8 @@ CookieHttpSessionStrategy，如果是API就用HeaderHttpSessionStrategy，具体
     
     <summary type="html">
     
-      &lt;h3 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h3&gt;&lt;pre&gt;&lt;code&gt;CameraRoll模块提供了访问本地相册的功能。
-&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;&lt;img src=&quot;/images/ca
+      &lt;pre&gt;&lt;code&gt;CameraRoll模块提供了访问本地相册的功能。
+&lt;/code&gt;&lt;/pre&gt;
     
     </summary>
     
@@ -647,9 +699,11 @@ CookieHttpSessionStrategy，如果是API就用HeaderHttpSessionStrategy，具体
     <link href="http://www.nealma.com/2016/07/28/react-native-5-listview/"/>
     <id>http://www.nealma.com/2016/07/28/react-native-5-listview/</id>
     <published>2016-07-28T04:46:45.000Z</published>
-    <updated>2016-10-21T09:25:13.000Z</updated>
+    <updated>2016-11-17T01:58:44.000Z</updated>
     
-    <content type="html"><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><pre><code>ListView组件是每个App都用到的核心组件，RN当然也不能少。
+    <content type="html"><![CDATA[<pre><code>ListView组件是每个App都用到的核心组件，RN当然也不能少。
+</code></pre><a id="more"></a>
+<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><pre><code>ListView组件是每个App都用到的核心组件，RN当然也不能少。
 </code></pre><p><img src="/images/listview.gif" alt=""></p>
 <pre><code>开发环境：
 OS: Mac 10.11.6
@@ -675,8 +729,8 @@ onRefresh触发该事件，进入onRefresh时，设置isRefreshing=true,处理�
     
     <summary type="html">
     
-      &lt;h3 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h3&gt;&lt;pre&gt;&lt;code&gt;ListView组件是每个App都用到的核心组件，RN当然也不能少。
-&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;&lt;img src=&quot;/
+      &lt;pre&gt;&lt;code&gt;ListView组件是每个App都用到的核心组件，RN当然也不能少。
+&lt;/code&gt;&lt;/pre&gt;
     
     </summary>
     
@@ -696,9 +750,14 @@ onRefresh触发该事件，进入onRefresh时，设置isRefreshing=true,处理�
     <link href="http://www.nealma.com/2016/07/28/react-native-4-sidemenu/"/>
     <id>http://www.nealma.com/2016/07/28/react-native-4-sidemenu/</id>
     <published>2016-07-28T03:46:45.000Z</published>
-    <updated>2016-10-20T13:39:05.000Z</updated>
+    <updated>2016-11-17T01:58:57.000Z</updated>
     
-    <content type="html"><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><pre><code>侧滑菜单在实际工作中，很常见，是比较流行的一种设计，
+    <content type="html"><![CDATA[<pre><code>侧滑菜单在实际工作中，很常见，是比较流行的一种设计，
+RN怎会没有呢。一开始接触RN，总是乐于社区的活跃，你需要什么，大都会能找到
+现成，最初使用了react-native-jelly-side-menu，但是在安卓上死活run不起来，
+后来辗转到了react-native-side-menu,可以很好的在iOS、Android中玩耍。
+</code></pre><a id="more"></a>
+<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><pre><code>侧滑菜单在实际工作中，很常见，是比较流行的一种设计，
 RN怎会没有呢。一开始接触RN，总是乐于社区的活跃，你需要什么，大都会能找到
 现成，最初使用了react-native-jelly-side-menu，但是在安卓上死活run不起来，
 后来辗转到了react-native-side-menu,可以很好的在iOS、Android中玩耍。
@@ -720,8 +779,11 @@ RN怎会没有呢。一开始接触RN，总是乐于社区的活跃，你需要�
     
     <summary type="html">
     
-      &lt;h3 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h3&gt;&lt;pre&gt;&lt;code&gt;侧滑菜单在实际工作中，很常见，是比较流行的一种设计，
-RN怎会没有呢。一开始接触RN，总是乐于社区的活跃，你需要什么，大都会
+      &lt;pre&gt;&lt;code&gt;侧滑菜单在实际工作中，很常见，是比较流行的一种设计，
+RN怎会没有呢。一开始接触RN，总是乐于社区的活跃，你需要什么，大都会能找到
+现成，最初使用了react-native-jelly-side-menu，但是在安卓上死活run不起来，
+后来辗转到了react-native-side-menu,可以很好的在iOS、Android中玩耍。
+&lt;/code&gt;&lt;/pre&gt;
     
     </summary>
     
@@ -741,9 +803,12 @@ RN怎会没有呢。一开始接触RN，总是乐于社区的活跃，你需要�
     <link href="http://www.nealma.com/2016/07/27/react-native-3-icons/"/>
     <id>http://www.nealma.com/2016/07/27/react-native-3-icons/</id>
     <published>2016-07-27T03:46:45.000Z</published>
-    <updated>2016-10-29T22:20:01.000Z</updated>
+    <updated>2016-11-17T01:59:08.000Z</updated>
     
-    <content type="html"><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><pre><code>react-native-vector-icons组件,
+    <content type="html"><![CDATA[<pre><code>react-native-vector-icons组件,
+对于非设计人员，可以免费使用更多的icons资源
+</code></pre><a id="more"></a>
+<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><pre><code>react-native-vector-icons组件,
 对于非设计人员，可以免费使用更多的icons资源
 </code></pre><p>开发环境：<br>OS: Mac 10.11.6<br>Xcode: Version 8.0 (8A218a)</p>
 <h3 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">npm install react-native-vector-icons --save</div><div class="line">rnpm link</div></pre></td></tr></table></figure>
@@ -761,9 +826,9 @@ RN怎会没有呢。一开始接触RN，总是乐于社区的活跃，你需要�
     
     <summary type="html">
     
-      &lt;h3 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h3&gt;&lt;pre&gt;&lt;code&gt;react-native-vector-icons组件,
+      &lt;pre&gt;&lt;code&gt;react-native-vector-icons组件,
 对于非设计人员，可以免费使用更多的icons资源
-&lt;/code&gt;&lt;
+&lt;/code&gt;&lt;/pre&gt;
     
     </summary>
     
@@ -783,9 +848,11 @@ RN怎会没有呢。一开始接触RN，总是乐于社区的活跃，你需要�
     <link href="http://www.nealma.com/2016/07/26/react-native-2-image/"/>
     <id>http://www.nealma.com/2016/07/26/react-native-2-image/</id>
     <published>2016-07-26T03:46:45.000Z</published>
-    <updated>2016-10-20T06:14:44.000Z</updated>
+    <updated>2016-11-17T01:59:16.000Z</updated>
     
-    <content type="html"><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><pre><code>在RN中使用Image组件，即使很简单，总会出现这个那个的问题。
+    <content type="html"><![CDATA[<pre><code>在RN中使用Image组件，即使很简单，总会出现这个那个的问题。
+</code></pre><a id="more"></a>
+<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><pre><code>在RN中使用Image组件，即使很简单，总会出现这个那个的问题。
 </code></pre><p>本记录使用的开发环境：<br>OS: Mac 10.11.6<br>Xcode: Version 8.0 (8A218a)</p>
 <h3 id="使用方式"><a href="#使用方式" class="headerlink" title="使用方式"></a>使用方式</h3><ul>
 <li>require</li>
@@ -815,8 +882,8 @@ Allow Arbitrary Loads 设置为 YES
     
     <summary type="html">
     
-      &lt;h3 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h3&gt;&lt;pre&gt;&lt;code&gt;在RN中使用Image组件，即使很简单，总会出现这个那个的问题。
-&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;本记录使用的开发环境：&lt;b
+      &lt;pre&gt;&lt;code&gt;在RN中使用Image组件，即使很简单，总会出现这个那个的问题。
+&lt;/code&gt;&lt;/pre&gt;
     
     </summary>
     
@@ -836,9 +903,13 @@ Allow Arbitrary Loads 设置为 YES
     <link href="http://www.nealma.com/2016/07/25/enrollment-1-apple-developer/"/>
     <id>http://www.nealma.com/2016/07/25/enrollment-1-apple-developer/</id>
     <published>2016-07-25T04:46:45.000Z</published>
-    <updated>2016-10-31T15:20:43.000Z</updated>
+    <updated>2016-11-17T02:01:23.000Z</updated>
     
-    <content type="html"><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><pre><code>辞职在家了，做了个独立开发者。最近一段时间在做App，大部分的功能可以用Simulator调试，
+    <content type="html"><![CDATA[<pre><code>辞职在家了，做了个独立开发者。最近一段时间在做App，大部分的功能可以用Simulator调试，
+可偏偏我用到了相机功能，这个无法使用，只能在真机上开发了。
+然而，Xcode真机调试必须要有苹果开发者证书才能工作，word天，没办法，那就注册一个吧。
+</code></pre><a id="more"></a>
+<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><pre><code>辞职在家了，做了个独立开发者。最近一段时间在做App，大部分的功能可以用Simulator调试，
 可偏偏我用到了相机功能，这个无法使用，只能在真机上开发了。
 然而，Xcode真机调试必须要有苹果开发者证书才能工作，word天，没办法，那就注册一个吧。
 </code></pre><h3 id="开发者中心"><a href="#开发者中心" class="headerlink" title="开发者中心"></a>开发者中心</h3><pre><code>我也是够笨的啦，想注册开发者，都不知道去哪注册，找了半天注册链接，要了我的命了。
@@ -869,8 +940,10 @@ Build Setting添加Code Signing Identity为iOS Developer
     
     <summary type="html">
     
-      &lt;h3 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h3&gt;&lt;pre&gt;&lt;code&gt;辞职在家了，做了个独立开发者。最近一段时间在做App，大部分的功能可以用Simulator调试，
-可偏偏我用到了相机功能，这
+      &lt;pre&gt;&lt;code&gt;辞职在家了，做了个独立开发者。最近一段时间在做App，大部分的功能可以用Simulator调试，
+可偏偏我用到了相机功能，这个无法使用，只能在真机上开发了。
+然而，Xcode真机调试必须要有苹果开发者证书才能工作，word天，没办法，那就注册一个吧。
+&lt;/code&gt;&lt;/pre&gt;
     
     </summary>
     
@@ -888,9 +961,13 @@ Build Setting添加Code Signing Identity为iOS Developer
     <link href="http://www.nealma.com/2016/06/26/react-native-1-envirment/"/>
     <id>http://www.nealma.com/2016/06/26/react-native-1-envirment/</id>
     <published>2016-06-26T03:46:45.000Z</published>
-    <updated>2016-10-29T07:42:49.000Z</updated>
+    <updated>2016-11-17T01:59:20.000Z</updated>
     
-    <content type="html"><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><pre><code>对于人员缺少，功能又不复杂的app来说，使用RN这种方式效率还是很高的;
+    <content type="html"><![CDATA[<pre><code>对于人员缺少，功能又不复杂的app来说，使用RN这种方式效率还是很高的;
+在使用的过程中，即使你按照参考资料，一个代码一个代码的敲，最后还是报bug，
+总会让你头疼，这个过程中，记录了下遇到的问题，可以让看到的人少走些弯路。
+</code></pre><a id="more"></a>
+<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><pre><code>对于人员缺少，功能又不复杂的app来说，使用RN这种方式效率还是很高的;
 在使用的过程中，即使你按照参考资料，一个代码一个代码的敲，最后还是报bug，
 总会让你头疼，这个过程中，记录了下遇到的问题，可以让看到的人少走些弯路。
 </code></pre><p>开发环境：<br>OS: Mac 10.11.6<br>Xcode: Version 8.0 (8A218a)</p>
@@ -936,8 +1013,10 @@ Build Setting添加Code Signing Identity为iOS Developer
     
     <summary type="html">
     
-      &lt;h3 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h3&gt;&lt;pre&gt;&lt;code&gt;对于人员缺少，功能又不复杂的app来说，使用RN这种方式效率还是很高的;
-在使用的过程中，即使你按照参考资料，一个代码一个代
+      &lt;pre&gt;&lt;code&gt;对于人员缺少，功能又不复杂的app来说，使用RN这种方式效率还是很高的;
+在使用的过程中，即使你按照参考资料，一个代码一个代码的敲，最后还是报bug，
+总会让你头疼，这个过程中，记录了下遇到的问题，可以让看到的人少走些弯路。
+&lt;/code&gt;&lt;/pre&gt;
     
     </summary>
     
@@ -955,14 +1034,17 @@ Build Setting添加Code Signing Identity为iOS Developer
     <link href="http://www.nealma.com/2016/05/30/nodejs-1-very-slow/"/>
     <id>http://www.nealma.com/2016/05/30/nodejs-1-very-slow/</id>
     <published>2016-05-30T03:46:45.000Z</published>
-    <updated>2016-10-15T14:09:56.000Z</updated>
+    <updated>2016-11-17T01:59:43.000Z</updated>
     
-    <content type="html"><![CDATA[<h3 id="那就换成淘宝的吧"><a href="#那就换成淘宝的吧" class="headerlink" title="那就换成淘宝的吧"></a>那就换成淘宝的吧</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">npm --registry=https://registry.npm.taobao.org install cnpm -g</div></pre></td></tr></table></figure>
+    <content type="html"><![CDATA[<pre><code>那就别忍受了
+</code></pre><a id="more"></a>
+<h3 id="那就换成淘宝的吧"><a href="#那就换成淘宝的吧" class="headerlink" title="那就换成淘宝的吧"></a>那就换成淘宝的吧</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">npm --registry=https://registry.npm.taobao.org install cnpm -g</div></pre></td></tr></table></figure>
 <h3 id="或者改变registry"><a href="#或者改变registry" class="headerlink" title="或者改变registry"></a>或者改变registry</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">#vim ~/.npmrc</div><div class="line"></div><div class="line">registry = https://registry.npm.taobao.org</div></pre></td></tr></table></figure>]]></content>
     
     <summary type="html">
     
-      &lt;h3 id=&quot;那就换成淘宝的吧&quot;&gt;&lt;a href=&quot;#那就换成淘宝的吧&quot; class=&quot;headerlink&quot; title=&quot;那就换成淘宝的吧&quot;&gt;&lt;/a&gt;那就换成淘宝的吧&lt;/h3&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td cl
+      &lt;pre&gt;&lt;code&gt;那就别忍受了
+&lt;/code&gt;&lt;/pre&gt;
     
     </summary>
     

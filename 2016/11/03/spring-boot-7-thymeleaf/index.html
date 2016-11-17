@@ -74,7 +74,7 @@
 
 
 
-  <link rel="alternate" href="../../../../atom.xml" title="neal.ma" type="application/atom+xml" />
+  <link rel="alternate" href="../../../../atom.xml" title="nealma.com" type="application/atom+xml" />
 
 
 
@@ -86,28 +86,19 @@
 
 
 
-<meta name="description" content="前言模版引擎千千万，今个说说Thymeleaf，主要是不想在混用jsp标签和使用jsp后缀文件，
-直接使用html文件，便于前后端分离。
-开发环境：OS: Mac 10.11.6IDE: IDEABuild: Maven
-依赖Spring Boot天生内置了对Thymeleaf的支持，简化了配置，加速开发。只需要引入如下
- 1234 &amp;lt;dependency&amp;gt;  &amp;lt;groupId&amp;">
+<meta name="description" content="模版引擎千千万，今个说说Thymeleaf，主要是不想在混用jsp标签和使用jsp后缀文件，
+直接使用html文件，便于前后端分离。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Spring-Boot（七) Thymeleaf 模版引擎">
 <meta property="og:url" content="http://www.nealma.com/2016/11/03/spring-boot-7-thymeleaf/index.html">
-<meta property="og:site_name" content="neal.ma">
-<meta property="og:description" content="前言模版引擎千千万，今个说说Thymeleaf，主要是不想在混用jsp标签和使用jsp后缀文件，
-直接使用html文件，便于前后端分离。
-开发环境：OS: Mac 10.11.6IDE: IDEABuild: Maven
-依赖Spring Boot天生内置了对Thymeleaf的支持，简化了配置，加速开发。只需要引入如下
- 1234 &amp;lt;dependency&amp;gt;  &amp;lt;groupId&amp;">
-<meta property="og:updated_time" content="2016-11-16T01:17:33.000Z">
+<meta property="og:site_name" content="nealma.com">
+<meta property="og:description" content="模版引擎千千万，今个说说Thymeleaf，主要是不想在混用jsp标签和使用jsp后缀文件，
+直接使用html文件，便于前后端分离。">
+<meta property="og:updated_time" content="2016-11-17T01:52:14.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Spring-Boot（七) Thymeleaf 模版引擎">
-<meta name="twitter:description" content="前言模版引擎千千万，今个说说Thymeleaf，主要是不想在混用jsp标签和使用jsp后缀文件，
-直接使用html文件，便于前后端分离。
-开发环境：OS: Mac 10.11.6IDE: IDEABuild: Maven
-依赖Spring Boot天生内置了对Thymeleaf的支持，简化了配置，加速开发。只需要引入如下
- 1234 &amp;lt;dependency&amp;gt;  &amp;lt;groupId&amp;">
+<meta name="twitter:description" content="模版引擎千千万，今个说说Thymeleaf，主要是不想在混用jsp标签和使用jsp后缀文件，
+直接使用html文件，便于前后端分离。">
 
 
 
@@ -130,7 +121,7 @@
 
   <link rel="canonical" href="http://www.nealma.com/2016/11/03/spring-boot-7-thymeleaf/"/>
 
-  <title> Spring-Boot（七) Thymeleaf 模版引擎 | neal.ma </title>
+  <title> Spring-Boot（七) Thymeleaf 模版引擎 | nealma.com </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -171,7 +162,7 @@
   <div class="custom-logo-site-title">
     <a href="/"  class="brand" rel="start">
       <span class="logo-line-before"><i></i></span>
-      <span class="site-title">neal.ma</span>
+      <span class="site-title">nealma.com</span>
       <span class="logo-line-after"><i></i></span>
     </a>
   </div>
@@ -346,7 +337,10 @@
       
 
       
-        <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><pre><code>模版引擎千千万，今个说说Thymeleaf，主要是不想在混用jsp标签和使用jsp后缀文件，
+        <pre><code>模版引擎千千万，今个说说Thymeleaf，主要是不想在混用jsp标签和使用jsp后缀文件，
+直接使用html文件，便于前后端分离。
+</code></pre><a id="more"></a>
+<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><pre><code>模版引擎千千万，今个说说Thymeleaf，主要是不想在混用jsp标签和使用jsp后缀文件，
 直接使用html文件，便于前后端分离。
 </code></pre><p>开发环境：<br>OS: Mac 10.11.6<br>IDE: IDEA<br>Build: Maven</p>
 <h3 id="依赖"><a href="#依赖" class="headerlink" title="依赖"></a>依赖</h3><pre><code>Spring Boot天生内置了对Thymeleaf的支持，简化了配置，加速开发。只需要引入如下
@@ -370,6 +364,7 @@ TemplateEngine，ThymeleafViewResolver会自用实例化。
 于是改成disable=&quot;disable&quot;.
 </code></pre>
       
+
     </div>
 
     <div>
@@ -478,8 +473,8 @@ TemplateEngine，ThymeleafViewResolver会自用实例化。
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="http://upload.jianshu.io/users/upload_avatars/2649507/df92b5ff1a68.jpeg"
-               alt="neal.ma" />
-          <p class="site-author-name" itemprop="name">neal.ma</p>
+               alt="马英乘Neal" />
+          <p class="site-author-name" itemprop="name">马英乘Neal</p>
           <p class="site-description motion-element" itemprop="description">Follow your heart, just do it.</p>
         </div>
         <nav class="site-state motion-element">
@@ -579,7 +574,7 @@ TemplateEngine，ThymeleafViewResolver会自用实例化。
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
-  <span class="author" itemprop="copyrightHolder">neal.ma</span>
+  <span class="author" itemprop="copyrightHolder">马英乘Neal</span>
 </div>
 
 <div class="powered-by">

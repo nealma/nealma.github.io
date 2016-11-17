@@ -74,7 +74,7 @@
 
 
 
-  <link rel="alternate" href="../../../../atom.xml" title="neal.ma" type="application/atom+xml" />
+  <link rel="alternate" href="../../../../atom.xml" title="nealma.com" type="application/atom+xml" />
 
 
 
@@ -86,28 +86,22 @@
 
 
 
-<meta name="description" content="前言使用Spring Security的时候，觉得省了好多的事情。但是它使用的是内存来存储CurrentUser的信息
+<meta name="description" content="使用Spring Security的时候，觉得省了好多的事情。但是它使用的是内存来存储CurrentUser的信息
 和登录凭证，一旦单机不能承受大用户量，就需要水平扩展，就会涉及到session的问题。怎么才能实现
-平滑扩展呢？还好有Sping Session，怎么用呢？
-开发环境：OS: Mac 10.11.6IDE: IDEABuild: Maven
-Spring Session 是什么其">
+平滑扩展呢？还好有Sping Session，怎么用呢？">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Spring-Boot（六) Spring Session 分布式会话管理">
 <meta property="og:url" content="http://www.nealma.com/2016/11/01/spring-boot-6-spring-session/index.html">
-<meta property="og:site_name" content="neal.ma">
-<meta property="og:description" content="前言使用Spring Security的时候，觉得省了好多的事情。但是它使用的是内存来存储CurrentUser的信息
+<meta property="og:site_name" content="nealma.com">
+<meta property="og:description" content="使用Spring Security的时候，觉得省了好多的事情。但是它使用的是内存来存储CurrentUser的信息
 和登录凭证，一旦单机不能承受大用户量，就需要水平扩展，就会涉及到session的问题。怎么才能实现
-平滑扩展呢？还好有Sping Session，怎么用呢？
-开发环境：OS: Mac 10.11.6IDE: IDEABuild: Maven
-Spring Session 是什么其">
-<meta property="og:updated_time" content="2016-11-14T07:24:06.000Z">
+平滑扩展呢？还好有Sping Session，怎么用呢？">
+<meta property="og:updated_time" content="2016-11-17T01:54:06.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Spring-Boot（六) Spring Session 分布式会话管理">
-<meta name="twitter:description" content="前言使用Spring Security的时候，觉得省了好多的事情。但是它使用的是内存来存储CurrentUser的信息
+<meta name="twitter:description" content="使用Spring Security的时候，觉得省了好多的事情。但是它使用的是内存来存储CurrentUser的信息
 和登录凭证，一旦单机不能承受大用户量，就需要水平扩展，就会涉及到session的问题。怎么才能实现
-平滑扩展呢？还好有Sping Session，怎么用呢？
-开发环境：OS: Mac 10.11.6IDE: IDEABuild: Maven
-Spring Session 是什么其">
+平滑扩展呢？还好有Sping Session，怎么用呢？">
 
 
 
@@ -130,7 +124,7 @@ Spring Session 是什么其">
 
   <link rel="canonical" href="http://www.nealma.com/2016/11/01/spring-boot-6-spring-session/"/>
 
-  <title> Spring-Boot（六) Spring Session 分布式会话管理 | neal.ma </title>
+  <title> Spring-Boot（六) Spring Session 分布式会话管理 | nealma.com </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -171,7 +165,7 @@ Spring Session 是什么其">
   <div class="custom-logo-site-title">
     <a href="/"  class="brand" rel="start">
       <span class="logo-line-before"><i></i></span>
-      <span class="site-title">neal.ma</span>
+      <span class="site-title">nealma.com</span>
       <span class="logo-line-after"><i></i></span>
     </a>
   </div>
@@ -346,7 +340,11 @@ Spring Session 是什么其">
       
 
       
-        <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><pre><code>使用Spring Security的时候，觉得省了好多的事情。但是它使用的是内存来存储CurrentUser的信息
+        <pre><code>使用Spring Security的时候，觉得省了好多的事情。但是它使用的是内存来存储CurrentUser的信息
+和登录凭证，一旦单机不能承受大用户量，就需要水平扩展，就会涉及到session的问题。怎么才能实现
+平滑扩展呢？还好有Sping Session，怎么用呢？
+</code></pre><a id="more"></a>
+<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><pre><code>使用Spring Security的时候，觉得省了好多的事情。但是它使用的是内存来存储CurrentUser的信息
 和登录凭证，一旦单机不能承受大用户量，就需要水平扩展，就会涉及到session的问题。怎么才能实现
 平滑扩展呢？还好有Sping Session，怎么用呢？
 </code></pre><p>开发环境：<br>OS: Mac 10.11.6<br>IDE: IDEA<br>Build: Maven</p>
@@ -370,6 +368,7 @@ CookieHttpSessionStrategy，如果是API就用HeaderHttpSessionStrategy，具体
 这里有个问题就是还不知道怎么去更新Redis中会话信息,待续...
 </code></pre>
       
+
     </div>
 
     <div>
@@ -480,8 +479,8 @@ CookieHttpSessionStrategy，如果是API就用HeaderHttpSessionStrategy，具体
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="http://upload.jianshu.io/users/upload_avatars/2649507/df92b5ff1a68.jpeg"
-               alt="neal.ma" />
-          <p class="site-author-name" itemprop="name">neal.ma</p>
+               alt="马英乘Neal" />
+          <p class="site-author-name" itemprop="name">马英乘Neal</p>
           <p class="site-description motion-element" itemprop="description">Follow your heart, just do it.</p>
         </div>
         <nav class="site-state motion-element">
@@ -581,7 +580,7 @@ CookieHttpSessionStrategy，如果是API就用HeaderHttpSessionStrategy，具体
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
-  <span class="author" itemprop="copyrightHolder">neal.ma</span>
+  <span class="author" itemprop="copyrightHolder">马英乘Neal</span>
 </div>
 
 <div class="powered-by">

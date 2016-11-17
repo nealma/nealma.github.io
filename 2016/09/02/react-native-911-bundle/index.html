@@ -74,7 +74,7 @@
 
 
 
-  <link rel="alternate" href="../../../../atom.xml" title="neal.ma" type="application/atom+xml" />
+  <link rel="alternate" href="../../../../atom.xml" title="nealma.com" type="application/atom+xml" />
 
 
 
@@ -86,33 +86,24 @@
 
 
 
-<meta name="description" content="前言在开发阶段，我们都是通过模拟器，或者自己的手机，直接连接Xcode和Android Studio,
+<meta name="description" content="在开发阶段，我们都是通过模拟器，或者自己的手机，直接连接Xcode和Android Studio,
 这样调试代码非常方便，然而我们的App开发好了，最终的目的是上线App Store和各个Android市场。
-最后还是要进行打包，把所有的资源打包成一个最终能够安装的应用包。iOS对应的ipa，Android对应的apk。
-
-那如何打包呢？
-开发环境：OS: Mac 10.11.6Xcode:">
+最后还是要进行打包，把所有的资源打包成一个最终能够安装的应用包。iOS对应的ipa，Android对应的apk。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="React Native (十一) bundle打离线包">
 <meta property="og:url" content="http://www.nealma.com/2016/09/02/react-native-911-bundle/index.html">
-<meta property="og:site_name" content="neal.ma">
-<meta property="og:description" content="前言在开发阶段，我们都是通过模拟器，或者自己的手机，直接连接Xcode和Android Studio,
+<meta property="og:site_name" content="nealma.com">
+<meta property="og:description" content="在开发阶段，我们都是通过模拟器，或者自己的手机，直接连接Xcode和Android Studio,
 这样调试代码非常方便，然而我们的App开发好了，最终的目的是上线App Store和各个Android市场。
-最后还是要进行打包，把所有的资源打包成一个最终能够安装的应用包。iOS对应的ipa，Android对应的apk。
-
-那如何打包呢？
-开发环境：OS: Mac 10.11.6Xcode:">
+最后还是要进行打包，把所有的资源打包成一个最终能够安装的应用包。iOS对应的ipa，Android对应的apk。">
 <meta property="og:image" content="http://www.nealma.com/images/addfilesto.png">
 <meta property="og:image" content="http://www.nealma.com/images/assets.png">
-<meta property="og:updated_time" content="2016-10-31T17:11:18.000Z">
+<meta property="og:updated_time" content="2016-11-17T01:57:36.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="React Native (十一) bundle打离线包">
-<meta name="twitter:description" content="前言在开发阶段，我们都是通过模拟器，或者自己的手机，直接连接Xcode和Android Studio,
+<meta name="twitter:description" content="在开发阶段，我们都是通过模拟器，或者自己的手机，直接连接Xcode和Android Studio,
 这样调试代码非常方便，然而我们的App开发好了，最终的目的是上线App Store和各个Android市场。
-最后还是要进行打包，把所有的资源打包成一个最终能够安装的应用包。iOS对应的ipa，Android对应的apk。
-
-那如何打包呢？
-开发环境：OS: Mac 10.11.6Xcode:">
+最后还是要进行打包，把所有的资源打包成一个最终能够安装的应用包。iOS对应的ipa，Android对应的apk。">
 <meta name="twitter:image" content="http://www.nealma.com/images/addfilesto.png">
 
 
@@ -136,7 +127,7 @@
 
   <link rel="canonical" href="http://www.nealma.com/2016/09/02/react-native-911-bundle/"/>
 
-  <title> React Native (十一) bundle打离线包 | neal.ma </title>
+  <title> React Native (十一) bundle打离线包 | nealma.com </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -177,7 +168,7 @@
   <div class="custom-logo-site-title">
     <a href="/"  class="brand" rel="start">
       <span class="logo-line-before"><i></i></span>
-      <span class="site-title">neal.ma</span>
+      <span class="site-title">nealma.com</span>
       <span class="logo-line-after"><i></i></span>
     </a>
   </div>
@@ -352,7 +343,11 @@
       
 
       
-        <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><pre><code>在开发阶段，我们都是通过模拟器，或者自己的手机，直接连接Xcode和Android Studio,
+        <pre><code>在开发阶段，我们都是通过模拟器，或者自己的手机，直接连接Xcode和Android Studio,
+这样调试代码非常方便，然而我们的App开发好了，最终的目的是上线App Store和各个Android市场。
+最后还是要进行打包，把所有的资源打包成一个最终能够安装的应用包。iOS对应的ipa，Android对应的apk。
+</code></pre><a id="more"></a>
+<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><pre><code>在开发阶段，我们都是通过模拟器，或者自己的手机，直接连接Xcode和Android Studio,
 这样调试代码非常方便，然而我们的App开发好了，最终的目的是上线App Store和各个Android市场。
 最后还是要进行打包，把所有的资源打包成一个最终能够安装的应用包。iOS对应的ipa，Android对应的apk。
 
@@ -391,6 +386,7 @@
 <h3 id="结束"><a href="#结束" class="headerlink" title="结束"></a>结束</h3><pre><code>：）～
 </code></pre>
       
+
     </div>
 
     <div>
@@ -499,8 +495,8 @@
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="http://upload.jianshu.io/users/upload_avatars/2649507/df92b5ff1a68.jpeg"
-               alt="neal.ma" />
-          <p class="site-author-name" itemprop="name">neal.ma</p>
+               alt="马英乘Neal" />
+          <p class="site-author-name" itemprop="name">马英乘Neal</p>
           <p class="site-description motion-element" itemprop="description">Follow your heart, just do it.</p>
         </div>
         <nav class="site-state motion-element">
@@ -600,7 +596,7 @@
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
-  <span class="author" itemprop="copyrightHolder">neal.ma</span>
+  <span class="author" itemprop="copyrightHolder">马英乘Neal</span>
 </div>
 
 <div class="powered-by">
