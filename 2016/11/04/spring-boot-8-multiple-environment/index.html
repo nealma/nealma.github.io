@@ -68,7 +68,7 @@
 <link href="../../../../css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Java,Spring,Spring-Boot," />
+  <meta name="keywords" content="Java,Spring,Spring-Boot,Profile," />
 
 
 
@@ -86,16 +86,25 @@
 
 
 
-<meta name="description" content="Spring发展到现在，在java框架中一直在坚守，也在不断的改进。Spring-Boot的出现，并不是什么新技术，而是简化我们的开发步骤和配置，让我们愉快的玩耍吧。">
+<meta name="description" content="我们在做开发的时候，都是使用本地数据库，本地缓存服务器，也只有我们一个人来开发，
+这是我们最最初级的场景，在实际工作中，我们不可能只有一个环境。通常会有Test,Dev,
+Live环境，Dev是我们的开发环境，Test作为我们的测试环境，Live是生产环境。每个
+环境都有自己的服务器地址和端口，所以后面就是这次要解决的问题了...">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Spring-Boot（一） 环境搭建">
-<meta property="og:url" content="http://www.nealma.com/2016/04/20/spring-boot-1-how-to-use/index.html">
+<meta property="og:title" content="Spring-Boot（八) 多环境和logback配置">
+<meta property="og:url" content="http://www.nealma.com/2016/11/04/spring-boot-8-multiple-environment/index.html">
 <meta property="og:site_name" content="nealma.com">
-<meta property="og:description" content="Spring发展到现在，在java框架中一直在坚守，也在不断的改进。Spring-Boot的出现，并不是什么新技术，而是简化我们的开发步骤和配置，让我们愉快的玩耍吧。">
-<meta property="og:updated_time" content="2016-11-17T01:56:49.000Z">
+<meta property="og:description" content="我们在做开发的时候，都是使用本地数据库，本地缓存服务器，也只有我们一个人来开发，
+这是我们最最初级的场景，在实际工作中，我们不可能只有一个环境。通常会有Test,Dev,
+Live环境，Dev是我们的开发环境，Test作为我们的测试环境，Live是生产环境。每个
+环境都有自己的服务器地址和端口，所以后面就是这次要解决的问题了...">
+<meta property="og:updated_time" content="2016-11-17T18:43:49.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Spring-Boot（一） 环境搭建">
-<meta name="twitter:description" content="Spring发展到现在，在java框架中一直在坚守，也在不断的改进。Spring-Boot的出现，并不是什么新技术，而是简化我们的开发步骤和配置，让我们愉快的玩耍吧。">
+<meta name="twitter:title" content="Spring-Boot（八) 多环境和logback配置">
+<meta name="twitter:description" content="我们在做开发的时候，都是使用本地数据库，本地缓存服务器，也只有我们一个人来开发，
+这是我们最最初级的场景，在实际工作中，我们不可能只有一个环境。通常会有Test,Dev,
+Live环境，Dev是我们的开发环境，Test作为我们的测试环境，Live是生产环境。每个
+环境都有自己的服务器地址和端口，所以后面就是这次要解决的问题了...">
 
 
 
@@ -116,9 +125,9 @@
 
 
 
-  <link rel="canonical" href="http://www.nealma.com/2016/04/20/spring-boot-1-how-to-use/"/>
+  <link rel="canonical" href="http://www.nealma.com/2016/11/04/spring-boot-8-multiple-environment/"/>
 
-  <title> Spring-Boot（一） 环境搭建 | nealma.com </title>
+  <title> Spring-Boot（八) 多环境和logback配置 | nealma.com </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -268,7 +277,7 @@
             
             
               
-                Spring-Boot（一） 环境搭建
+                Spring-Boot（八) 多环境和logback配置
               
             
           </h1>
@@ -280,8 +289,8 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-04-20T11:46:45+08:00" content="2016-04-20">
-              2016-04-20
+            <time itemprop="dateCreated" datetime="2016-11-04T11:46:45+08:00" content="2016-11-04">
+              2016-11-04
             </time>
           </span>
 
@@ -311,7 +320,7 @@
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
                 <a href="#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/04/20/spring-boot-1-how-to-use/" itemprop="commentsCount"></span>
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/11/04/spring-boot-8-multiple-environment/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -334,21 +343,43 @@
       
 
       
-        <p>Spring发展到现在，在java框架中一直在坚守，也在不断的改进。<br>Spring-Boot的出现，并不是什么新技术，而是简化我们的开发步骤和配置，让我们愉快的玩耍吧。</p>
-<a id="more"></a>
-<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>Spring发展到现在，在java框架中一直在坚守，也在不断的改进。<br>Spring-Boot的出现，并不是什么新技术，而是简化我们的开发步骤和配置，让我们愉快的玩耍吧。</p>
-<p>开发环境：<br>OS: Mac 10.11.6<br>IDE: IDEA 2016.2<br>Build: Maven</p>
-<h3 id="Run"><a href="#Run" class="headerlink" title="Run"></a>Run</h3><p>Spring-Boot是从run开始的，所以你的项目必须包含类似以下的一段代码<br>我习惯于放在com.domain.project包下</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@SpringBootApplication</span></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Application</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</div><div class="line">        SpringApplication.run(Application.class, args);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h3 id="POM依赖"><a href="#POM依赖" class="headerlink" title="POM依赖"></a>POM依赖</h3><figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="comment">&lt;!-- Inherit defaults from Spring Boot --&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">parent</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-parent<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.3.5.RELEASE<span class="tag">&lt;/<span class="name">version</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">parent</span>&gt;</span></div></pre></td></tr></table></figure>
-<p>当然也可以不依赖，使用scope=import，没有尝试过。</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">parent</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-parent<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.3.5.RELEASE<span class="tag">&lt;/<span class="name">version</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">type</span>&gt;</span>pom<span class="tag">&lt;/<span class="name">type</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">scope</span>&gt;</span>import<span class="tag">&lt;/<span class="name">scope</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">parent</span>&gt;</span></div></pre></td></tr></table></figure>
-<h3 id="使用Spring-Boot-Maven插件"><a href="#使用Spring-Boot-Maven插件" class="headerlink" title="使用Spring-Boot-Maven插件"></a>使用Spring-Boot-Maven插件</h3><p>将项目打包成“flat jars”，独立可执行jar包</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">plugin</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-maven-plugin<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">plugin</span>&gt;</span></div></pre></td></tr></table></figure>
-<h3 id="Starter-POMs"><a href="#Starter-POMs" class="headerlink" title="Starter POMs"></a>Starter POMs</h3><p>starts是开箱即用，方便的的依赖集合，不用在像spring那样一个一个的配置依赖了<br>只需要引入如下就可以跑起来了</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">...</div><div class="line"></div><div class="line">    &lt;dependency&gt;</div><div class="line">        &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;</div><div class="line">        &lt;artifactId&gt;spring-boot-starter&lt;/artifactId&gt;</div><div class="line">    &lt;/dependency</div><div class="line"></div><div class="line">...</div></pre></td></tr></table></figure>
-<h3 id="跑起来"><a href="#跑起来" class="headerlink" title="跑起来"></a>跑起来</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">mvn clean spring-boot:run</div></pre></td></tr></table></figure>
+        <pre><code>我们在做开发的时候，都是使用本地数据库，本地缓存服务器，也只有我们一个人来开发，
+这是我们最最初级的场景，在实际工作中，我们不可能只有一个环境。通常会有Test,Dev,
+Live环境，Dev是我们的开发环境，Test作为我们的测试环境，Live是生产环境。每个
+环境都有自己的服务器地址和端口，所以后面就是这次要解决的问题了...
+</code></pre><a id="more"></a>
+<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><pre><code>我们在做开发的时候，都是使用本地数据库，本地缓存服务器，也只有我们一个人来开发，
+这是我们最最初级的场景，在实际工作中，我们不可能只有一个环境。通常会有Test,Dev,
+Live环境，Dev是我们的开发环境，Test作为我们的测试环境，Live是生产环境。每个
+环境都有自己的服务器地址和端口，所以后面就是这次要解决的问题了...
+</code></pre><p>开发环境：<br>OS: Mac 10.11.6<br>IDE: IDEA<br>Build: Maven</p>
+<h3 id="配置文件"><a href="#配置文件" class="headerlink" title="配置文件"></a>配置文件</h3><pre><code>其实都基本相同，多环境无外乎就是把不同的值存放在不同的配置文件中，在编译打包的时候，
+根据配置的指令选择对应的配置文件，这里指定的配置文件是要满足一定的格式的，这这里
+application-{profile}.properties，profile就是我们刚才定义的dev,test,live。
 
+application-dev.properties 开发
+application-test.properties 测试
+application-live.properties 生产
+</code></pre><h3 id="超级简单"><a href="#超级简单" class="headerlink" title="超级简单"></a>超级简单</h3><ul>
+<li>在application.properties文件里加入如下</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">spring.properties.active=dev</div></pre></td></tr></table></figure>
+<p>application-dev.properties内容<br>server.port=8080</p>
+<p>application-test.properties内容<br>server.port=8081</p>
+<p>application-live.properties内容<br>server.port=8082</p>
+<p>执行 mvn spring-boot:run ，这时候你会看到，你的应用端口号是跟spring.properties.active的值一致的</p>
+<p>其他的，比如数据host，username，password等都是一样的设置方法。</p>
+<h3 id="以logback配置为栗子"><a href="#以logback配置为栗子" class="headerlink" title="以logback配置为栗子"></a>以logback配置为栗子</h3><ul>
+<li><p>logback-spring.xml 替换 logback.xml</p>
+<p>   Spring Boot 支持特有的属性，也建议使用logback-spring.xml命名</p>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</div><div class="line">&lt;configuration&gt;</div><div class="line">    &lt;include resource=&quot;org/springframework/boot/logging/logback/base.xml&quot; /&gt;</div><div class="line">    &lt;springProfile name=&quot;dev,test&quot;&gt;</div><div class="line">        &lt;logger name=&quot;com.yourdomain&quot; level=&quot;DEBUG&quot; additivity=&quot;false&quot;&gt;</div><div class="line">            &lt;appender-ref ref=&quot;CONSOLE&quot; /&gt;</div><div class="line">        &lt;/logger&gt;</div><div class="line">    &lt;/springProfile&gt;</div><div class="line">    &lt;springProfile name=&quot;live&quot;&gt;</div><div class="line">        &lt;logger name=&quot;com.yourdomain&quot; level=&quot;WARN&quot; additivity=&quot;false&quot;&gt;</div><div class="line">            &lt;appender-ref ref=&quot;FILE&quot; /&gt;</div><div class="line">        &lt;/logger&gt;</div><div class="line">    &lt;/springProfile&gt;</div><div class="line">    &lt;logger name=&quot;org.springframework&quot; level=&quot;WARN&quot; additivity=&quot;false&quot;&gt;</div><div class="line">        &lt;appender-ref ref=&quot;FILE&quot; /&gt;</div><div class="line">    &lt;/logger&gt;</div><div class="line">&lt;/configuration&gt;</div></pre></td></tr></table></figure>
+<p>执行 mvn spring-boot:run ，这时候你会看到，springProfile name是跟spring.properties.active的值一致的</p>
+<h3 id="jar-运行"><a href="#jar-运行" class="headerlink" title="jar 运行"></a>jar 运行</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">java －jar xxx.jar --spring.profiles.active=dev</div></pre></td></tr></table></figure>
+<p>这种形式，可以把–后面的值传递给Spring Boot，优先级高于properties配置文件，即会覆盖。</p>
+<h3 id="结束"><a href="#结束" class="headerlink" title="结束"></a>结束</h3><pre><code>今天坐地铁，把这本书献给你们吧！
+</code></pre>
       
 
     </div>
@@ -377,6 +408,8 @@
           
             <a href="../../../../tags/Spring-Boot/" rel="tag">#Spring-Boot</a>
           
+            <a href="../../../../tags/Profile/" rel="tag">#Profile</a>
+          
         </div>
       
 
@@ -384,17 +417,13 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="../../../03/30/mac-used-2-shortcut-capture/" rel="next" title="如何在Mac OS X上屏幕截图">
-                <i class="fa fa-chevron-left"></i> 如何在Mac OS X上屏幕截图
+              <a href="../../03/spring-boot-7-thymeleaf/" rel="next" title="Spring-Boot（七) Thymeleaf 模版引擎">
+                <i class="fa fa-chevron-left"></i> Spring-Boot（七) Thymeleaf 模版引擎
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="../../25/mybatis-generator-how-to-use/" rel="prev" title="MyBatis Generator 改造">
-                MyBatis Generator 改造 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -420,8 +449,8 @@
           
   <div class="comments" id="comments">
     
-      <div class="ds-thread" data-thread-key="2016/04/20/spring-boot-1-how-to-use/"
-           data-title="Spring-Boot（一） 环境搭建" data-url="http://www.nealma.com/2016/04/20/spring-boot-1-how-to-use/">
+      <div class="ds-thread" data-thread-key="2016/11/04/spring-boot-8-multiple-environment/"
+           data-title="Spring-Boot（八) 多环境和logback配置" data-url="http://www.nealma.com/2016/11/04/spring-boot-8-multiple-environment/">
       </div>
     
   </div>
@@ -537,7 +566,7 @@
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Run"><span class="nav-number">2.</span> <span class="nav-text">Run</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#POM依赖"><span class="nav-number">3.</span> <span class="nav-text">POM依赖</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用Spring-Boot-Maven插件"><span class="nav-number">4.</span> <span class="nav-text">使用Spring-Boot-Maven插件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Starter-POMs"><span class="nav-number">5.</span> <span class="nav-text">Starter POMs</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#跑起来"><span class="nav-number">6.</span> <span class="nav-text">跑起来</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#配置文件"><span class="nav-number">2.</span> <span class="nav-text">配置文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#超级简单"><span class="nav-number">3.</span> <span class="nav-text">超级简单</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#以logback配置为栗子"><span class="nav-number">4.</span> <span class="nav-text">以logback配置为栗子</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#jar-运行"><span class="nav-number">5.</span> <span class="nav-text">jar 运行</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#结束"><span class="nav-number">6.</span> <span class="nav-text">结束</span></a></li></ol></div>
             
           </div>
         </section>

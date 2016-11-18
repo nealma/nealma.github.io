@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://www.nealma.com/"/>
-  <updated>2016-11-17T01:52:14.000Z</updated>
+  <updated>2016-11-17T18:43:49.000Z</updated>
   <id>http://www.nealma.com/</id>
   
   <author>
@@ -14,6 +14,74 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Spring-Boot（八) 多环境和logback配置</title>
+    <link href="http://www.nealma.com/2016/11/04/spring-boot-8-multiple-environment/"/>
+    <id>http://www.nealma.com/2016/11/04/spring-boot-8-multiple-environment/</id>
+    <published>2016-11-04T03:46:45.000Z</published>
+    <updated>2016-11-17T18:43:49.000Z</updated>
+    
+    <content type="html"><![CDATA[<pre><code>我们在做开发的时候，都是使用本地数据库，本地缓存服务器，也只有我们一个人来开发，
+这是我们最最初级的场景，在实际工作中，我们不可能只有一个环境。通常会有Test,Dev,
+Live环境，Dev是我们的开发环境，Test作为我们的测试环境，Live是生产环境。每个
+环境都有自己的服务器地址和端口，所以后面就是这次要解决的问题了...
+</code></pre><a id="more"></a>
+<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><pre><code>我们在做开发的时候，都是使用本地数据库，本地缓存服务器，也只有我们一个人来开发，
+这是我们最最初级的场景，在实际工作中，我们不可能只有一个环境。通常会有Test,Dev,
+Live环境，Dev是我们的开发环境，Test作为我们的测试环境，Live是生产环境。每个
+环境都有自己的服务器地址和端口，所以后面就是这次要解决的问题了...
+</code></pre><p>开发环境：<br>OS: Mac 10.11.6<br>IDE: IDEA<br>Build: Maven</p>
+<h3 id="配置文件"><a href="#配置文件" class="headerlink" title="配置文件"></a>配置文件</h3><pre><code>其实都基本相同，多环境无外乎就是把不同的值存放在不同的配置文件中，在编译打包的时候，
+根据配置的指令选择对应的配置文件，这里指定的配置文件是要满足一定的格式的，这这里
+application-{profile}.properties，profile就是我们刚才定义的dev,test,live。
+
+application-dev.properties 开发
+application-test.properties 测试
+application-live.properties 生产
+</code></pre><h3 id="超级简单"><a href="#超级简单" class="headerlink" title="超级简单"></a>超级简单</h3><ul>
+<li>在application.properties文件里加入如下</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">spring.properties.active=dev</div></pre></td></tr></table></figure>
+<p>application-dev.properties内容<br>server.port=8080</p>
+<p>application-test.properties内容<br>server.port=8081</p>
+<p>application-live.properties内容<br>server.port=8082</p>
+<p>执行 mvn spring-boot:run ，这时候你会看到，你的应用端口号是跟spring.properties.active的值一致的</p>
+<p>其他的，比如数据host，username，password等都是一样的设置方法。</p>
+<h3 id="以logback配置为栗子"><a href="#以logback配置为栗子" class="headerlink" title="以logback配置为栗子"></a>以logback配置为栗子</h3><ul>
+<li><p>logback-spring.xml 替换 logback.xml</p>
+<p>   Spring Boot 支持特有的属性，也建议使用logback-spring.xml命名</p>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</div><div class="line">&lt;configuration&gt;</div><div class="line">    &lt;include resource=&quot;org/springframework/boot/logging/logback/base.xml&quot; /&gt;</div><div class="line">    &lt;springProfile name=&quot;dev,test&quot;&gt;</div><div class="line">        &lt;logger name=&quot;com.yourdomain&quot; level=&quot;DEBUG&quot; additivity=&quot;false&quot;&gt;</div><div class="line">            &lt;appender-ref ref=&quot;CONSOLE&quot; /&gt;</div><div class="line">        &lt;/logger&gt;</div><div class="line">    &lt;/springProfile&gt;</div><div class="line">    &lt;springProfile name=&quot;live&quot;&gt;</div><div class="line">        &lt;logger name=&quot;com.yourdomain&quot; level=&quot;WARN&quot; additivity=&quot;false&quot;&gt;</div><div class="line">            &lt;appender-ref ref=&quot;FILE&quot; /&gt;</div><div class="line">        &lt;/logger&gt;</div><div class="line">    &lt;/springProfile&gt;</div><div class="line">    &lt;logger name=&quot;org.springframework&quot; level=&quot;WARN&quot; additivity=&quot;false&quot;&gt;</div><div class="line">        &lt;appender-ref ref=&quot;FILE&quot; /&gt;</div><div class="line">    &lt;/logger&gt;</div><div class="line">&lt;/configuration&gt;</div></pre></td></tr></table></figure>
+<p>执行 mvn spring-boot:run ，这时候你会看到，springProfile name是跟spring.properties.active的值一致的</p>
+<h3 id="jar-运行"><a href="#jar-运行" class="headerlink" title="jar 运行"></a>jar 运行</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">java －jar xxx.jar --spring.profiles.active=dev</div></pre></td></tr></table></figure>
+<p>这种形式，可以把–后面的值传递给Spring Boot，优先级高于properties配置文件，即会覆盖。</p>
+<h3 id="结束"><a href="#结束" class="headerlink" title="结束"></a>结束</h3><pre><code>今天坐地铁，把这本书献给你们吧！
+</code></pre>]]></content>
+    
+    <summary type="html">
+    
+      &lt;pre&gt;&lt;code&gt;我们在做开发的时候，都是使用本地数据库，本地缓存服务器，也只有我们一个人来开发，
+这是我们最最初级的场景，在实际工作中，我们不可能只有一个环境。通常会有Test,Dev,
+Live环境，Dev是我们的开发环境，Test作为我们的测试环境，Live是生产环境。每个
+环境都有自己的服务器地址和端口，所以后面就是这次要解决的问题了...
+&lt;/code&gt;&lt;/pre&gt;
+    
+    </summary>
+    
+      <category term="Java" scheme="http://www.nealma.com/categories/Java/"/>
+    
+    
+      <category term="Java" scheme="http://www.nealma.com/tags/Java/"/>
+    
+      <category term="Spring" scheme="http://www.nealma.com/tags/Spring/"/>
+    
+      <category term="Spring-Boot" scheme="http://www.nealma.com/tags/Spring-Boot/"/>
+    
+      <category term="Profile" scheme="http://www.nealma.com/tags/Profile/"/>
+    
+  </entry>
   
   <entry>
     <title>Spring-Boot（七) Thymeleaf 模版引擎</title>
@@ -218,6 +286,49 @@ CookieHttpSessionStrategy，如果是API就用HeaderHttpSessionStrategy，具体
   </entry>
   
   <entry>
+    <title>CentOS7（一）Java环境搭建</title>
+    <link href="http://www.nealma.com/2016/10/01/centos-72-1-install-java-envirment/"/>
+    <id>http://www.nealma.com/2016/10/01/centos-72-1-install-java-envirment/</id>
+    <published>2016-10-01T03:46:45.000Z</published>
+    <updated>2016-11-17T01:47:13.000Z</updated>
+    
+    <content type="html"><![CDATA[<pre><code>最近要从0开发新项目，以前都是用的CengOS6.5,觉得太历史了，7.x已经出来很久了。
+而且云上的景象都是7.2了，没理由不用。第一次使用肯定会遇到坑，其实也是自身对这个系统的不了解。
+尝鲜可定会出事，但是只要你打破舒适区，一路下来，你会觉得没那么难
+</code></pre><a id="more"></a>
+<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><pre><code>最近要从0开发新项目，以前都是用的CengOS6.5,觉得太历史了，7.x已经出来很久了。
+而且云上的景象都是7.2了，没理由不用。第一次使用肯定会遇到坑，其实也是自身对这个系统的不了解。
+尝鲜可定会出事，但是只要你打破舒适区，一路下来，你会觉得没那么难
+</code></pre><h3 id="安装-JDK8-0"><a href="#安装-JDK8-0" class="headerlink" title="安装 JDK8.0"></a>安装 JDK8.0</h3><p>直接使用openJDK,直接使用8.0,没必要考虑之前的版本了。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">yum search openJDK</div><div class="line">yun install java-1.8.0-openjdk.x86_64</div></pre></td></tr></table></figure>
+<h3 id="安装-Maven"><a href="#安装-Maven" class="headerlink" title="安装 Maven"></a>安装 Maven</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div></pre></td><td class="code"><pre><div class="line">＃ 去官网下载最新的Maven版本，zip包就行了</div><div class="line">wget http://mirror.bit.edu.cn/apache/maven/maven-3/3.3.9/binaries/apache-maven-3.3.9-bin.zip</div><div class="line"></div><div class="line">unzip apache-maven-3.3.9-bin.zip</div><div class="line"></div><div class="line"># 如果没有unzip工具的，先安装unzip</div><div class="line">yum install unzip</div><div class="line"></div><div class="line">＃ 把解压文件夹移动到/opt/maven下</div><div class="line">mv apache-maven-3.3.9 /opt/maven</div><div class="line"></div><div class="line"># 做个软连接</div><div class="line">ln -s /opt/maven/bin/mvn /usr/bin/mvn</div><div class="line"></div><div class="line">＃设置Maven环境变量</div><div class="line">vim /etc/profile.d/maven.sh</div><div class="line"></div><div class="line">#!/bin/bash</div><div class="line">MAVEN_HOME=/opt/maven</div><div class="line">PATH=$MAVEN_HOME/bin:$PATH</div><div class="line">export PATH MAVEN_HOME</div><div class="line">export CLASSPATH=.</div><div class="line"></div><div class="line"># 添加可执行权限</div><div class="line">chmod +x /etc/profile.d/maven.sh</div><div class="line"></div><div class="line"># 立即生效</div><div class="line">source /etc/profile.d/maven.sh</div><div class="line"></div><div class="line"># 检查是否安装成功</div><div class="line">mvn -version</div></pre></td></tr></table></figure>
+<h3 id="安装-Tomcat-8"><a href="#安装-Tomcat-8" class="headerlink" title="安装 Tomcat 8"></a>安装 Tomcat 8</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div></pre></td><td class="code"><pre><div class="line">＃ download</div><div class="line">wget http://mirrors.cnnic.cn/apache/tomcat/tomcat-8/v8.5.6/bin/apache-tomcat-8.5.6.zip</div><div class="line"></div><div class="line">＃ extract</div><div class="line">unzip apache-tomcat-8.5.6.zip </div><div class="line"></div><div class="line"># move to /opt</div><div class="line">mv apache-tomcat-8.5.6 /opt/tomcat</div><div class="line"></div><div class="line"># set enviroment </div><div class="line">vim /etc/profile.d/tomcat.sh</div><div class="line"></div><div class="line">#!/bin/bash</div><div class="line">CATALINA_HOME=/opt/tomcat</div><div class="line">PATH=$CATALINA_HOME/bin:$PATH</div><div class="line">export PATH CATALINA_HOME</div><div class="line">export CLASSPATH=.</div><div class="line"></div><div class="line"># make it executable</div><div class="line">chmod +x /etc/profile.d/tomcat.sh</div><div class="line"></div><div class="line"># set enviroment permanently</div><div class="line">source /etc/profile.d/tomcat.sh</div><div class="line"></div><div class="line"># make shell executable permisson</div><div class="line">chmod +x $CATALINA_HOME/bin/startup.sh</div><div class="line">chmod +x $CATALINA_HOME/bin/shutdown.sh</div><div class="line">chmod +x $CATALINA_HOME/bin/catalina.sh</div><div class="line"></div><div class="line"># start tomcat</div><div class="line">sh $CATALINA_HOME/bin/startup.sh</div></pre></td></tr></table></figure>
+<h3 id="用浏览器访问的时候，你很可能会失败，那就是firewall在作怪"><a href="#用浏览器访问的时候，你很可能会失败，那就是firewall在作怪" class="headerlink" title="用浏览器访问的时候，你很可能会失败，那就是firewall在作怪"></a>用浏览器访问的时候，你很可能会失败，那就是firewall在作怪</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">＃ Enable Firewalld</div><div class="line">systemctl enable firewalld</div><div class="line"></div><div class="line"># Start Firewalld</div><div class="line">systemctl start firewalld</div><div class="line"></div><div class="line"># check the status</div><div class="line">systemctl status firewalld</div></pre></td></tr></table></figure>
+<h3 id="开启了Firewalld-添加如下"><a href="#开启了Firewalld-添加如下" class="headerlink" title="开启了Firewalld,添加如下"></a>开启了Firewalld,添加如下</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">firewall-cmd --permanent --add-port=8080/tcp</div><div class="line">firewall-cmd --reload</div></pre></td></tr></table></figure>
+<h3 id="开机启动"><a href="#开机启动" class="headerlink" title="开机启动"></a>开机启动</h3><h1 id="创建调用脚本"><a href="#创建调用脚本" class="headerlink" title="创建调用脚本"></a>创建调用脚本</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div></pre></td><td class="code"><pre><div class="line">vim /etc/init.d/tomcat</div><div class="line"></div><div class="line">######################################################</div><div class="line">#!/bin/sh</div><div class="line"># chkconfig: 2345 80 20</div><div class="line"></div><div class="line"># Description: Tomcat Start/Shutdown script</div><div class="line"></div><div class="line">export JAVA_HOME=/usr/lib/jvm/java</div><div class="line"></div><div class="line">case $1 in</div><div class="line">start)</div><div class="line">cd /opt/tomcat/bin/</div><div class="line">./startup.sh</div><div class="line">;;</div><div class="line">stop)</div><div class="line">cd /opt/tomcat/bin/</div><div class="line">./shutdown.sh</div><div class="line">;;</div><div class="line">restart)</div><div class="line">cd /opt/tomcat/bin/</div><div class="line">./shutdown.sh</div><div class="line">cd /opt/tomcat/bin/</div><div class="line">./startup.sh</div><div class="line">;;</div><div class="line">esac</div><div class="line">exit 0</div><div class="line">######################################################</div><div class="line"></div><div class="line"># Make it executable</div><div class="line">chmod a+x /etc/init.d/tomcat</div><div class="line"></div><div class="line"># Add the tomcat to service</div><div class="line">chkconfig --add tomcat</div><div class="line"></div><div class="line"># auto as reboot</div><div class="line">systemctl start tomcat</div><div class="line">chkconfig tomcat on</div></pre></td></tr></table></figure>
+<h3 id="给Tomcat添加管理角色"><a href="#给Tomcat添加管理角色" class="headerlink" title="给Tomcat添加管理角色"></a>给Tomcat添加管理角色</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div></pre></td><td class="code"><pre><div class="line">vim $CATALINA_HOME/conf/tomcat-users.xml</div><div class="line"></div><div class="line">#在&lt;tomcat-users&gt;&lt;/tomcat-users&gt;之间加入如下指令</div><div class="line"></div><div class="line">[...]</div><div class="line">&lt;role rolename=&quot;manager-gui&quot;/&gt;</div><div class="line">&lt;role rolename=&quot;manager-script&quot;/&gt;</div><div class="line">&lt;role rolename=&quot;manager-jmx&quot;/&gt;</div><div class="line">&lt;role rolename=&quot;manager-status&quot;/&gt;</div><div class="line">&lt;role rolename=&quot;admin-gui&quot;/&gt;</div><div class="line">&lt;role rolename=&quot;admin-script&quot;/&gt;</div><div class="line">&lt;user username=&quot;admin&quot; password=&quot;admin&quot; roles=&quot;manager-gui,manager-script,manager-jmx,manager-status,admin-gui,admin-script&quot;/&gt;</div><div class="line">[...]</div><div class="line"></div><div class="line"># Restart tomcat </div><div class="line">systemctl restart tomcat</div><div class="line"></div><div class="line"># 用户名 密码  admin/admin</div><div class="line"></div><div class="line">#如果遇到403 Access Denied, 如下操作</div><div class="line">vim $CATALINA_HOME/webapps/manager/META-INF/context.xml</div><div class="line"></div><div class="line">#注释Value</div><div class="line"></div><div class="line">&lt;Context antiResourceLocking=&quot;false&quot; privileged=&quot;true&quot; &gt;</div><div class="line">&lt;!--</div><div class="line">&lt;Valve className=&quot;org.apache.catalina.valves.RemoteAddrValve&quot; allow=&quot;127\.\d+\.\d+\.\d+|::1|0:0:0:0:0:0:0:1&quot; /&gt;</div><div class="line">--&gt;</div><div class="line">&lt;/Context&gt;</div><div class="line"></div><div class="line">#访问host-manager时 403 Access Denied，操作类似</div><div class="line"></div><div class="line">vim $CATALINA_HOME/webapps/host-manager/META-INF/context.xml</div><div class="line"></div><div class="line">#注释Value</div><div class="line"></div><div class="line">&lt;Context antiResourceLocking=&quot;false&quot; privileged=&quot;true&quot; &gt;</div><div class="line">&lt;!--</div><div class="line">&lt;Valve className=&quot;org.apache.catalina.valves.RemoteAddrValve&quot; allow=&quot;127\.\d+\.\d+\.\d+|::1|0:0:0:0:0:0:0:1&quot; /&gt;</div><div class="line">--&gt;</div><div class="line">&lt;/Context&gt;</div></pre></td></tr></table></figure>
+<h3 id="结束"><a href="#结束" class="headerlink" title="结束"></a>结束</h3><p>:)~</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;pre&gt;&lt;code&gt;最近要从0开发新项目，以前都是用的CengOS6.5,觉得太历史了，7.x已经出来很久了。
+而且云上的景象都是7.2了，没理由不用。第一次使用肯定会遇到坑，其实也是自身对这个系统的不了解。
+尝鲜可定会出事，但是只要你打破舒适区，一路下来，你会觉得没那么难
+&lt;/code&gt;&lt;/pre&gt;
+    
+    </summary>
+    
+      <category term="Linux" scheme="http://www.nealma.com/categories/Linux/"/>
+    
+    
+      <category term="CentOS" scheme="http://www.nealma.com/tags/CentOS/"/>
+    
+      <category term="Linux" scheme="http://www.nealma.com/tags/Linux/"/>
+    
+  </entry>
+  
+  <entry>
     <title>CentOS7（三）Install PHP</title>
     <link href="http://www.nealma.com/2016/10/01/centos-72-3-php/"/>
     <id>http://www.nealma.com/2016/10/01/centos-72-3-php/</id>
@@ -259,49 +370,6 @@ CookieHttpSessionStrategy，如果是API就用HeaderHttpSessionStrategy，具体
       <category term="Linux" scheme="http://www.nealma.com/tags/Linux/"/>
     
       <category term="PHP" scheme="http://www.nealma.com/tags/PHP/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>CentOS7（一）Java环境搭建</title>
-    <link href="http://www.nealma.com/2016/10/01/centos-72-1-install-java-envirment/"/>
-    <id>http://www.nealma.com/2016/10/01/centos-72-1-install-java-envirment/</id>
-    <published>2016-10-01T03:46:45.000Z</published>
-    <updated>2016-11-17T01:47:13.000Z</updated>
-    
-    <content type="html"><![CDATA[<pre><code>最近要从0开发新项目，以前都是用的CengOS6.5,觉得太历史了，7.x已经出来很久了。
-而且云上的景象都是7.2了，没理由不用。第一次使用肯定会遇到坑，其实也是自身对这个系统的不了解。
-尝鲜可定会出事，但是只要你打破舒适区，一路下来，你会觉得没那么难
-</code></pre><a id="more"></a>
-<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><pre><code>最近要从0开发新项目，以前都是用的CengOS6.5,觉得太历史了，7.x已经出来很久了。
-而且云上的景象都是7.2了，没理由不用。第一次使用肯定会遇到坑，其实也是自身对这个系统的不了解。
-尝鲜可定会出事，但是只要你打破舒适区，一路下来，你会觉得没那么难
-</code></pre><h3 id="安装-JDK8-0"><a href="#安装-JDK8-0" class="headerlink" title="安装 JDK8.0"></a>安装 JDK8.0</h3><p>直接使用openJDK,直接使用8.0,没必要考虑之前的版本了。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">yum search openJDK</div><div class="line">yun install java-1.8.0-openjdk.x86_64</div></pre></td></tr></table></figure>
-<h3 id="安装-Maven"><a href="#安装-Maven" class="headerlink" title="安装 Maven"></a>安装 Maven</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div></pre></td><td class="code"><pre><div class="line">＃ 去官网下载最新的Maven版本，zip包就行了</div><div class="line">wget http://mirror.bit.edu.cn/apache/maven/maven-3/3.3.9/binaries/apache-maven-3.3.9-bin.zip</div><div class="line"></div><div class="line">unzip apache-maven-3.3.9-bin.zip</div><div class="line"></div><div class="line"># 如果没有unzip工具的，先安装unzip</div><div class="line">yum install unzip</div><div class="line"></div><div class="line">＃ 把解压文件夹移动到/opt/maven下</div><div class="line">mv apache-maven-3.3.9 /opt/maven</div><div class="line"></div><div class="line"># 做个软连接</div><div class="line">ln -s /opt/maven/bin/mvn /usr/bin/mvn</div><div class="line"></div><div class="line">＃设置Maven环境变量</div><div class="line">vim /etc/profile.d/maven.sh</div><div class="line"></div><div class="line">#!/bin/bash</div><div class="line">MAVEN_HOME=/opt/maven</div><div class="line">PATH=$MAVEN_HOME/bin:$PATH</div><div class="line">export PATH MAVEN_HOME</div><div class="line">export CLASSPATH=.</div><div class="line"></div><div class="line"># 添加可执行权限</div><div class="line">chmod +x /etc/profile.d/maven.sh</div><div class="line"></div><div class="line"># 立即生效</div><div class="line">source /etc/profile.d/maven.sh</div><div class="line"></div><div class="line"># 检查是否安装成功</div><div class="line">mvn -version</div></pre></td></tr></table></figure>
-<h3 id="安装-Tomcat-8"><a href="#安装-Tomcat-8" class="headerlink" title="安装 Tomcat 8"></a>安装 Tomcat 8</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div></pre></td><td class="code"><pre><div class="line">＃ download</div><div class="line">wget http://mirrors.cnnic.cn/apache/tomcat/tomcat-8/v8.5.6/bin/apache-tomcat-8.5.6.zip</div><div class="line"></div><div class="line">＃ extract</div><div class="line">unzip apache-tomcat-8.5.6.zip </div><div class="line"></div><div class="line"># move to /opt</div><div class="line">mv apache-tomcat-8.5.6 /opt/tomcat</div><div class="line"></div><div class="line"># set enviroment </div><div class="line">vim /etc/profile.d/tomcat.sh</div><div class="line"></div><div class="line">#!/bin/bash</div><div class="line">CATALINA_HOME=/opt/tomcat</div><div class="line">PATH=$CATALINA_HOME/bin:$PATH</div><div class="line">export PATH CATALINA_HOME</div><div class="line">export CLASSPATH=.</div><div class="line"></div><div class="line"># make it executable</div><div class="line">chmod +x /etc/profile.d/tomcat.sh</div><div class="line"></div><div class="line"># set enviroment permanently</div><div class="line">source /etc/profile.d/tomcat.sh</div><div class="line"></div><div class="line"># make shell executable permisson</div><div class="line">chmod +x $CATALINA_HOME/bin/startup.sh</div><div class="line">chmod +x $CATALINA_HOME/bin/shutdown.sh</div><div class="line">chmod +x $CATALINA_HOME/bin/catalina.sh</div><div class="line"></div><div class="line"># start tomcat</div><div class="line">sh $CATALINA_HOME/bin/startup.sh</div></pre></td></tr></table></figure>
-<h3 id="用浏览器访问的时候，你很可能会失败，那就是firewall在作怪"><a href="#用浏览器访问的时候，你很可能会失败，那就是firewall在作怪" class="headerlink" title="用浏览器访问的时候，你很可能会失败，那就是firewall在作怪"></a>用浏览器访问的时候，你很可能会失败，那就是firewall在作怪</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">＃ Enable Firewalld</div><div class="line">systemctl enable firewalld</div><div class="line"></div><div class="line"># Start Firewalld</div><div class="line">systemctl start firewalld</div><div class="line"></div><div class="line"># check the status</div><div class="line">systemctl status firewalld</div></pre></td></tr></table></figure>
-<h3 id="开启了Firewalld-添加如下"><a href="#开启了Firewalld-添加如下" class="headerlink" title="开启了Firewalld,添加如下"></a>开启了Firewalld,添加如下</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">firewall-cmd --permanent --add-port=8080/tcp</div><div class="line">firewall-cmd --reload</div></pre></td></tr></table></figure>
-<h3 id="开机启动"><a href="#开机启动" class="headerlink" title="开机启动"></a>开机启动</h3><h1 id="创建调用脚本"><a href="#创建调用脚本" class="headerlink" title="创建调用脚本"></a>创建调用脚本</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div></pre></td><td class="code"><pre><div class="line">vim /etc/init.d/tomcat</div><div class="line"></div><div class="line">######################################################</div><div class="line">#!/bin/sh</div><div class="line"># chkconfig: 2345 80 20</div><div class="line"></div><div class="line"># Description: Tomcat Start/Shutdown script</div><div class="line"></div><div class="line">export JAVA_HOME=/usr/lib/jvm/java</div><div class="line"></div><div class="line">case $1 in</div><div class="line">start)</div><div class="line">cd /opt/tomcat/bin/</div><div class="line">./startup.sh</div><div class="line">;;</div><div class="line">stop)</div><div class="line">cd /opt/tomcat/bin/</div><div class="line">./shutdown.sh</div><div class="line">;;</div><div class="line">restart)</div><div class="line">cd /opt/tomcat/bin/</div><div class="line">./shutdown.sh</div><div class="line">cd /opt/tomcat/bin/</div><div class="line">./startup.sh</div><div class="line">;;</div><div class="line">esac</div><div class="line">exit 0</div><div class="line">######################################################</div><div class="line"></div><div class="line"># Make it executable</div><div class="line">chmod a+x /etc/init.d/tomcat</div><div class="line"></div><div class="line"># Add the tomcat to service</div><div class="line">chkconfig --add tomcat</div><div class="line"></div><div class="line"># auto as reboot</div><div class="line">systemctl start tomcat</div><div class="line">chkconfig tomcat on</div></pre></td></tr></table></figure>
-<h3 id="给Tomcat添加管理角色"><a href="#给Tomcat添加管理角色" class="headerlink" title="给Tomcat添加管理角色"></a>给Tomcat添加管理角色</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div></pre></td><td class="code"><pre><div class="line">vim $CATALINA_HOME/conf/tomcat-users.xml</div><div class="line"></div><div class="line">#在&lt;tomcat-users&gt;&lt;/tomcat-users&gt;之间加入如下指令</div><div class="line"></div><div class="line">[...]</div><div class="line">&lt;role rolename=&quot;manager-gui&quot;/&gt;</div><div class="line">&lt;role rolename=&quot;manager-script&quot;/&gt;</div><div class="line">&lt;role rolename=&quot;manager-jmx&quot;/&gt;</div><div class="line">&lt;role rolename=&quot;manager-status&quot;/&gt;</div><div class="line">&lt;role rolename=&quot;admin-gui&quot;/&gt;</div><div class="line">&lt;role rolename=&quot;admin-script&quot;/&gt;</div><div class="line">&lt;user username=&quot;admin&quot; password=&quot;admin&quot; roles=&quot;manager-gui,manager-script,manager-jmx,manager-status,admin-gui,admin-script&quot;/&gt;</div><div class="line">[...]</div><div class="line"></div><div class="line"># Restart tomcat </div><div class="line">systemctl restart tomcat</div><div class="line"></div><div class="line"># 用户名 密码  admin/admin</div><div class="line"></div><div class="line">#如果遇到403 Access Denied, 如下操作</div><div class="line">vim $CATALINA_HOME/webapps/manager/META-INF/context.xml</div><div class="line"></div><div class="line">#注释Value</div><div class="line"></div><div class="line">&lt;Context antiResourceLocking=&quot;false&quot; privileged=&quot;true&quot; &gt;</div><div class="line">&lt;!--</div><div class="line">&lt;Valve className=&quot;org.apache.catalina.valves.RemoteAddrValve&quot; allow=&quot;127\.\d+\.\d+\.\d+|::1|0:0:0:0:0:0:0:1&quot; /&gt;</div><div class="line">--&gt;</div><div class="line">&lt;/Context&gt;</div><div class="line"></div><div class="line">#访问host-manager时 403 Access Denied，操作类似</div><div class="line"></div><div class="line">vim $CATALINA_HOME/webapps/host-manager/META-INF/context.xml</div><div class="line"></div><div class="line">#注释Value</div><div class="line"></div><div class="line">&lt;Context antiResourceLocking=&quot;false&quot; privileged=&quot;true&quot; &gt;</div><div class="line">&lt;!--</div><div class="line">&lt;Valve className=&quot;org.apache.catalina.valves.RemoteAddrValve&quot; allow=&quot;127\.\d+\.\d+\.\d+|::1|0:0:0:0:0:0:0:1&quot; /&gt;</div><div class="line">--&gt;</div><div class="line">&lt;/Context&gt;</div></pre></td></tr></table></figure>
-<h3 id="结束"><a href="#结束" class="headerlink" title="结束"></a>结束</h3><p>:)~</p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;pre&gt;&lt;code&gt;最近要从0开发新项目，以前都是用的CengOS6.5,觉得太历史了，7.x已经出来很久了。
-而且云上的景象都是7.2了，没理由不用。第一次使用肯定会遇到坑，其实也是自身对这个系统的不了解。
-尝鲜可定会出事，但是只要你打破舒适区，一路下来，你会觉得没那么难
-&lt;/code&gt;&lt;/pre&gt;
-    
-    </summary>
-    
-      <category term="Linux" scheme="http://www.nealma.com/categories/Linux/"/>
-    
-    
-      <category term="CentOS" scheme="http://www.nealma.com/tags/CentOS/"/>
-    
-      <category term="Linux" scheme="http://www.nealma.com/tags/Linux/"/>
     
   </entry>
   
@@ -1026,32 +1094,6 @@ Build Setting添加Code Signing Identity为iOS Developer
       <category term="React-Native" scheme="http://www.nealma.com/tags/React-Native/"/>
     
       <category term="RN" scheme="http://www.nealma.com/tags/RN/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>npm 网络难以忍受</title>
-    <link href="http://www.nealma.com/2016/05/30/nodejs-1-very-slow/"/>
-    <id>http://www.nealma.com/2016/05/30/nodejs-1-very-slow/</id>
-    <published>2016-05-30T03:46:45.000Z</published>
-    <updated>2016-11-17T01:59:43.000Z</updated>
-    
-    <content type="html"><![CDATA[<pre><code>那就别忍受了
-</code></pre><a id="more"></a>
-<h3 id="那就换成淘宝的吧"><a href="#那就换成淘宝的吧" class="headerlink" title="那就换成淘宝的吧"></a>那就换成淘宝的吧</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">npm --registry=https://registry.npm.taobao.org install cnpm -g</div></pre></td></tr></table></figure>
-<h3 id="或者改变registry"><a href="#或者改变registry" class="headerlink" title="或者改变registry"></a>或者改变registry</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">#vim ~/.npmrc</div><div class="line"></div><div class="line">registry = https://registry.npm.taobao.org</div></pre></td></tr></table></figure>]]></content>
-    
-    <summary type="html">
-    
-      &lt;pre&gt;&lt;code&gt;那就别忍受了
-&lt;/code&gt;&lt;/pre&gt;
-    
-    </summary>
-    
-      <category term="NodeJS" scheme="http://www.nealma.com/categories/NodeJS/"/>
-    
-    
-      <category term="nodejs" scheme="http://www.nealma.com/tags/nodejs/"/>
     
   </entry>
   
