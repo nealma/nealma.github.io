@@ -92,7 +92,7 @@
 <meta property="og:url" content="http://www.nealma.com/2016/03/16/nginx-configuration/index.html">
 <meta property="og:site_name" content="nealma.com">
 <meta property="og:description" content="按部就班吧">
-<meta property="og:updated_time" content="2016-11-17T02:00:13.000Z">
+<meta property="og:updated_time" content="2016-11-22T01:23:10.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Nginx Configuration">
 <meta name="twitter:description" content="按部就班吧">
@@ -340,6 +340,7 @@
 <h3 id="Download-openssl"><a href="#Download-openssl" class="headerlink" title="Download openssl"></a>Download openssl</h3><p><a href="https://www.openssl.org/source/openssl-1.0.2h.tar.gz" target="_blank" rel="external">1.0.2h</a></p>
 <h3 id="Install"><a href="#Install" class="headerlink" title="Install"></a>Install</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">cd nginx_home</div><div class="line">./configure --prefix=/usr/local/nginx \</div><div class="line">            --with-http_ssl_module \</div><div class="line">            --with-openssl=//home/lingyitech/sw/openssl-1.0.2h \</div><div class="line">            --with-openssl-opt=&quot;enable-tlsext&quot;</div><div class="line">sudo make &amp;&amp; sudo make install</div></pre></td></tr></table></figure>
 <h3 id="Multiple-Host"><a href="#Multiple-Host" class="headerlink" title="Multiple Host"></a>Multiple Host</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line">server  &#123;</div><div class="line">        listen 443;</div><div class="line">        server_name   www.nealma.com;</div><div class="line">        index index.html index.htm index.php;</div><div class="line">        root  /data/wwwroot/www.nealma.com/webroot;</div><div class="line">        ssl on;</div><div class="line">        ssl_certificate &quot;/usr/local/nginx/conf/ssl/www.nealma.com.public.cer&quot;;</div><div class="line">        ssl_certificate_key &quot;/usr/local/nginx/conf/ssl/www.nealma.com.private.key&quot;;</div><div class="line">        ...</div><div class="line">&#125;</div><div class="line"></div><div class="line">server  &#123;</div><div class="line">        listen 443;</div><div class="line">        server_name   www.malingyi.com;</div><div class="line">        index index.html index.htm index.php;</div><div class="line">        root  /data/wwwroot/www.malingyi.com/webroot;</div><div class="line">        ssl on;</div><div class="line">        ssl_certificate 	  &quot;/usr/local/nginx/conf/ssl/www.malingyi.com.public.cer&quot;;</div><div class="line">        ssl_certificate_key &quot;/usr/local/nginx/conf/ssl/www.malingyi.com.private.key&quot;;</div><div class="line">        ...</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">location /rtshop &#123;</div><div class="line">    index index.html;</div><div class="line">    proxy_pass http://127.0.0.1:8080;   #来自jsp请求交给tomcat处理</div><div class="line">    proxy_redirect off;</div><div class="line">    proxy_set_header Host $host;    #后端的Web服务器可以通过X-Forwarded-For获取用户真实IP</div><div class="line">    proxy_set_header X-Real-IP $remote_addr;</div><div class="line">    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;</div><div class="line">    client_max_body_size 10m;   #允许客户端请求的最大单文件字节数</div><div class="line">    client_body_buffer_size 128k; #缓冲区代理缓冲用户端请求的最大字节数</div><div class="line">    proxy_connect_timeout 90;   #nginx跟后端服务器连接超时时间</div><div class="line">    proxy_read_timeout 90;      #连接成功后，后端服务器响应时间</div><div class="line">    proxy_buffer_size 4k;       #设置代理服务器（nginx）保存用户头信息的缓冲区大小</div><div class="line">    proxy_buffers 6 32k;        #proxy_buffers缓冲区，网页平均在32k以下的话，这样设置</div><div class="line">    proxy_busy_buffers_size 64k;#高负荷下缓冲大小（proxy_buffers*2）</div><div class="line">    proxy_temp_file_write_size 64k; #设定缓存文件夹大小，大于这个值，将从upstream服务器传</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <h3 id="可能会出现的问题"><a href="#可能会出现的问题" class="headerlink" title="可能会出现的问题"></a>可能会出现的问题</h3><ul>
 <li>缺少gcc工具</li>
 </ul>
@@ -470,7 +471,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="../../../../archives">
-              <span class="site-state-item-count">42</span>
+              <span class="site-state-item-count">43</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -487,7 +488,7 @@
           
             <div class="site-state-item site-state-tags">
               <a href="../../../../tags">
-                <span class="site-state-item-count">48</span>
+                <span class="site-state-item-count">49</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>

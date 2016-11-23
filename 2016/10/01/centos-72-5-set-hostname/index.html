@@ -68,7 +68,7 @@
 <link href="../../../../css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="MyBatis,Generator,Java," />
+  <meta name="keywords" content="CentOS,Linux,Hostname," />
 
 
 
@@ -86,22 +86,19 @@
 
 
 
-<meta name="description" content="MyBatis在java的ORM地位一致保持，但是我们在写mapper的时候，也是头疼，关键是总是手误，所以呢，就有了mybatis-generator,
-但是官方的工具又不符合我们自己的口味，像什么不能在pojo类中根据表的字段注释来自动加注释，
-生成的mapper不够优雅,于是不安分的我们就开始各种改造...">
+<meta name="description" content="对于不是经常装系统或者购买云服务器的我来说，总是忘记怎么设置更改hostname，
+怎么办，怎么办，那就记下来呗。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="MyBatis Generator 改造">
-<meta property="og:url" content="http://www.nealma.com/2016/04/25/mybatis-generator-how-to-use/index.html">
+<meta property="og:title" content="CentOS7（五）Set Hostname">
+<meta property="og:url" content="http://www.nealma.com/2016/10/01/centos-72-5-set-hostname/index.html">
 <meta property="og:site_name" content="nealma.com">
-<meta property="og:description" content="MyBatis在java的ORM地位一致保持，但是我们在写mapper的时候，也是头疼，关键是总是手误，所以呢，就有了mybatis-generator,
-但是官方的工具又不符合我们自己的口味，像什么不能在pojo类中根据表的字段注释来自动加注释，
-生成的mapper不够优雅,于是不安分的我们就开始各种改造...">
-<meta property="og:updated_time" content="2016-11-17T01:49:21.000Z">
+<meta property="og:description" content="对于不是经常装系统或者购买云服务器的我来说，总是忘记怎么设置更改hostname，
+怎么办，怎么办，那就记下来呗。">
+<meta property="og:updated_time" content="2016-11-22T01:47:24.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="MyBatis Generator 改造">
-<meta name="twitter:description" content="MyBatis在java的ORM地位一致保持，但是我们在写mapper的时候，也是头疼，关键是总是手误，所以呢，就有了mybatis-generator,
-但是官方的工具又不符合我们自己的口味，像什么不能在pojo类中根据表的字段注释来自动加注释，
-生成的mapper不够优雅,于是不安分的我们就开始各种改造...">
+<meta name="twitter:title" content="CentOS7（五）Set Hostname">
+<meta name="twitter:description" content="对于不是经常装系统或者购买云服务器的我来说，总是忘记怎么设置更改hostname，
+怎么办，怎么办，那就记下来呗。">
 
 
 
@@ -122,9 +119,9 @@
 
 
 
-  <link rel="canonical" href="http://www.nealma.com/2016/04/25/mybatis-generator-how-to-use/"/>
+  <link rel="canonical" href="http://www.nealma.com/2016/10/01/centos-72-5-set-hostname/"/>
 
-  <title> MyBatis Generator 改造 | nealma.com </title>
+  <title> CentOS7（五）Set Hostname | nealma.com </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -274,7 +271,7 @@
             
             
               
-                MyBatis Generator 改造
+                CentOS7（五）Set Hostname
               
             
           </h1>
@@ -286,8 +283,8 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-04-25T11:46:45+08:00" content="2016-04-25">
-              2016-04-25
+            <time itemprop="dateCreated" datetime="2016-10-01T11:46:45+08:00" content="2016-10-01">
+              2016-10-01
             </time>
           </span>
 
@@ -300,8 +297,8 @@
               <span class="post-meta-item-text">分类于</span>
               
                 <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="../../../../categories/Java/" itemprop="url" rel="index">
-                    <span itemprop="name">Java</span>
+                  <a href="../../../../categories/Linux/" itemprop="url" rel="index">
+                    <span itemprop="name">Linux</span>
                   </a>
                 </span>
 
@@ -317,7 +314,7 @@
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
                 <a href="#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/04/25/mybatis-generator-how-to-use/" itemprop="commentsCount"></span>
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/10/01/centos-72-5-set-hostname/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -340,21 +337,18 @@
       
 
       
-        <pre><code>MyBatis在java的ORM地位一致保持，但是我们在写mapper的时候，也是头疼，关键是总是手误，所以呢，就有了mybatis-generator,
-但是官方的工具又不符合我们自己的口味，像什么不能在pojo类中根据表的字段注释来自动加注释，
-生成的mapper不够优雅,于是不安分的我们就开始各种改造...
+        <pre><code>对于不是经常装系统或者购买云服务器的我来说，总是忘记怎么设置更改hostname，
+怎么办，怎么办，那就记下来呗。
 </code></pre><a id="more"></a>
-<p>MyBatis Version : 1.3.4-SNAPSHOT</p>
-<h3 id="在POJO类上添加注释"><a href="#在POJO类上添加注释" class="headerlink" title="在POJO类上添加注释"></a>在POJO类上添加注释</h3><p>修改Field.java类</p>
-<p>＊ 添加remarks成员变量，同时完成setter和getter方法</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">private</span> String remarks;</div><div class="line"></div><div class="line">getter...</div><div class="line">setter...</div></pre></td></tr></table></figure>
-<ul>
-<li>修改getFormattedContent方法</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">sb.append(<span class="string">';'</span>);</div><div class="line"><span class="comment">//新增</span></div><div class="line"><span class="keyword">if</span> (remarks != <span class="keyword">null</span> &amp;&amp; remarks.length() &gt; <span class="number">1</span>)&#123;</div><div class="line">   sb.append(<span class="string">"//"</span>).append(remarks);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>＊ 给remarks赋值，修改JavaBeansUtil.getJavaBeansField方法</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">...</div><div class="line">field.setName(property);</div><div class="line"><span class="comment">//添加如下代码</span></div><div class="line">field.setRemarks(introspectedColumn.getRemarks());</div></pre></td></tr></table></figure>
-<h3 id="mavne配置"><a href="#mavne配置" class="headerlink" title="mavne配置"></a>mavne配置</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div></pre></td><td class="code"><pre><div class="line">&lt;plugin&gt;</div><div class="line">    &lt;groupId&gt;org.mybatis.generator&lt;/groupId&gt;</div><div class="line">    &lt;artifactId&gt;mybatis-generator-maven-plugin&lt;/artifactId&gt;</div><div class="line">    &lt;version&gt;1.3.4-SNAPSHOT&lt;/version&gt;</div><div class="line">    &lt;configuration&gt;</div><div class="line">        &lt;configurationFile&gt;src/main/resources/mybatis/mybatis-generator-config.xml&lt;/configurationFile&gt;</div><div class="line">        &lt;!--允许移动生成的文件--&gt;</div><div class="line">        &lt;verbose&gt;true&lt;/verbose&gt;</div><div class="line">        &lt;!--允许覆盖生成的文件--&gt;</div><div class="line">        &lt;overwrite&gt;true&lt;/overwrite&gt;</div><div class="line">    &lt;/configuration&gt;</div><div class="line">    &lt;executions&gt;</div><div class="line">        &lt;execution&gt;</div><div class="line">            &lt;id&gt;Generate MyBatis Artifacts&lt;/id&gt;</div><div class="line">            &lt;goals&gt;</div><div class="line">                &lt;goal&gt;generate&lt;/goal&gt;</div><div class="line">            &lt;/goals&gt;</div><div class="line">        &lt;/execution&gt;</div><div class="line">    &lt;/executions&gt;</div><div class="line">    &lt;dependencies&gt;</div><div class="line">        &lt;!-- 数据库驱动  --&gt;</div><div class="line">        &lt;dependency&gt;</div><div class="line">            &lt;groupId&gt;mysql&lt;/groupId&gt;</div><div class="line">            &lt;artifactId&gt;mysql-connector-java&lt;/artifactId&gt;</div><div class="line">            &lt;version&gt;5.1.39&lt;/version&gt;</div><div class="line">        &lt;/dependency&gt;</div><div class="line">    &lt;/dependencies&gt;</div><div class="line">&lt;/plugin&gt;</div></pre></td></tr></table></figure>
+<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><pre><code>对于不是经常装系统或者购买云服务器的我来说，总是忘记怎么设置更改hostname，
+怎么办，怎么办，那就记下来呗。
+</code></pre><h3 id="hostnamectl"><a href="#hostnamectl" class="headerlink" title="hostnamectl"></a>hostnamectl</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"># 查看hostname信息</div><div class="line">hostnamectl status</div><div class="line"></div><div class="line"># 临时更改，重启后会恢复</div><div class="line">hostnamectl set-hostname &apos;your  Name&apos;</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">Static hostname: yourname ＃发现会过滤任何特殊字符，而且全部转化为小写</div><div class="line">Pretty hostname: your  Name</div></pre></td></tr></table></figure>
+<p>此时，/etc/hostname中会自动更新，但是/etc/hosts的内容不会，需要手动更改。<br>如果想要永久变更，你可以加入如下参数</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">hostnamectl --static set-hostname nealma</div></pre></td></tr></table></figure>
+<p>会立即修改内核的主机名，注销后重新登录，不需要重启服务器。</p>
+<h3 id="结束"><a href="#结束" class="headerlink" title="结束"></a>结束</h3><p>:)~</p>
+
       
 
     </div>
@@ -377,11 +371,11 @@
       
         <div class="post-tags">
           
-            <a href="../../../../tags/MyBatis/" rel="tag">#MyBatis</a>
+            <a href="../../../../tags/CentOS/" rel="tag">#CentOS</a>
           
-            <a href="../../../../tags/Generator/" rel="tag">#Generator</a>
+            <a href="../../../../tags/Linux/" rel="tag">#Linux</a>
           
-            <a href="../../../../tags/Java/" rel="tag">#Java</a>
+            <a href="../../../../tags/Hostname/" rel="tag">#Hostname</a>
           
         </div>
       
@@ -390,16 +384,16 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="../../20/spring-boot-1-how-to-use/" rel="next" title="Spring-Boot（一） 环境搭建">
-                <i class="fa fa-chevron-left"></i> Spring-Boot（一） 环境搭建
+              <a href="../centos-72-1-install-java-envirment/" rel="next" title="CentOS7（一）Java环境搭建">
+                <i class="fa fa-chevron-left"></i> CentOS7（一）Java环境搭建
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="../../26/vim-plugin-enhance/" rel="prev" title="Vim 增强">
-                Vim 增强 <i class="fa fa-chevron-right"></i>
+              <a href="../../02/vim-command-line-1-replace/" rel="prev" title="Vim Commandline (一) 文本替换">
+                Vim Commandline (一) 文本替换 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -426,8 +420,8 @@
           
   <div class="comments" id="comments">
     
-      <div class="ds-thread" data-thread-key="2016/04/25/mybatis-generator-how-to-use/"
-           data-title="MyBatis Generator 改造" data-url="http://www.nealma.com/2016/04/25/mybatis-generator-how-to-use/">
+      <div class="ds-thread" data-thread-key="2016/10/01/centos-72-5-set-hostname/"
+           data-title="CentOS7（五）Set Hostname" data-url="http://www.nealma.com/2016/10/01/centos-72-5-set-hostname/">
       </div>
     
   </div>
@@ -543,7 +537,7 @@
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#在POJO类上添加注释"><span class="nav-number">1.</span> <span class="nav-text">在POJO类上添加注释</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#mavne配置"><span class="nav-number">2.</span> <span class="nav-text">mavne配置</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#hostnamectl"><span class="nav-number">2.</span> <span class="nav-text">hostnamectl</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#结束"><span class="nav-number">3.</span> <span class="nav-text">结束</span></a></li></ol></div>
             
           </div>
         </section>
