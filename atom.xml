@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://www.nealma.com/"/>
-  <updated>2016-11-17T18:43:49.000Z</updated>
+  <updated>2016-11-26T11:25:27.000Z</updated>
   <id>http://www.nealma.com/</id>
   
   <author>
@@ -14,6 +14,137 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>工作中遇到的问题</title>
+    <link href="http://www.nealma.com/2016/11/29/work-problerm-1_20161126192532/"/>
+    <id>http://www.nealma.com/2016/11/29/work-problerm-1_20161126192532/</id>
+    <published>2016-11-29T03:46:45.000Z</published>
+    <updated>2016-11-26T11:25:27.000Z</updated>
+    
+    <content type="html"><![CDATA[<pre><code>最近也不知道写点啥，工作任务太饱和了，遇到些小问题，做个总结
+</code></pre><a id="more"></a>
+<h3 id="MyBatis整型的问题"><a href="#MyBatis整型的问题" class="headerlink" title="MyBatis整型的问题"></a>MyBatis整型的问题</h3><pre><code>再一次工作中，一个实体的成员变量是整数型，我传递了0给mapper，奇怪的事情发生了。
+mapper总是认为这个变量为null。前前后后花了好长时间，最后还是Google的结果。看来遇到问题不能
+自己去一步一步去深挖，还得借助Google啊（不知道是不适合所有）。
+
+原来MyBatis对于整型类型如果值为0，会当做null来处理。（不知道作者是出于什么原因）
+
+解决办法：
+
+加强判断
+</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;if test=&quot;categoryName != null and categoryName != &apos;&apos; or categoryName == 0&quot;&gt;</div></pre></td></tr></table></figure>
+<h3 id="Spring-MVC的问题"><a href="#Spring-MVC的问题" class="headerlink" title="Spring MVC的问题"></a>Spring MVC的问题</h3><p>spring mvc put方法请求，ajax必须指定dataType: “json”<br>    在设计Restful接口的时候，其中Controller里面的PUT方法，前台html中使用ajax提交表单,很正常不过。<br>    可是在后台始终得不到前台传过来的参数。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">$.ajax(</div><div class="line">	&#123;</div><div class="line">	    url: API,</div><div class="line">	    type: &quot;PUT&quot;,</div><div class="line">	    data: &#123;k : v, ...&#125;</div><div class="line">	    async: false,</div><div class="line">	    success: function (data, textStatus, jqXHR) &#123;</div><div class="line">	        //TODO:</div><div class="line">	    &#125;,</div><div class="line">	    error: function (jqXHR, textStatus, errorThrown) &#123;</div><div class="line">	    	//TODO:</div><div class="line">	    &#125;</div><div class="line">	&#125;);</div></pre></td></tr></table></figure>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;pre&gt;&lt;code&gt;最近也不知道写点啥，工作任务太饱和了，遇到些小问题，做个总结
+&lt;/code&gt;&lt;/pre&gt;
+    
+    </summary>
+    
+      <category term="work" scheme="http://www.nealma.com/categories/work/"/>
+    
+    
+      <category term="大杂烩" scheme="http://www.nealma.com/tags/%E5%A4%A7%E6%9D%82%E7%83%A9/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>工作中遇到的问题</title>
+    <link href="http://www.nealma.com/2016/11/26/work-problerm-1/"/>
+    <id>http://www.nealma.com/2016/11/26/work-problerm-1/</id>
+    <published>2016-11-26T03:46:45.000Z</published>
+    <updated>2016-11-26T12:59:24.000Z</updated>
+    
+    <content type="html"><![CDATA[<pre><code>最近也不知道写点啥，工作任务太饱和了，遇到些小问题，做个总结
+</code></pre><a id="more"></a>
+<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><pre><code>最近也不知道写点啥，工作任务太饱和了，遇到些小问题，做个总结
+</code></pre><h3 id="MyBatis整型的问题"><a href="#MyBatis整型的问题" class="headerlink" title="MyBatis整型的问题"></a>MyBatis整型的问题</h3><pre><code>再一次工作中，一个实体的成员变量是整数型，我传递了0给mapper，奇怪的事情发生了。
+mapper总是认为这个变量为null。前前后后花了好长时间，最后还是Google的结果。看来遇到问题不能
+自己去一步一步去深挖，还得借助Google啊（不知道是不适合所有）。
+
+原来MyBatis对于整型类型如果值为0，会当做null来处理。（不知道作者是出于什么原因）
+
+解决办法：
+
+加强判断
+</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;if test=&quot;categoryName != null and categoryName != &apos;&apos; or categoryName == 0&quot;&gt;</div></pre></td></tr></table></figure>
+<h3 id="Spring-MVC的问题"><a href="#Spring-MVC的问题" class="headerlink" title="Spring MVC的问题"></a>Spring MVC的问题</h3><p>spring mvc put方法请求，ajax必须指定dataType: “json”<br>    在设计Restful接口的时候，其中Controller里面的PUT方法，前台html中使用ajax提交表单,很正常不过。<br>    可是在后台始终得不到</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">$.ajax(</div><div class="line">	&#123;</div><div class="line">	    url: API,</div><div class="line">	    type: &quot;PUT&quot;,</div><div class="line">	    data: &#123;k : v&#125;,</div><div class="line">	    async: false,</div><div class="line">	    success: function (data, textStatus, jqXHR) &#123;</div><div class="line">	        //TODO:</div><div class="line">	    &#125;,</div><div class="line">	    error: function (jqXHR, textStatus, errorThrown) &#123;</div><div class="line">	    	//TODO:</div><div class="line">	    &#125;</div><div class="line">	&#125;);</div></pre></td></tr></table></figure>
+<pre><code>抓取request的header，如下：
+</code></pre><p><img src="/images/put-method.png" alt=""></p>
+<pre><code>给ajax加入如下dataType参数，值为“json”，这样问题解决了，Controller成功的获得了参数。
+We did it。
+</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">$.ajax(</div><div class="line">	&#123;</div><div class="line">	    url: API,</div><div class="line">	    type: &quot;PUT&quot;,</div><div class="line">	    data: &#123;k : v&#125;,</div><div class="line">	    dataType: &quot;json&quot;,</div><div class="line">	    async: false,</div><div class="line">	    success: function (data, textStatus, jqXHR) &#123;</div><div class="line">	        //TODO:</div><div class="line">	    &#125;,</div><div class="line">	    error: function (jqXHR, textStatus, errorThrown) &#123;</div><div class="line">	    	//TODO:</div><div class="line">	    &#125;</div><div class="line">	&#125;);</div></pre></td></tr></table></figure>
+<pre><code>抓取request的header，如下：
+</code></pre><p><img src="/images/put-method-json.png" alt=""></p>
+<pre><code>从两处标记可以看出，Accept的两次值不一样；Accept的值直接影响Controller的consumes,
+Spring会根据Accept来对Request的参数做相应的处理。
+</code></pre><h3 id="结束"><a href="#结束" class="headerlink" title="结束"></a>结束</h3><pre><code>还会陆续遇到各种坑，慢慢填吧...
+ :)~
+</code></pre>]]></content>
+    
+    <summary type="html">
+    
+      &lt;pre&gt;&lt;code&gt;最近也不知道写点啥，工作任务太饱和了，遇到些小问题，做个总结
+&lt;/code&gt;&lt;/pre&gt;
+    
+    </summary>
+    
+      <category term="work" scheme="http://www.nealma.com/categories/work/"/>
+    
+    
+      <category term="大杂烩" scheme="http://www.nealma.com/tags/%E5%A4%A7%E6%9D%82%E7%83%A9/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Spring-Boot（九) 微服务发布、部署</title>
+    <link href="http://www.nealma.com/2016/11/05/spring-boot-9-package-and-deploy/"/>
+    <id>http://www.nealma.com/2016/11/05/spring-boot-9-package-and-deploy/</id>
+    <published>2016-11-05T03:46:45.000Z</published>
+    <updated>2016-11-26T12:59:47.000Z</updated>
+    
+    <content type="html"><![CDATA[<pre><code>有关部署，我们平时最多的就是package成war，然后放到Tomcat的webappp路径下，
+Spring Boot 提供了直接打包成fat-jar或者war的功能，很方便...
+</code></pre><a id="more"></a>
+<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><pre><code>有关部署，我们平时最多的就是package成war，然后放到Tomcat的webappp路径下，
+Spring Boot 提供了直接打包成fat-jar或者war的功能，很方便...
+</code></pre><p>开发环境：<br>OS: Mac 10.11.6<br>IDE: IDEA<br>Build: Maven</p>
+<h3 id="Web项目，注意"><a href="#Web项目，注意" class="headerlink" title="Web项目，注意"></a>Web项目，注意</h3><pre><code>如果是Web项目，使用的thymeleaf模版，那么你的静态资源和模版文件都是放在了默认的目录，如下：
+</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">src/main/resources</div><div class="line">├── static</div><div class="line">│   ├── favicon.png</div><div class="line">│   └── web</div><div class="line">└── templates</div><div class="line">    ├── error</div><div class="line">    └── web</div></pre></td></tr></table></figure>
+<pre><code>很简单，直接如下：
+</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">mvn clean package </div><div class="line">java －jar xxx.jar</div></pre></td></tr></table></figure>
+<pre><code>如果你变更了静态资源和模版的目录，此时这种方式运行是有问题的，找不到leaf的模版文件。
+需要更改默认配置为你现在对应的目录结构，具体如何做，我还没试过，如果你有实践过，
+可以回复我，谢谢...
+//TODO:
+</code></pre><h3 id="传统war，tomcat容器"><a href="#传统war，tomcat容器" class="headerlink" title="传统war，tomcat容器"></a>传统war，tomcat容器</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">#打包成war</div><div class="line">mvn clean package</div><div class="line"></div><div class="line">#删除tomcat_home/webapps下的所有文件</div><div class="line">rm -rf tomcat_home/webapps/*</div><div class="line"></div><div class="line">#把war包copy到tomcat_home/webapps下</div><div class="line">mv project.war tomcat_home/webapps/ROOT.war</div><div class="line"></div><div class="line">sh tomcat_home/bin/startup.sh</div></pre></td></tr></table></figure>
+<h3 id="结束"><a href="#结束" class="headerlink" title="结束"></a>结束</h3>]]></content>
+    
+    <summary type="html">
+    
+      &lt;pre&gt;&lt;code&gt;有关部署，我们平时最多的就是package成war，然后放到Tomcat的webappp路径下，
+Spring Boot 提供了直接打包成fat-jar或者war的功能，很方便...
+&lt;/code&gt;&lt;/pre&gt;
+    
+    </summary>
+    
+      <category term="Java" scheme="http://www.nealma.com/categories/Java/"/>
+    
+    
+      <category term="Java" scheme="http://www.nealma.com/tags/Java/"/>
+    
+      <category term="Spring" scheme="http://www.nealma.com/tags/Spring/"/>
+    
+      <category term="Spring-Boot" scheme="http://www.nealma.com/tags/Spring-Boot/"/>
+    
+      <category term="Deploy" scheme="http://www.nealma.com/tags/Deploy/"/>
+    
+  </entry>
   
   <entry>
     <title>Spring-Boot（八) 多环境和logback配置</title>
@@ -80,51 +211,6 @@ Live环境，Dev是我们的开发环境，Test作为我们的测试环境，Liv
       <category term="Spring-Boot" scheme="http://www.nealma.com/tags/Spring-Boot/"/>
     
       <category term="Profile" scheme="http://www.nealma.com/tags/Profile/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Spring-Boot（九) 微服务发布、部署</title>
-    <link href="http://www.nealma.com/2016/11/04/spring-boot-9-package-and-deploy/"/>
-    <id>http://www.nealma.com/2016/11/04/spring-boot-9-package-and-deploy/</id>
-    <published>2016-11-04T03:46:45.000Z</published>
-    <updated>2016-11-21T01:21:33.000Z</updated>
-    
-    <content type="html"><![CDATA[<pre><code>有关部署，我们平时最多的就是package成war，然后放到Tomcat的webappp路径下，
-Spring Boot 提供了直接打包成fat-jar或者war的功能，很方便...
-</code></pre><a id="more"></a>
-<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><pre><code>有关部署，我们平时最多的就是package成war，然后放到Tomcat的webappp路径下，
-Spring Boot 提供了直接打包成fat-jar或者war的功能，很方便...
-</code></pre><p>开发环境：<br>OS: Mac 10.11.6<br>IDE: IDEA<br>Build: Maven</p>
-<h3 id="Web项目，注意"><a href="#Web项目，注意" class="headerlink" title="Web项目，注意"></a>Web项目，注意</h3><pre><code>如果是Web项目，使用的thymeleaf模版，那么你的静态资源和模版文件都是放在了默认的目录，如下：
-</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">src/main/resources</div><div class="line">├── static</div><div class="line">│   ├── favicon.png</div><div class="line">│   └── web</div><div class="line">└── templates</div><div class="line">    ├── error</div><div class="line">    └── web</div></pre></td></tr></table></figure>
-<pre><code>很简单，直接如下：
-</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">mvn clean package </div><div class="line">java －jar xxx.jar</div></pre></td></tr></table></figure>
-<pre><code>如果你变更了静态资源和模版的目录，此时这种方式运行是有问题的，找不到leaf的模版文件。
-需要更改默认配置为你现在对应的目录结构，具体如何做，我还没试过，如果你有实践过，
-可以回复我，谢谢...
-//TODO:
-</code></pre><h3 id="传统war，tomcat容器"><a href="#传统war，tomcat容器" class="headerlink" title="传统war，tomcat容器"></a>传统war，tomcat容器</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">#打包成war</div><div class="line">mvn clean package</div><div class="line"></div><div class="line">#删除tomcat_home/webapps下的所有文件</div><div class="line">rm -rf tomcat_home/webapps/*</div><div class="line"></div><div class="line">#把war包copy到tomcat_home/webapps下</div><div class="line">mv project.war tomcat_home/webapps/ROOT.war</div><div class="line"></div><div class="line">sh tomcat_home/bin/startup.sh</div></pre></td></tr></table></figure>
-<h3 id="结束"><a href="#结束" class="headerlink" title="结束"></a>结束</h3>]]></content>
-    
-    <summary type="html">
-    
-      &lt;pre&gt;&lt;code&gt;有关部署，我们平时最多的就是package成war，然后放到Tomcat的webappp路径下，
-Spring Boot 提供了直接打包成fat-jar或者war的功能，很方便...
-&lt;/code&gt;&lt;/pre&gt;
-    
-    </summary>
-    
-      <category term="Java" scheme="http://www.nealma.com/categories/Java/"/>
-    
-    
-      <category term="Java" scheme="http://www.nealma.com/tags/Java/"/>
-    
-      <category term="Spring" scheme="http://www.nealma.com/tags/Spring/"/>
-    
-      <category term="Spring-Boot" scheme="http://www.nealma.com/tags/Spring-Boot/"/>
-    
-      <category term="Deploy" scheme="http://www.nealma.com/tags/Deploy/"/>
     
   </entry>
   
@@ -939,104 +1025,6 @@ onRefresh触发该事件，进入onRefresh时，设置isRefreshing=true,处理�
       <category term="RN" scheme="http://www.nealma.com/tags/RN/"/>
     
       <category term="Listview" scheme="http://www.nealma.com/tags/Listview/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>React Native (四) react-native-side-menu组件</title>
-    <link href="http://www.nealma.com/2016/07/28/react-native-4-sidemenu/"/>
-    <id>http://www.nealma.com/2016/07/28/react-native-4-sidemenu/</id>
-    <published>2016-07-28T03:46:45.000Z</published>
-    <updated>2016-11-17T01:58:57.000Z</updated>
-    
-    <content type="html"><![CDATA[<pre><code>侧滑菜单在实际工作中，很常见，是比较流行的一种设计，
-RN怎会没有呢。一开始接触RN，总是乐于社区的活跃，你需要什么，大都会能找到
-现成，最初使用了react-native-jelly-side-menu，但是在安卓上死活run不起来，
-后来辗转到了react-native-side-menu,可以很好的在iOS、Android中玩耍。
-</code></pre><a id="more"></a>
-<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><pre><code>侧滑菜单在实际工作中，很常见，是比较流行的一种设计，
-RN怎会没有呢。一开始接触RN，总是乐于社区的活跃，你需要什么，大都会能找到
-现成，最初使用了react-native-jelly-side-menu，但是在安卓上死活run不起来，
-后来辗转到了react-native-side-menu,可以很好的在iOS、Android中玩耍。
-</code></pre><p><img src="/images/sidemenu.gif" alt=""></p>
-<p>开发环境<br>OS: Mac 10.11.6<br>Xcode: Version 8.0 (8A218a)</p>
-<h3 id="react-native-jelly-side-menu-爱恨"><a href="#react-native-jelly-side-menu-爱恨" class="headerlink" title="react-native-jelly-side-menu 爱恨"></a>react-native-jelly-side-menu 爱恨</h3><pre><code>jelly的动画很吸引我，就用了
-</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line">import JellySideMenu from &apos;react-native-jelly-side-menu&apos;;</div><div class="line"></div><div class="line">...</div><div class="line"></div><div class="line">#render</div><div class="line"></div><div class="line">render() &#123;</div><div class="line">        return (</div><div class="line">            &lt;View style=&#123;&#123;flex: 1, backgroundColor: &apos;#FF6644&apos;&#125;&#125;&gt;</div><div class="line">                &lt;JellySideMenu</div><div class="line">                    ref=&#123;(view) =&gt; &#123;this.jsm = view&#125;&#125;</div><div class="line">                    fill=&#123;&quot;#FFF&quot;&#125; fillOpacity=&#123;1.0&#125;</div><div class="line">                    renderMenu=&#123;this.renderMenu&#125;&gt;</div><div class="line">                    &lt;TouchableOpacity onPress=&#123;() =&gt; &#123;this.jsm.toggleSideMenu(true)&#125;&#125;&gt;</div><div class="line">	                    &lt;Icon name=&quot;navicon&quot; size=&#123;30&#125; color=&quot;#4F8EF7&quot; style=&#123;&#123;marginTop: 20, marginLeft: 20&#125;&#125;/&gt;  //1</div><div class="line">	                &lt;/TouchableOpacity&gt;</div><div class="line">                &lt;/JellySideMenu&gt;</div><div class="line"></div><div class="line">                &lt;TouchableOpacity onPress=&#123;() =&gt; &#123;this.jsm.toggleSideMenu(true)&#125;&#125;&gt;</div><div class="line">                    &lt;Icon name=&quot;navicon&quot; size=&#123;30&#125; color=&quot;#4F8EF7&quot; style=&#123;&#123;marginTop: 20, marginLeft: 20&#125;&#125;/&gt;  //2</div><div class="line">                &lt;/TouchableOpacity&gt;</div><div class="line">            &lt;/View&gt;</div><div class="line">        )</div><div class="line">    &#125;</div></pre></td></tr></table></figure>
-<pre><code>如果按照官方的demo，即代码1处，当滑出左侧菜单，关闭，再次点击1处的button，此时事件失效。
-你可以把open menu放在2处，可以很好的工作。
-</code></pre><h3 id="追加1-换回官方的react-native-side-menu"><a href="#追加1-换回官方的react-native-side-menu" class="headerlink" title="追加1: 换回官方的react-native-side-menu"></a>追加1: 换回官方的react-native-side-menu</h3><pre><code>因为在android上运行的时候，报错了，联系作者没反应，自己短时间内无从下手，只好换了。
-</code></pre><h3 id="react-native-side-menu-简单使用"><a href="#react-native-side-menu-简单使用" class="headerlink" title="react-native-side-menu 简单使用"></a>react-native-side-menu 简单使用</h3><pre><code>给出一个简单的例子
-</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div></pre></td><td class="code"><pre><div class="line">export  default  class Main extends Component &#123;</div><div class="line">    constructor(props) &#123;</div><div class="line">        super(props);</div><div class="line">        this.state = &#123;&#125;;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    updateMenuState(isOpen) &#123;</div><div class="line">        this.setState(&#123; isOpen, &#125;);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    onMenuItemSelected = (item) =&gt; &#123;</div><div class="line">        //TODO：单击菜单的后续动作, 跳转到相应的页面</div><div class="line">        alert(&quot;单击 &quot; + item);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    render() &#123;</div><div class="line">        const menu = &lt;LeftView onItemSelected=&#123;this.onMenuItemSelected&#125; /&gt;;</div><div class="line">        return (</div><div class="line">            &lt;SideMenu</div><div class="line">                menu=&#123;menu&#125; /* 设置左侧页面(菜单) */</div><div class="line">                isOpen=&#123;this.state.isOpen&#125;/* 状态控制: true 打开，false 关闭*/</div><div class="line">                onChange=&#123;(isOpen) =&gt; this.updateMenuState(isOpen)&#125;&gt;</div><div class="line">                &lt;ContentView /&gt;</div><div class="line">            &lt;/SideMenu&gt;</div><div class="line">        );</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">class ContentView extends Component &#123;</div><div class="line">    render() &#123;</div><div class="line">        return (</div><div class="line">            &lt;View style=&#123;styles.page&#125;&gt;&lt;Text style=&#123;styles.pageContent&#125;&gt;Content&lt;/Text&gt;&lt;/View&gt;</div><div class="line">        );</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">class LeftView extends Component &#123;</div><div class="line"></div><div class="line">    static propTypes = &#123;</div><div class="line">        onItemSelected: React.PropTypes.func.isRequired,</div><div class="line">    &#125;;</div><div class="line"></div><div class="line">    constructor(props) &#123;</div><div class="line">        super(props);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    render() &#123;</div><div class="line">        return (</div><div class="line">            &lt;ScrollView scrollsToTop=&#123;true&#125; style=&#123;styles.menu&#125;&gt;</div><div class="line">                &lt;Text</div><div class="line">                    onPress=&#123;() =&gt; this.props.onItemSelected(&apos;first&apos;)&#125;</div><div class="line">                    style=&#123;styles.item&#125;&gt;</div><div class="line">                    First</div><div class="line">                &lt;/Text&gt;</div><div class="line"></div><div class="line">                &lt;Text</div><div class="line">                    onPress=&#123;() =&gt; this.props.onItemSelected(&apos;second&apos;)&#125;</div><div class="line">                    style=&#123;styles.item&#125;&gt;</div><div class="line">                    Second</div><div class="line">                &lt;/Text&gt;</div><div class="line"></div><div class="line">                &lt;Text</div><div class="line">                    onPress=&#123;() =&gt; this.props.onItemSelected(&apos;third&apos;)&#125;</div><div class="line">                    style=&#123;styles.item&#125;&gt;</div><div class="line">                    Third</div><div class="line">                &lt;/Text&gt;</div><div class="line">            &lt;/ScrollView&gt;</div><div class="line">        );</div><div class="line">    &#125;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
-<pre><code>在使用过程中，比较费解的是onMenuItemSelected, 该函数在LeftView中进行声明并指定类型为function，
-并没有实现，而是留给引用者去实现具体业务， 也就是TODO的位置。
-</code></pre><h3 id="结束"><a href="#结束" class="headerlink" title="结束"></a>结束</h3><pre><code>menu的导航需要Navigator组件配置使用，后面会做个结合使用的例子。
-
-：）～
-</code></pre>]]></content>
-    
-    <summary type="html">
-    
-      &lt;pre&gt;&lt;code&gt;侧滑菜单在实际工作中，很常见，是比较流行的一种设计，
-RN怎会没有呢。一开始接触RN，总是乐于社区的活跃，你需要什么，大都会能找到
-现成，最初使用了react-native-jelly-side-menu，但是在安卓上死活run不起来，
-后来辗转到了react-native-side-menu,可以很好的在iOS、Android中玩耍。
-&lt;/code&gt;&lt;/pre&gt;
-    
-    </summary>
-    
-      <category term="React-Native" scheme="http://www.nealma.com/categories/React-Native/"/>
-    
-    
-      <category term="React-Native" scheme="http://www.nealma.com/tags/React-Native/"/>
-    
-      <category term="RN" scheme="http://www.nealma.com/tags/RN/"/>
-    
-      <category term="Slide Menu" scheme="http://www.nealma.com/tags/Slide-Menu/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>React Native (三) react-native-vector-icons 图标组件</title>
-    <link href="http://www.nealma.com/2016/07/27/react-native-3-icons/"/>
-    <id>http://www.nealma.com/2016/07/27/react-native-3-icons/</id>
-    <published>2016-07-27T03:46:45.000Z</published>
-    <updated>2016-11-17T01:59:08.000Z</updated>
-    
-    <content type="html"><![CDATA[<pre><code>react-native-vector-icons组件,
-对于非设计人员，可以免费使用更多的icons资源
-</code></pre><a id="more"></a>
-<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><pre><code>react-native-vector-icons组件,
-对于非设计人员，可以免费使用更多的icons资源
-</code></pre><p>开发环境：<br>OS: Mac 10.11.6<br>Xcode: Version 8.0 (8A218a)</p>
-<h3 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">npm install react-native-vector-icons --save</div><div class="line">rnpm link</div></pre></td></tr></table></figure>
-<ul>
-<li>iOS<br>  之后会在Xcode中的info.plis里面看到如下键值信息：<br>  Fonts provided by application（item0-item7）<br>  如果没有此项信息，需要手动添加Fonts provided by application。</li>
-<li>Android<br>  Edit android/app/build.gradle ( NOT android/build.gradle ) and add the following:<br>  添加如下内容:</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">project.ext.vectoricons = [</div><div class="line">    iconFontNames: [ &apos;MaterialIcons.ttf&apos;, &apos;EvilIcons.ttf&apos;, &apos;FontAwesome.ttf&apos;, &apos;Entypo.fft&apos;, &apos;EvilIcons.ttf&apos;, &apos;Octicons.ttf&apos;, &apos;Zocial.ttf&apos;, &apos;Ionicons.ttf&apos; ] // Name of the font files you want to copy</div><div class="line">]</div><div class="line"></div><div class="line">apply from: &quot;../../node_modules/react-native-vector-icons/fonts.gradle&quot;</div></pre></td></tr></table></figure>
-<h3 id="Example"><a href="#Example" class="headerlink" title="Example"></a>Example</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">import Icon from &apos;react-native-vector-icons/FontAwesome&apos;;</div><div class="line"></div><div class="line">&lt;Icon name=&quot;navicon&quot; size=&#123;30&#125; color=&quot;#4F8EF7&quot; style=&#123;&#123;marginTop: 20, marginLeft: 20&#125;&#125;/&gt;</div></pre></td></tr></table></figure>
-<pre><code>FontAwesome网站：http://fontawesome.io/icons/,其中name的值对应网站中每个icon的名字。
-</code></pre><h3 id="结束"><a href="#结束" class="headerlink" title="结束"></a>结束</h3><pre><code>资源添加玩，别忘了重新run哦。
-
-：）～
-</code></pre>]]></content>
-    
-    <summary type="html">
-    
-      &lt;pre&gt;&lt;code&gt;react-native-vector-icons组件,
-对于非设计人员，可以免费使用更多的icons资源
-&lt;/code&gt;&lt;/pre&gt;
-    
-    </summary>
-    
-      <category term="React-Native" scheme="http://www.nealma.com/categories/React-Native/"/>
-    
-    
-      <category term="React-Native" scheme="http://www.nealma.com/tags/React-Native/"/>
-    
-      <category term="RN" scheme="http://www.nealma.com/tags/RN/"/>
-    
-      <category term="icons" scheme="http://www.nealma.com/tags/icons/"/>
     
   </entry>
   
