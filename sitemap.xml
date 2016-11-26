@@ -2,9 +2,37 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://www.nealma.com/2016/10/01/centos-72-5-set-hostname/</loc>
+    
+    <lastmod>2016-11-26T13:35:19.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://www.nealma.com/2016/10/01/centos-72-4-redis/</loc>
+    
+    <lastmod>2016-11-26T13:35:14.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://www.nealma.com/2016/10/01/centos-72-3-php/</loc>
+    
+    <lastmod>2016-11-26T13:35:10.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://www.nealma.com/2016/10/01/centos-72-2-install-mariadb/</loc>
+    
+    <lastmod>2016-11-26T13:35:02.000Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://www.nealma.com/2016/11/26/work-problerm-1/</loc>
     
-    <lastmod>2016-11-26T13:03:05.000Z</lastmod>
+    <lastmod>2016-11-26T13:13:19.000Z</lastmod>
     
   </url>
   
@@ -30,13 +58,6 @@
   </url>
   
   <url>
-    <loc>http://www.nealma.com/2016/10/01/centos-72-5-set-hostname/</loc>
-    
-    <lastmod>2016-11-22T01:47:24.000Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>http://www.nealma.com/2016/03/16/nginx-configuration/</loc>
     
     <lastmod>2016-11-22T01:23:10.000Z</lastmod>
@@ -44,23 +65,9 @@
   </url>
   
   <url>
-    <loc>http://www.nealma.com/2016/10/01/centos-72-3-php/</loc>
-    
-    <lastmod>2016-11-21T09:39:35.000Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>http://www.nealma.com/2016/11/03/spring-boot-7-thymeleaf/</loc>
     
     <lastmod>2016-11-20T05:49:36.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://www.nealma.com/2016/10/01/centos-72-4-redis/</loc>
-    
-    <lastmod>2016-11-18T05:25:56.000Z</lastmod>
     
   </url>
   
@@ -292,13 +299,6 @@
     <loc>http://www.nealma.com/2015/03/18/github-one-mac-two-github-account/</loc>
     
     <lastmod>2016-11-17T01:48:30.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://www.nealma.com/2016/10/01/centos-72-2-install-mariadb/</loc>
-    
-    <lastmod>2016-11-17T01:47:28.000Z</lastmod>
     
   </url>
   
