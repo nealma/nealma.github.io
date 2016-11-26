@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://www.nealma.com/"/>
-  <updated>2016-11-26T11:25:27.000Z</updated>
+  <updated>2016-11-26T13:03:05.000Z</updated>
   <id>http://www.nealma.com/</id>
   
   <author>
@@ -14,43 +14,6 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
-  
-  <entry>
-    <title>工作中遇到的问题</title>
-    <link href="http://www.nealma.com/2016/11/29/work-problerm-1_20161126192532/"/>
-    <id>http://www.nealma.com/2016/11/29/work-problerm-1_20161126192532/</id>
-    <published>2016-11-29T03:46:45.000Z</published>
-    <updated>2016-11-26T11:25:27.000Z</updated>
-    
-    <content type="html"><![CDATA[<pre><code>最近也不知道写点啥，工作任务太饱和了，遇到些小问题，做个总结
-</code></pre><a id="more"></a>
-<h3 id="MyBatis整型的问题"><a href="#MyBatis整型的问题" class="headerlink" title="MyBatis整型的问题"></a>MyBatis整型的问题</h3><pre><code>再一次工作中，一个实体的成员变量是整数型，我传递了0给mapper，奇怪的事情发生了。
-mapper总是认为这个变量为null。前前后后花了好长时间，最后还是Google的结果。看来遇到问题不能
-自己去一步一步去深挖，还得借助Google啊（不知道是不适合所有）。
-
-原来MyBatis对于整型类型如果值为0，会当做null来处理。（不知道作者是出于什么原因）
-
-解决办法：
-
-加强判断
-</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;if test=&quot;categoryName != null and categoryName != &apos;&apos; or categoryName == 0&quot;&gt;</div></pre></td></tr></table></figure>
-<h3 id="Spring-MVC的问题"><a href="#Spring-MVC的问题" class="headerlink" title="Spring MVC的问题"></a>Spring MVC的问题</h3><p>spring mvc put方法请求，ajax必须指定dataType: “json”<br>    在设计Restful接口的时候，其中Controller里面的PUT方法，前台html中使用ajax提交表单,很正常不过。<br>    可是在后台始终得不到前台传过来的参数。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">$.ajax(</div><div class="line">	&#123;</div><div class="line">	    url: API,</div><div class="line">	    type: &quot;PUT&quot;,</div><div class="line">	    data: &#123;k : v, ...&#125;</div><div class="line">	    async: false,</div><div class="line">	    success: function (data, textStatus, jqXHR) &#123;</div><div class="line">	        //TODO:</div><div class="line">	    &#125;,</div><div class="line">	    error: function (jqXHR, textStatus, errorThrown) &#123;</div><div class="line">	    	//TODO:</div><div class="line">	    &#125;</div><div class="line">	&#125;);</div></pre></td></tr></table></figure>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;pre&gt;&lt;code&gt;最近也不知道写点啥，工作任务太饱和了，遇到些小问题，做个总结
-&lt;/code&gt;&lt;/pre&gt;
-    
-    </summary>
-    
-      <category term="work" scheme="http://www.nealma.com/categories/work/"/>
-    
-    
-      <category term="大杂烩" scheme="http://www.nealma.com/tags/%E5%A4%A7%E6%9D%82%E7%83%A9/"/>
-    
-  </entry>
   
   <entry>
     <title>工作中遇到的问题</title>
@@ -386,6 +349,134 @@ CookieHttpSessionStrategy，如果是API就用HeaderHttpSessionStrategy，具体
   </entry>
   
   <entry>
+    <title>CentOS7（三）Install PHP</title>
+    <link href="http://www.nealma.com/2016/10/01/centos-72-3-php/"/>
+    <id>http://www.nealma.com/2016/10/01/centos-72-3-php/</id>
+    <published>2016-10-01T03:46:45.000Z</published>
+    <updated>2016-11-21T09:39:35.000Z</updated>
+    
+    <content type="html"><![CDATA[<pre><code>今天在CentOS 7.2上安装PHP,记录一下
+</code></pre><a id="more"></a>
+<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><pre><code>今天在CentOS 7.2上安装PHP,记录一下
+</code></pre><h3 id="Install-PHP"><a href="#Install-PHP" class="headerlink" title="Install PHP"></a>Install PHP</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">yum install php php-mysql</div></pre></td></tr></table></figure>
+<h3 id="Restart-Apache-web-server"><a href="#Restart-Apache-web-server" class="headerlink" title="Restart Apache web server"></a>Restart Apache web server</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">yum -y install httpd</div><div class="line"></div><div class="line">systemctl restart httpd.service</div></pre></td></tr></table></figure>
+<h3 id="Install-PHP-Modules"><a href="#Install-PHP-Modules" class="headerlink" title="Install PHP Modules"></a>Install PHP Modules</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">yum install php-fpm</div></pre></td></tr></table></figure>
+<h3 id="Test-php"><a href="#Test-php" class="headerlink" title="Test php"></a>Test php</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">vim /var/www/html/info.php</div><div class="line"></div><div class="line">#文件内容</div><div class="line">&lt;?php phpinfo(); ?&gt;</div></pre></td></tr></table></figure>
+<h3 id="如果开启了firewall，请允许HTTP和HTTPS-Traffic"><a href="#如果开启了firewall，请允许HTTP和HTTPS-Traffic" class="headerlink" title="如果开启了firewall，请允许HTTP和HTTPS Traffic"></a>如果开启了firewall，请允许HTTP和HTTPS Traffic</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">firewall-cmd --permanent --zone=public --add-service=http </div><div class="line">firewall-cmd --permanent --zone=public --add-service=https</div><div class="line">firewall-cmd --reload</div></pre></td></tr></table></figure>
+<h3 id="Install-phpMyAdmin"><a href="#Install-phpMyAdmin" class="headerlink" title="Install phpMyAdmin"></a>Install phpMyAdmin</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">yum -y update</div><div class="line">yum -y install phpmyadmin</div></pre></td></tr></table></figure>
+<h3 id="安装完后，发现还是5-x-x，还得继续，升级到7-x"><a href="#安装完后，发现还是5-x-x，还得继续，升级到7-x" class="headerlink" title="安装完后，发现还是5.x.x，还得继续，升级到7.x"></a>安装完后，发现还是5.x.x，还得继续，升级到7.x</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">rpm -Uvh https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm</div><div class="line">rpm -Uvh https://mirror.webtatic.com/yum/el7/webtatic-release.rpm</div><div class="line"></div><div class="line">yum install php70w php70w-opcache</div><div class="line"></div><div class="line">yum install yum-plugin-replace</div><div class="line"></div><div class="line">yum replace php-common --replace-with=php70w-common -y</div><div class="line"></div><div class="line">yum install php70w-opcache -y</div></pre></td></tr></table></figure>
+<h3 id="安装ecshop-检查结果，文件不可写"><a href="#安装ecshop-检查结果，文件不可写" class="headerlink" title="安装ecshop,检查结果，文件不可写"></a>安装ecshop,检查结果，文件不可写</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">chmod -R 777 /var/www/html/ecshop/</div></pre></td></tr></table></figure>
+<h3 id="安装依赖"><a href="#安装依赖" class="headerlink" title="安装依赖"></a>安装依赖</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">yum -y install mysql mysql-server mysql-devel php-mysql gd gd-devel httpd php php-gd</div></pre></td></tr></table></figure>
+<h3 id="如果想删除php，更换版本，如下："><a href="#如果想删除php，更换版本，如下：" class="headerlink" title="如果想删除php，更换版本，如下："></a>如果想删除php，更换版本，如下：</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"># remove</div><div class="line">yum remove php</div><div class="line"></div><div class="line">＃ search</div><div class="line">yum search php</div><div class="line"></div><div class="line"># remove common</div><div class="line">yum remove php-commen(以search的结果为准)</div><div class="line"></div><div class="line">### fast-cgi 运行</div></pre></td></tr></table></figure>
+<p>php-cgi -b 9001</p>
+<h1 id="darmon-start"><a href="#darmon-start" class="headerlink" title="darmon start"></a>darmon start</h1><p>php-fpm -D -c /etc/php.ini </p>
+<p>#如果没有php-fpm, 先安装<br>yum install php-fpm -y<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">* nginx 配置</div></pre></td></tr></table></figure></p>
+<p>location  ~ ^(.+.php)(.<em>)$ {<br>    fastcgi_pass 127.0.0.1:9000;<br>    fastcgi_index index.php;<br>    fastcgi_split_path_info ^(.+.php)(.</em>)$; fastcgi_param   SCRIPT_FILENAME $document_root$fastcgi_script_name;<br>    fastcgi_param   PATH_INFO $fastcgi_path_info;<br>    fastcgi_param   PATH_TRANSLATED $document_root$fastcgi_path_info;<br>    include fastcgi_params;<br>}<br>```</p>
+<p>注意要把你的php项目cp到nginx的html下</p>
+<h3 id="结束"><a href="#结束" class="headerlink" title="结束"></a>结束</h3><p>:)~</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;pre&gt;&lt;code&gt;今天在CentOS 7.2上安装PHP,记录一下
+&lt;/code&gt;&lt;/pre&gt;
+    
+    </summary>
+    
+      <category term="Linux" scheme="http://www.nealma.com/categories/Linux/"/>
+    
+    
+      <category term="CentOS" scheme="http://www.nealma.com/tags/CentOS/"/>
+    
+      <category term="Linux" scheme="http://www.nealma.com/tags/Linux/"/>
+    
+      <category term="PHP" scheme="http://www.nealma.com/tags/PHP/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>CentOS7（一）Java环境搭建</title>
+    <link href="http://www.nealma.com/2016/10/01/centos-72-1-install-java-envirment/"/>
+    <id>http://www.nealma.com/2016/10/01/centos-72-1-install-java-envirment/</id>
+    <published>2016-10-01T03:46:45.000Z</published>
+    <updated>2016-11-17T01:47:13.000Z</updated>
+    
+    <content type="html"><![CDATA[<pre><code>最近要从0开发新项目，以前都是用的CengOS6.5,觉得太历史了，7.x已经出来很久了。
+而且云上的景象都是7.2了，没理由不用。第一次使用肯定会遇到坑，其实也是自身对这个系统的不了解。
+尝鲜可定会出事，但是只要你打破舒适区，一路下来，你会觉得没那么难
+</code></pre><a id="more"></a>
+<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><pre><code>最近要从0开发新项目，以前都是用的CengOS6.5,觉得太历史了，7.x已经出来很久了。
+而且云上的景象都是7.2了，没理由不用。第一次使用肯定会遇到坑，其实也是自身对这个系统的不了解。
+尝鲜可定会出事，但是只要你打破舒适区，一路下来，你会觉得没那么难
+</code></pre><h3 id="安装-JDK8-0"><a href="#安装-JDK8-0" class="headerlink" title="安装 JDK8.0"></a>安装 JDK8.0</h3><p>直接使用openJDK,直接使用8.0,没必要考虑之前的版本了。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">yum search openJDK</div><div class="line">yun install java-1.8.0-openjdk.x86_64</div></pre></td></tr></table></figure>
+<h3 id="安装-Maven"><a href="#安装-Maven" class="headerlink" title="安装 Maven"></a>安装 Maven</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div></pre></td><td class="code"><pre><div class="line">＃ 去官网下载最新的Maven版本，zip包就行了</div><div class="line">wget http://mirror.bit.edu.cn/apache/maven/maven-3/3.3.9/binaries/apache-maven-3.3.9-bin.zip</div><div class="line"></div><div class="line">unzip apache-maven-3.3.9-bin.zip</div><div class="line"></div><div class="line"># 如果没有unzip工具的，先安装unzip</div><div class="line">yum install unzip</div><div class="line"></div><div class="line">＃ 把解压文件夹移动到/opt/maven下</div><div class="line">mv apache-maven-3.3.9 /opt/maven</div><div class="line"></div><div class="line"># 做个软连接</div><div class="line">ln -s /opt/maven/bin/mvn /usr/bin/mvn</div><div class="line"></div><div class="line">＃设置Maven环境变量</div><div class="line">vim /etc/profile.d/maven.sh</div><div class="line"></div><div class="line">#!/bin/bash</div><div class="line">MAVEN_HOME=/opt/maven</div><div class="line">PATH=$MAVEN_HOME/bin:$PATH</div><div class="line">export PATH MAVEN_HOME</div><div class="line">export CLASSPATH=.</div><div class="line"></div><div class="line"># 添加可执行权限</div><div class="line">chmod +x /etc/profile.d/maven.sh</div><div class="line"></div><div class="line"># 立即生效</div><div class="line">source /etc/profile.d/maven.sh</div><div class="line"></div><div class="line"># 检查是否安装成功</div><div class="line">mvn -version</div></pre></td></tr></table></figure>
+<h3 id="安装-Tomcat-8"><a href="#安装-Tomcat-8" class="headerlink" title="安装 Tomcat 8"></a>安装 Tomcat 8</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div></pre></td><td class="code"><pre><div class="line">＃ download</div><div class="line">wget http://mirrors.cnnic.cn/apache/tomcat/tomcat-8/v8.5.6/bin/apache-tomcat-8.5.6.zip</div><div class="line"></div><div class="line">＃ extract</div><div class="line">unzip apache-tomcat-8.5.6.zip </div><div class="line"></div><div class="line"># move to /opt</div><div class="line">mv apache-tomcat-8.5.6 /opt/tomcat</div><div class="line"></div><div class="line"># set enviroment </div><div class="line">vim /etc/profile.d/tomcat.sh</div><div class="line"></div><div class="line">#!/bin/bash</div><div class="line">CATALINA_HOME=/opt/tomcat</div><div class="line">PATH=$CATALINA_HOME/bin:$PATH</div><div class="line">export PATH CATALINA_HOME</div><div class="line">export CLASSPATH=.</div><div class="line"></div><div class="line"># make it executable</div><div class="line">chmod +x /etc/profile.d/tomcat.sh</div><div class="line"></div><div class="line"># set enviroment permanently</div><div class="line">source /etc/profile.d/tomcat.sh</div><div class="line"></div><div class="line"># make shell executable permisson</div><div class="line">chmod +x $CATALINA_HOME/bin/startup.sh</div><div class="line">chmod +x $CATALINA_HOME/bin/shutdown.sh</div><div class="line">chmod +x $CATALINA_HOME/bin/catalina.sh</div><div class="line"></div><div class="line"># start tomcat</div><div class="line">sh $CATALINA_HOME/bin/startup.sh</div></pre></td></tr></table></figure>
+<h3 id="用浏览器访问的时候，你很可能会失败，那就是firewall在作怪"><a href="#用浏览器访问的时候，你很可能会失败，那就是firewall在作怪" class="headerlink" title="用浏览器访问的时候，你很可能会失败，那就是firewall在作怪"></a>用浏览器访问的时候，你很可能会失败，那就是firewall在作怪</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">＃ Enable Firewalld</div><div class="line">systemctl enable firewalld</div><div class="line"></div><div class="line"># Start Firewalld</div><div class="line">systemctl start firewalld</div><div class="line"></div><div class="line"># check the status</div><div class="line">systemctl status firewalld</div></pre></td></tr></table></figure>
+<h3 id="开启了Firewalld-添加如下"><a href="#开启了Firewalld-添加如下" class="headerlink" title="开启了Firewalld,添加如下"></a>开启了Firewalld,添加如下</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">firewall-cmd --permanent --add-port=8080/tcp</div><div class="line">firewall-cmd --reload</div></pre></td></tr></table></figure>
+<h3 id="开机启动"><a href="#开机启动" class="headerlink" title="开机启动"></a>开机启动</h3><h1 id="创建调用脚本"><a href="#创建调用脚本" class="headerlink" title="创建调用脚本"></a>创建调用脚本</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div></pre></td><td class="code"><pre><div class="line">vim /etc/init.d/tomcat</div><div class="line"></div><div class="line">######################################################</div><div class="line">#!/bin/sh</div><div class="line"># chkconfig: 2345 80 20</div><div class="line"></div><div class="line"># Description: Tomcat Start/Shutdown script</div><div class="line"></div><div class="line">export JAVA_HOME=/usr/lib/jvm/java</div><div class="line"></div><div class="line">case $1 in</div><div class="line">start)</div><div class="line">cd /opt/tomcat/bin/</div><div class="line">./startup.sh</div><div class="line">;;</div><div class="line">stop)</div><div class="line">cd /opt/tomcat/bin/</div><div class="line">./shutdown.sh</div><div class="line">;;</div><div class="line">restart)</div><div class="line">cd /opt/tomcat/bin/</div><div class="line">./shutdown.sh</div><div class="line">cd /opt/tomcat/bin/</div><div class="line">./startup.sh</div><div class="line">;;</div><div class="line">esac</div><div class="line">exit 0</div><div class="line">######################################################</div><div class="line"></div><div class="line"># Make it executable</div><div class="line">chmod a+x /etc/init.d/tomcat</div><div class="line"></div><div class="line"># Add the tomcat to service</div><div class="line">chkconfig --add tomcat</div><div class="line"></div><div class="line"># auto as reboot</div><div class="line">systemctl start tomcat</div><div class="line">chkconfig tomcat on</div></pre></td></tr></table></figure>
+<h3 id="给Tomcat添加管理角色"><a href="#给Tomcat添加管理角色" class="headerlink" title="给Tomcat添加管理角色"></a>给Tomcat添加管理角色</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div></pre></td><td class="code"><pre><div class="line">vim $CATALINA_HOME/conf/tomcat-users.xml</div><div class="line"></div><div class="line">#在&lt;tomcat-users&gt;&lt;/tomcat-users&gt;之间加入如下指令</div><div class="line"></div><div class="line">[...]</div><div class="line">&lt;role rolename=&quot;manager-gui&quot;/&gt;</div><div class="line">&lt;role rolename=&quot;manager-script&quot;/&gt;</div><div class="line">&lt;role rolename=&quot;manager-jmx&quot;/&gt;</div><div class="line">&lt;role rolename=&quot;manager-status&quot;/&gt;</div><div class="line">&lt;role rolename=&quot;admin-gui&quot;/&gt;</div><div class="line">&lt;role rolename=&quot;admin-script&quot;/&gt;</div><div class="line">&lt;user username=&quot;admin&quot; password=&quot;admin&quot; roles=&quot;manager-gui,manager-script,manager-jmx,manager-status,admin-gui,admin-script&quot;/&gt;</div><div class="line">[...]</div><div class="line"></div><div class="line"># Restart tomcat </div><div class="line">systemctl restart tomcat</div><div class="line"></div><div class="line"># 用户名 密码  admin/admin</div><div class="line"></div><div class="line">#如果遇到403 Access Denied, 如下操作</div><div class="line">vim $CATALINA_HOME/webapps/manager/META-INF/context.xml</div><div class="line"></div><div class="line">#注释Value</div><div class="line"></div><div class="line">&lt;Context antiResourceLocking=&quot;false&quot; privileged=&quot;true&quot; &gt;</div><div class="line">&lt;!--</div><div class="line">&lt;Valve className=&quot;org.apache.catalina.valves.RemoteAddrValve&quot; allow=&quot;127\.\d+\.\d+\.\d+|::1|0:0:0:0:0:0:0:1&quot; /&gt;</div><div class="line">--&gt;</div><div class="line">&lt;/Context&gt;</div><div class="line"></div><div class="line">#访问host-manager时 403 Access Denied，操作类似</div><div class="line"></div><div class="line">vim $CATALINA_HOME/webapps/host-manager/META-INF/context.xml</div><div class="line"></div><div class="line">#注释Value</div><div class="line"></div><div class="line">&lt;Context antiResourceLocking=&quot;false&quot; privileged=&quot;true&quot; &gt;</div><div class="line">&lt;!--</div><div class="line">&lt;Valve className=&quot;org.apache.catalina.valves.RemoteAddrValve&quot; allow=&quot;127\.\d+\.\d+\.\d+|::1|0:0:0:0:0:0:0:1&quot; /&gt;</div><div class="line">--&gt;</div><div class="line">&lt;/Context&gt;</div></pre></td></tr></table></figure>
+<h3 id="结束"><a href="#结束" class="headerlink" title="结束"></a>结束</h3><p>:)~</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;pre&gt;&lt;code&gt;最近要从0开发新项目，以前都是用的CengOS6.5,觉得太历史了，7.x已经出来很久了。
+而且云上的景象都是7.2了，没理由不用。第一次使用肯定会遇到坑，其实也是自身对这个系统的不了解。
+尝鲜可定会出事，但是只要你打破舒适区，一路下来，你会觉得没那么难
+&lt;/code&gt;&lt;/pre&gt;
+    
+    </summary>
+    
+      <category term="Linux" scheme="http://www.nealma.com/categories/Linux/"/>
+    
+    
+      <category term="CentOS" scheme="http://www.nealma.com/tags/CentOS/"/>
+    
+      <category term="Linux" scheme="http://www.nealma.com/tags/Linux/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>CentOS7（五）Set Hostname</title>
+    <link href="http://www.nealma.com/2016/10/01/centos-72-5-set-hostname/"/>
+    <id>http://www.nealma.com/2016/10/01/centos-72-5-set-hostname/</id>
+    <published>2016-10-01T03:46:45.000Z</published>
+    <updated>2016-11-22T01:47:24.000Z</updated>
+    
+    <content type="html"><![CDATA[<pre><code>对于不是经常装系统或者购买云服务器的我来说，总是忘记怎么设置更改hostname，
+怎么办，怎么办，那就记下来呗。
+</code></pre><a id="more"></a>
+<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><pre><code>对于不是经常装系统或者购买云服务器的我来说，总是忘记怎么设置更改hostname，
+怎么办，怎么办，那就记下来呗。
+</code></pre><h3 id="hostnamectl"><a href="#hostnamectl" class="headerlink" title="hostnamectl"></a>hostnamectl</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"># 查看hostname信息</div><div class="line">hostnamectl status</div><div class="line"></div><div class="line"># 临时更改，重启后会恢复</div><div class="line">hostnamectl set-hostname &apos;your  Name&apos;</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">Static hostname: yourname ＃发现会过滤任何特殊字符，而且全部转化为小写</div><div class="line">Pretty hostname: your  Name</div></pre></td></tr></table></figure>
+<p>此时，/etc/hostname中会自动更新，但是/etc/hosts的内容不会，需要手动更改。<br>如果想要永久变更，你可以加入如下参数</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">hostnamectl --static set-hostname nealma</div></pre></td></tr></table></figure>
+<p>会立即修改内核的主机名，注销后重新登录，不需要重启服务器。</p>
+<h3 id="结束"><a href="#结束" class="headerlink" title="结束"></a>结束</h3><p>:)~</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;pre&gt;&lt;code&gt;对于不是经常装系统或者购买云服务器的我来说，总是忘记怎么设置更改hostname，
+怎么办，怎么办，那就记下来呗。
+&lt;/code&gt;&lt;/pre&gt;
+    
+    </summary>
+    
+      <category term="Linux" scheme="http://www.nealma.com/categories/Linux/"/>
+    
+    
+      <category term="CentOS" scheme="http://www.nealma.com/tags/CentOS/"/>
+    
+      <category term="Linux" scheme="http://www.nealma.com/tags/Linux/"/>
+    
+      <category term="Hostname" scheme="http://www.nealma.com/tags/Hostname/"/>
+    
+  </entry>
+  
+  <entry>
     <title>CentOS7（四）Install Redis</title>
     <link href="http://www.nealma.com/2016/10/01/centos-72-4-redis/"/>
     <id>http://www.nealma.com/2016/10/01/centos-72-4-redis/</id>
@@ -457,134 +548,6 @@ CookieHttpSessionStrategy，如果是API就用HeaderHttpSessionStrategy，具体
       <category term="MySQL" scheme="http://www.nealma.com/tags/MySQL/"/>
     
       <category term="MariaDB" scheme="http://www.nealma.com/tags/MariaDB/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>CentOS7（三）Install PHP</title>
-    <link href="http://www.nealma.com/2016/10/01/centos-72-3-php/"/>
-    <id>http://www.nealma.com/2016/10/01/centos-72-3-php/</id>
-    <published>2016-10-01T03:46:45.000Z</published>
-    <updated>2016-11-21T09:39:35.000Z</updated>
-    
-    <content type="html"><![CDATA[<pre><code>今天在CentOS 7.2上安装PHP,记录一下
-</code></pre><a id="more"></a>
-<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><pre><code>今天在CentOS 7.2上安装PHP,记录一下
-</code></pre><h3 id="Install-PHP"><a href="#Install-PHP" class="headerlink" title="Install PHP"></a>Install PHP</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">yum install php php-mysql</div></pre></td></tr></table></figure>
-<h3 id="Restart-Apache-web-server"><a href="#Restart-Apache-web-server" class="headerlink" title="Restart Apache web server"></a>Restart Apache web server</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">yum -y install httpd</div><div class="line"></div><div class="line">systemctl restart httpd.service</div></pre></td></tr></table></figure>
-<h3 id="Install-PHP-Modules"><a href="#Install-PHP-Modules" class="headerlink" title="Install PHP Modules"></a>Install PHP Modules</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">yum install php-fpm</div></pre></td></tr></table></figure>
-<h3 id="Test-php"><a href="#Test-php" class="headerlink" title="Test php"></a>Test php</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">vim /var/www/html/info.php</div><div class="line"></div><div class="line">#文件内容</div><div class="line">&lt;?php phpinfo(); ?&gt;</div></pre></td></tr></table></figure>
-<h3 id="如果开启了firewall，请允许HTTP和HTTPS-Traffic"><a href="#如果开启了firewall，请允许HTTP和HTTPS-Traffic" class="headerlink" title="如果开启了firewall，请允许HTTP和HTTPS Traffic"></a>如果开启了firewall，请允许HTTP和HTTPS Traffic</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">firewall-cmd --permanent --zone=public --add-service=http </div><div class="line">firewall-cmd --permanent --zone=public --add-service=https</div><div class="line">firewall-cmd --reload</div></pre></td></tr></table></figure>
-<h3 id="Install-phpMyAdmin"><a href="#Install-phpMyAdmin" class="headerlink" title="Install phpMyAdmin"></a>Install phpMyAdmin</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">yum -y update</div><div class="line">yum -y install phpmyadmin</div></pre></td></tr></table></figure>
-<h3 id="安装完后，发现还是5-x-x，还得继续，升级到7-x"><a href="#安装完后，发现还是5-x-x，还得继续，升级到7-x" class="headerlink" title="安装完后，发现还是5.x.x，还得继续，升级到7.x"></a>安装完后，发现还是5.x.x，还得继续，升级到7.x</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">rpm -Uvh https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm</div><div class="line">rpm -Uvh https://mirror.webtatic.com/yum/el7/webtatic-release.rpm</div><div class="line"></div><div class="line">yum install php70w php70w-opcache</div><div class="line"></div><div class="line">yum install yum-plugin-replace</div><div class="line"></div><div class="line">yum replace php-common --replace-with=php70w-common -y</div><div class="line"></div><div class="line">yum install php70w-opcache -y</div></pre></td></tr></table></figure>
-<h3 id="安装ecshop-检查结果，文件不可写"><a href="#安装ecshop-检查结果，文件不可写" class="headerlink" title="安装ecshop,检查结果，文件不可写"></a>安装ecshop,检查结果，文件不可写</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">chmod -R 777 /var/www/html/ecshop/</div></pre></td></tr></table></figure>
-<h3 id="安装依赖"><a href="#安装依赖" class="headerlink" title="安装依赖"></a>安装依赖</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">yum -y install mysql mysql-server mysql-devel php-mysql gd gd-devel httpd php php-gd</div></pre></td></tr></table></figure>
-<h3 id="如果想删除php，更换版本，如下："><a href="#如果想删除php，更换版本，如下：" class="headerlink" title="如果想删除php，更换版本，如下："></a>如果想删除php，更换版本，如下：</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"># remove</div><div class="line">yum remove php</div><div class="line"></div><div class="line">＃ search</div><div class="line">yum search php</div><div class="line"></div><div class="line"># remove common</div><div class="line">yum remove php-commen(以search的结果为准)</div><div class="line"></div><div class="line">### fast-cgi 运行</div></pre></td></tr></table></figure>
-<p>php-cgi -b 9001</p>
-<h1 id="darmon-start"><a href="#darmon-start" class="headerlink" title="darmon start"></a>darmon start</h1><p>php-fpm -D -c /etc/php.ini </p>
-<p>#如果没有php-fpm, 先安装<br>yum install php-fpm -y<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">* nginx 配置</div></pre></td></tr></table></figure></p>
-<p>location  ~ ^(.+.php)(.<em>)$ {<br>    fastcgi_pass 127.0.0.1:9000;<br>    fastcgi_index index.php;<br>    fastcgi_split_path_info ^(.+.php)(.</em>)$; fastcgi_param   SCRIPT_FILENAME $document_root$fastcgi_script_name;<br>    fastcgi_param   PATH_INFO $fastcgi_path_info;<br>    fastcgi_param   PATH_TRANSLATED $document_root$fastcgi_path_info;<br>    include fastcgi_params;<br>}<br>```</p>
-<p>注意要把你的php项目cp到nginx的html下</p>
-<h3 id="结束"><a href="#结束" class="headerlink" title="结束"></a>结束</h3><p>:)~</p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;pre&gt;&lt;code&gt;今天在CentOS 7.2上安装PHP,记录一下
-&lt;/code&gt;&lt;/pre&gt;
-    
-    </summary>
-    
-      <category term="Linux" scheme="http://www.nealma.com/categories/Linux/"/>
-    
-    
-      <category term="CentOS" scheme="http://www.nealma.com/tags/CentOS/"/>
-    
-      <category term="Linux" scheme="http://www.nealma.com/tags/Linux/"/>
-    
-      <category term="PHP" scheme="http://www.nealma.com/tags/PHP/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>CentOS7（五）Set Hostname</title>
-    <link href="http://www.nealma.com/2016/10/01/centos-72-5-set-hostname/"/>
-    <id>http://www.nealma.com/2016/10/01/centos-72-5-set-hostname/</id>
-    <published>2016-10-01T03:46:45.000Z</published>
-    <updated>2016-11-22T01:47:24.000Z</updated>
-    
-    <content type="html"><![CDATA[<pre><code>对于不是经常装系统或者购买云服务器的我来说，总是忘记怎么设置更改hostname，
-怎么办，怎么办，那就记下来呗。
-</code></pre><a id="more"></a>
-<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><pre><code>对于不是经常装系统或者购买云服务器的我来说，总是忘记怎么设置更改hostname，
-怎么办，怎么办，那就记下来呗。
-</code></pre><h3 id="hostnamectl"><a href="#hostnamectl" class="headerlink" title="hostnamectl"></a>hostnamectl</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"># 查看hostname信息</div><div class="line">hostnamectl status</div><div class="line"></div><div class="line"># 临时更改，重启后会恢复</div><div class="line">hostnamectl set-hostname &apos;your  Name&apos;</div></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">Static hostname: yourname ＃发现会过滤任何特殊字符，而且全部转化为小写</div><div class="line">Pretty hostname: your  Name</div></pre></td></tr></table></figure>
-<p>此时，/etc/hostname中会自动更新，但是/etc/hosts的内容不会，需要手动更改。<br>如果想要永久变更，你可以加入如下参数</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">hostnamectl --static set-hostname nealma</div></pre></td></tr></table></figure>
-<p>会立即修改内核的主机名，注销后重新登录，不需要重启服务器。</p>
-<h3 id="结束"><a href="#结束" class="headerlink" title="结束"></a>结束</h3><p>:)~</p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;pre&gt;&lt;code&gt;对于不是经常装系统或者购买云服务器的我来说，总是忘记怎么设置更改hostname，
-怎么办，怎么办，那就记下来呗。
-&lt;/code&gt;&lt;/pre&gt;
-    
-    </summary>
-    
-      <category term="Linux" scheme="http://www.nealma.com/categories/Linux/"/>
-    
-    
-      <category term="CentOS" scheme="http://www.nealma.com/tags/CentOS/"/>
-    
-      <category term="Linux" scheme="http://www.nealma.com/tags/Linux/"/>
-    
-      <category term="Hostname" scheme="http://www.nealma.com/tags/Hostname/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>CentOS7（一）Java环境搭建</title>
-    <link href="http://www.nealma.com/2016/10/01/centos-72-1-install-java-envirment/"/>
-    <id>http://www.nealma.com/2016/10/01/centos-72-1-install-java-envirment/</id>
-    <published>2016-10-01T03:46:45.000Z</published>
-    <updated>2016-11-17T01:47:13.000Z</updated>
-    
-    <content type="html"><![CDATA[<pre><code>最近要从0开发新项目，以前都是用的CengOS6.5,觉得太历史了，7.x已经出来很久了。
-而且云上的景象都是7.2了，没理由不用。第一次使用肯定会遇到坑，其实也是自身对这个系统的不了解。
-尝鲜可定会出事，但是只要你打破舒适区，一路下来，你会觉得没那么难
-</code></pre><a id="more"></a>
-<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><pre><code>最近要从0开发新项目，以前都是用的CengOS6.5,觉得太历史了，7.x已经出来很久了。
-而且云上的景象都是7.2了，没理由不用。第一次使用肯定会遇到坑，其实也是自身对这个系统的不了解。
-尝鲜可定会出事，但是只要你打破舒适区，一路下来，你会觉得没那么难
-</code></pre><h3 id="安装-JDK8-0"><a href="#安装-JDK8-0" class="headerlink" title="安装 JDK8.0"></a>安装 JDK8.0</h3><p>直接使用openJDK,直接使用8.0,没必要考虑之前的版本了。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">yum search openJDK</div><div class="line">yun install java-1.8.0-openjdk.x86_64</div></pre></td></tr></table></figure>
-<h3 id="安装-Maven"><a href="#安装-Maven" class="headerlink" title="安装 Maven"></a>安装 Maven</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div></pre></td><td class="code"><pre><div class="line">＃ 去官网下载最新的Maven版本，zip包就行了</div><div class="line">wget http://mirror.bit.edu.cn/apache/maven/maven-3/3.3.9/binaries/apache-maven-3.3.9-bin.zip</div><div class="line"></div><div class="line">unzip apache-maven-3.3.9-bin.zip</div><div class="line"></div><div class="line"># 如果没有unzip工具的，先安装unzip</div><div class="line">yum install unzip</div><div class="line"></div><div class="line">＃ 把解压文件夹移动到/opt/maven下</div><div class="line">mv apache-maven-3.3.9 /opt/maven</div><div class="line"></div><div class="line"># 做个软连接</div><div class="line">ln -s /opt/maven/bin/mvn /usr/bin/mvn</div><div class="line"></div><div class="line">＃设置Maven环境变量</div><div class="line">vim /etc/profile.d/maven.sh</div><div class="line"></div><div class="line">#!/bin/bash</div><div class="line">MAVEN_HOME=/opt/maven</div><div class="line">PATH=$MAVEN_HOME/bin:$PATH</div><div class="line">export PATH MAVEN_HOME</div><div class="line">export CLASSPATH=.</div><div class="line"></div><div class="line"># 添加可执行权限</div><div class="line">chmod +x /etc/profile.d/maven.sh</div><div class="line"></div><div class="line"># 立即生效</div><div class="line">source /etc/profile.d/maven.sh</div><div class="line"></div><div class="line"># 检查是否安装成功</div><div class="line">mvn -version</div></pre></td></tr></table></figure>
-<h3 id="安装-Tomcat-8"><a href="#安装-Tomcat-8" class="headerlink" title="安装 Tomcat 8"></a>安装 Tomcat 8</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div></pre></td><td class="code"><pre><div class="line">＃ download</div><div class="line">wget http://mirrors.cnnic.cn/apache/tomcat/tomcat-8/v8.5.6/bin/apache-tomcat-8.5.6.zip</div><div class="line"></div><div class="line">＃ extract</div><div class="line">unzip apache-tomcat-8.5.6.zip </div><div class="line"></div><div class="line"># move to /opt</div><div class="line">mv apache-tomcat-8.5.6 /opt/tomcat</div><div class="line"></div><div class="line"># set enviroment </div><div class="line">vim /etc/profile.d/tomcat.sh</div><div class="line"></div><div class="line">#!/bin/bash</div><div class="line">CATALINA_HOME=/opt/tomcat</div><div class="line">PATH=$CATALINA_HOME/bin:$PATH</div><div class="line">export PATH CATALINA_HOME</div><div class="line">export CLASSPATH=.</div><div class="line"></div><div class="line"># make it executable</div><div class="line">chmod +x /etc/profile.d/tomcat.sh</div><div class="line"></div><div class="line"># set enviroment permanently</div><div class="line">source /etc/profile.d/tomcat.sh</div><div class="line"></div><div class="line"># make shell executable permisson</div><div class="line">chmod +x $CATALINA_HOME/bin/startup.sh</div><div class="line">chmod +x $CATALINA_HOME/bin/shutdown.sh</div><div class="line">chmod +x $CATALINA_HOME/bin/catalina.sh</div><div class="line"></div><div class="line"># start tomcat</div><div class="line">sh $CATALINA_HOME/bin/startup.sh</div></pre></td></tr></table></figure>
-<h3 id="用浏览器访问的时候，你很可能会失败，那就是firewall在作怪"><a href="#用浏览器访问的时候，你很可能会失败，那就是firewall在作怪" class="headerlink" title="用浏览器访问的时候，你很可能会失败，那就是firewall在作怪"></a>用浏览器访问的时候，你很可能会失败，那就是firewall在作怪</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">＃ Enable Firewalld</div><div class="line">systemctl enable firewalld</div><div class="line"></div><div class="line"># Start Firewalld</div><div class="line">systemctl start firewalld</div><div class="line"></div><div class="line"># check the status</div><div class="line">systemctl status firewalld</div></pre></td></tr></table></figure>
-<h3 id="开启了Firewalld-添加如下"><a href="#开启了Firewalld-添加如下" class="headerlink" title="开启了Firewalld,添加如下"></a>开启了Firewalld,添加如下</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">firewall-cmd --permanent --add-port=8080/tcp</div><div class="line">firewall-cmd --reload</div></pre></td></tr></table></figure>
-<h3 id="开机启动"><a href="#开机启动" class="headerlink" title="开机启动"></a>开机启动</h3><h1 id="创建调用脚本"><a href="#创建调用脚本" class="headerlink" title="创建调用脚本"></a>创建调用脚本</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div></pre></td><td class="code"><pre><div class="line">vim /etc/init.d/tomcat</div><div class="line"></div><div class="line">######################################################</div><div class="line">#!/bin/sh</div><div class="line"># chkconfig: 2345 80 20</div><div class="line"></div><div class="line"># Description: Tomcat Start/Shutdown script</div><div class="line"></div><div class="line">export JAVA_HOME=/usr/lib/jvm/java</div><div class="line"></div><div class="line">case $1 in</div><div class="line">start)</div><div class="line">cd /opt/tomcat/bin/</div><div class="line">./startup.sh</div><div class="line">;;</div><div class="line">stop)</div><div class="line">cd /opt/tomcat/bin/</div><div class="line">./shutdown.sh</div><div class="line">;;</div><div class="line">restart)</div><div class="line">cd /opt/tomcat/bin/</div><div class="line">./shutdown.sh</div><div class="line">cd /opt/tomcat/bin/</div><div class="line">./startup.sh</div><div class="line">;;</div><div class="line">esac</div><div class="line">exit 0</div><div class="line">######################################################</div><div class="line"></div><div class="line"># Make it executable</div><div class="line">chmod a+x /etc/init.d/tomcat</div><div class="line"></div><div class="line"># Add the tomcat to service</div><div class="line">chkconfig --add tomcat</div><div class="line"></div><div class="line"># auto as reboot</div><div class="line">systemctl start tomcat</div><div class="line">chkconfig tomcat on</div></pre></td></tr></table></figure>
-<h3 id="给Tomcat添加管理角色"><a href="#给Tomcat添加管理角色" class="headerlink" title="给Tomcat添加管理角色"></a>给Tomcat添加管理角色</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div></pre></td><td class="code"><pre><div class="line">vim $CATALINA_HOME/conf/tomcat-users.xml</div><div class="line"></div><div class="line">#在&lt;tomcat-users&gt;&lt;/tomcat-users&gt;之间加入如下指令</div><div class="line"></div><div class="line">[...]</div><div class="line">&lt;role rolename=&quot;manager-gui&quot;/&gt;</div><div class="line">&lt;role rolename=&quot;manager-script&quot;/&gt;</div><div class="line">&lt;role rolename=&quot;manager-jmx&quot;/&gt;</div><div class="line">&lt;role rolename=&quot;manager-status&quot;/&gt;</div><div class="line">&lt;role rolename=&quot;admin-gui&quot;/&gt;</div><div class="line">&lt;role rolename=&quot;admin-script&quot;/&gt;</div><div class="line">&lt;user username=&quot;admin&quot; password=&quot;admin&quot; roles=&quot;manager-gui,manager-script,manager-jmx,manager-status,admin-gui,admin-script&quot;/&gt;</div><div class="line">[...]</div><div class="line"></div><div class="line"># Restart tomcat </div><div class="line">systemctl restart tomcat</div><div class="line"></div><div class="line"># 用户名 密码  admin/admin</div><div class="line"></div><div class="line">#如果遇到403 Access Denied, 如下操作</div><div class="line">vim $CATALINA_HOME/webapps/manager/META-INF/context.xml</div><div class="line"></div><div class="line">#注释Value</div><div class="line"></div><div class="line">&lt;Context antiResourceLocking=&quot;false&quot; privileged=&quot;true&quot; &gt;</div><div class="line">&lt;!--</div><div class="line">&lt;Valve className=&quot;org.apache.catalina.valves.RemoteAddrValve&quot; allow=&quot;127\.\d+\.\d+\.\d+|::1|0:0:0:0:0:0:0:1&quot; /&gt;</div><div class="line">--&gt;</div><div class="line">&lt;/Context&gt;</div><div class="line"></div><div class="line">#访问host-manager时 403 Access Denied，操作类似</div><div class="line"></div><div class="line">vim $CATALINA_HOME/webapps/host-manager/META-INF/context.xml</div><div class="line"></div><div class="line">#注释Value</div><div class="line"></div><div class="line">&lt;Context antiResourceLocking=&quot;false&quot; privileged=&quot;true&quot; &gt;</div><div class="line">&lt;!--</div><div class="line">&lt;Valve className=&quot;org.apache.catalina.valves.RemoteAddrValve&quot; allow=&quot;127\.\d+\.\d+\.\d+|::1|0:0:0:0:0:0:0:1&quot; /&gt;</div><div class="line">--&gt;</div><div class="line">&lt;/Context&gt;</div></pre></td></tr></table></figure>
-<h3 id="结束"><a href="#结束" class="headerlink" title="结束"></a>结束</h3><p>:)~</p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;pre&gt;&lt;code&gt;最近要从0开发新项目，以前都是用的CengOS6.5,觉得太历史了，7.x已经出来很久了。
-而且云上的景象都是7.2了，没理由不用。第一次使用肯定会遇到坑，其实也是自身对这个系统的不了解。
-尝鲜可定会出事，但是只要你打破舒适区，一路下来，你会觉得没那么难
-&lt;/code&gt;&lt;/pre&gt;
-    
-    </summary>
-    
-      <category term="Linux" scheme="http://www.nealma.com/categories/Linux/"/>
-    
-    
-      <category term="CentOS" scheme="http://www.nealma.com/tags/CentOS/"/>
-    
-      <category term="Linux" scheme="http://www.nealma.com/tags/Linux/"/>
     
   </entry>
   
@@ -1025,6 +988,59 @@ onRefresh触发该事件，进入onRefresh时，设置isRefreshing=true,处理�
       <category term="RN" scheme="http://www.nealma.com/tags/RN/"/>
     
       <category term="Listview" scheme="http://www.nealma.com/tags/Listview/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>React Native (四) react-native-side-menu组件</title>
+    <link href="http://www.nealma.com/2016/07/28/react-native-4-sidemenu/"/>
+    <id>http://www.nealma.com/2016/07/28/react-native-4-sidemenu/</id>
+    <published>2016-07-28T03:46:45.000Z</published>
+    <updated>2016-11-17T01:58:57.000Z</updated>
+    
+    <content type="html"><![CDATA[<pre><code>侧滑菜单在实际工作中，很常见，是比较流行的一种设计，
+RN怎会没有呢。一开始接触RN，总是乐于社区的活跃，你需要什么，大都会能找到
+现成，最初使用了react-native-jelly-side-menu，但是在安卓上死活run不起来，
+后来辗转到了react-native-side-menu,可以很好的在iOS、Android中玩耍。
+</code></pre><a id="more"></a>
+<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><pre><code>侧滑菜单在实际工作中，很常见，是比较流行的一种设计，
+RN怎会没有呢。一开始接触RN，总是乐于社区的活跃，你需要什么，大都会能找到
+现成，最初使用了react-native-jelly-side-menu，但是在安卓上死活run不起来，
+后来辗转到了react-native-side-menu,可以很好的在iOS、Android中玩耍。
+</code></pre><p><img src="/images/sidemenu.gif" alt=""></p>
+<p>开发环境<br>OS: Mac 10.11.6<br>Xcode: Version 8.0 (8A218a)</p>
+<h3 id="react-native-jelly-side-menu-爱恨"><a href="#react-native-jelly-side-menu-爱恨" class="headerlink" title="react-native-jelly-side-menu 爱恨"></a>react-native-jelly-side-menu 爱恨</h3><pre><code>jelly的动画很吸引我，就用了
+</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line">import JellySideMenu from &apos;react-native-jelly-side-menu&apos;;</div><div class="line"></div><div class="line">...</div><div class="line"></div><div class="line">#render</div><div class="line"></div><div class="line">render() &#123;</div><div class="line">        return (</div><div class="line">            &lt;View style=&#123;&#123;flex: 1, backgroundColor: &apos;#FF6644&apos;&#125;&#125;&gt;</div><div class="line">                &lt;JellySideMenu</div><div class="line">                    ref=&#123;(view) =&gt; &#123;this.jsm = view&#125;&#125;</div><div class="line">                    fill=&#123;&quot;#FFF&quot;&#125; fillOpacity=&#123;1.0&#125;</div><div class="line">                    renderMenu=&#123;this.renderMenu&#125;&gt;</div><div class="line">                    &lt;TouchableOpacity onPress=&#123;() =&gt; &#123;this.jsm.toggleSideMenu(true)&#125;&#125;&gt;</div><div class="line">	                    &lt;Icon name=&quot;navicon&quot; size=&#123;30&#125; color=&quot;#4F8EF7&quot; style=&#123;&#123;marginTop: 20, marginLeft: 20&#125;&#125;/&gt;  //1</div><div class="line">	                &lt;/TouchableOpacity&gt;</div><div class="line">                &lt;/JellySideMenu&gt;</div><div class="line"></div><div class="line">                &lt;TouchableOpacity onPress=&#123;() =&gt; &#123;this.jsm.toggleSideMenu(true)&#125;&#125;&gt;</div><div class="line">                    &lt;Icon name=&quot;navicon&quot; size=&#123;30&#125; color=&quot;#4F8EF7&quot; style=&#123;&#123;marginTop: 20, marginLeft: 20&#125;&#125;/&gt;  //2</div><div class="line">                &lt;/TouchableOpacity&gt;</div><div class="line">            &lt;/View&gt;</div><div class="line">        )</div><div class="line">    &#125;</div></pre></td></tr></table></figure>
+<pre><code>如果按照官方的demo，即代码1处，当滑出左侧菜单，关闭，再次点击1处的button，此时事件失效。
+你可以把open menu放在2处，可以很好的工作。
+</code></pre><h3 id="追加1-换回官方的react-native-side-menu"><a href="#追加1-换回官方的react-native-side-menu" class="headerlink" title="追加1: 换回官方的react-native-side-menu"></a>追加1: 换回官方的react-native-side-menu</h3><pre><code>因为在android上运行的时候，报错了，联系作者没反应，自己短时间内无从下手，只好换了。
+</code></pre><h3 id="react-native-side-menu-简单使用"><a href="#react-native-side-menu-简单使用" class="headerlink" title="react-native-side-menu 简单使用"></a>react-native-side-menu 简单使用</h3><pre><code>给出一个简单的例子
+</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div></pre></td><td class="code"><pre><div class="line">export  default  class Main extends Component &#123;</div><div class="line">    constructor(props) &#123;</div><div class="line">        super(props);</div><div class="line">        this.state = &#123;&#125;;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    updateMenuState(isOpen) &#123;</div><div class="line">        this.setState(&#123; isOpen, &#125;);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    onMenuItemSelected = (item) =&gt; &#123;</div><div class="line">        //TODO：单击菜单的后续动作, 跳转到相应的页面</div><div class="line">        alert(&quot;单击 &quot; + item);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    render() &#123;</div><div class="line">        const menu = &lt;LeftView onItemSelected=&#123;this.onMenuItemSelected&#125; /&gt;;</div><div class="line">        return (</div><div class="line">            &lt;SideMenu</div><div class="line">                menu=&#123;menu&#125; /* 设置左侧页面(菜单) */</div><div class="line">                isOpen=&#123;this.state.isOpen&#125;/* 状态控制: true 打开，false 关闭*/</div><div class="line">                onChange=&#123;(isOpen) =&gt; this.updateMenuState(isOpen)&#125;&gt;</div><div class="line">                &lt;ContentView /&gt;</div><div class="line">            &lt;/SideMenu&gt;</div><div class="line">        );</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">class ContentView extends Component &#123;</div><div class="line">    render() &#123;</div><div class="line">        return (</div><div class="line">            &lt;View style=&#123;styles.page&#125;&gt;&lt;Text style=&#123;styles.pageContent&#125;&gt;Content&lt;/Text&gt;&lt;/View&gt;</div><div class="line">        );</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">class LeftView extends Component &#123;</div><div class="line"></div><div class="line">    static propTypes = &#123;</div><div class="line">        onItemSelected: React.PropTypes.func.isRequired,</div><div class="line">    &#125;;</div><div class="line"></div><div class="line">    constructor(props) &#123;</div><div class="line">        super(props);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    render() &#123;</div><div class="line">        return (</div><div class="line">            &lt;ScrollView scrollsToTop=&#123;true&#125; style=&#123;styles.menu&#125;&gt;</div><div class="line">                &lt;Text</div><div class="line">                    onPress=&#123;() =&gt; this.props.onItemSelected(&apos;first&apos;)&#125;</div><div class="line">                    style=&#123;styles.item&#125;&gt;</div><div class="line">                    First</div><div class="line">                &lt;/Text&gt;</div><div class="line"></div><div class="line">                &lt;Text</div><div class="line">                    onPress=&#123;() =&gt; this.props.onItemSelected(&apos;second&apos;)&#125;</div><div class="line">                    style=&#123;styles.item&#125;&gt;</div><div class="line">                    Second</div><div class="line">                &lt;/Text&gt;</div><div class="line"></div><div class="line">                &lt;Text</div><div class="line">                    onPress=&#123;() =&gt; this.props.onItemSelected(&apos;third&apos;)&#125;</div><div class="line">                    style=&#123;styles.item&#125;&gt;</div><div class="line">                    Third</div><div class="line">                &lt;/Text&gt;</div><div class="line">            &lt;/ScrollView&gt;</div><div class="line">        );</div><div class="line">    &#125;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<pre><code>在使用过程中，比较费解的是onMenuItemSelected, 该函数在LeftView中进行声明并指定类型为function，
+并没有实现，而是留给引用者去实现具体业务， 也就是TODO的位置。
+</code></pre><h3 id="结束"><a href="#结束" class="headerlink" title="结束"></a>结束</h3><pre><code>menu的导航需要Navigator组件配置使用，后面会做个结合使用的例子。
+
+：）～
+</code></pre>]]></content>
+    
+    <summary type="html">
+    
+      &lt;pre&gt;&lt;code&gt;侧滑菜单在实际工作中，很常见，是比较流行的一种设计，
+RN怎会没有呢。一开始接触RN，总是乐于社区的活跃，你需要什么，大都会能找到
+现成，最初使用了react-native-jelly-side-menu，但是在安卓上死活run不起来，
+后来辗转到了react-native-side-menu,可以很好的在iOS、Android中玩耍。
+&lt;/code&gt;&lt;/pre&gt;
+    
+    </summary>
+    
+      <category term="React-Native" scheme="http://www.nealma.com/categories/React-Native/"/>
+    
+    
+      <category term="React-Native" scheme="http://www.nealma.com/tags/React-Native/"/>
+    
+      <category term="RN" scheme="http://www.nealma.com/tags/RN/"/>
+    
+      <category term="Slide Menu" scheme="http://www.nealma.com/tags/Slide-Menu/"/>
     
   </entry>
   
