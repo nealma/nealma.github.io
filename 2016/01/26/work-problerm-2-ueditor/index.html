@@ -86,16 +86,16 @@
 
 
 
-<meta name="description" content="最近也不知道写点啥，工作任务太饱和了，遇到些小问题，做个总结">
+<meta name="description" content="最近需要使用UEditor做些功能">
 <meta property="og:type" content="article">
-<meta property="og:title" content="工作中遇到的问题">
-<meta property="og:url" content="http://www.nealma.com/2016/11/29/work-problerm-1_20161126192532/index.html">
+<meta property="og:title" content="百度UEditor使用">
+<meta property="og:url" content="http://www.nealma.com/2016/01/26/work-problerm-2-ueditor/index.html">
 <meta property="og:site_name" content="nealma.com">
-<meta property="og:description" content="最近也不知道写点啥，工作任务太饱和了，遇到些小问题，做个总结">
-<meta property="og:updated_time" content="2016-11-26T11:25:27.000Z">
+<meta property="og:description" content="最近需要使用UEditor做些功能">
+<meta property="og:updated_time" content="2016-11-29T02:13:30.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="工作中遇到的问题">
-<meta name="twitter:description" content="最近也不知道写点啥，工作任务太饱和了，遇到些小问题，做个总结">
+<meta name="twitter:title" content="百度UEditor使用">
+<meta name="twitter:description" content="最近需要使用UEditor做些功能">
 
 
 
@@ -116,9 +116,9 @@
 
 
 
-  <link rel="canonical" href="http://www.nealma.com/2016/11/29/work-problerm-1_20161126192532/"/>
+  <link rel="canonical" href="http://www.nealma.com/2016/01/26/work-problerm-2-ueditor/"/>
 
-  <title> 工作中遇到的问题 | nealma.com </title>
+  <title> 百度UEditor使用 | nealma.com </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -268,7 +268,7 @@
             
             
               
-                工作中遇到的问题
+                百度UEditor使用
               
             
           </h1>
@@ -280,8 +280,8 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-11-29T11:46:45+08:00" content="2016-11-29">
-              2016-11-29
+            <time itemprop="dateCreated" datetime="2016-01-26T11:46:45+08:00" content="2016-01-26">
+              2016-01-26
             </time>
           </span>
 
@@ -311,7 +311,7 @@
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
                 <a href="#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/11/29/work-problerm-1_20161126192532/" itemprop="commentsCount"></span>
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/01/26/work-problerm-2-ueditor/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -334,21 +334,13 @@
       
 
       
-        <pre><code>最近也不知道写点啥，工作任务太饱和了，遇到些小问题，做个总结
+        <pre><code>最近需要使用UEditor做些功能
 </code></pre><a id="more"></a>
-<h3 id="MyBatis整型的问题"><a href="#MyBatis整型的问题" class="headerlink" title="MyBatis整型的问题"></a>MyBatis整型的问题</h3><pre><code>再一次工作中，一个实体的成员变量是整数型，我传递了0给mapper，奇怪的事情发生了。
-mapper总是认为这个变量为null。前前后后花了好长时间，最后还是Google的结果。看来遇到问题不能
-自己去一步一步去深挖，还得借助Google啊（不知道是不适合所有）。
-
-原来MyBatis对于整型类型如果值为0，会当做null来处理。（不知道作者是出于什么原因）
-
-解决办法：
-
-加强判断
-</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;if test=&quot;categoryName != null and categoryName != &apos;&apos; or categoryName == 0&quot;&gt;</div></pre></td></tr></table></figure>
-<h3 id="Spring-MVC的问题"><a href="#Spring-MVC的问题" class="headerlink" title="Spring MVC的问题"></a>Spring MVC的问题</h3><p>spring mvc put方法请求，ajax必须指定dataType: “json”<br>    在设计Restful接口的时候，其中Controller里面的PUT方法，前台html中使用ajax提交表单,很正常不过。<br>    可是在后台始终得不到前台传过来的参数。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">$.ajax(</div><div class="line">	&#123;</div><div class="line">	    url: API,</div><div class="line">	    type: &quot;PUT&quot;,</div><div class="line">	    data: &#123;k : v, ...&#125;</div><div class="line">	    async: false,</div><div class="line">	    success: function (data, textStatus, jqXHR) &#123;</div><div class="line">	        //TODO:</div><div class="line">	    &#125;,</div><div class="line">	    error: function (jqXHR, textStatus, errorThrown) &#123;</div><div class="line">	    	//TODO:</div><div class="line">	    &#125;</div><div class="line">	&#125;);</div></pre></td></tr></table></figure>
-
+<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><pre><code>最近需要使用UEditor做些功能
+</code></pre><h3 id="官网下载最新的zip包"><a href="#官网下载最新的zip包" class="headerlink" title="官网下载最新的zip包"></a>官网下载最新的zip包</h3><p>### </p>
+<h3 id="结束"><a href="#结束" class="headerlink" title="结束"></a>结束</h3><pre><code>还会陆续遇到各种坑，慢慢填吧...
+ :)~
+</code></pre>
       
 
     </div>
@@ -363,6 +355,27 @@ mapper总是认为这个变量为null。前前后后花了好长时间，最后�
     <div>
       
         
+  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+    <div>打赏我的人，运气都不会太差~</div>
+    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+      <span>赏</span>
+    </button>
+    <div id="QR" style="display: none;">
+      
+        <div id="wechat" style="display: inline-block">
+          <img id="wechat_qr" src="/images/wechatpay.jpeg" alt="马英乘Neal WeChat Pay"/>
+          <p>微信打赏</p>
+        </div>
+      
+      
+        <div id="alipay" style="display: inline-block">
+          <img id="alipay_qr" src="/images/alipay.jpeg" alt="马英乘Neal Alipay"/>
+          <p>支付宝打赏</p>
+        </div>
+      
+    </div>
+  </div>
+
 
       
     </div>
@@ -380,13 +393,17 @@ mapper总是认为这个变量为null。前前后后花了好长时间，最后�
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="../../26/work-problerm-1/" rel="next" title="工作中遇到的问题">
-                <i class="fa fa-chevron-left"></i> 工作中遇到的问题
+              <a href="../../../../2015/12/18/elasticsearch/" rel="next" title="ElasticSearch">
+                <i class="fa fa-chevron-left"></i> ElasticSearch
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="../../../03/15/centos-65-add-user/" rel="prev" title="CentOS 添加用户">
+                CentOS 添加用户 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -412,8 +429,8 @@ mapper总是认为这个变量为null。前前后后花了好长时间，最后�
           
   <div class="comments" id="comments">
     
-      <div class="ds-thread" data-thread-key="2016/11/29/work-problerm-1_20161126192532/"
-           data-title="工作中遇到的问题" data-url="http://www.nealma.com/2016/11/29/work-problerm-1_20161126192532/">
+      <div class="ds-thread" data-thread-key="2016/01/26/work-problerm-2-ueditor/"
+           data-title="百度UEditor使用" data-url="http://www.nealma.com/2016/01/26/work-problerm-2-ueditor/">
       </div>
     
   </div>
@@ -529,7 +546,7 @@ mapper总是认为这个变量为null。前前后后花了好长时间，最后�
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#MyBatis整型的问题"><span class="nav-number">1.</span> <span class="nav-text">MyBatis整型的问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Spring-MVC的问题"><span class="nav-number">2.</span> <span class="nav-text">Spring MVC的问题</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#官网下载最新的zip包"><span class="nav-number">2.</span> <span class="nav-text">官网下载最新的zip包</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#结束"><span class="nav-number">3.</span> <span class="nav-text">结束</span></a></li></ol></div>
             
           </div>
         </section>

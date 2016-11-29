@@ -353,7 +353,7 @@ CookieHttpSessionStrategy，如果是API就用HeaderHttpSessionStrategy，具体
     <link href="http://www.nealma.com/2016/10/01/centos-72-5-set-hostname/"/>
     <id>http://www.nealma.com/2016/10/01/centos-72-5-set-hostname/</id>
     <published>2016-10-01T03:46:49.000Z</published>
-    <updated>2016-11-26T13:35:19.000Z</updated>
+    <updated>2016-11-26T14:33:16.000Z</updated>
     
     <content type="html"><![CDATA[<pre><code>对于不是经常装系统或者购买云服务器的我来说，总是忘记怎么设置更改hostname，
 怎么办，怎么办，那就记下来呗。
