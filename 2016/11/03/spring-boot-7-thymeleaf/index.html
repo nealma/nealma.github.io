@@ -94,7 +94,7 @@
 <meta property="og:site_name" content="nealma.com">
 <meta property="og:description" content="模版引擎千千万，今个说说Thymeleaf，主要是不想在混用jsp标签和使用jsp后缀文件，
 直接使用html文件，便于前后端分离。">
-<meta property="og:updated_time" content="2016-11-20T05:49:36.000Z">
+<meta property="og:updated_time" content="2016-12-03T03:19:11.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Spring-Boot（七) Thymeleaf 模版引擎">
 <meta name="twitter:description" content="模版引擎千千万，今个说说Thymeleaf，主要是不想在混用jsp标签和使用jsp后缀文件，
@@ -369,6 +369,31 @@ TemplateEngine，ThymeleafViewResolver会自用实例化。
 </code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">&lt;!-- 非标准HTML5 --&gt;</div><div class="line">&lt;dependency&gt;</div><div class="line">    &lt;groupId&gt;net.sourceforge.nekohtml&lt;/groupId&gt;</div><div class="line">    &lt;artifactId&gt;nekohtml&lt;/artifactId&gt;</div><div class="line">    &lt;version&gt;1.9.22&lt;/version&gt;</div><div class="line">&lt;/dependency&gt;</div></pre></td></tr></table></figure>
 <h3 id="更新日志-2"><a href="#更新日志-2" class="headerlink" title="更新日志 2"></a>更新日志 2</h3><pre><code>thymeleaf的默认静态资源结构, static作为默认静态资源的根路径
 </code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">src/main/resources</div><div class="line">├── static</div><div class="line">│   ├── favicon.png</div><div class="line">│   └── web</div><div class="line">└── templates</div><div class="line">    ├── error</div><div class="line">    └── web</div></pre></td></tr></table></figure>
+<h3 id="更新日志-3"><a href="#更新日志-3" class="headerlink" title="更新日志 3"></a>更新日志 3</h3><pre><code>thymeleaf的基本使用，按照工作中使用情况，随记
+</code></pre><ul>
+<li><p>变量</p>
+<p>  服务器端直接传递对象</p>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">Server :</div><div class="line">   Entity e = new Entity();</div><div class="line">   model.addAttribute(&quot;entity&quot;, e);</div><div class="line"></div><div class="line">Client :</div><div class="line"></div><div class="line">    &lt;tag th:text=&quot;$&#123;entity.filed&#125;&quot;&gt;&lt;/tag&gt;</div></pre></td></tr></table></figure>
+<ul>
+<li><p>if, each语句</p>
+<p>  activities为服务端传过来的集合对象</p>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">&lt;div th:each=&quot;activityItem, activityStat : $&#123;activities&#125;&quot; th:remove=&quot;tag&quot;&gt;</div><div class="line">    &lt;div class=&quot;index_ad&quot; th:if=&quot;$&#123;activityItem.activityType == 1&#125;&quot;&gt;</div><div class="line">        &lt;a th:href=&quot;$&#123;activityItemactivityUrl&#125;&quot;&gt;</div><div class="line">            &lt;img th:src=&quot;$&#123;activityItem.activityImageUrl&#125;&quot;&gt;</div><div class="line">        &lt;/a&gt;</div><div class="line">    &lt;/div&gt;</div><div class="line">&lt;/div&gt;</div></pre></td></tr></table></figure>
+<ul>
+<li>作为html渲染，非text</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">Server:</div><div class="line"></div><div class="line">    String n = &quot;&lt;p&gt;&lt;img src=&apos;1.jpg&apos;&gt;&quot;;</div><div class="line">    model.addAttribute(&quot;n&quot;, n);</div><div class="line"></div><div class="line">client:</div><div class="line"></div><div class="line">    &lt;div th:remove=&quot;tag&quot; th:utext=&quot;$&#123;n&#125;&quot;&gt;&lt;/div&gt;</div></pre></td></tr></table></figure>
+<h3 id="在javascript中使用服务端传过来的参数-两种方式："><a href="#在javascript中使用服务端传过来的参数-两种方式：" class="headerlink" title="在javascript中使用服务端传过来的参数,两种方式："></a>在javascript中使用服务端传过来的参数,两种方式：</h3><ul>
+<li>隐藏域，在html中预埋相应的input标签，javascript中使用jquery选择器</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">HTML:</div><div class="line">    &lt;input id=&quot;goodsScreenPrice&quot; th:value=&quot;$&#123;goods.goodsScreenPrice&#125;&quot; type=&quot;number&quot;/&gt;</div><div class="line"></div><div class="line">JAVASCRIPT:</div><div class="line">    $(&apos;#goodsScreenPrice&apos;).val()</div></pre></td></tr></table></figure>
+<ul>
+<li>th:inline,直接使用</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">&lt;script th:inline=&quot;javascript&quot;&gt;</div><div class="line">    /*&lt;![CDATA[*/</div><div class="line">    goodsCategoryIdChecked = [[$&#123;goods.categoryId&#125;]];</div><div class="line">    goodsDetailChecked = [[$&#123;goods.goodsDetail&#125;]];</div><div class="line">    /*]]&gt;*/</div><div class="line">&lt;/script&gt;</div></pre></td></tr></table></figure>
 
       
 
@@ -583,7 +608,7 @@ TemplateEngine，ThymeleafViewResolver会自用实例化。
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#依赖"><span class="nav-number">2.</span> <span class="nav-text">依赖</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#配置"><span class="nav-number">3.</span> <span class="nav-text">配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#空间指定"><span class="nav-number">4.</span> <span class="nav-text">空间指定</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#最简用例"><span class="nav-number">5.</span> <span class="nav-text">最简用例</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#结束"><span class="nav-number">6.</span> <span class="nav-text">结束</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#更新日志-1"><span class="nav-number">7.</span> <span class="nav-text">更新日志 1</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#更新日志-2"><span class="nav-number">8.</span> <span class="nav-text">更新日志 2</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#依赖"><span class="nav-number">2.</span> <span class="nav-text">依赖</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#配置"><span class="nav-number">3.</span> <span class="nav-text">配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#空间指定"><span class="nav-number">4.</span> <span class="nav-text">空间指定</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#最简用例"><span class="nav-number">5.</span> <span class="nav-text">最简用例</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#结束"><span class="nav-number">6.</span> <span class="nav-text">结束</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#更新日志-1"><span class="nav-number">7.</span> <span class="nav-text">更新日志 1</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#更新日志-2"><span class="nav-number">8.</span> <span class="nav-text">更新日志 2</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#更新日志-3"><span class="nav-number">9.</span> <span class="nav-text">更新日志 3</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#在javascript中使用服务端传过来的参数-两种方式："><span class="nav-number">10.</span> <span class="nav-text">在javascript中使用服务端传过来的参数,两种方式：</span></a></li></ol></div>
             
           </div>
         </section>
