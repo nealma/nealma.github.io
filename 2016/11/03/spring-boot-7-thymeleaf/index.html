@@ -94,7 +94,7 @@
 <meta property="og:site_name" content="nealma.com">
 <meta property="og:description" content="模版引擎千千万，今个说说Thymeleaf，主要是不想在混用jsp标签和使用jsp后缀文件，
 直接使用html文件，便于前后端分离。">
-<meta property="og:updated_time" content="2016-12-03T03:19:11.000Z">
+<meta property="og:updated_time" content="2016-12-09T17:17:06.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Spring-Boot（七) Thymeleaf 模版引擎">
 <meta name="twitter:description" content="模版引擎千千万，今个说说Thymeleaf，主要是不想在混用jsp标签和使用jsp后缀文件，
@@ -377,11 +377,11 @@ TemplateEngine，ThymeleafViewResolver会自用实例化。
 </ul>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">Server :</div><div class="line">   Entity e = new Entity();</div><div class="line">   model.addAttribute(&quot;entity&quot;, e);</div><div class="line"></div><div class="line">Client :</div><div class="line"></div><div class="line">    &lt;tag th:text=&quot;$&#123;entity.filed&#125;&quot;&gt;&lt;/tag&gt;</div></pre></td></tr></table></figure>
 <ul>
-<li><p>if, each语句</p>
+<li><p>if, each语句和自定义属性th:attr</p>
 <p>  activities为服务端传过来的集合对象</p>
 </li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">&lt;div th:each=&quot;activityItem, activityStat : $&#123;activities&#125;&quot; th:remove=&quot;tag&quot;&gt;</div><div class="line">    &lt;div class=&quot;index_ad&quot; th:if=&quot;$&#123;activityItem.activityType == 1&#125;&quot;&gt;</div><div class="line">        &lt;a th:href=&quot;$&#123;activityItemactivityUrl&#125;&quot;&gt;</div><div class="line">            &lt;img th:src=&quot;$&#123;activityItem.activityImageUrl&#125;&quot;&gt;</div><div class="line">        &lt;/a&gt;</div><div class="line">    &lt;/div&gt;</div><div class="line">&lt;/div&gt;</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">&lt;div th:each=&quot;activityItem, activityStat : $&#123;activities&#125;&quot; th:remove=&quot;tag&quot;&gt;</div><div class="line">    &lt;div class=&quot;index_ad&quot; th:if=&quot;$&#123;activityItem.activityType == 1&#125;&quot;&gt;</div><div class="line">        &lt;a th:href=&quot;$&#123;activityItemactivityUrl&#125;&quot;&gt;</div><div class="line">            &lt;img th:src=&quot;$&#123;activityItem.activityImageUrl&#125;&quot;&gt;</div><div class="line">        &lt;/a&gt;</div><div class="line">    &lt;/div&gt;</div><div class="line">&lt;/div&gt;</div><div class="line"></div><div class="line">#或者</div><div class="line"></div><div class="line">&lt;dl&gt;</div><div class="line">    &lt;div th:each=&quot;attribute : $&#123; attributes &#125;&quot; th:remove=&quot;tag&quot;&gt;</div><div class="line">        &lt;dd th:if=&quot;$&#123;attribute.attrName eq attributeName&#125;&quot; th:attr=&quot;goodsattrlinkid=$&#123;attribute.id&#125;&quot; th:text=&quot;$&#123;attribute.attrValue&#125;&quot;&gt;黑色&lt;/dd&gt;</div><div class="line">    &lt;/div&gt;</div><div class="line">&lt;/dl&gt;</div></pre></td></tr></table></figure>
 <ul>
 <li>作为html渲染，非text</li>
 </ul>
@@ -537,7 +537,7 @@ TemplateEngine，ThymeleafViewResolver会自用实例化。
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="../../../../archives">
-              <span class="site-state-item-count">45</span>
+              <span class="site-state-item-count">48</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -554,7 +554,7 @@ TemplateEngine，ThymeleafViewResolver会自用实例化。
           
             <div class="site-state-item site-state-tags">
               <a href="../../../../tags">
-                <span class="site-state-item-count">50</span>
+                <span class="site-state-item-count">52</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>

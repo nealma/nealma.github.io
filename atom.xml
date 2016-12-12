@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://www.nealma.com/"/>
-  <updated>2016-11-26T13:13:19.000Z</updated>
+  <updated>2016-12-12T18:31:05.000Z</updated>
   <id>http://www.nealma.com/</id>
   
   <author>
@@ -16,11 +16,148 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>工作中遇到的问题</title>
+    <title>工作中遇到的问题 (三) 微信支付</title>
+    <link href="http://www.nealma.com/2016/12/12/work-problem-3/"/>
+    <id>http://www.nealma.com/2016/12/12/work-problem-3/</id>
+    <published>2016-12-12T03:46:45.000Z</published>
+    <updated>2016-12-12T18:31:05.000Z</updated>
+    
+    <content type="html"><![CDATA[<pre><code>最近也不知道写点啥，工作任务太饱和了，遇到些小问题，做个总结
+</code></pre><a id="more"></a>
+<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><pre><code>最近也不知道写点啥，工作任务太饱和了，遇到些小问题，做个总结
+</code></pre><h3 id="微信H5支付流程"><a href="#微信H5支付流程" class="headerlink" title="微信H5支付流程"></a>微信H5支付流程</h3><ul>
+<li><p>获取access_token</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&amp;appid=appid&amp;secret=appsecret</div></pre></td></tr></table></figure>
+<p>  返回值</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">    &quot;access_token&quot;: &quot;Mp8BGP0ETncH_ISzaNTZkNDN7C_ax4iFJUPfp5q0Z5Vu54wuVh3WPXkzo1p9EKII0h_eowe8ZWwsaBqhEX3VLlYdlRaAodeqRMixfv5sVVs7xEPkGZrvBKUCXMyFZAXOJEJbAIAPKP&quot;,</div><div class="line">    &quot;expires_in&quot;: 7200</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+<li><p>获取jsapi_ticket</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">http://api.weixin.qq.com/cgi-bin/ticket/getticket?type=jsapi&amp;access_token=EHtVZcvhD6x475HJ2ukUc0u3BqiMdjJ2gc9x-j2fil4i63M-aS9qHVmcHxVw19tLdalzo8VjxIJzMyuIJKIiis1h2JoZmy5wRp9IWwiHxRab3cDu-SxQHSm10h47bHyVRKYeAEALES</div></pre></td></tr></table></figure>
+<p>  返回值</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">    &quot;errcode&quot;: 0,</div><div class="line">    &quot;errmsg&quot;: &quot;ok&quot;,</div><div class="line">    &quot;ticket&quot;: &quot;sM4AOVdWfPE4DxkXGEs8VDd_c-Q_htialcX-c6Dxm8PROfcj2rA58GClUKytzCXuUGbwQLPTgdG0dPciNIv70A&quot;,</div><div class="line">    &quot;expires_in&quot;: 7200</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+<li><p>获取openid</p>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">https://open.weixin.qq.com/connect/oauth2/authorize?appid=APPID&amp;redirect_uri=REDIRECT_URI&amp;response_type=code&amp;scope=SCOPE&amp;state=STATE#wechat_redirect</div></pre></td></tr></table></figure>
+<ul>
+<li>统一下单接口,获取prepay_id</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">http://api.weixin.qq.com/cgi-bin/ticket/getticket?type=jsapi&amp;access_token=EHtVZcvhD6x475HJ2ukUc0u3BqiMdjJ2gc9x-j2fil4i63M-aS9qHVmcHxVw19tLdalzo8VjxIJzMyuIJKIiis1h2JoZmy5wRp9IWwiHxRab3cDu-SxQHSm10h47bHyVRKYeAEALES</div><div class="line"></div><div class="line">＃https://pay.weixin.qq.com/wiki/doc/api/jsapi.php?chapter=9_1</div></pre></td></tr></table></figure>
+<ul>
+<li>网页端调起支付API</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div></pre></td><td class="code"><pre><div class="line">#https://pay.weixin.qq.com/wiki/doc/api/jsapi.php?chapter=7_7&amp;index=6</div><div class="line"></div><div class="line">function onBridgeReady()&#123;</div><div class="line">   WeixinJSBridge.invoke(</div><div class="line">       &apos;getBrandWCPayRequest&apos;, &#123;</div><div class="line">           &quot;appId&quot; ： &quot;wx2421b1c4370ec43b&quot;,     //公众号名称，由商户传入     </div><div class="line">           &quot;timeStamp&quot;：&quot; 1395712654&quot;,         //时间戳，自1970年以来的秒数     </div><div class="line">           &quot;nonceStr&quot; ： &quot;e61463f8efa94090b1f366cccfbbb444&quot;, //随机串     </div><div class="line">           &quot;package&quot; ： &quot;prepay_id=u802345jgfjsdfgsdg888&quot;,     </div><div class="line">           &quot;signType&quot; ： &quot;MD5&quot;,         //微信签名方式：     </div><div class="line">           &quot;paySign&quot; ： &quot;70EA570631E4BB79628FBCA90534C63FF7FADD89&quot; //微信签名 </div><div class="line">       &#125;,</div><div class="line">       function(res)&#123;     </div><div class="line">           if(res.err_msg == &quot;get_brand_wcpay_request：ok&quot; ) &#123;&#125;     // 使用以上方式判断前端返回,微信团队郑重提示：res.err_msg将在用户支付成功后返回    ok，但并不保证它绝对可靠。 </div><div class="line">       &#125;</div><div class="line">   ); </div><div class="line">&#125;</div><div class="line">if (typeof WeixinJSBridge == &quot;undefined&quot;)&#123;</div><div class="line">   if( document.addEventListener )&#123;</div><div class="line">       document.addEventListener(&apos;WeixinJSBridgeReady&apos;, onBridgeReady, false);</div><div class="line">   &#125;else if (document.attachEvent)&#123;</div><div class="line">       document.attachEvent(&apos;WeixinJSBridgeReady&apos;, onBridgeReady); </div><div class="line">       document.attachEvent(&apos;onWeixinJSBridgeReady&apos;, onBridgeReady);</div><div class="line">   &#125;</div><div class="line">&#125;else&#123;</div><div class="line">   onBridgeReady();</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="结束"><a href="#结束" class="headerlink" title="结束"></a>结束</h3><pre><code>在调试接口的时候，最耗费时间的是在网页端调起支付API,前前后后弄了两天，好狼狈啊！！！
+主要是折在了paySign上，看文档根本就没有key的事，可是签名的时候，
+还得在排序好的参数后架上key=xxx,然后在MD5，总算是让我可以好好睡一觉了
+ :)~
+</code></pre>]]></content>
+    
+    <summary type="html">
+    
+      &lt;pre&gt;&lt;code&gt;最近也不知道写点啥，工作任务太饱和了，遇到些小问题，做个总结
+&lt;/code&gt;&lt;/pre&gt;
+    
+    </summary>
+    
+      <category term="work" scheme="http://www.nealma.com/categories/work/"/>
+    
+    
+      <category term="大杂烩" scheme="http://www.nealma.com/tags/%E5%A4%A7%E6%9D%82%E7%83%A9/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>工作中遇到的问题（四） Maven 国内镜像 阿里云</title>
+    <link href="http://www.nealma.com/2016/12/12/work-problem-4-aliyun-maven-repo/"/>
+    <id>http://www.nealma.com/2016/12/12/work-problem-4-aliyun-maven-repo/</id>
+    <published>2016-12-12T03:46:45.000Z</published>
+    <updated>2016-12-12T16:14:13.000Z</updated>
+    
+    <content type="html"><![CDATA[<pre><code>今天在服务器上使用maven部署服务，我尼玛快疯疯了，一个jar文件真是慢如蜗牛，于是想换成一个速度快点的，
+搜索之后，看到阿里云最近开放了Maven镜像库，那就试试吧，感谢啊，速度嗖嗖的.
+</code></pre><a id="more"></a>
+<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><pre><code>今天在服务器上使用maven部署服务，我尼玛快疯疯了，一个jar文件真是慢如蜗牛，于是想换成一个速度快点的，
+搜索之后，看到阿里云最近开放了Maven镜像库，那就试试吧，感谢啊，速度嗖嗖的.
+</code></pre><h3 id="阿里云公开的中央仓库，亲测好用到哭"><a href="#阿里云公开的中央仓库，亲测好用到哭" class="headerlink" title="阿里云公开的中央仓库，亲测好用到哭"></a>阿里云公开的中央仓库，亲测好用到哭</h3><pre><code>修改maven根目录下的conf文件夹中的setting.xml文件，在mirrorms内添加如下内容：
+</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">&lt;mirror&gt;</div><div class="line">   &lt;id&gt;alimaven&lt;/id&gt;</div><div class="line">   &lt;name&gt;aliyun maven&lt;/name&gt;</div><div class="line">   &lt;url&gt;http://maven.aliyun.com/nexus/content/groups/public/&lt;/url&gt;</div><div class="line">   &lt;mirrorOf&gt;central&lt;/mirrorOf&gt;        </div><div class="line"> &lt;/mirror&gt;</div></pre></td></tr></table></figure>
+<h3 id="结束"><a href="#结束" class="headerlink" title="结束"></a>结束</h3><pre><code>我只有感谢感谢在感谢啦...
+ :)~
+</code></pre>]]></content>
+    
+    <summary type="html">
+    
+      &lt;pre&gt;&lt;code&gt;今天在服务器上使用maven部署服务，我尼玛快疯疯了，一个jar文件真是慢如蜗牛，于是想换成一个速度快点的，
+搜索之后，看到阿里云最近开放了Maven镜像库，那就试试吧，感谢啊，速度嗖嗖的.
+&lt;/code&gt;&lt;/pre&gt;
+    
+    </summary>
+    
+      <category term="work" scheme="http://www.nealma.com/categories/work/"/>
+    
+    
+      <category term="大杂烩" scheme="http://www.nealma.com/tags/%E5%A4%A7%E6%9D%82%E7%83%A9/"/>
+    
+      <category term="阿里云" scheme="http://www.nealma.com/tags/%E9%98%BF%E9%87%8C%E4%BA%91/"/>
+    
+      <category term="Maven" scheme="http://www.nealma.com/tags/Maven/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>工作中遇到的问题 (二) Ajax重复提交</title>
+    <link href="http://www.nealma.com/2016/11/26/work-problem-2/"/>
+    <id>http://www.nealma.com/2016/11/26/work-problem-2/</id>
+    <published>2016-11-26T03:46:45.000Z</published>
+    <updated>2016-12-11T08:47:03.000Z</updated>
+    
+    <content type="html"><![CDATA[<pre><code>最近也不知道写点啥，工作任务太饱和了，遇到些小问题，做个总结
+</code></pre><a id="more"></a>
+<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><pre><code>最近也不知道写点啥，工作任务太饱和了，遇到些小问题，做个总结
+</code></pre><h3 id="Linux-使用cp-rf-总是提醒是否覆盖"><a href="#Linux-使用cp-rf-总是提醒是否覆盖" class="headerlink" title="Linux 使用cp -rf 总是提醒是否覆盖"></a>Linux 使用cp -rf 总是提醒是否覆盖</h3><pre><code>刚觉很奇怪，rf本来就是要强制覆盖的，为什么还总是提醒呢？Google之后，才知道原来是别名在作怪。
+通过alias命令可以看到,我们执行cp命令，其实是执行的cp -i, 所以无论我们怎么-rf加参数，总是提示。
+</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">[root@apple]# alias</div><div class="line">alias cp=&apos;cp -i&apos;</div><div class="line">alias egrep=&apos;egrep --color=auto&apos;</div><div class="line">alias fgrep=&apos;fgrep --color=auto&apos;</div><div class="line">alias grep=&apos;grep --color=auto&apos;</div><div class="line">alias l.=&apos;ls -d .* --color=auto&apos;</div><div class="line">alias ll=&apos;ls -l --color=auto&apos;</div><div class="line">alias ls=&apos;ls --color=auto&apos;</div><div class="line">alias mv=&apos;mv -i&apos;</div><div class="line">alias rm=&apos;rm -i&apos;</div><div class="line">alias which=&apos;alias | /usr/bin/which --tty-only --read-alias --show-dot --show-tilde&apos;</div></pre></td></tr></table></figure>
+<pre><code>解决办法：
+
+打开~/.bashrc文件，注释掉即可。
+</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">#alias cp=&apos;cp -i&apos;</div></pre></td></tr></table></figure>
+<pre><code>或者这样：
+</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">/usr/bin/cp</div></pre></td></tr></table></figure>
+<h3 id="Ajax重复提交的问题"><a href="#Ajax重复提交的问题" class="headerlink" title="Ajax重复提交的问题"></a>Ajax重复提交的问题</h3><pre><code>我们在使用ajax调用接口，异步提交的时候，特别是在网络环境不好的时候，会在短时间内，连续提交多次，
+导致数据库中出现很多垃圾数据，首先是客户端的限制措施。
+</code></pre><ul>
+<li>使用jQuery.ajaxPrefilter，其实是个过滤器，如下：</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div></pre></td><td class="code"><pre><div class="line">var pendingRequests = &#123;&#125;;</div><div class="line">jQuery.ajaxPrefilter(function( options, originalOptions, jqXHR ) &#123;</div><div class="line">    var key = originalOptions.url+&quot;_&quot;+originalOptions.type.toUpperCase();</div><div class="line">    console.log(key)</div><div class="line">    if (!pendingRequests[key]</div><div class="line">            || (pendingRequests[key] &amp;&amp; originalOptions.type.toUpperCase() !=&apos;POST&apos;)) &#123;</div><div class="line">        pendingRequests[key] = jqXHR;</div><div class="line">        console.log(&apos;start&apos;);</div><div class="line">    &#125;else&#123;</div><div class="line">        jqXHR.abort();    //放弃后触发的提交</div><div class="line">        //pendingRequests[key].abort();   // 放弃先触发的提交</div><div class="line">        console.log(&apos;abort&apos;);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    var complete = options.complete;</div><div class="line">    options.complete = function(jqXHR, textStatus) &#123;</div><div class="line">        console.log(&apos;complete&apos;);</div><div class="line">        //TODO: pendingRequests[key] = null;</div><div class="line">        setTimeout(function () &#123;</div><div class="line">            pendingRequests[key] = null;</div><div class="line">        &#125;, 10000);</div><div class="line">        if (jQuery.isFunction(complete)) &#123;</div><div class="line">            complete.apply(this, arguments);</div><div class="line">        &#125;</div><div class="line">    &#125;;</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<ul>
+<li>服务器端限制</li>
+</ul>
+<p>…</p>
+<h3 id="结束"><a href="#结束" class="headerlink" title="结束"></a>结束</h3><pre><code>夜长长，路漫漫...
+ :)~
+</code></pre>]]></content>
+    
+    <summary type="html">
+    
+      &lt;pre&gt;&lt;code&gt;最近也不知道写点啥，工作任务太饱和了，遇到些小问题，做个总结
+&lt;/code&gt;&lt;/pre&gt;
+    
+    </summary>
+    
+      <category term="work" scheme="http://www.nealma.com/categories/work/"/>
+    
+    
+      <category term="大杂烩" scheme="http://www.nealma.com/tags/%E5%A4%A7%E6%9D%82%E7%83%A9/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>工作中遇到的问题（一） Spring MVC Restfull API</title>
     <link href="http://www.nealma.com/2016/11/26/work-problerm-1/"/>
     <id>http://www.nealma.com/2016/11/26/work-problerm-1/</id>
     <published>2016-11-26T03:46:45.000Z</published>
-    <updated>2016-11-26T13:13:19.000Z</updated>
+    <updated>2016-12-11T08:48:15.000Z</updated>
     
     <content type="html"><![CDATA[<pre><code>最近也不知道写点啥，工作任务太饱和了，遇到些小问题，做个总结
 </code></pre><a id="more"></a>
@@ -182,7 +319,7 @@ Live环境，Dev是我们的开发环境，Test作为我们的测试环境，Liv
     <link href="http://www.nealma.com/2016/11/03/spring-boot-7-thymeleaf/"/>
     <id>http://www.nealma.com/2016/11/03/spring-boot-7-thymeleaf/</id>
     <published>2016-11-03T03:46:45.000Z</published>
-    <updated>2016-12-03T03:19:11.000Z</updated>
+    <updated>2016-12-09T17:17:06.000Z</updated>
     
     <content type="html"><![CDATA[<pre><code>模版引擎千千万，今个说说Thymeleaf，主要是不想在混用jsp标签和使用jsp后缀文件，
 直接使用html文件，便于前后端分离。
@@ -224,11 +361,11 @@ TemplateEngine，ThymeleafViewResolver会自用实例化。
 </ul>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">Server :</div><div class="line">   Entity e = new Entity();</div><div class="line">   model.addAttribute(&quot;entity&quot;, e);</div><div class="line"></div><div class="line">Client :</div><div class="line"></div><div class="line">    &lt;tag th:text=&quot;$&#123;entity.filed&#125;&quot;&gt;&lt;/tag&gt;</div></pre></td></tr></table></figure>
 <ul>
-<li><p>if, each语句</p>
+<li><p>if, each语句和自定义属性th:attr</p>
 <p>  activities为服务端传过来的集合对象</p>
 </li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">&lt;div th:each=&quot;activityItem, activityStat : $&#123;activities&#125;&quot; th:remove=&quot;tag&quot;&gt;</div><div class="line">    &lt;div class=&quot;index_ad&quot; th:if=&quot;$&#123;activityItem.activityType == 1&#125;&quot;&gt;</div><div class="line">        &lt;a th:href=&quot;$&#123;activityItemactivityUrl&#125;&quot;&gt;</div><div class="line">            &lt;img th:src=&quot;$&#123;activityItem.activityImageUrl&#125;&quot;&gt;</div><div class="line">        &lt;/a&gt;</div><div class="line">    &lt;/div&gt;</div><div class="line">&lt;/div&gt;</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">&lt;div th:each=&quot;activityItem, activityStat : $&#123;activities&#125;&quot; th:remove=&quot;tag&quot;&gt;</div><div class="line">    &lt;div class=&quot;index_ad&quot; th:if=&quot;$&#123;activityItem.activityType == 1&#125;&quot;&gt;</div><div class="line">        &lt;a th:href=&quot;$&#123;activityItemactivityUrl&#125;&quot;&gt;</div><div class="line">            &lt;img th:src=&quot;$&#123;activityItem.activityImageUrl&#125;&quot;&gt;</div><div class="line">        &lt;/a&gt;</div><div class="line">    &lt;/div&gt;</div><div class="line">&lt;/div&gt;</div><div class="line"></div><div class="line">#或者</div><div class="line"></div><div class="line">&lt;dl&gt;</div><div class="line">    &lt;div th:each=&quot;attribute : $&#123; attributes &#125;&quot; th:remove=&quot;tag&quot;&gt;</div><div class="line">        &lt;dd th:if=&quot;$&#123;attribute.attrName eq attributeName&#125;&quot; th:attr=&quot;goodsattrlinkid=$&#123;attribute.id&#125;&quot; th:text=&quot;$&#123;attribute.attrValue&#125;&quot;&gt;黑色&lt;/dd&gt;</div><div class="line">    &lt;/div&gt;</div><div class="line">&lt;/dl&gt;</div></pre></td></tr></table></figure>
 <ul>
 <li>作为html渲染，非text</li>
 </ul>
@@ -912,160 +1049,6 @@ CookieHttpSessionStrategy，如果是API就用HeaderHttpSessionStrategy，具体
       <category term="RN" scheme="http://www.nealma.com/tags/RN/"/>
     
       <category term="Navigator" scheme="http://www.nealma.com/tags/Navigator/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>React Native (六) CameraRoll 相册组件</title>
-    <link href="http://www.nealma.com/2016/07/29/react-native-6-cameraroll/"/>
-    <id>http://www.nealma.com/2016/07/29/react-native-6-cameraroll/</id>
-    <published>2016-07-29T04:46:45.000Z</published>
-    <updated>2016-11-17T01:58:34.000Z</updated>
-    
-    <content type="html"><![CDATA[<pre><code>CameraRoll模块提供了访问本地相册的功能。
-</code></pre><a id="more"></a>
-<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><pre><code>CameraRoll模块提供了访问本地相册的功能。
-</code></pre><p><img src="/images/cameraroll.gif" alt=""></p>
-<p>开发环境：<br>OS: Mac 10.11.6<br>Xcode: Version 8.0 (8A218a)</p>
-<h3 id="简单用例"><a href="#简单用例" class="headerlink" title="简单用例"></a>简单用例</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div><div class="line">106</div></pre></td><td class="code"><pre><div class="line">export default class HaiJiCameraRoll extends Component &#123;</div><div class="line">    constructor(props) &#123;</div><div class="line">        super(props);</div><div class="line">        this.state = &#123;</div><div class="line">            photos: [],</div><div class="line">            selected: &apos;&apos;,</div><div class="line">            placeHolder: &apos;这一刻的想法...&apos;,</div><div class="line">            text: null</div><div class="line">        &#125;;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    componentDidMount() &#123;</div><div class="line">        let fetchParams = &#123;</div><div class="line">            first: 10,</div><div class="line">            assetType: &apos;Photos&apos;</div><div class="line">        &#125;;</div><div class="line">        CameraRoll.getPhotos(fetchParams).then((data) =&gt; &#123;</div><div class="line">            const edges = data.edges;</div><div class="line">            let photos = edges.map(photo=&gt;&#123;</div><div class="line">                return photo.node.image.uri</div><div class="line">            &#125;);</div><div class="line">            this.setState(&#123;</div><div class="line">                photos: photos</div><div class="line">            &#125;);</div><div class="line">        &#125;).catch(alert);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    selectImage(image) &#123;</div><div class="line">        this.setState(&#123;</div><div class="line">            selected: image</div><div class="line">        &#125;);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    render() &#123;</div><div class="line"></div><div class="line">        const photos = this.state.photos || [];</div><div class="line">        let photosView = [];</div><div class="line">        for(let i = 0; i &lt; photos.length; i+=4) &#123;</div><div class="line">            let imageUri = photos[parseInt(i)];</div><div class="line">            let imageUri1 = photos[parseInt(i+1)];</div><div class="line">            let imageUri2 = photos[parseInt(i+2)];</div><div class="line">            let imageUri3 = photos[parseInt(i+3)];</div><div class="line">            photosView.push(</div><div class="line">                &lt;View style=&#123;Styles.postCameraRollRow&#125; key=&#123;i&#125;&gt;</div><div class="line">                    &lt;View style=&#123;Styles.container&#125;&gt;</div><div class="line">                        &lt;TouchableOpacity  onPress=&#123;this.selectImage.bind(this,imageUri)&#125;&gt;</div><div class="line">                            &lt;Image</div><div class="line">                                resizeMode=&apos;stretch&apos;</div><div class="line">                                style=&#123;[Styles.postCameraRollPhoto]&#125;</div><div class="line">                                source=&#123;&#123;uri: imageUri&#125;&#125; /&gt;</div><div class="line">                        &lt;/TouchableOpacity&gt;</div><div class="line">                    &lt;/View&gt;</div><div class="line">                    &lt;View style=&#123;Styles.container&#125;&gt;</div><div class="line">                        &lt;TouchableOpacity  onPress=&#123;this.selectImage.bind(this,imageUri1)&#125;&gt;</div><div class="line">                            &lt;Image</div><div class="line">                                resizeMode=&apos;stretch&apos;</div><div class="line">                                style=&#123;[Styles.postCameraRollPhoto]&#125;</div><div class="line">                                source=&#123;&#123;uri: imageUri1&#125;&#125; /&gt;</div><div class="line">                        &lt;/TouchableOpacity&gt;</div><div class="line">                    &lt;/View&gt;</div><div class="line">                    &lt;View style=&#123;Styles.container&#125;&gt;</div><div class="line">                        &lt;TouchableOpacity  onPress=&#123;this.selectImage.bind(this,imageUri2)&#125;&gt;</div><div class="line">                            &lt;Image</div><div class="line">                                resizeMode=&apos;stretch&apos;</div><div class="line">                                style=&#123;[Styles.postCameraRollPhoto]&#125;</div><div class="line">                                source=&#123;&#123;uri: imageUri2&#125;&#125; /&gt;</div><div class="line">                        &lt;/TouchableOpacity&gt;</div><div class="line">                    &lt;/View&gt;</div><div class="line">                    &lt;View style=&#123;Styles.container&#125;&gt;</div><div class="line">                        &lt;TouchableOpacity  onPress=&#123;this.selectImage.bind(this,imageUri3)&#125;&gt;</div><div class="line">                            &lt;Image</div><div class="line">                                resizeMode=&apos;stretch&apos;</div><div class="line">                                style=&#123;[Styles.postCameraRollPhoto]&#125;</div><div class="line">                                source=&#123;&#123;uri: imageUri3&#125;&#125; /&gt;</div><div class="line">                        &lt;/TouchableOpacity&gt;</div><div class="line">                    &lt;/View&gt;</div><div class="line">                &lt;/View&gt;</div><div class="line">            );</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        return (</div><div class="line">            &lt;View style=&#123;[Styles.postContainer, Styles.bgColorWhite]&#125;&gt;</div><div class="line">                &lt;TextInput</div><div class="line">                    style=&#123;Styles.postTextInput&#125;</div><div class="line">                    multiline=&#123;true&#125;</div><div class="line">                    placeholder=&apos;这一刻的想法...&apos;</div><div class="line">                    placeholderTextColor=&#123;&apos;#f8f8f8&apos;&#125;</div><div class="line">                    onChangeText=&#123;(text) =&gt; this.setState(&#123;text&#125;)&#125;</div><div class="line">                    defaultValue=&#123;this.state.placeHolder&#125;</div><div class="line">                    value=&#123;this.state.text&#125;/&gt;</div><div class="line">                &lt;Image</div><div class="line">                    resizeMode=&apos;stretch&apos;</div><div class="line">                    style=&#123;[Styles.postPreviewPhoto]&#125;</div><div class="line">                    source=&#123;&#123;uri: this.state.selected&#125;&#125;/&gt;</div><div class="line">                &lt;TouchableOpacity style=&#123;[Styles.postButton,Styles.bgColorLightGray]&#125;&gt;</div><div class="line">                    &lt;Text style=&#123;[Styles.postButtonText]&#125;&gt;发布&lt;/Text&gt;</div><div class="line">                &lt;/TouchableOpacity&gt;</div><div class="line">                &lt;ScrollView style=&#123;[Styles.postCameraRoll]&#125;&gt;</div><div class="line">                    &lt;View&gt;</div><div class="line">                        &#123;photosView&#125;</div><div class="line">                    &lt;/View&gt;</div><div class="line">                &lt;/ScrollView&gt;</div><div class="line">            &lt;/View&gt;</div><div class="line">        );</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h3 id="主要方法"><a href="#主要方法" class="headerlink" title="主要方法"></a>主要方法</h3><ul>
-<li>CameraRoll.getPhotos(fetchParams)<br>  返回的是Promise</li>
-</ul>
-<h3 id="踩到的坑"><a href="#踩到的坑" class="headerlink" title="踩到的坑"></a>踩到的坑</h3><ul>
-<li><p>(iOS)解决ReactNative使用CameraRoll时undefined错误</p>
-<p>  1, 将 node_modules/react-native/Libraries/CameraRoll/RCTCameraRoll.xcodeproj 工程添加到现有工程中<br>  2, 添加静态库依赖： (Build Phases -&gt; Binary With Libraries -&gt; libRCTCameraRoll.a)</p>
-</li>
-<li><p>(iOS)NSPhotoLibraryUsageDescription key must be present in Info.plist to use camera roll.</p>
-<p>  在info.plist添加键值对</p>
-<p>  1， Privacy - Camera Usage Description  使用相册<br>  2， Privacy - Photo Library Usage Description 使用相机</p>
-</li>
-<li><p>(Android)Error: /path/to/file: open failed: ENOENT (No such file or directory)<br>  Android上出现bug，还没有解决，待续…</p>
-</li>
-</ul>
-<h3 id="新技能GET"><a href="#新技能GET" class="headerlink" title="新技能GET"></a>新技能GET</h3><p>＊ onPress 事件在<image>中失效，如果给<image>加onPress事件，需要用<touchableopacity>包裹</touchableopacity></image></image></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&lt;TouchableOpacity onPress=&#123;()=&gt;alert(1)&#125;&gt;</div><div class="line">	&lt;Image /&gt;</div><div class="line">&lt;/TouchableOpacity&gt;</div></pre></td></tr></table></figure>
-<h3 id="结束"><a href="#结束" class="headerlink" title="结束"></a>结束</h3><pre><code>：）～
-</code></pre>]]></content>
-    
-    <summary type="html">
-    
-      &lt;pre&gt;&lt;code&gt;CameraRoll模块提供了访问本地相册的功能。
-&lt;/code&gt;&lt;/pre&gt;
-    
-    </summary>
-    
-      <category term="React-Native" scheme="http://www.nealma.com/categories/React-Native/"/>
-    
-    
-      <category term="React-Native" scheme="http://www.nealma.com/tags/React-Native/"/>
-    
-      <category term="RN" scheme="http://www.nealma.com/tags/RN/"/>
-    
-      <category term="CameraRoll" scheme="http://www.nealma.com/tags/CameraRoll/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>React Native (五) ListView 组件</title>
-    <link href="http://www.nealma.com/2016/07/28/react-native-5-listview/"/>
-    <id>http://www.nealma.com/2016/07/28/react-native-5-listview/</id>
-    <published>2016-07-28T04:46:45.000Z</published>
-    <updated>2016-11-17T01:58:44.000Z</updated>
-    
-    <content type="html"><![CDATA[<pre><code>ListView组件是每个App都用到的核心组件，RN当然也不能少。
-</code></pre><a id="more"></a>
-<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><pre><code>ListView组件是每个App都用到的核心组件，RN当然也不能少。
-</code></pre><p><img src="/images/listview.gif" alt=""></p>
-<pre><code>开发环境：
-OS: Mac 10.11.6
-Xcode: Version 8.0 (8A218a)
-</code></pre><h3 id="核心配置介绍"><a href="#核心配置介绍" class="headerlink" title="核心配置介绍"></a>核心配置介绍</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">...</div><div class="line">constructor(props) &#123;</div><div class="line">    super(props);</div><div class="line">    const ds = new ListView.DataSource(&#123;</div><div class="line">        rowHasChanged: (r1, r2) =&gt; r1 !== r2, //1, 对变化的行渲染</div><div class="line">        sectionHeaderHasChanged : (s1, s2) =&gt; s1 !== s2 //2, 分组头部信息变更</div><div class="line">    &#125;);</div><div class="line">    let rowData = Array.from(new Array(10)).map((val, i) =&gt; (&#123;title: &apos;初始化数据 &apos; + i&#125;));</div><div class="line">    this.state = &#123;</div><div class="line">        dataSource: ds.cloneWithRows(rowData),</div><div class="line">        data: rowData,</div><div class="line">        isLoaded: false,</div><div class="line">        isRefreshing: false</div><div class="line">    &#125;;</div><div class="line">&#125;</div><div class="line"></div><div class="line">render() &#123;</div><div class="line">    if (!this.state.isLoaded) &#123;//3, loading</div><div class="line">        return &lt;Loading/&gt;;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    return (</div><div class="line">        &lt;ListView</div><div class="line">            style=&#123;styles.container&#125;</div><div class="line">            dataSource=&#123;this.state.dataSource&#125;/* 要渲染的数据源，类型是数组 */</div><div class="line">            renderRow=&#123;(rowData) =&gt; this._renderRowView(rowData, this._onPress)&#125;</div><div class="line">            onEndReached=&#123;this._handleLoadMore.bind(this)&#125; /* 滑动偏移量 &gt; onEndReachedThreshold的像素值时，触发 */</div><div class="line">            onEndReachedThreshold=&#123;5&#125; /* 调用onEndReached之前的临界值，单位是像素 */</div><div class="line">            initialListSize=&#123;8&#125; /* 初始值 */</div><div class="line">            pageSize=&#123;8&#125;/* 每次事件循环（每帧）渲染的行数 */</div><div class="line">            renderHeader=&#123; this._renderHeader.bind(this)&#125;</div><div class="line">            renderFooter=&#123;this._renderFooter.bind(this)&#125;</div><div class="line">            renderSectionHeader=&#123;this._renderSectionHeader.bind(this)&#125;</div><div class="line">            refreshControl=&#123;</div><div class="line">                &lt;RefreshControl // 下拉刷新</div><div class="line">                    refreshing=&#123;this.state.isRefreshing&#125;</div><div class="line">                    onRefresh=&#123;this._onRefresh.bind(this)&#125;/* 下拉刷新时，触发此事件*/</div><div class="line">                    title=&#123;this.state.isRefreshing? &apos;刷新中....&apos;:&apos;下拉刷新&apos;&#125;</div><div class="line">                    colors=&#123;[&apos;#fb96cf&apos;, &apos;#fb96cf&apos;,&apos;#fb96cf&apos;,&apos;#fb96cf&apos;]&#125;</div><div class="line">                    tintColor=&apos;#fb96cf&apos;</div><div class="line">                    progressBackgroundColor=&quot;#fb96cf&quot;</div><div class="line">                /&gt;</div><div class="line">            &#125;</div><div class="line">        /&gt;</div><div class="line">    );</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h3 id="添加loading状态"><a href="#添加loading状态" class="headerlink" title="添加loading状态"></a>添加loading状态</h3><pre><code>获取网络数据，必然会消耗时间。在等待的过程中，为了给用户很好的提示，我们都会添加loading图标，
-如果什么都没有，让用户傻傻的干等，用户也不会对你的app有好的印象
-</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">class Loading extends Component &#123;</div><div class="line">    render()&#123;</div><div class="line">        return (</div><div class="line">            &lt;View style=&#123;styles.container&#125;&gt;</div><div class="line">                &lt;View style=&#123;styles.loading&#125;&gt;</div><div class="line">                    &lt;ActivityIndicator</div><div class="line">                        size=&apos;large&apos;</div><div class="line">                        color=&apos;#eabb33&apos;/&gt;</div><div class="line">                &lt;/View&gt;</div><div class="line">            &lt;/View&gt;</div><div class="line">        );</div><div class="line">    &#125;;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h3 id="列表中Item的onPress事件"><a href="#列表中Item的onPress事件" class="headerlink" title="列表中Item的onPress事件"></a>列表中Item的onPress事件</h3><pre><code>因为this的变更问题，_renderRowView做如下修改，onPress作为传递的处理函数
-这里如果你用this._onPress, 会抛出异常，就是this已经不是原来的this了，
-但是onPress还是原来的onPress。
-</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">_renderRowView(rowData, onPress) &#123;</div><div class="line">    return (</div><div class="line">        &lt;TouchableOpacity</div><div class="line">            underlayColor=&apos;#484848&apos;</div><div class="line">            onPress=&#123;(rowData) =&gt; onPress(rowData)&#125;&gt;</div><div class="line">            &lt;View style=&#123;styles.row&#125;&gt;</div><div class="line">                &lt;View style=&#123;&#123;flex: 1, backgroundColor: &apos;#c8c7cc&apos;&#125;&#125;/&gt;</div><div class="line">                &lt;View style=&#123;&#123;flex: 20, backgroundColor: &apos;#EFE&apos;,justifyContent: &apos;center&apos;, alignItems: &apos;center&apos; &#125;&#125;&gt;</div><div class="line">                    &lt;Text style=&#123;&#123;</div><div class="line">                        borderColor: &apos;#d1d1d1&apos;,</div><div class="line">                        borderWidth: 2,</div><div class="line">                        borderRadius: 5 &#125;&#125;&gt;&#123;rowData.title&#125;&lt;/Text&gt;</div><div class="line">                &lt;/View&gt;</div><div class="line">            &lt;/View&gt;</div><div class="line">        &lt;/TouchableOpacity&gt;</div><div class="line">    );</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h3 id="下拉刷新"><a href="#下拉刷新" class="headerlink" title="下拉刷新"></a>下拉刷新</h3><pre><code>需要用RefreshControl组件，通过isRefreshing改变 正在刷新(true)、刷新完成(false),
-onRefresh触发该事件，进入onRefresh时，设置isRefreshing=true,处理完成onRefresh时，设置isRefreshing=false
-</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">_onRefresh() &#123;</div><div class="line">    // 刷新</div><div class="line">    this.setState(&#123;isRefreshing: true&#125;);</div><div class="line">    console.log(&apos;refresh&apos;, this.state.data);</div><div class="line">    setTimeout(() =&gt; &#123;</div><div class="line">        this._onFetch(false);</div><div class="line">        this.setState(&#123;isRefreshing: false&#125;);</div><div class="line">    &#125;,2000);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h3 id="Load-More-指示器"><a href="#Load-More-指示器" class="headerlink" title="Load More 指示器"></a>Load More 指示器</h3><pre><code>ListView可以使用renderFooter属性实现加载更多指示器，这里只用简单的文字实现，更多的效果请自行玩耍
-</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line">...</div><div class="line">_renderFooter()&#123;</div><div class="line">    return(</div><div class="line">        &lt;Footer /&gt;</div><div class="line">    );</div><div class="line">&#125;</div><div class="line">...</div><div class="line"></div><div class="line">class Footer extends Component &#123;</div><div class="line">    render()&#123;</div><div class="line">        return(</div><div class="line">            &lt;StaticContainer&gt;</div><div class="line">                &lt;View style=&#123;&#123; flex:1, flexDirection: &apos;row&apos;, justifyContent: &apos;space-between&apos;,</div><div class="line">                    alignItems: &apos;center&apos;, height:50, backgroundColor:&apos;#fb96cf&apos;&#125;&#125;&gt;</div><div class="line">                    &lt;Text&gt;&lt;/Text&gt;</div><div class="line">                    &lt;Text&gt;加载更多&lt;/Text&gt;</div><div class="line">                    &lt;Text&gt;&lt;/Text&gt;</div><div class="line">                &lt;/View&gt;</div><div class="line">            &lt;/StaticContainer&gt;</div><div class="line">        );</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h3 id="有关显示隐藏"><a href="#有关显示隐藏" class="headerlink" title="有关显示隐藏"></a>有关显示隐藏</h3><pre><code>RN中没有display:none可用，可以换一种方式实现
-</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">isHidden?&lt;View/&gt;:null</div></pre></td></tr></table></figure>
-<h3 id="结束"><a href="#结束" class="headerlink" title="结束"></a>结束</h3><pre><code>这里用到了StaticContainer，据说性能好，没有具体看呢？了解的同学可以给我留言
-：）～
-</code></pre>]]></content>
-    
-    <summary type="html">
-    
-      &lt;pre&gt;&lt;code&gt;ListView组件是每个App都用到的核心组件，RN当然也不能少。
-&lt;/code&gt;&lt;/pre&gt;
-    
-    </summary>
-    
-      <category term="React-Native" scheme="http://www.nealma.com/categories/React-Native/"/>
-    
-    
-      <category term="React-Native" scheme="http://www.nealma.com/tags/React-Native/"/>
-    
-      <category term="RN" scheme="http://www.nealma.com/tags/RN/"/>
-    
-      <category term="Listview" scheme="http://www.nealma.com/tags/Listview/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>React Native (四) react-native-side-menu组件</title>
-    <link href="http://www.nealma.com/2016/07/28/react-native-4-sidemenu/"/>
-    <id>http://www.nealma.com/2016/07/28/react-native-4-sidemenu/</id>
-    <published>2016-07-28T03:46:45.000Z</published>
-    <updated>2016-11-17T01:58:57.000Z</updated>
-    
-    <content type="html"><![CDATA[<pre><code>侧滑菜单在实际工作中，很常见，是比较流行的一种设计，
-RN怎会没有呢。一开始接触RN，总是乐于社区的活跃，你需要什么，大都会能找到
-现成，最初使用了react-native-jelly-side-menu，但是在安卓上死活run不起来，
-后来辗转到了react-native-side-menu,可以很好的在iOS、Android中玩耍。
-</code></pre><a id="more"></a>
-<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><pre><code>侧滑菜单在实际工作中，很常见，是比较流行的一种设计，
-RN怎会没有呢。一开始接触RN，总是乐于社区的活跃，你需要什么，大都会能找到
-现成，最初使用了react-native-jelly-side-menu，但是在安卓上死活run不起来，
-后来辗转到了react-native-side-menu,可以很好的在iOS、Android中玩耍。
-</code></pre><p><img src="/images/sidemenu.gif" alt=""></p>
-<p>开发环境<br>OS: Mac 10.11.6<br>Xcode: Version 8.0 (8A218a)</p>
-<h3 id="react-native-jelly-side-menu-爱恨"><a href="#react-native-jelly-side-menu-爱恨" class="headerlink" title="react-native-jelly-side-menu 爱恨"></a>react-native-jelly-side-menu 爱恨</h3><pre><code>jelly的动画很吸引我，就用了
-</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line">import JellySideMenu from &apos;react-native-jelly-side-menu&apos;;</div><div class="line"></div><div class="line">...</div><div class="line"></div><div class="line">#render</div><div class="line"></div><div class="line">render() &#123;</div><div class="line">        return (</div><div class="line">            &lt;View style=&#123;&#123;flex: 1, backgroundColor: &apos;#FF6644&apos;&#125;&#125;&gt;</div><div class="line">                &lt;JellySideMenu</div><div class="line">                    ref=&#123;(view) =&gt; &#123;this.jsm = view&#125;&#125;</div><div class="line">                    fill=&#123;&quot;#FFF&quot;&#125; fillOpacity=&#123;1.0&#125;</div><div class="line">                    renderMenu=&#123;this.renderMenu&#125;&gt;</div><div class="line">                    &lt;TouchableOpacity onPress=&#123;() =&gt; &#123;this.jsm.toggleSideMenu(true)&#125;&#125;&gt;</div><div class="line">	                    &lt;Icon name=&quot;navicon&quot; size=&#123;30&#125; color=&quot;#4F8EF7&quot; style=&#123;&#123;marginTop: 20, marginLeft: 20&#125;&#125;/&gt;  //1</div><div class="line">	                &lt;/TouchableOpacity&gt;</div><div class="line">                &lt;/JellySideMenu&gt;</div><div class="line"></div><div class="line">                &lt;TouchableOpacity onPress=&#123;() =&gt; &#123;this.jsm.toggleSideMenu(true)&#125;&#125;&gt;</div><div class="line">                    &lt;Icon name=&quot;navicon&quot; size=&#123;30&#125; color=&quot;#4F8EF7&quot; style=&#123;&#123;marginTop: 20, marginLeft: 20&#125;&#125;/&gt;  //2</div><div class="line">                &lt;/TouchableOpacity&gt;</div><div class="line">            &lt;/View&gt;</div><div class="line">        )</div><div class="line">    &#125;</div></pre></td></tr></table></figure>
-<pre><code>如果按照官方的demo，即代码1处，当滑出左侧菜单，关闭，再次点击1处的button，此时事件失效。
-你可以把open menu放在2处，可以很好的工作。
-</code></pre><h3 id="追加1-换回官方的react-native-side-menu"><a href="#追加1-换回官方的react-native-side-menu" class="headerlink" title="追加1: 换回官方的react-native-side-menu"></a>追加1: 换回官方的react-native-side-menu</h3><pre><code>因为在android上运行的时候，报错了，联系作者没反应，自己短时间内无从下手，只好换了。
-</code></pre><h3 id="react-native-side-menu-简单使用"><a href="#react-native-side-menu-简单使用" class="headerlink" title="react-native-side-menu 简单使用"></a>react-native-side-menu 简单使用</h3><pre><code>给出一个简单的例子
-</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div></pre></td><td class="code"><pre><div class="line">export  default  class Main extends Component &#123;</div><div class="line">    constructor(props) &#123;</div><div class="line">        super(props);</div><div class="line">        this.state = &#123;&#125;;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    updateMenuState(isOpen) &#123;</div><div class="line">        this.setState(&#123; isOpen, &#125;);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    onMenuItemSelected = (item) =&gt; &#123;</div><div class="line">        //TODO：单击菜单的后续动作, 跳转到相应的页面</div><div class="line">        alert(&quot;单击 &quot; + item);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    render() &#123;</div><div class="line">        const menu = &lt;LeftView onItemSelected=&#123;this.onMenuItemSelected&#125; /&gt;;</div><div class="line">        return (</div><div class="line">            &lt;SideMenu</div><div class="line">                menu=&#123;menu&#125; /* 设置左侧页面(菜单) */</div><div class="line">                isOpen=&#123;this.state.isOpen&#125;/* 状态控制: true 打开，false 关闭*/</div><div class="line">                onChange=&#123;(isOpen) =&gt; this.updateMenuState(isOpen)&#125;&gt;</div><div class="line">                &lt;ContentView /&gt;</div><div class="line">            &lt;/SideMenu&gt;</div><div class="line">        );</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">class ContentView extends Component &#123;</div><div class="line">    render() &#123;</div><div class="line">        return (</div><div class="line">            &lt;View style=&#123;styles.page&#125;&gt;&lt;Text style=&#123;styles.pageContent&#125;&gt;Content&lt;/Text&gt;&lt;/View&gt;</div><div class="line">        );</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">class LeftView extends Component &#123;</div><div class="line"></div><div class="line">    static propTypes = &#123;</div><div class="line">        onItemSelected: React.PropTypes.func.isRequired,</div><div class="line">    &#125;;</div><div class="line"></div><div class="line">    constructor(props) &#123;</div><div class="line">        super(props);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    render() &#123;</div><div class="line">        return (</div><div class="line">            &lt;ScrollView scrollsToTop=&#123;true&#125; style=&#123;styles.menu&#125;&gt;</div><div class="line">                &lt;Text</div><div class="line">                    onPress=&#123;() =&gt; this.props.onItemSelected(&apos;first&apos;)&#125;</div><div class="line">                    style=&#123;styles.item&#125;&gt;</div><div class="line">                    First</div><div class="line">                &lt;/Text&gt;</div><div class="line"></div><div class="line">                &lt;Text</div><div class="line">                    onPress=&#123;() =&gt; this.props.onItemSelected(&apos;second&apos;)&#125;</div><div class="line">                    style=&#123;styles.item&#125;&gt;</div><div class="line">                    Second</div><div class="line">                &lt;/Text&gt;</div><div class="line"></div><div class="line">                &lt;Text</div><div class="line">                    onPress=&#123;() =&gt; this.props.onItemSelected(&apos;third&apos;)&#125;</div><div class="line">                    style=&#123;styles.item&#125;&gt;</div><div class="line">                    Third</div><div class="line">                &lt;/Text&gt;</div><div class="line">            &lt;/ScrollView&gt;</div><div class="line">        );</div><div class="line">    &#125;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
-<pre><code>在使用过程中，比较费解的是onMenuItemSelected, 该函数在LeftView中进行声明并指定类型为function，
-并没有实现，而是留给引用者去实现具体业务， 也就是TODO的位置。
-</code></pre><h3 id="结束"><a href="#结束" class="headerlink" title="结束"></a>结束</h3><pre><code>menu的导航需要Navigator组件配置使用，后面会做个结合使用的例子。
-
-：）～
-</code></pre>]]></content>
-    
-    <summary type="html">
-    
-      &lt;pre&gt;&lt;code&gt;侧滑菜单在实际工作中，很常见，是比较流行的一种设计，
-RN怎会没有呢。一开始接触RN，总是乐于社区的活跃，你需要什么，大都会能找到
-现成，最初使用了react-native-jelly-side-menu，但是在安卓上死活run不起来，
-后来辗转到了react-native-side-menu,可以很好的在iOS、Android中玩耍。
-&lt;/code&gt;&lt;/pre&gt;
-    
-    </summary>
-    
-      <category term="React-Native" scheme="http://www.nealma.com/categories/React-Native/"/>
-    
-    
-      <category term="React-Native" scheme="http://www.nealma.com/tags/React-Native/"/>
-    
-      <category term="RN" scheme="http://www.nealma.com/tags/RN/"/>
-    
-      <category term="Slide Menu" scheme="http://www.nealma.com/tags/Slide-Menu/"/>
     
   </entry>
   
