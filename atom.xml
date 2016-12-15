@@ -57,37 +57,97 @@
     <link href="http://www.nealma.com/2016/12/12/work-problem-3/"/>
     <id>http://www.nealma.com/2016/12/12/work-problem-3/</id>
     <published>2016-12-12T02:46:45.000Z</published>
-    <updated>2016-12-13T01:28:10.000Z</updated>
+    <updated>2016-12-15T03:36:10.000Z</updated>
+    
+    <content type="html"><![CDATA[<pre><code>微信获取用户信息和微信H5支付
+</code></pre><a id="more"></a>
+<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><pre><code>微信获取用户、ticket信息和微信H5支付
+</code></pre><h3 id="微信获取ticket信息"><a href="#微信获取ticket信息" class="headerlink" title="微信获取ticket信息"></a>微信获取ticket信息</h3><ul>
+<li><p>获取access_token</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&amp;appid=appid&amp;secret=appsecret</div></pre></td></tr></table></figure>
+<p>  返回值</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">    &quot;access_token&quot;: &quot;xxxxx&quot;,</div><div class="line">    &quot;expires_in&quot;: 7200</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+<li><p>获取jsapi_ticket</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">http://api.weixin.qq.com/cgi-bin/ticket/getticket?type=jsapi&amp;access_token=xxxxxx</div></pre></td></tr></table></figure>
+<p>  返回值</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">    &quot;errcode&quot;: 0,</div><div class="line">    &quot;errmsg&quot;: &quot;ok&quot;,</div><div class="line">    &quot;ticket&quot;: &quot;sM4AOVdWfPE4DxkXGEs8VDd_c-Q_htialcX-c6Dxm8PROfcj2rA58GClUKytzCXuUGbwQLPTgdG0dPciNIv70A&quot;,</div><div class="line">    &quot;expires_in&quot;: 7200</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="微信H5支付流程"><a href="#微信H5支付流程" class="headerlink" title="微信H5支付流程"></a>微信H5支付流程</h3><ul>
+<li>获取code</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">https://open.weixin.qq.com/connect/oauth2/authorize?appid=xxx&amp;redirect_uri=http://test.ruitaowang.com/test&amp;response_type=code&amp;scope=snsapi_base</div><div class="line"></div><div class="line">https://open.weixin.qq.com/connect/oauth2/authorize?appid=xxx&amp;redirect_uri=http://test.ruitaowang.com/wap/index&amp;response_type=code&amp;scope=snsapi_base</div><div class="line"></div><div class="line"># SCOPE : snsapi_base ,  snsapi_userinfo</div><div class="line"></div><div class="line">#返回值：</div><div class="line"></div><div class="line">http://test.ruitaowang.com/test?code=041JgA1q0382ir1Z0p0q0OZh1q0JgA1F&amp;state=</div></pre></td></tr></table></figure>
+<ul>
+<li>获取openid<br>获取code后，请求以下链接获取access_token：</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line">https://api.weixin.qq.com/sns/oauth2/access_token?appid=xxx&amp;secret=xxx&amp;code=021IDZDZ1PpbNX0vkHFZ1GqpEZ1IDZD3&amp;grant_type=authorization_code</div><div class="line"></div><div class="line">#返回值：</div><div class="line">&#123;</div><div class="line">	&quot;access_token&quot;:&quot;xxx&quot;,</div><div class="line">	&quot;expires_in&quot;:7200,</div><div class="line">	&quot;refresh_token&quot;:&quot;xxxx&quot;,</div><div class="line">	&quot;openid&quot;:&quot;xxx&quot;,</div><div class="line">	&quot;scope&quot;:&quot;snsapi_base&quot;</div><div class="line">&#125;</div><div class="line"></div><div class="line">#如果获取code的时候，scope=snsapi_userinfo,这种是需要用户登陆确认的，此处返回的值相应的多一些</div><div class="line"> &#123;</div><div class="line">	 &quot;access_token&quot;:&quot;xxxx&quot;,</div><div class="line">	 &quot;expires_in&quot;:7200,</div><div class="line">	 &quot;refresh_token&quot;:&quot;xxxx&quot;,</div><div class="line">	 &quot;openid&quot;:&quot;xxxx&quot;,</div><div class="line">	 &quot;scope&quot;:&quot;snsapi_userinfo&quot;,</div><div class="line">	 &quot;unionid&quot;:&quot;xxx&quot;</div><div class="line"> &#125;</div></pre></td></tr></table></figure>
+<ul>
+<li><p>拉取用户信息(需scope为 snsapi_userinfo)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">#http：GET（请使用https协议）</div><div class="line">#https://api.weixin.qq.com/sns/userinfo?access_token=EHtVZcvhD6x475HJ2ukUc0u3BqiMdjJ2gc9x-j2fil4i63M-aS9qHVmcHxVw19tLdalzo8VjxIJzMyuIJKIiis1h2JoZmy5wRp9IWwiHxRab3cDu-SxQHSm10h47bHyVRKYeAEALES&amp;openid=OPENID&amp;lang=zh_CN</div><div class="line"></div><div class="line">#返回值</div><div class="line"></div><div class="line">&#123;</div><div class="line">	&quot;openid&quot;:&quot;xxxx&quot;,</div><div class="line">	&quot;nickname&quot;:&quot;neal&quot;,</div><div class="line">	&quot;sex&quot;:1,</div><div class="line">	&quot;language&quot;:&quot;zh_CN&quot;,</div><div class="line">	&quot;city&quot;:&quot;朝阳&quot;,</div><div class="line">	&quot;province&quot;:&quot;北京&quot;,</div><div class="line">	&quot;country&quot;:&quot;中国&quot;,</div><div class="line">	&quot;headimgurl&quot;:&quot;http:\/\/wx.qlogo.cn\/mmopen\/Aqtvh6YDJ6TZnQs24nyymaKibaYMqLlj6X4zvQQwL0icn2GOUAPxPrx6iaePr30syO9zQsibKLCb8WIuLS0H879caA\/0&quot;,</div><div class="line">	&quot;privilege&quot;:[],</div><div class="line">	&quot;unionid&quot;:&quot;xxxx&quot;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+<li><p>统一下单接口,获取prepay_id</p>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line">http://api.weixin.qq.com/cgi-bin/ticket/getticket?type=jsapi&amp;access_token=EHtVZcvhD6x475HJ2ukUc0u3BqiMdjJ2gc9x-j2fil4i63M-aS9qHVmcHxVw19tLdalzo8VjxIJzMyuIJKIiis1h2JoZmy5wRp9IWwiHxRab3cDu-SxQHSm10h47bHyVRKYeAEALES</div><div class="line"></div><div class="line">＃https://pay.weixin.qq.com/wiki/doc/api/jsapi.php?chapter=9_1</div><div class="line"></div><div class="line">＃这里在服务端接口返回值中文会出现乱码，主要是body字段。也是坑了我好长的时间，因为我在本地开发的时候都正常，</div><div class="line">  部署到服务器就不行了，body字段是非中文没啥问题，但是一旦是中文就会失败。一开始以为是tomcat的问题，可是server.conf已经</div><div class="line">  是utf8的了，那就是微信API的问题，考虑对传入的字符进行String编码，所有的转码都是过了，还是不幸。</div><div class="line"></div><div class="line">  到底是那里出问题了，于是检查了下服务器的系统字符设置，locale -a,</div><div class="line">  发现，有警告。</div><div class="line">  第一感觉是系统的字符设置除了问题</div><div class="line">  于是各种Google,都是说设置en_US.UTF-8,可是看到Centos7 里面都是xxx.utf8</div><div class="line">  我试着把修改vim /etc/sysconfig/i18n如下：</div><div class="line"></div><div class="line">  LANG=&quot;en_US.utf8&quot;</div><div class="line">  LC_CTYPE=&quot;en_US.utf8&quot;</div><div class="line"></div><div class="line">  source /etc/sysconfig/i18n</div><div class="line"></div><div class="line">  #这下真好了，哎人生处处是大坑啊,我填，我填，我填填填.....</div></pre></td></tr></table></figure>
+<ul>
+<li>网页端调起支付API</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div></pre></td><td class="code"><pre><div class="line">#https://pay.weixin.qq.com/wiki/doc/api/jsapi.php?chapter=7_7&amp;index=6</div><div class="line"></div><div class="line">function onBridgeReady()&#123;</div><div class="line">   WeixinJSBridge.invoke(</div><div class="line">       &apos;getBrandWCPayRequest&apos;, &#123;</div><div class="line">           &quot;appId&quot; ： &quot;xxx&quot;,     //公众号名称，由商户传入     </div><div class="line">           &quot;timeStamp&quot;：&quot; 1395712654&quot;,         //时间戳，自1970年以来的秒数     </div><div class="line">           &quot;nonceStr&quot; ： &quot;e61463f8efa94090b1f366cccfbbb444&quot;, //随机串     </div><div class="line">           &quot;package&quot; ： &quot;prepay_id=u802345jgfjsdfgsdg888&quot;,     </div><div class="line">           &quot;signType&quot; ： &quot;MD5&quot;,         //微信签名方式：     </div><div class="line">           &quot;paySign&quot; ： &quot;70EA570631E4BB79628FBCA90534C63FF7FADD89&quot; //微信签名,注意key要追加到参数尾部</div><div class="line">       &#125;,</div><div class="line">       function(res)&#123;     </div><div class="line">           if(res.err_msg == &quot;get_brand_wcpay_request：ok&quot; ) &#123;&#125;     // 使用以上方式判断前端返回,微信团队郑重提示：res.err_msg将在用户支付成功后返回    ok，但并不保证它绝对可靠。 </div><div class="line">       &#125;</div><div class="line">   ); </div><div class="line">&#125;</div><div class="line">if (typeof WeixinJSBridge == &quot;undefined&quot;)&#123;</div><div class="line">   if( document.addEventListener )&#123;</div><div class="line">       document.addEventListener(&apos;WeixinJSBridgeReady&apos;, onBridgeReady, false);</div><div class="line">   &#125;else if (document.attachEvent)&#123;</div><div class="line">       document.attachEvent(&apos;WeixinJSBridgeReady&apos;, onBridgeReady); </div><div class="line">       document.attachEvent(&apos;onWeixinJSBridgeReady&apos;, onBridgeReady);</div><div class="line">   &#125;</div><div class="line">&#125;else&#123;</div><div class="line">   onBridgeReady();</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="结束"><a href="#结束" class="headerlink" title="结束"></a>结束</h3><pre><code>在调试接口的时候，最耗费时间的是在网页端调起支付API,前前后后弄了两天，好狼狈啊！！！
+主要是折在了paySign上，看文档根本就没有key的事，可是签名的时候，
+还得在排序好的参数后架上key=xxx,然后在MD5，总算是让我可以好好睡一觉了
+
+
+ :)~
+</code></pre>]]></content>
+    
+    <summary type="html">
+    
+      &lt;pre&gt;&lt;code&gt;微信获取用户信息和微信H5支付
+&lt;/code&gt;&lt;/pre&gt;
+    
+    </summary>
+    
+      <category term="work" scheme="http://www.nealma.com/categories/work/"/>
+    
+    
+      <category term="大杂烩" scheme="http://www.nealma.com/tags/%E5%A4%A7%E6%9D%82%E7%83%A9/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>工作中遇到的问题（一） Spring MVC Restfull API</title>
+    <link href="http://www.nealma.com/2016/11/26/work-problerm-1/"/>
+    <id>http://www.nealma.com/2016/11/26/work-problerm-1/</id>
+    <published>2016-11-26T03:46:45.000Z</published>
+    <updated>2016-12-11T08:48:15.000Z</updated>
     
     <content type="html"><![CDATA[<pre><code>最近也不知道写点啥，工作任务太饱和了，遇到些小问题，做个总结
 </code></pre><a id="more"></a>
 <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><pre><code>最近也不知道写点啥，工作任务太饱和了，遇到些小问题，做个总结
-</code></pre><h3 id="微信H5支付流程"><a href="#微信H5支付流程" class="headerlink" title="微信H5支付流程"></a>微信H5支付流程</h3><ul>
-<li><p>获取access_token</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&amp;appid=appid&amp;secret=appsecret</div></pre></td></tr></table></figure>
-<p>  返回值</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">    &quot;access_token&quot;: &quot;Mp8BGP0ETncH_ISzaNTZkNDN7C_ax4iFJUPfp5q0Z5Vu54wuVh3WPXkzo1p9EKII0h_eowe8ZWwsaBqhEX3VLlYdlRaAodeqRMixfv5sVVs7xEPkGZrvBKUCXMyFZAXOJEJbAIAPKP&quot;,</div><div class="line">    &quot;expires_in&quot;: 7200</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-</li>
-<li><p>获取jsapi_ticket</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">http://api.weixin.qq.com/cgi-bin/ticket/getticket?type=jsapi&amp;access_token=EHtVZcvhD6x475HJ2ukUc0u3BqiMdjJ2gc9x-j2fil4i63M-aS9qHVmcHxVw19tLdalzo8VjxIJzMyuIJKIiis1h2JoZmy5wRp9IWwiHxRab3cDu-SxQHSm10h47bHyVRKYeAEALES</div></pre></td></tr></table></figure>
-<p>  返回值</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">    &quot;errcode&quot;: 0,</div><div class="line">    &quot;errmsg&quot;: &quot;ok&quot;,</div><div class="line">    &quot;ticket&quot;: &quot;sM4AOVdWfPE4DxkXGEs8VDd_c-Q_htialcX-c6Dxm8PROfcj2rA58GClUKytzCXuUGbwQLPTgdG0dPciNIv70A&quot;,</div><div class="line">    &quot;expires_in&quot;: 7200</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-</li>
-<li><p>获取openid</p>
-</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">https://open.weixin.qq.com/connect/oauth2/authorize?appid=APPID&amp;redirect_uri=REDIRECT_URI&amp;response_type=code&amp;scope=SCOPE&amp;state=STATE#wechat_redirect</div></pre></td></tr></table></figure>
-<ul>
-<li>统一下单接口,获取prepay_id</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">http://api.weixin.qq.com/cgi-bin/ticket/getticket?type=jsapi&amp;access_token=EHtVZcvhD6x475HJ2ukUc0u3BqiMdjJ2gc9x-j2fil4i63M-aS9qHVmcHxVw19tLdalzo8VjxIJzMyuIJKIiis1h2JoZmy5wRp9IWwiHxRab3cDu-SxQHSm10h47bHyVRKYeAEALES</div><div class="line"></div><div class="line">＃https://pay.weixin.qq.com/wiki/doc/api/jsapi.php?chapter=9_1</div></pre></td></tr></table></figure>
-<ul>
-<li>网页端调起支付API</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div></pre></td><td class="code"><pre><div class="line">#https://pay.weixin.qq.com/wiki/doc/api/jsapi.php?chapter=7_7&amp;index=6</div><div class="line"></div><div class="line">function onBridgeReady()&#123;</div><div class="line">   WeixinJSBridge.invoke(</div><div class="line">       &apos;getBrandWCPayRequest&apos;, &#123;</div><div class="line">           &quot;appId&quot; ： &quot;wx2421b1c4370ec43b&quot;,     //公众号名称，由商户传入     </div><div class="line">           &quot;timeStamp&quot;：&quot; 1395712654&quot;,         //时间戳，自1970年以来的秒数     </div><div class="line">           &quot;nonceStr&quot; ： &quot;e61463f8efa94090b1f366cccfbbb444&quot;, //随机串     </div><div class="line">           &quot;package&quot; ： &quot;prepay_id=u802345jgfjsdfgsdg888&quot;,     </div><div class="line">           &quot;signType&quot; ： &quot;MD5&quot;,         //微信签名方式：     </div><div class="line">           &quot;paySign&quot; ： &quot;70EA570631E4BB79628FBCA90534C63FF7FADD89&quot; //微信签名 </div><div class="line">       &#125;,</div><div class="line">       function(res)&#123;     </div><div class="line">           if(res.err_msg == &quot;get_brand_wcpay_request：ok&quot; ) &#123;&#125;     // 使用以上方式判断前端返回,微信团队郑重提示：res.err_msg将在用户支付成功后返回    ok，但并不保证它绝对可靠。 </div><div class="line">       &#125;</div><div class="line">   ); </div><div class="line">&#125;</div><div class="line">if (typeof WeixinJSBridge == &quot;undefined&quot;)&#123;</div><div class="line">   if( document.addEventListener )&#123;</div><div class="line">       document.addEventListener(&apos;WeixinJSBridgeReady&apos;, onBridgeReady, false);</div><div class="line">   &#125;else if (document.attachEvent)&#123;</div><div class="line">       document.attachEvent(&apos;WeixinJSBridgeReady&apos;, onBridgeReady); </div><div class="line">       document.attachEvent(&apos;onWeixinJSBridgeReady&apos;, onBridgeReady);</div><div class="line">   &#125;</div><div class="line">&#125;else&#123;</div><div class="line">   onBridgeReady();</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h3 id="结束"><a href="#结束" class="headerlink" title="结束"></a>结束</h3><pre><code>在调试接口的时候，最耗费时间的是在网页端调起支付API,前前后后弄了两天，好狼狈啊！！！
-主要是折在了paySign上，看文档根本就没有key的事，可是签名的时候，
-还得在排序好的参数后架上key=xxx,然后在MD5，总算是让我可以好好睡一觉了
+</code></pre><h3 id="MyBatis整型的问题"><a href="#MyBatis整型的问题" class="headerlink" title="MyBatis整型的问题"></a>MyBatis整型的问题</h3><pre><code>再一次工作中，一个实体的成员变量是整数型，我传递了0给mapper，奇怪的事情发生了。
+mapper总是认为这个变量为null。前前后后花了好长时间，最后还是Google的结果。看来遇到问题不能
+自己去一步一步去深挖，还得借助Google啊（不知道是不适合所有）。
+
+原来MyBatis对于整型类型如果值为0，会当做null来处理。（不知道作者是出于什么原因）
+
+解决办法：
+
+加强判断
+</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;if test=&quot;categoryName != null and categoryName != &apos;&apos; or categoryName == 0&quot;&gt;</div></pre></td></tr></table></figure>
+<h3 id="Spring-MVC的问题"><a href="#Spring-MVC的问题" class="headerlink" title="Spring MVC的问题"></a>Spring MVC的问题</h3><p>spring mvc put方法请求，ajax必须指定dataType: “json”<br>    在设计Restful接口的时候，其中Controller里面的PUT方法，前台html中使用ajax提交表单,很正常不过。<br>    可是在后台始终得不到</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">$.ajax(</div><div class="line">	&#123;</div><div class="line">	    url: API,</div><div class="line">	    type: &quot;PUT&quot;,</div><div class="line">	    data: &#123;k : v&#125;,</div><div class="line">	    async: false,</div><div class="line">	    success: function (data, textStatus, jqXHR) &#123;</div><div class="line">	        //TODO:</div><div class="line">	    &#125;,</div><div class="line">	    error: function (jqXHR, textStatus, errorThrown) &#123;</div><div class="line">	    	//TODO:</div><div class="line">	    &#125;</div><div class="line">	&#125;);</div></pre></td></tr></table></figure>
+<pre><code>抓取request的header，如下：
+</code></pre><p><img src="/images/put-method.png" alt=""></p>
+<pre><code>给ajax加入如下dataType参数，值为“json”，这样问题解决了，Controller成功的获得了参数。
+We did it。
+</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">$.ajax(</div><div class="line">	&#123;</div><div class="line">	    url: API,</div><div class="line">	    type: &quot;PUT&quot;,</div><div class="line">	    data: &#123;k : v&#125;,</div><div class="line">	    dataType: &quot;json&quot;,</div><div class="line">	    async: false,</div><div class="line">	    success: function (data, textStatus, jqXHR) &#123;</div><div class="line">	        //TODO:</div><div class="line">	    &#125;,</div><div class="line">	    error: function (jqXHR, textStatus, errorThrown) &#123;</div><div class="line">	    	//TODO:</div><div class="line">	    &#125;</div><div class="line">	&#125;);</div></pre></td></tr></table></figure>
+<pre><code>抓取request的header，如下：
+</code></pre><p><img src="/images/put-method-json.png" alt=""></p>
+<pre><code>从两处标记可以看出，Accept的两次值不一样；Accept的值直接影响Controller的consumes,
+Spring会根据Accept来对Request的参数做相应的处理。
+</code></pre><h3 id="结束"><a href="#结束" class="headerlink" title="结束"></a>结束</h3><pre><code>还会陆续遇到各种坑，慢慢填吧...
  :)~
 </code></pre>]]></content>
     
@@ -135,55 +195,6 @@
 </ul>
 <p>…</p>
 <h3 id="结束"><a href="#结束" class="headerlink" title="结束"></a>结束</h3><pre><code>夜长长，路漫漫...
- :)~
-</code></pre>]]></content>
-    
-    <summary type="html">
-    
-      &lt;pre&gt;&lt;code&gt;最近也不知道写点啥，工作任务太饱和了，遇到些小问题，做个总结
-&lt;/code&gt;&lt;/pre&gt;
-    
-    </summary>
-    
-      <category term="work" scheme="http://www.nealma.com/categories/work/"/>
-    
-    
-      <category term="大杂烩" scheme="http://www.nealma.com/tags/%E5%A4%A7%E6%9D%82%E7%83%A9/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>工作中遇到的问题（一） Spring MVC Restfull API</title>
-    <link href="http://www.nealma.com/2016/11/26/work-problerm-1/"/>
-    <id>http://www.nealma.com/2016/11/26/work-problerm-1/</id>
-    <published>2016-11-26T03:46:45.000Z</published>
-    <updated>2016-12-11T08:48:15.000Z</updated>
-    
-    <content type="html"><![CDATA[<pre><code>最近也不知道写点啥，工作任务太饱和了，遇到些小问题，做个总结
-</code></pre><a id="more"></a>
-<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><pre><code>最近也不知道写点啥，工作任务太饱和了，遇到些小问题，做个总结
-</code></pre><h3 id="MyBatis整型的问题"><a href="#MyBatis整型的问题" class="headerlink" title="MyBatis整型的问题"></a>MyBatis整型的问题</h3><pre><code>再一次工作中，一个实体的成员变量是整数型，我传递了0给mapper，奇怪的事情发生了。
-mapper总是认为这个变量为null。前前后后花了好长时间，最后还是Google的结果。看来遇到问题不能
-自己去一步一步去深挖，还得借助Google啊（不知道是不适合所有）。
-
-原来MyBatis对于整型类型如果值为0，会当做null来处理。（不知道作者是出于什么原因）
-
-解决办法：
-
-加强判断
-</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;if test=&quot;categoryName != null and categoryName != &apos;&apos; or categoryName == 0&quot;&gt;</div></pre></td></tr></table></figure>
-<h3 id="Spring-MVC的问题"><a href="#Spring-MVC的问题" class="headerlink" title="Spring MVC的问题"></a>Spring MVC的问题</h3><p>spring mvc put方法请求，ajax必须指定dataType: “json”<br>    在设计Restful接口的时候，其中Controller里面的PUT方法，前台html中使用ajax提交表单,很正常不过。<br>    可是在后台始终得不到</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">$.ajax(</div><div class="line">	&#123;</div><div class="line">	    url: API,</div><div class="line">	    type: &quot;PUT&quot;,</div><div class="line">	    data: &#123;k : v&#125;,</div><div class="line">	    async: false,</div><div class="line">	    success: function (data, textStatus, jqXHR) &#123;</div><div class="line">	        //TODO:</div><div class="line">	    &#125;,</div><div class="line">	    error: function (jqXHR, textStatus, errorThrown) &#123;</div><div class="line">	    	//TODO:</div><div class="line">	    &#125;</div><div class="line">	&#125;);</div></pre></td></tr></table></figure>
-<pre><code>抓取request的header，如下：
-</code></pre><p><img src="/images/put-method.png" alt=""></p>
-<pre><code>给ajax加入如下dataType参数，值为“json”，这样问题解决了，Controller成功的获得了参数。
-We did it。
-</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">$.ajax(</div><div class="line">	&#123;</div><div class="line">	    url: API,</div><div class="line">	    type: &quot;PUT&quot;,</div><div class="line">	    data: &#123;k : v&#125;,</div><div class="line">	    dataType: &quot;json&quot;,</div><div class="line">	    async: false,</div><div class="line">	    success: function (data, textStatus, jqXHR) &#123;</div><div class="line">	        //TODO:</div><div class="line">	    &#125;,</div><div class="line">	    error: function (jqXHR, textStatus, errorThrown) &#123;</div><div class="line">	    	//TODO:</div><div class="line">	    &#125;</div><div class="line">	&#125;);</div></pre></td></tr></table></figure>
-<pre><code>抓取request的header，如下：
-</code></pre><p><img src="/images/put-method-json.png" alt=""></p>
-<pre><code>从两处标记可以看出，Accept的两次值不一样；Accept的值直接影响Controller的consumes,
-Spring会根据Accept来对Request的参数做相应的处理。
-</code></pre><h3 id="结束"><a href="#结束" class="headerlink" title="结束"></a>结束</h3><pre><code>还会陆续遇到各种坑，慢慢填吧...
  :)~
 </code></pre>]]></content>
     

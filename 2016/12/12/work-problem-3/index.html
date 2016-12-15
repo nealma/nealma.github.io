@@ -86,16 +86,16 @@
 
 
 
-<meta name="description" content="最近也不知道写点啥，工作任务太饱和了，遇到些小问题，做个总结">
+<meta name="description" content="微信获取用户信息和微信H5支付">
 <meta property="og:type" content="article">
 <meta property="og:title" content="工作中遇到的问题 (三) 微信支付">
 <meta property="og:url" content="http://www.nealma.com/2016/12/12/work-problem-3/index.html">
 <meta property="og:site_name" content="nealma.com">
-<meta property="og:description" content="最近也不知道写点啥，工作任务太饱和了，遇到些小问题，做个总结">
-<meta property="og:updated_time" content="2016-12-13T01:28:10.000Z">
+<meta property="og:description" content="微信获取用户信息和微信H5支付">
+<meta property="og:updated_time" content="2016-12-15T03:36:10.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="工作中遇到的问题 (三) 微信支付">
-<meta name="twitter:description" content="最近也不知道写点啥，工作任务太饱和了，遇到些小问题，做个总结">
+<meta name="twitter:description" content="微信获取用户信息和微信H5支付">
 
 
 
@@ -334,35 +334,46 @@
       
 
       
-        <pre><code>最近也不知道写点啥，工作任务太饱和了，遇到些小问题，做个总结
+        <pre><code>微信获取用户信息和微信H5支付
 </code></pre><a id="more"></a>
-<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><pre><code>最近也不知道写点啥，工作任务太饱和了，遇到些小问题，做个总结
-</code></pre><h3 id="微信H5支付流程"><a href="#微信H5支付流程" class="headerlink" title="微信H5支付流程"></a>微信H5支付流程</h3><ul>
+<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><pre><code>微信获取用户、ticket信息和微信H5支付
+</code></pre><h3 id="微信获取ticket信息"><a href="#微信获取ticket信息" class="headerlink" title="微信获取ticket信息"></a>微信获取ticket信息</h3><ul>
 <li><p>获取access_token</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&amp;appid=appid&amp;secret=appsecret</div></pre></td></tr></table></figure>
 <p>  返回值</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">    &quot;access_token&quot;: &quot;Mp8BGP0ETncH_ISzaNTZkNDN7C_ax4iFJUPfp5q0Z5Vu54wuVh3WPXkzo1p9EKII0h_eowe8ZWwsaBqhEX3VLlYdlRaAodeqRMixfv5sVVs7xEPkGZrvBKUCXMyFZAXOJEJbAIAPKP&quot;,</div><div class="line">    &quot;expires_in&quot;: 7200</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">    &quot;access_token&quot;: &quot;xxxxx&quot;,</div><div class="line">    &quot;expires_in&quot;: 7200</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 </li>
 <li><p>获取jsapi_ticket</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">http://api.weixin.qq.com/cgi-bin/ticket/getticket?type=jsapi&amp;access_token=EHtVZcvhD6x475HJ2ukUc0u3BqiMdjJ2gc9x-j2fil4i63M-aS9qHVmcHxVw19tLdalzo8VjxIJzMyuIJKIiis1h2JoZmy5wRp9IWwiHxRab3cDu-SxQHSm10h47bHyVRKYeAEALES</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">http://api.weixin.qq.com/cgi-bin/ticket/getticket?type=jsapi&amp;access_token=xxxxxx</div></pre></td></tr></table></figure>
 <p>  返回值</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">    &quot;errcode&quot;: 0,</div><div class="line">    &quot;errmsg&quot;: &quot;ok&quot;,</div><div class="line">    &quot;ticket&quot;: &quot;sM4AOVdWfPE4DxkXGEs8VDd_c-Q_htialcX-c6Dxm8PROfcj2rA58GClUKytzCXuUGbwQLPTgdG0dPciNIv70A&quot;,</div><div class="line">    &quot;expires_in&quot;: 7200</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 </li>
-<li><p>获取openid</p>
+</ul>
+<h3 id="微信H5支付流程"><a href="#微信H5支付流程" class="headerlink" title="微信H5支付流程"></a>微信H5支付流程</h3><ul>
+<li>获取code</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">https://open.weixin.qq.com/connect/oauth2/authorize?appid=xxx&amp;redirect_uri=http://test.ruitaowang.com/test&amp;response_type=code&amp;scope=snsapi_base</div><div class="line"></div><div class="line">https://open.weixin.qq.com/connect/oauth2/authorize?appid=xxx&amp;redirect_uri=http://test.ruitaowang.com/wap/index&amp;response_type=code&amp;scope=snsapi_base</div><div class="line"></div><div class="line"># SCOPE : snsapi_base ,  snsapi_userinfo</div><div class="line"></div><div class="line">#返回值：</div><div class="line"></div><div class="line">http://test.ruitaowang.com/test?code=041JgA1q0382ir1Z0p0q0OZh1q0JgA1F&amp;state=</div></pre></td></tr></table></figure>
+<ul>
+<li>获取openid<br>获取code后，请求以下链接获取access_token：</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line">https://api.weixin.qq.com/sns/oauth2/access_token?appid=xxx&amp;secret=xxx&amp;code=021IDZDZ1PpbNX0vkHFZ1GqpEZ1IDZD3&amp;grant_type=authorization_code</div><div class="line"></div><div class="line">#返回值：</div><div class="line">&#123;</div><div class="line">	&quot;access_token&quot;:&quot;xxx&quot;,</div><div class="line">	&quot;expires_in&quot;:7200,</div><div class="line">	&quot;refresh_token&quot;:&quot;xxxx&quot;,</div><div class="line">	&quot;openid&quot;:&quot;xxx&quot;,</div><div class="line">	&quot;scope&quot;:&quot;snsapi_base&quot;</div><div class="line">&#125;</div><div class="line"></div><div class="line">#如果获取code的时候，scope=snsapi_userinfo,这种是需要用户登陆确认的，此处返回的值相应的多一些</div><div class="line"> &#123;</div><div class="line">	 &quot;access_token&quot;:&quot;xxxx&quot;,</div><div class="line">	 &quot;expires_in&quot;:7200,</div><div class="line">	 &quot;refresh_token&quot;:&quot;xxxx&quot;,</div><div class="line">	 &quot;openid&quot;:&quot;xxxx&quot;,</div><div class="line">	 &quot;scope&quot;:&quot;snsapi_userinfo&quot;,</div><div class="line">	 &quot;unionid&quot;:&quot;xxx&quot;</div><div class="line"> &#125;</div></pre></td></tr></table></figure>
+<ul>
+<li><p>拉取用户信息(需scope为 snsapi_userinfo)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">#http：GET（请使用https协议）</div><div class="line">#https://api.weixin.qq.com/sns/userinfo?access_token=EHtVZcvhD6x475HJ2ukUc0u3BqiMdjJ2gc9x-j2fil4i63M-aS9qHVmcHxVw19tLdalzo8VjxIJzMyuIJKIiis1h2JoZmy5wRp9IWwiHxRab3cDu-SxQHSm10h47bHyVRKYeAEALES&amp;openid=OPENID&amp;lang=zh_CN</div><div class="line"></div><div class="line">#返回值</div><div class="line"></div><div class="line">&#123;</div><div class="line">	&quot;openid&quot;:&quot;xxxx&quot;,</div><div class="line">	&quot;nickname&quot;:&quot;neal&quot;,</div><div class="line">	&quot;sex&quot;:1,</div><div class="line">	&quot;language&quot;:&quot;zh_CN&quot;,</div><div class="line">	&quot;city&quot;:&quot;朝阳&quot;,</div><div class="line">	&quot;province&quot;:&quot;北京&quot;,</div><div class="line">	&quot;country&quot;:&quot;中国&quot;,</div><div class="line">	&quot;headimgurl&quot;:&quot;http:\/\/wx.qlogo.cn\/mmopen\/Aqtvh6YDJ6TZnQs24nyymaKibaYMqLlj6X4zvQQwL0icn2GOUAPxPrx6iaePr30syO9zQsibKLCb8WIuLS0H879caA\/0&quot;,</div><div class="line">	&quot;privilege&quot;:[],</div><div class="line">	&quot;unionid&quot;:&quot;xxxx&quot;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+<li><p>统一下单接口,获取prepay_id</p>
 </li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">https://open.weixin.qq.com/connect/oauth2/authorize?appid=APPID&amp;redirect_uri=REDIRECT_URI&amp;response_type=code&amp;scope=SCOPE&amp;state=STATE#wechat_redirect</div></pre></td></tr></table></figure>
-<ul>
-<li>统一下单接口,获取prepay_id</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">http://api.weixin.qq.com/cgi-bin/ticket/getticket?type=jsapi&amp;access_token=EHtVZcvhD6x475HJ2ukUc0u3BqiMdjJ2gc9x-j2fil4i63M-aS9qHVmcHxVw19tLdalzo8VjxIJzMyuIJKIiis1h2JoZmy5wRp9IWwiHxRab3cDu-SxQHSm10h47bHyVRKYeAEALES</div><div class="line"></div><div class="line">＃https://pay.weixin.qq.com/wiki/doc/api/jsapi.php?chapter=9_1</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line">http://api.weixin.qq.com/cgi-bin/ticket/getticket?type=jsapi&amp;access_token=EHtVZcvhD6x475HJ2ukUc0u3BqiMdjJ2gc9x-j2fil4i63M-aS9qHVmcHxVw19tLdalzo8VjxIJzMyuIJKIiis1h2JoZmy5wRp9IWwiHxRab3cDu-SxQHSm10h47bHyVRKYeAEALES</div><div class="line"></div><div class="line">＃https://pay.weixin.qq.com/wiki/doc/api/jsapi.php?chapter=9_1</div><div class="line"></div><div class="line">＃这里在服务端接口返回值中文会出现乱码，主要是body字段。也是坑了我好长的时间，因为我在本地开发的时候都正常，</div><div class="line">  部署到服务器就不行了，body字段是非中文没啥问题，但是一旦是中文就会失败。一开始以为是tomcat的问题，可是server.conf已经</div><div class="line">  是utf8的了，那就是微信API的问题，考虑对传入的字符进行String编码，所有的转码都是过了，还是不幸。</div><div class="line"></div><div class="line">  到底是那里出问题了，于是检查了下服务器的系统字符设置，locale -a,</div><div class="line">  发现，有警告。</div><div class="line">  第一感觉是系统的字符设置除了问题</div><div class="line">  于是各种Google,都是说设置en_US.UTF-8,可是看到Centos7 里面都是xxx.utf8</div><div class="line">  我试着把修改vim /etc/sysconfig/i18n如下：</div><div class="line"></div><div class="line">  LANG=&quot;en_US.utf8&quot;</div><div class="line">  LC_CTYPE=&quot;en_US.utf8&quot;</div><div class="line"></div><div class="line">  source /etc/sysconfig/i18n</div><div class="line"></div><div class="line">  #这下真好了，哎人生处处是大坑啊,我填，我填，我填填填.....</div></pre></td></tr></table></figure>
 <ul>
 <li>网页端调起支付API</li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div></pre></td><td class="code"><pre><div class="line">#https://pay.weixin.qq.com/wiki/doc/api/jsapi.php?chapter=7_7&amp;index=6</div><div class="line"></div><div class="line">function onBridgeReady()&#123;</div><div class="line">   WeixinJSBridge.invoke(</div><div class="line">       &apos;getBrandWCPayRequest&apos;, &#123;</div><div class="line">           &quot;appId&quot; ： &quot;wx2421b1c4370ec43b&quot;,     //公众号名称，由商户传入     </div><div class="line">           &quot;timeStamp&quot;：&quot; 1395712654&quot;,         //时间戳，自1970年以来的秒数     </div><div class="line">           &quot;nonceStr&quot; ： &quot;e61463f8efa94090b1f366cccfbbb444&quot;, //随机串     </div><div class="line">           &quot;package&quot; ： &quot;prepay_id=u802345jgfjsdfgsdg888&quot;,     </div><div class="line">           &quot;signType&quot; ： &quot;MD5&quot;,         //微信签名方式：     </div><div class="line">           &quot;paySign&quot; ： &quot;70EA570631E4BB79628FBCA90534C63FF7FADD89&quot; //微信签名 </div><div class="line">       &#125;,</div><div class="line">       function(res)&#123;     </div><div class="line">           if(res.err_msg == &quot;get_brand_wcpay_request：ok&quot; ) &#123;&#125;     // 使用以上方式判断前端返回,微信团队郑重提示：res.err_msg将在用户支付成功后返回    ok，但并不保证它绝对可靠。 </div><div class="line">       &#125;</div><div class="line">   ); </div><div class="line">&#125;</div><div class="line">if (typeof WeixinJSBridge == &quot;undefined&quot;)&#123;</div><div class="line">   if( document.addEventListener )&#123;</div><div class="line">       document.addEventListener(&apos;WeixinJSBridgeReady&apos;, onBridgeReady, false);</div><div class="line">   &#125;else if (document.attachEvent)&#123;</div><div class="line">       document.attachEvent(&apos;WeixinJSBridgeReady&apos;, onBridgeReady); </div><div class="line">       document.attachEvent(&apos;onWeixinJSBridgeReady&apos;, onBridgeReady);</div><div class="line">   &#125;</div><div class="line">&#125;else&#123;</div><div class="line">   onBridgeReady();</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div></pre></td><td class="code"><pre><div class="line">#https://pay.weixin.qq.com/wiki/doc/api/jsapi.php?chapter=7_7&amp;index=6</div><div class="line"></div><div class="line">function onBridgeReady()&#123;</div><div class="line">   WeixinJSBridge.invoke(</div><div class="line">       &apos;getBrandWCPayRequest&apos;, &#123;</div><div class="line">           &quot;appId&quot; ： &quot;xxx&quot;,     //公众号名称，由商户传入     </div><div class="line">           &quot;timeStamp&quot;：&quot; 1395712654&quot;,         //时间戳，自1970年以来的秒数     </div><div class="line">           &quot;nonceStr&quot; ： &quot;e61463f8efa94090b1f366cccfbbb444&quot;, //随机串     </div><div class="line">           &quot;package&quot; ： &quot;prepay_id=u802345jgfjsdfgsdg888&quot;,     </div><div class="line">           &quot;signType&quot; ： &quot;MD5&quot;,         //微信签名方式：     </div><div class="line">           &quot;paySign&quot; ： &quot;70EA570631E4BB79628FBCA90534C63FF7FADD89&quot; //微信签名,注意key要追加到参数尾部</div><div class="line">       &#125;,</div><div class="line">       function(res)&#123;     </div><div class="line">           if(res.err_msg == &quot;get_brand_wcpay_request：ok&quot; ) &#123;&#125;     // 使用以上方式判断前端返回,微信团队郑重提示：res.err_msg将在用户支付成功后返回    ok，但并不保证它绝对可靠。 </div><div class="line">       &#125;</div><div class="line">   ); </div><div class="line">&#125;</div><div class="line">if (typeof WeixinJSBridge == &quot;undefined&quot;)&#123;</div><div class="line">   if( document.addEventListener )&#123;</div><div class="line">       document.addEventListener(&apos;WeixinJSBridgeReady&apos;, onBridgeReady, false);</div><div class="line">   &#125;else if (document.attachEvent)&#123;</div><div class="line">       document.attachEvent(&apos;WeixinJSBridgeReady&apos;, onBridgeReady); </div><div class="line">       document.attachEvent(&apos;onWeixinJSBridgeReady&apos;, onBridgeReady);</div><div class="line">   &#125;</div><div class="line">&#125;else&#123;</div><div class="line">   onBridgeReady();</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <h3 id="结束"><a href="#结束" class="headerlink" title="结束"></a>结束</h3><pre><code>在调试接口的时候，最耗费时间的是在网页端调起支付API,前前后后弄了两天，好狼狈啊！！！
 主要是折在了paySign上，看文档根本就没有key的事，可是签名的时候，
 还得在排序好的参数后架上key=xxx,然后在MD5，总算是让我可以好好睡一觉了
+
+
  :)~
 </code></pre>
       
@@ -417,8 +428,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="../../../11/26/work-problem-2/" rel="next" title="工作中遇到的问题 (二) Ajax重复提交">
-                <i class="fa fa-chevron-left"></i> 工作中遇到的问题 (二) Ajax重复提交
+              <a href="../../../11/26/work-problerm-1/" rel="next" title="工作中遇到的问题（一） Spring MVC Restfull API">
+                <i class="fa fa-chevron-left"></i> 工作中遇到的问题（一） Spring MVC Restfull API
               </a>
             
           </div>
@@ -499,7 +510,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="../../../../archives">
-              <span class="site-state-item-count">48</span>
+              <span class="site-state-item-count">49</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -507,7 +518,7 @@
           
             <div class="site-state-item site-state-categories">
               <a href="../../../../categories">
-                <span class="site-state-item-count">14</span>
+                <span class="site-state-item-count">15</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -516,7 +527,7 @@
           
             <div class="site-state-item site-state-tags">
               <a href="../../../../tags">
-                <span class="site-state-item-count">52</span>
+                <span class="site-state-item-count">54</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -570,7 +581,7 @@
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#微信H5支付流程"><span class="nav-number">2.</span> <span class="nav-text">微信H5支付流程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#结束"><span class="nav-number">3.</span> <span class="nav-text">结束</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#微信获取ticket信息"><span class="nav-number">2.</span> <span class="nav-text">微信获取ticket信息</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#微信H5支付流程"><span class="nav-number">3.</span> <span class="nav-text">微信H5支付流程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#结束"><span class="nav-number">4.</span> <span class="nav-text">结束</span></a></li></ol></div>
             
           </div>
         </section>
