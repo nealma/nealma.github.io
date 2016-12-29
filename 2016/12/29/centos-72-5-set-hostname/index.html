@@ -68,7 +68,7 @@
 <link href="../../../../css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="CentOS,Linux,Hostname," />
+  <meta name="keywords" content="CentOS,Linux,阿里云,ECS," />
 
 
 
@@ -86,19 +86,16 @@
 
 
 
-<meta name="description" content="对于不是经常装系统或者购买云服务器的我来说，总是忘记怎么设置更改hostname，
-怎么办，怎么办，那就记下来呗。">
+<meta name="description" content="当我们购买完ECS，使用的事Centos7系统，并且是官方的镜像。总要做一些必要的操作，在此做个总结。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="CentOS7（五）Set Hostname">
-<meta property="og:url" content="http://www.nealma.com/2016/10/01/centos-72-5-set-hostname/index.html">
+<meta property="og:title" content="CentOS7（六）购买阿里云ECS并安装Centos7.2镜像后要做的事儿">
+<meta property="og:url" content="http://www.nealma.com/2016/12/29/centos-72-5-set-hostname/index.html">
 <meta property="og:site_name" content="nealma.com">
-<meta property="og:description" content="对于不是经常装系统或者购买云服务器的我来说，总是忘记怎么设置更改hostname，
-怎么办，怎么办，那就记下来呗。">
-<meta property="og:updated_time" content="2016-11-26T14:33:16.000Z">
+<meta property="og:description" content="当我们购买完ECS，使用的事Centos7系统，并且是官方的镜像。总要做一些必要的操作，在此做个总结。">
+<meta property="og:updated_time" content="2016-12-29T06:41:15.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="CentOS7（五）Set Hostname">
-<meta name="twitter:description" content="对于不是经常装系统或者购买云服务器的我来说，总是忘记怎么设置更改hostname，
-怎么办，怎么办，那就记下来呗。">
+<meta name="twitter:title" content="CentOS7（六）购买阿里云ECS并安装Centos7.2镜像后要做的事儿">
+<meta name="twitter:description" content="当我们购买完ECS，使用的事Centos7系统，并且是官方的镜像。总要做一些必要的操作，在此做个总结。">
 
 
 
@@ -119,9 +116,9 @@
 
 
 
-  <link rel="canonical" href="http://www.nealma.com/2016/10/01/centos-72-5-set-hostname/"/>
+  <link rel="canonical" href="http://www.nealma.com/2016/12/29/centos-72-5-set-hostname/"/>
 
-  <title> CentOS7（五）Set Hostname | nealma.com </title>
+  <title> CentOS7（六）购买阿里云ECS并安装Centos7.2镜像后要做的事儿 | nealma.com </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -271,7 +268,7 @@
             
             
               
-                CentOS7（五）Set Hostname
+                CentOS7（六）购买阿里云ECS并安装Centos7.2镜像后要做的事儿
               
             
           </h1>
@@ -283,8 +280,8 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-10-01T11:46:49+08:00" content="2016-10-01">
-              2016-10-01
+            <time itemprop="dateCreated" datetime="2016-12-29T11:46:49+08:00" content="2016-12-29">
+              2016-12-29
             </time>
           </span>
 
@@ -314,7 +311,7 @@
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
                 <a href="#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/10/01/centos-72-5-set-hostname/" itemprop="commentsCount"></span>
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/12/29/centos-72-5-set-hostname/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -337,17 +334,26 @@
       
 
       
-        <pre><code>对于不是经常装系统或者购买云服务器的我来说，总是忘记怎么设置更改hostname，
-怎么办，怎么办，那就记下来呗。
+        <pre><code>当我们购买完ECS，使用的事Centos7系统，并且是官方的镜像。总要做一些必要的操作，在此做个总结。
 </code></pre><a id="more"></a>
-<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><pre><code>对于不是经常装系统或者购买云服务器的我来说，总是忘记怎么设置更改hostname，
-怎么办，怎么办，那就记下来呗。
-</code></pre><h3 id="hostnamectl"><a href="#hostnamectl" class="headerlink" title="hostnamectl"></a>hostnamectl</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"># 查看hostname信息</div><div class="line">hostnamectl status</div><div class="line"></div><div class="line"># 临时更改，重启后会恢复</div><div class="line">hostnamectl set-hostname &apos;your  Name&apos;</div></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">Static hostname: yourname ＃发现会过滤任何特殊字符，而且全部转化为小写</div><div class="line">Pretty hostname: your  Name</div></pre></td></tr></table></figure>
-<p>此时，/etc/hostname中会自动更新，但是/etc/hosts的内容不会，需要手动更改。<br>如果想要永久变更，你可以加入如下参数</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">hostnamectl --static set-hostname nealma</div></pre></td></tr></table></figure>
-<p>会立即修改内核的主机名，注销后重新登录，不需要重启服务器。</p>
-<h3 id="结束"><a href="#结束" class="headerlink" title="结束"></a>结束</h3><p>:)~</p>
+<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><pre><code>当我们购买完ECS，使用的事Centos7系统，并且是官方的镜像。总要做一些必要的操作，在此做个总结。
+</code></pre><h3 id="yum-update-y-amp-amp-sudo-yum-upgrade-y"><a href="#yum-update-y-amp-amp-sudo-yum-upgrade-y" class="headerlink" title="yum update -y &amp;&amp; sudo yum upgrade -y"></a>yum update -y &amp;&amp; sudo yum upgrade -y</h3><h3 id="更改hostname"><a href="#更改hostname" class="headerlink" title="更改hostname"></a>更改hostname</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"># hostnamectl --static set-hostname nealma</div><div class="line"></div><div class="line"># logout</div></pre></td></tr></table></figure>
+<h3 id="安装基本工具"><a href="#安装基本工具" class="headerlink" title="安装基本工具"></a>安装基本工具</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"># yum install -y vim tree htop wget telnet curl unzip gcc pcre-devel zlib-devel perl-devel</div></pre></td></tr></table></figure>
+<h3 id="替换-etc-locale-conf-的内容，解决LC-CTYPE-cannot-change-locale-UTF-8"><a href="#替换-etc-locale-conf-的内容，解决LC-CTYPE-cannot-change-locale-UTF-8" class="headerlink" title="替换 /etc/locale.conf 的内容，解决LC_CTYPE: cannot change locale (UTF-8)"></a>替换 /etc/locale.conf 的内容，解决LC_CTYPE: cannot change locale (UTF-8)</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">LANG=&quot;en_US.utf8&quot;</div><div class="line">LC_CTYPE=&quot;en_US.utf8&quot;</div><div class="line"></div><div class="line"># sudo source /etc/locale.conf</div></pre></td></tr></table></figure>
+<h3 id="升级openssl"><a href="#升级openssl" class="headerlink" title="升级openssl"></a>升级openssl</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"># cd /usr/local/src</div><div class="line"># wget https://www.openssl.org/source/openssl-1.1.0c.tar.gz</div><div class="line"># tar zxvf openssl-1.1.0c.tar.gz</div><div class="line"></div><div class="line"># cd openssl-1.1.0c</div><div class="line"># ./config</div><div class="line"># make</div><div class="line"># make test</div><div class="line"># make install</div><div class="line"></div><div class="line"># mv /usr/bin/openssl /usr/bin/openssl.old</div><div class="line"># ln -s /usr/local/bin/openssl /usr/bin/openssl</div><div class="line"></div><div class="line"># openssl version</div></pre></td></tr></table></figure>
+<h3 id="解决openssl-error-while-loading-shared-libraries-libssl-so-1-1-cannot-open-shared-object-file-No-such-file-or-directory错误"><a href="#解决openssl-error-while-loading-shared-libraries-libssl-so-1-1-cannot-open-shared-object-file-No-such-file-or-directory错误" class="headerlink" title="解决openssl: error while loading shared libraries: libssl.so.1.1: cannot open shared object file: No such file or directory错误"></a>解决openssl: error while loading shared libraries: libssl.so.1.1: cannot open shared object file: No such file or directory错误</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">ln -s /usr/local/lib64/libssl.so.1.1 /usr/lib64/libssl.so.1.1</div><div class="line">ln -s /usr/local/lib64/libcrypto.so.1.1 /usr/lib64/libcrypto.so.1.1</div></pre></td></tr></table></figure>
+<h3 id="创建普通用户"><a href="#创建普通用户" class="headerlink" title="创建普通用户"></a>创建普通用户</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"># useradd nealma</div><div class="line">...</div><div class="line">参考前面一篇《CentOS 添加用户》</div></pre></td></tr></table></figure>
+<h3 id="安装Java环境"><a href="#安装Java环境" class="headerlink" title="安装Java环境"></a>安装Java环境</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">参考前面一篇 《CentOS7（一）Java环境搭建》</div></pre></td></tr></table></figure>
+<h3 id="安装nginx"><a href="#安装nginx" class="headerlink" title="安装nginx"></a>安装nginx</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">参考前面一篇 《Nginx Configuration》</div><div class="line"></div><div class="line">Or use yum</div><div class="line"></div><div class="line">$ sudo yum install -y nginx</div><div class="line"></div><div class="line">$ sudo nginx -t</div><div class="line"></div><div class="line">$ sudo systemctl start nginx</div><div class="line"></div><div class="line">$ sudo systemctl stop nginx</div><div class="line"></div><div class="line">$ sudo systemctl restart nginx</div><div class="line"></div><div class="line">$ sudo systemctl enable nginx</div></pre></td></tr></table></figure>
+<h3 id="阿里云控制台"><a href="#阿里云控制台" class="headerlink" title="阿里云控制台"></a>阿里云控制台</h3><ul>
+<li>开通SLB</li>
+<li>配置域名A记录</li>
+<li>禁止外网访问 安全组</li>
+</ul>
+<h3 id="追加1-有用户反映首先应该有挂载磁盘"><a href="#追加1-有用户反映首先应该有挂载磁盘" class="headerlink" title="追加1 有用户反映首先应该有挂载磁盘"></a>追加1 有用户反映首先应该有挂载磁盘</h3><p><a href="https://help.aliyun.com/document_detail/25426.html?spm=5176.7738005.2.1.tHI6Uc" target="_blank" rel="external">直接参考阿里云文档</a></p>
+<p>我直接使用了xfs文件系统，没有用文档上的ext3</p>
+<h3 id="结束"><a href="#结束" class="headerlink" title="结束"></a>结束</h3><p>随时增加后续内容</p>
+<p>:)~</p>
 
       
 
@@ -396,7 +402,9 @@
           
             <a href="../../../../tags/Linux/" rel="tag">#Linux</a>
           
-            <a href="../../../../tags/Hostname/" rel="tag">#Hostname</a>
+            <a href="../../../../tags/阿里云/" rel="tag">#阿里云</a>
+          
+            <a href="../../../../tags/ECS/" rel="tag">#ECS</a>
           
         </div>
       
@@ -405,16 +413,16 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="../centos-72-4-redis/" rel="next" title="CentOS7（四）Install Redis">
-                <i class="fa fa-chevron-left"></i> CentOS7（四）Install Redis
+              <a href="../../12/work-problerm-4-aliyun-maven-repo/" rel="next" title="工作中遇到的问题（四） Maven 国内镜像 阿里云">
+                <i class="fa fa-chevron-left"></i> 工作中遇到的问题（四） Maven 国内镜像 阿里云
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="../../02/vim-command-line-1-replace/" rel="prev" title="Vim Commandline (一) 文本替换">
-                Vim Commandline (一) 文本替换 <i class="fa fa-chevron-right"></i>
+              <a href="../work-problerm-5-lentsencrypt_20161229152314/" rel="prev" title="CentOS7（六）Let's Encrypt">
+                CentOS7（六）Let's Encrypt <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -441,8 +449,8 @@
           
   <div class="comments" id="comments">
     
-      <div class="ds-thread" data-thread-key="2016/10/01/centos-72-5-set-hostname/"
-           data-title="CentOS7（五）Set Hostname" data-url="http://www.nealma.com/2016/10/01/centos-72-5-set-hostname/">
+      <div class="ds-thread" data-thread-key="2016/12/29/centos-72-5-set-hostname/"
+           data-title="CentOS7（六）购买阿里云ECS并安装Centos7.2镜像后要做的事儿" data-url="http://www.nealma.com/2016/12/29/centos-72-5-set-hostname/">
       </div>
     
   </div>
@@ -487,7 +495,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="../../../../archives">
-              <span class="site-state-item-count">49</span>
+              <span class="site-state-item-count">51</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -504,7 +512,7 @@
           
             <div class="site-state-item site-state-tags">
               <a href="../../../../tags">
-                <span class="site-state-item-count">54</span>
+                <span class="site-state-item-count">55</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -558,7 +566,7 @@
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#hostnamectl"><span class="nav-number">2.</span> <span class="nav-text">hostnamectl</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#结束"><span class="nav-number">3.</span> <span class="nav-text">结束</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#yum-update-y-amp-amp-sudo-yum-upgrade-y"><span class="nav-number">2.</span> <span class="nav-text">yum update -y && sudo yum upgrade -y</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#更改hostname"><span class="nav-number">3.</span> <span class="nav-text">更改hostname</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#安装基本工具"><span class="nav-number">4.</span> <span class="nav-text">安装基本工具</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#替换-etc-locale-conf-的内容，解决LC-CTYPE-cannot-change-locale-UTF-8"><span class="nav-number">5.</span> <span class="nav-text">替换 /etc/locale.conf 的内容，解决LC_CTYPE: cannot change locale (UTF-8)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#升级openssl"><span class="nav-number">6.</span> <span class="nav-text">升级openssl</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#解决openssl-error-while-loading-shared-libraries-libssl-so-1-1-cannot-open-shared-object-file-No-such-file-or-directory错误"><span class="nav-number">7.</span> <span class="nav-text">解决openssl: error while loading shared libraries: libssl.so.1.1: cannot open shared object file: No such file or directory错误</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#创建普通用户"><span class="nav-number">8.</span> <span class="nav-text">创建普通用户</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#安装Java环境"><span class="nav-number">9.</span> <span class="nav-text">安装Java环境</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#安装nginx"><span class="nav-number">10.</span> <span class="nav-text">安装nginx</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#阿里云控制台"><span class="nav-number">11.</span> <span class="nav-text">阿里云控制台</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#追加1-有用户反映首先应该有挂载磁盘"><span class="nav-number">12.</span> <span class="nav-text">追加1 有用户反映首先应该有挂载磁盘</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#结束"><span class="nav-number">13.</span> <span class="nav-text">结束</span></a></li></ol></div>
             
           </div>
         </section>
