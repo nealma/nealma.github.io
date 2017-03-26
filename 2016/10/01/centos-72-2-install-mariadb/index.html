@@ -92,7 +92,7 @@
 <meta property="og:url" content="http://www.nealma.com/2016/10/01/centos-72-2-install-mariadb/index.html">
 <meta property="og:site_name" content="nealma.com">
 <meta property="og:description" content="今天在CentOS 7.2上安装MySQL（MariaDB）,记录一下">
-<meta property="og:updated_time" content="2016-12-03T03:19:21.000Z">
+<meta property="og:updated_time" content="2017-03-26T10:24:19.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="CentOS7（二）Install MySQL (MariaDB)">
 <meta name="twitter:description" content="今天在CentOS 7.2上安装MySQL（MariaDB）,记录一下">
@@ -339,9 +339,15 @@
 <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><pre><code>今天在CentOS 7.2上安装MySQL（MariaDB）,记录一下
 </code></pre><h3 id="Install-MariaDB"><a href="#Install-MariaDB" class="headerlink" title="Install MariaDB"></a>Install MariaDB</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">yum install mariadb-server mariadb</div></pre></td></tr></table></figure>
 <h3 id="Start-MariaDB"><a href="#Start-MariaDB" class="headerlink" title="Start MariaDB"></a>Start MariaDB</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">systemsctl start mariadb</div></pre></td></tr></table></figure>
-<h3 id="Setting-Secure"><a href="#Setting-Secure" class="headerlink" title="Setting Secure"></a>Setting Secure</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div></pre></td><td class="code"><pre><div class="line"># 设置root密码，是否允许远程，test数据库等	</div><div class="line"></div><div class="line">mysql_secure_installation</div><div class="line"></div><div class="line"># Or</div><div class="line"></div><div class="line">set password for &apos;root&apos;@&apos;localhost&apos; =password(&apos;password&apos;);</div><div class="line"></div><div class="line"># 远程连接设置</div><div class="line">grant all privileges on *.* to root@&apos;%&apos; identified by &apos;password&apos;;</div><div class="line">flush privileges;</div><div class="line"></div><div class="line"># 通过以上方式，对于用户root的localhost情况，可能出现如下异常</div><div class="line"># java.sql.SQLException: Access denied for user &apos;root&apos;@&apos;localhost&apos; (using password: YES)</div><div class="line"># 解决办法</div><div class="line">use mysql;</div><div class="line">UPDATE user SET Password=PASSWORD(&apos;******&apos;) where USER=&apos;root&apos;;</div><div class="line">flush privileges;</div><div class="line"></div><div class="line">#Or</div><div class="line"></div><div class="line">mysql&gt; use mysql</div><div class="line"></div><div class="line">mysql&gt; update user set Host=&apos;%&apos; where User=&apos;root&apos;;</div><div class="line"></div><div class="line">mysql&gt; flush privileges;</div><div class="line"></div><div class="line"># 创建新用户</div><div class="line">create user &apos;username&apos;@&apos;%&apos; identified by &apos;password&apos;;</div></pre></td></tr></table></figure>
+<p>###更换data目录<br>通常数据库需要额外的磁盘，这个时候会遇到目录权限的问题，需要给目录授予权限</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">chown -R mysql:mysql /mnt/mysql</div><div class="line">chmod 640 /mnt/mysql</div><div class="line">chmod +x /mnt/mysql</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">[mysqld]</div><div class="line">datadir=/mnt/mysql</div><div class="line">socket=/mnt/mysql/mysql.sock</div><div class="line">user=mysql</div><div class="line"># Disabling symbolic-links is recommended to prevent assorted security risks</div><div class="line">symbolic-links=0</div><div class="line"># Settings user and group are ignored when systemd is used.</div><div class="line"># If you need to run mysqld under a different user or group,</div><div class="line"># customize your systemd unit file for mariadb according to the</div><div class="line"># instructions in http://fedoraproject.org/wiki/Systemd</div><div class="line"></div><div class="line">[mysqld_safe]</div><div class="line">log-error=/mnt/mysql/log/mariadb/mariadb.log</div><div class="line">pid-file=/mnt/mysql/mariadb/mariadb.pid</div><div class="line"></div><div class="line">#</div><div class="line"># include all files from the config directory</div><div class="line">#</div><div class="line">!includedir /etc/my.cnf.d</div></pre></td></tr></table></figure>
+<h3 id="Setting-Secure"><a href="#Setting-Secure" class="headerlink" title="Setting Secure"></a>Setting Secure</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">### 可能会出现找不到mysql.sock问题</div></pre></td></tr></table></figure>
+<p>$ sudo ln -s /mnt/mysql/mysql.sock /var/lib/mysql/mysql.sock</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div></pre></td><td class="code"><pre><div class="line"># 设置root密码，是否允许远程，test数据库等	</div><div class="line"></div><div class="line">mysql_secure_installation</div><div class="line"></div><div class="line"># Or</div><div class="line"></div><div class="line">set password for &apos;root&apos;@&apos;localhost&apos; =password(&apos;password&apos;);</div><div class="line"></div><div class="line"># 远程连接设置</div><div class="line">grant all privileges on &apos;rtshop&apos;.* to fuckyou@&apos;%&apos; identified by &apos;******&apos;;</div><div class="line">flush privileges;</div><div class="line"></div><div class="line"># 通过以上方式，对于用户root的localhost情况，可能出现如下异常</div><div class="line"># java.sql.SQLException: Access denied for user &apos;root&apos;@&apos;localhost&apos; (using password: YES)</div><div class="line"># 解决办法</div><div class="line">use mysql;</div><div class="line">UPDATE user SET Password=PASSWORD(&apos;******&apos;) where USER=&apos;root&apos;;</div><div class="line">flush privileges;</div><div class="line"></div><div class="line">#Or</div><div class="line"></div><div class="line">mysql&gt; use mysql</div><div class="line"></div><div class="line">mysql&gt; update user set Host=&apos;%&apos; where User=&apos;root&apos;;</div><div class="line"></div><div class="line">mysql&gt; flush privileges;</div><div class="line"></div><div class="line"># 创建新用户</div><div class="line">create user &apos;fuckyou&apos;@&apos;10.%.%.%&apos; identified by &apos;******&apos;;</div></pre></td></tr></table></figure>
 <h3 id="Start-on-boot"><a href="#Start-on-boot" class="headerlink" title="Start on boot"></a>Start on boot</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">systemctl enable mariadb.service</div></pre></td></tr></table></figure>
 <h3 id="MySQL-配置防火墙"><a href="#MySQL-配置防火墙" class="headerlink" title="MySQL 配置防火墙"></a>MySQL 配置防火墙</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">firewall-cmd --permanent --zone=public --add-service=mysql</div><div class="line">firewall-cmd --reload</div></pre></td></tr></table></figure>
+<p>###<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">Cannot load from mysql.proc. The table is probably corrupted。</div><div class="line"></div><div class="line">在命令行中执行mysql_upgrade -uroot -p 即可~</div></pre></td></tr></table></figure></p>
 <h3 id="结束"><a href="#结束" class="headerlink" title="结束"></a>结束</h3><p>:)~</p>
 
       
@@ -484,7 +490,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="../../../../archives">
-              <span class="site-state-item-count">51</span>
+              <span class="site-state-item-count">56</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -492,7 +498,7 @@
           
             <div class="site-state-item site-state-categories">
               <a href="../../../../categories">
-                <span class="site-state-item-count">15</span>
+                <span class="site-state-item-count">16</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -501,7 +507,7 @@
           
             <div class="site-state-item site-state-tags">
               <a href="../../../../tags">
-                <span class="site-state-item-count">55</span>
+                <span class="site-state-item-count">57</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -576,7 +582,7 @@
 <div class="copyright" >
   
   &copy; 
-  <span itemprop="copyrightYear">2016</span>
+  <span itemprop="copyrightYear">2017</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>

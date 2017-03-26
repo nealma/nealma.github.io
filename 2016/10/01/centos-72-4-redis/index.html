@@ -92,7 +92,7 @@
 <meta property="og:url" content="http://www.nealma.com/2016/10/01/centos-72-4-redis/index.html">
 <meta property="og:site_name" content="nealma.com">
 <meta property="og:description" content="今天在CentOS 7.2上安装Redis,记录一下">
-<meta property="og:updated_time" content="2016-11-26T13:35:14.000Z">
+<meta property="og:updated_time" content="2017-03-26T10:22:36.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="CentOS7（四）Install Redis">
 <meta name="twitter:description" content="今天在CentOS 7.2上安装Redis,记录一下">
@@ -340,9 +340,9 @@
 </code></pre><h3 id="Install-Redis"><a href="#Install-Redis" class="headerlink" title="Install Redis"></a>Install Redis</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">yum install -y redis</div><div class="line"></div><div class="line">#For Mac</div><div class="line">brew install redis</div></pre></td></tr></table></figure>
 <p>so easy!</p>
 <h3 id="Start-Redis"><a href="#Start-Redis" class="headerlink" title="Start Redis"></a>Start Redis</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">service redis start/stop/status/restart</div><div class="line"></div><div class="line"># For Mac</div><div class="line">brew services list</div><div class="line">brew services start/stop/restart redis</div></pre></td></tr></table></figure>
-<h3 id="服务器解除bind-允许远程访问"><a href="#服务器解除bind-允许远程访问" class="headerlink" title="服务器解除bind, 允许远程访问"></a>服务器解除bind, 允许远程访问</h3><p>```</p>
-<p>#vim /etc/redis.conf</p>
-<p>#注释掉这一行<br>bind 127.0.0.1</p>
+<h3 id="服务器解除bind-允许远程访问"><a href="#服务器解除bind-允许远程访问" class="headerlink" title="服务器解除bind, 允许远程访问"></a>服务器解除bind, 允许远程访问</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">#vim /etc/redis.conf</div><div class="line">#注释掉这一行</div><div class="line">bind 127.0.0.1</div><div class="line"></div><div class="line"># change password on MAC</div></pre></td></tr></table></figure>
+<p>/usr/local/etc/redis.conf </p>
+<p> brew services restart redis<br>```</p>
 <h3 id="结束"><a href="#结束" class="headerlink" title="结束"></a>结束</h3><p>:)~</p>
 
       
@@ -409,7 +409,7 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="../work-problerm-5-lentsencrypt/" rel="prev" title="CentOS7（六）Let's Encrypt">
+              <a href="../centos-72-6-lentsencrypt/" rel="prev" title="CentOS7（六）Let's Encrypt">
                 CentOS7（六）Let's Encrypt <i class="fa fa-chevron-right"></i>
               </a>
             
@@ -483,7 +483,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="../../../../archives">
-              <span class="site-state-item-count">51</span>
+              <span class="site-state-item-count">56</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -491,7 +491,7 @@
           
             <div class="site-state-item site-state-categories">
               <a href="../../../../categories">
-                <span class="site-state-item-count">15</span>
+                <span class="site-state-item-count">16</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -500,7 +500,7 @@
           
             <div class="site-state-item site-state-tags">
               <a href="../../../../tags">
-                <span class="site-state-item-count">55</span>
+                <span class="site-state-item-count">57</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -575,7 +575,7 @@
 <div class="copyright" >
   
   &copy; 
-  <span itemprop="copyrightYear">2016</span>
+  <span itemprop="copyrightYear">2017</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>

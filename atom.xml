@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://www.nealma.com/"/>
-  <updated>2016-12-29T07:23:09.000Z</updated>
+  <updated>2017-03-09T01:51:58.000Z</updated>
   <id>http://www.nealma.com/</id>
   
   <author>
@@ -16,47 +16,45 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>CentOS7（六）Let&#39;s Encrypt</title>
-    <link href="http://www.nealma.com/2016/12/29/work-problerm-5-lentsencrypt_20161229152314/"/>
-    <id>http://www.nealma.com/2016/12/29/work-problerm-5-lentsencrypt_20161229152314/</id>
-    <published>2016-12-29T03:46:49.000Z</published>
-    <updated>2016-12-29T07:23:09.000Z</updated>
+    <title>常用的sql操作</title>
+    <link href="http://www.nealma.com/2017/01/01/work-problerm-5-mysql-common-operate/"/>
+    <id>http://www.nealma.com/2017/01/01/work-problerm-5-mysql-common-operate/</id>
+    <published>2017-01-01T03:46:45.000Z</published>
+    <updated>2017-03-09T01:51:58.000Z</updated>
     
-    <content type="html"><![CDATA[<pre><code>HTTPS即将普及，各大互联网公司早已实现全面HTTPS化，但是证书的价格对于个人或者初创企业都是支出，
-Let&apos;s Encrypt给我们带来了免费的午餐，而且是各大顶级组织在背后支持，没理由不用。
+    <content type="html"><![CDATA[<pre><code>频繁的sql操作，总结一些经常用的。
 </code></pre><a id="more"></a>
-<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><pre><code>HTTPS即将普及，各大互联网公司早已实现全面HTTPS化，但是证书的价格对于个人或者初创企业都是支出，
-Let&apos;s Encrypt给我们带来了免费的午餐，而且是各大顶级组织在背后支持，没理由不用。
-</code></pre><h3 id="Install-the-Certbot-Let’s-Encrypt-Client"><a href="#Install-the-Certbot-Let’s-Encrypt-Client" class="headerlink" title="Install the Certbot Let’s Encrypt Client"></a>Install the Certbot Let’s Encrypt Client</h3><ul>
-<li><p>EPEL repository</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ sudo yum install epel-release -y</div></pre></td></tr></table></figure>
-</li>
-<li><p>Certbot package</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ sudo yum install certbot -y</div></pre></td></tr></table></figure>
-</li>
+<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><pre><code>频繁的sql操作，总结一些经常用的。
+</code></pre><h3 id="删除表中某个唯一约束"><a href="#删除表中某个唯一约束" class="headerlink" title="删除表中某个唯一约束"></a>删除表中某个唯一约束</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">DROP INDEX index_name ON tbl_name</div><div class="line"></div><div class="line">OR</div><div class="line"></div><div class="line">ALTER TABLE tbl_name DROP INDEX index_name</div></pre></td></tr></table></figure>
+<h3 id="MySQL-查找所有的父级或子集"><a href="#MySQL-查找所有的父级或子集" class="headerlink" title="MySQL 查找所有的父级或子集"></a>MySQL 查找所有的父级或子集</h3><p>表结构及Demo数据<br>user_id  pid</p>
+<p>  B</p>
+<ul>
+<li>查找所有的父级（包含本身）</li>
 </ul>
-<h3 id="Obtain-a-Certificate"><a href="#Obtain-a-Certificate" class="headerlink" title="Obtain a Certificate"></a>Obtain a Certificate</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">export DOMAINS=&quot;malingyi.com,www.malingyi.com,haiji.malingyi.com&quot;</div><div class="line">export DIR=/var/www/letsencrypt</div><div class="line">sudo certbot certonly -a webroot --webroot-path=$DIR -d $DOMAINS</div></pre></td></tr></table></figure>
-<h3 id="Nginx-Config"><a href="#Nginx-Config" class="headerlink" title="Nginx Config"></a>Nginx Config</h3><p>```<br>ssl_certificate /etc/letsencrypt/live/example.com/fullchain.pem;<br>ssl_certificate_key /etc/letsencrypt/live/example.com/privkey.pem;<br>ssl_trusted_certificate /etc/letsencrypt/live/example.com/chain.pem;<br>…</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">SELECT T2.user_id</div><div class="line">            FROM (</div><div class="line">                  SELECT</div><div class="line">                    @r AS _id,</div><div class="line">                    (SELECT @r := pid FROM relations WHERE user_id = _id) AS pid,</div><div class="line">                    @l := @l + 1 AS lvl FROM (SELECT @r := 5, @l := 0) vars,</div><div class="line">                    relations h WHERE @r &lt;&gt; 0 AND pid &gt; 0</div><div class="line">                 ) T1 JOIN relations T2 ON T1._id = T2.user_id ORDER BY T1.lvl DESC</div></pre></td></tr></table></figure>
+<ul>
+<li>查找所有的子类（不包含本身）</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">SELECT uesr_id FROM</div><div class="line">  (</div><div class="line">    SELECT * FROM relations where pid &gt; 0 ORDER BY pid, uesr_id DESC</div><div class="line">  ) realname_sorted,</div><div class="line">  (SELECT @pv := 1) initialisation</div><div class="line">  WHERE (FIND_IN_SET(pid,@pv)&gt;0 And @pv := concat(@pv, &apos;,&apos;, uesr_id))</div></pre></td></tr></table></figure>
 <h3 id="结束"><a href="#结束" class="headerlink" title="结束"></a>结束</h3><pre><code>还会陆续遇到各种坑，慢慢填吧...
  :)~
 </code></pre>]]></content>
     
     <summary type="html">
     
-      &lt;pre&gt;&lt;code&gt;HTTPS即将普及，各大互联网公司早已实现全面HTTPS化，但是证书的价格对于个人或者初创企业都是支出，
-Let&amp;apos;s Encrypt给我们带来了免费的午餐，而且是各大顶级组织在背后支持，没理由不用。
+      &lt;pre&gt;&lt;code&gt;频繁的sql操作，总结一些经常用的。
 &lt;/code&gt;&lt;/pre&gt;
     
     </summary>
     
-      <category term="Linux" scheme="http://www.nealma.com/categories/Linux/"/>
+      <category term="work" scheme="http://www.nealma.com/categories/work/"/>
     
     
-      <category term="CentOS" scheme="http://www.nealma.com/tags/CentOS/"/>
+      <category term="MySQL" scheme="http://www.nealma.com/tags/MySQL/"/>
     
-      <category term="Linux" scheme="http://www.nealma.com/tags/Linux/"/>
+      <category term="大杂烩" scheme="http://www.nealma.com/tags/%E5%A4%A7%E6%9D%82%E7%83%A9/"/>
     
-      <category term="Let&#39;s Encrypt" scheme="http://www.nealma.com/tags/Let-s-Encrypt/"/>
+      <category term="sql" scheme="http://www.nealma.com/tags/sql/"/>
     
   </entry>
   
@@ -151,7 +149,7 @@ Let&amp;apos;s Encrypt给我们带来了免费的午餐，而且是各大顶级�
     <link href="http://www.nealma.com/2016/12/12/work-problerm-3-wxpay/"/>
     <id>http://www.nealma.com/2016/12/12/work-problerm-3-wxpay/</id>
     <published>2016-12-12T02:46:45.000Z</published>
-    <updated>2016-12-28T03:41:45.000Z</updated>
+    <updated>2017-01-07T11:18:50.000Z</updated>
     
     <content type="html"><![CDATA[<pre><code>微信获取用户信息和微信H5支付
 </code></pre><a id="more"></a>
@@ -189,7 +187,7 @@ Let&amp;apos;s Encrypt给我们带来了免费的午餐，而且是各大顶级�
 </ul>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div></pre></td><td class="code"><pre><div class="line">#https://pay.weixin.qq.com/wiki/doc/api/jsapi.php?chapter=7_7&amp;index=6</div><div class="line"></div><div class="line">function onBridgeReady()&#123;</div><div class="line">   WeixinJSBridge.invoke(</div><div class="line">       &apos;getBrandWCPayRequest&apos;, &#123;</div><div class="line">           &quot;appId&quot; ： &quot;xxx&quot;,     //公众号名称，由商户传入     </div><div class="line">           &quot;timeStamp&quot;：&quot; 1395712654&quot;,         //时间戳，自1970年以来的秒数     </div><div class="line">           &quot;nonceStr&quot; ： &quot;e61463f8efa94090b1f366cccfbbb444&quot;, //随机串     </div><div class="line">           &quot;package&quot; ： &quot;prepay_id=u802345jgfjsdfgsdg888&quot;,     </div><div class="line">           &quot;signType&quot; ： &quot;MD5&quot;,         //微信签名方式：     </div><div class="line">           &quot;paySign&quot; ： &quot;70EA570631E4BB79628FBCA90534C63FF7FADD89&quot; //微信签名,注意key要追加到参数尾部</div><div class="line">       &#125;,</div><div class="line">       function(res)&#123;     </div><div class="line">           if(res.err_msg == &quot;get_brand_wcpay_request：ok&quot; ) &#123;&#125;     // 使用以上方式判断前端返回,微信团队郑重提示：res.err_msg将在用户支付成功后返回    ok，但并不保证它绝对可靠。 </div><div class="line">       &#125;</div><div class="line">   ); </div><div class="line">&#125;</div><div class="line">if (typeof WeixinJSBridge == &quot;undefined&quot;)&#123;</div><div class="line">   if( document.addEventListener )&#123;</div><div class="line">       document.addEventListener(&apos;WeixinJSBridgeReady&apos;, onBridgeReady, false);</div><div class="line">   &#125;else if (document.attachEvent)&#123;</div><div class="line">       document.attachEvent(&apos;WeixinJSBridgeReady&apos;, onBridgeReady); </div><div class="line">       document.attachEvent(&apos;onWeixinJSBridgeReady&apos;, onBridgeReady);</div><div class="line">   &#125;</div><div class="line">&#125;else&#123;</div><div class="line">   onBridgeReady();</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <h3 id="通知接口"><a href="#通知接口" class="headerlink" title="通知接口"></a>通知接口</h3><p>首先设置notify_url,必须为公众号后台设置的授支付url.<br>你的notify_url的接受方法必须是POST,<br>返回值是xml结构</p>
-<h3 id="结束"><a href="#结束" class="headerlink" title="结束"></a>结束</h3><pre><code>在调试接口的时候，最耗费时间的是在网页端调起支付API,前前后后弄了两天，好狼狈啊！！！
+<h3 id="接口权限-网页授权"><a href="#接口权限-网页授权" class="headerlink" title="接口权限 网页授权"></a>接口权限 网页授权</h3><h3 id="结束"><a href="#结束" class="headerlink" title="结束"></a>结束</h3><pre><code>在调试接口的时候，最耗费时间的是在网页端调起支付API,前前后后弄了两天，好狼狈啊！！！
 主要是折在了paySign上，看文档根本就没有key的事，可是签名的时候，
 还得在排序好的参数后架上key=xxx,然后在MD5，总算是让我可以好好睡一觉了
 
@@ -200,6 +198,55 @@ Let&amp;apos;s Encrypt给我们带来了免费的午餐，而且是各大顶级�
     <summary type="html">
     
       &lt;pre&gt;&lt;code&gt;微信获取用户信息和微信H5支付
+&lt;/code&gt;&lt;/pre&gt;
+    
+    </summary>
+    
+      <category term="work" scheme="http://www.nealma.com/categories/work/"/>
+    
+    
+      <category term="大杂烩" scheme="http://www.nealma.com/tags/%E5%A4%A7%E6%9D%82%E7%83%A9/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>工作中遇到的问题（一） Spring MVC Restfull API</title>
+    <link href="http://www.nealma.com/2016/11/26/work-problerm-1/"/>
+    <id>http://www.nealma.com/2016/11/26/work-problerm-1/</id>
+    <published>2016-11-26T03:46:45.000Z</published>
+    <updated>2016-12-31T12:06:51.000Z</updated>
+    
+    <content type="html"><![CDATA[<pre><code>最近也不知道写点啥，工作任务太饱和了，遇到些小问题，做个总结
+</code></pre><a id="more"></a>
+<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><pre><code>最近也不知道写点啥，工作任务太饱和了，遇到些小问题，做个总结
+</code></pre><h3 id="MyBatis整型的问题"><a href="#MyBatis整型的问题" class="headerlink" title="MyBatis整型的问题"></a>MyBatis整型的问题</h3><pre><code>再一次工作中，一个实体的成员变量是整数型，我传递了0给mapper，奇怪的事情发生了。
+mapper总是认为这个变量为null。前前后后花了好长时间，最后还是Google的结果。看来遇到问题不能
+自己去一步一步去深挖，还得借助Google啊（不知道是不适合所有）。
+
+原来MyBatis对于整型类型如果值为0，会当做null来处理。（不知道作者是出于什么原因）
+
+解决办法：
+
+加强判断
+</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;if test=&quot;categoryName != null and categoryName != &apos;&apos; or categoryName == 0&quot;&gt;</div></pre></td></tr></table></figure>
+<h3 id="Spring-MVC的问题"><a href="#Spring-MVC的问题" class="headerlink" title="Spring MVC的问题"></a>Spring MVC的问题</h3><p>spring mvc put方法请求，ajax必须指定dataType: “json”<br>    在设计Restful接口的时候，其中Controller里面的PUT方法，前台html中使用ajax提交表单,很正常不过。<br>    可是在后台始终得不到</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">$.ajax(</div><div class="line">	&#123;</div><div class="line">	    url: API,</div><div class="line">	    type: &quot;PUT&quot;,</div><div class="line">	    data: &#123;k : v&#125;,</div><div class="line">	    async: false,</div><div class="line">	    success: function (data, textStatus, jqXHR) &#123;</div><div class="line">	        //TODO:</div><div class="line">	    &#125;,</div><div class="line">	    error: function (jqXHR, textStatus, errorThrown) &#123;</div><div class="line">	    	//TODO:</div><div class="line">	    &#125;</div><div class="line">	&#125;);</div></pre></td></tr></table></figure>
+<pre><code>抓取request的header，如下：
+</code></pre><p><img src="/images/put-method.png" alt=""></p>
+<pre><code>给ajax加入如下dataType参数，值为“json”，这样问题解决了，Controller成功的获得了参数。
+We did it。
+</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">$.ajax(</div><div class="line">	&#123;</div><div class="line">	    url: API,</div><div class="line">	    type: &quot;PUT&quot;,</div><div class="line">	    data: &#123;k : v&#125;,</div><div class="line">	    dataType: &quot;json&quot;,</div><div class="line">	    async: false,</div><div class="line">	    success: function (data, textStatus, jqXHR) &#123;</div><div class="line">	        //TODO:</div><div class="line">	    &#125;,</div><div class="line">	    error: function (jqXHR, textStatus, errorThrown) &#123;</div><div class="line">	    	//TODO:</div><div class="line">	    &#125;</div><div class="line">	&#125;);</div></pre></td></tr></table></figure>
+<pre><code>抓取request的header，如下：
+</code></pre><p><img src="/images/put-method-json.png" alt=""></p>
+<pre><code>从两处标记可以看出，Accept的两次值不一样；Accept的值直接影响Controller的consumes,
+Spring会根据Accept来对Request的参数做相应的处理。
+</code></pre><h3 id="XMLHttpRequest-cannot-load-http-yourdomain-com-api-addresses-Response-to-preflight-request-doesn’t-pass-access-control-check-The-‘Access-Control-Allow-Origin’-header-contains-multiple-values-‘http-localhost-8080-’-but-only-one-is-allowed-Origin-‘http-localhost-8080‘-is-therefore-not-allowed-access"><a href="#XMLHttpRequest-cannot-load-http-yourdomain-com-api-addresses-Response-to-preflight-request-doesn’t-pass-access-control-check-The-‘Access-Control-Allow-Origin’-header-contains-multiple-values-‘http-localhost-8080-’-but-only-one-is-allowed-Origin-‘http-localhost-8080‘-is-therefore-not-allowed-access" class="headerlink" title="XMLHttpRequest cannot load http://yourdomain.com/api/addresses. Response to preflight request doesn’t pass access control check: The ‘Access-Control-Allow-Origin’ header contains multiple values ‘http://localhost:8080, *’, but only one is allowed. Origin ‘http://localhost:8080‘ is therefore not allowed access."></a>XMLHttpRequest cannot load <a href="http://yourdomain.com/api/addresses" target="_blank" rel="external">http://yourdomain.com/api/addresses</a>. Response to preflight request doesn’t pass access control check: The ‘Access-Control-Allow-Origin’ header contains multiple values ‘<a href="http://localhost:8080" target="_blank" rel="external">http://localhost:8080</a>, *’, but only one is allowed. Origin ‘<a href="http://localhost:8080" target="_blank" rel="external">http://localhost:8080</a>‘ is therefore not allowed access.</h3><h3 id="结束"><a href="#结束" class="headerlink" title="结束"></a>结束</h3><pre><code>还会陆续遇到各种坑，慢慢填吧...
+ :)~
+</code></pre>]]></content>
+    
+    <summary type="html">
+    
+      &lt;pre&gt;&lt;code&gt;最近也不知道写点啥，工作任务太饱和了，遇到些小问题，做个总结
 &lt;/code&gt;&lt;/pre&gt;
     
     </summary>
@@ -241,55 +288,6 @@ Let&amp;apos;s Encrypt给我们带来了免费的午餐，而且是各大顶级�
 </ul>
 <p>…</p>
 <h3 id="结束"><a href="#结束" class="headerlink" title="结束"></a>结束</h3><pre><code>夜长长，路漫漫...
- :)~
-</code></pre>]]></content>
-    
-    <summary type="html">
-    
-      &lt;pre&gt;&lt;code&gt;最近也不知道写点啥，工作任务太饱和了，遇到些小问题，做个总结
-&lt;/code&gt;&lt;/pre&gt;
-    
-    </summary>
-    
-      <category term="work" scheme="http://www.nealma.com/categories/work/"/>
-    
-    
-      <category term="大杂烩" scheme="http://www.nealma.com/tags/%E5%A4%A7%E6%9D%82%E7%83%A9/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>工作中遇到的问题（一） Spring MVC Restfull API</title>
-    <link href="http://www.nealma.com/2016/11/26/work-problerm-1/"/>
-    <id>http://www.nealma.com/2016/11/26/work-problerm-1/</id>
-    <published>2016-11-26T03:46:45.000Z</published>
-    <updated>2016-12-11T08:48:15.000Z</updated>
-    
-    <content type="html"><![CDATA[<pre><code>最近也不知道写点啥，工作任务太饱和了，遇到些小问题，做个总结
-</code></pre><a id="more"></a>
-<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><pre><code>最近也不知道写点啥，工作任务太饱和了，遇到些小问题，做个总结
-</code></pre><h3 id="MyBatis整型的问题"><a href="#MyBatis整型的问题" class="headerlink" title="MyBatis整型的问题"></a>MyBatis整型的问题</h3><pre><code>再一次工作中，一个实体的成员变量是整数型，我传递了0给mapper，奇怪的事情发生了。
-mapper总是认为这个变量为null。前前后后花了好长时间，最后还是Google的结果。看来遇到问题不能
-自己去一步一步去深挖，还得借助Google啊（不知道是不适合所有）。
-
-原来MyBatis对于整型类型如果值为0，会当做null来处理。（不知道作者是出于什么原因）
-
-解决办法：
-
-加强判断
-</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;if test=&quot;categoryName != null and categoryName != &apos;&apos; or categoryName == 0&quot;&gt;</div></pre></td></tr></table></figure>
-<h3 id="Spring-MVC的问题"><a href="#Spring-MVC的问题" class="headerlink" title="Spring MVC的问题"></a>Spring MVC的问题</h3><p>spring mvc put方法请求，ajax必须指定dataType: “json”<br>    在设计Restful接口的时候，其中Controller里面的PUT方法，前台html中使用ajax提交表单,很正常不过。<br>    可是在后台始终得不到</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">$.ajax(</div><div class="line">	&#123;</div><div class="line">	    url: API,</div><div class="line">	    type: &quot;PUT&quot;,</div><div class="line">	    data: &#123;k : v&#125;,</div><div class="line">	    async: false,</div><div class="line">	    success: function (data, textStatus, jqXHR) &#123;</div><div class="line">	        //TODO:</div><div class="line">	    &#125;,</div><div class="line">	    error: function (jqXHR, textStatus, errorThrown) &#123;</div><div class="line">	    	//TODO:</div><div class="line">	    &#125;</div><div class="line">	&#125;);</div></pre></td></tr></table></figure>
-<pre><code>抓取request的header，如下：
-</code></pre><p><img src="/images/put-method.png" alt=""></p>
-<pre><code>给ajax加入如下dataType参数，值为“json”，这样问题解决了，Controller成功的获得了参数。
-We did it。
-</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">$.ajax(</div><div class="line">	&#123;</div><div class="line">	    url: API,</div><div class="line">	    type: &quot;PUT&quot;,</div><div class="line">	    data: &#123;k : v&#125;,</div><div class="line">	    dataType: &quot;json&quot;,</div><div class="line">	    async: false,</div><div class="line">	    success: function (data, textStatus, jqXHR) &#123;</div><div class="line">	        //TODO:</div><div class="line">	    &#125;,</div><div class="line">	    error: function (jqXHR, textStatus, errorThrown) &#123;</div><div class="line">	    	//TODO:</div><div class="line">	    &#125;</div><div class="line">	&#125;);</div></pre></td></tr></table></figure>
-<pre><code>抓取request的header，如下：
-</code></pre><p><img src="/images/put-method-json.png" alt=""></p>
-<pre><code>从两处标记可以看出，Accept的两次值不一样；Accept的值直接影响Controller的consumes,
-Spring会根据Accept来对Request的参数做相应的处理。
-</code></pre><h3 id="结束"><a href="#结束" class="headerlink" title="结束"></a>结束</h3><pre><code>还会陆续遇到各种坑，慢慢填吧...
  :)~
 </code></pre>]]></content>
     
@@ -618,10 +616,10 @@ CookieHttpSessionStrategy，如果是API就用HeaderHttpSessionStrategy，具体
   
   <entry>
     <title>CentOS7（六）Let&#39;s Encrypt</title>
-    <link href="http://www.nealma.com/2016/10/01/work-problerm-5-lentsencrypt/"/>
-    <id>http://www.nealma.com/2016/10/01/work-problerm-5-lentsencrypt/</id>
+    <link href="http://www.nealma.com/2016/10/01/centos-72-6-lentsencrypt/"/>
+    <id>http://www.nealma.com/2016/10/01/centos-72-6-lentsencrypt/</id>
     <published>2016-10-01T03:46:49.000Z</published>
-    <updated>2016-12-29T07:22:10.000Z</updated>
+    <updated>2017-01-07T04:49:08.000Z</updated>
     
     <content type="html"><![CDATA[<pre><code>HTTPS即将普及，各大互联网公司早已实现全面HTTPS化，但是证书的价格对于个人或者初创企业都是支出，
 Let&apos;s Encrypt给我们带来了免费的午餐，而且是各大顶级组织在背后支持，没理由不用。
@@ -636,8 +634,58 @@ Let&apos;s Encrypt给我们带来了免费的午餐，而且是各大顶级组�
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ sudo yum install certbot -y</div></pre></td></tr></table></figure>
 </li>
 </ul>
-<h3 id="Obtain-a-Certificate"><a href="#Obtain-a-Certificate" class="headerlink" title="Obtain a Certificate"></a>Obtain a Certificate</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">export DOMAINS=&quot;malingyi.com,www.malingyi.com,haiji.malingyi.com&quot;</div><div class="line">export DIR=/var/www/letsencrypt</div><div class="line">sudo certbot certonly -a webroot --webroot-path=$DIR -d $DOMAINS</div></pre></td></tr></table></figure>
-<h3 id="Nginx-Config"><a href="#Nginx-Config" class="headerlink" title="Nginx Config"></a>Nginx Config</h3><p>```<br>ssl_certificate /etc/letsencrypt/live/example.com/fullchain.pem;<br>ssl_certificate_key /etc/letsencrypt/live/example.com/privkey.pem;<br>ssl_trusted_certificate /etc/letsencrypt/live/example.com/chain.pem;<br>…</p>
+<h3 id="Nginx-Config"><a href="#Nginx-Config" class="headerlink" title="Nginx Config"></a>Nginx Config</h3><ul>
+<li>nginx.conf<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div></pre></td><td class="code"><pre><div class="line">user nginx;</div><div class="line">worker_processes auto;</div><div class="line">error_log /var/log/nginx/error.log;</div><div class="line">pid /run/nginx.pid;</div><div class="line"></div><div class="line">include /usr/share/nginx/modules/*.conf;</div><div class="line"></div><div class="line">events &#123;</div><div class="line">    worker_connections 1024;</div><div class="line">&#125;</div><div class="line"></div><div class="line">http &#123;</div><div class="line">    log_format  main  &apos;$remote_addr - $remote_user [$time_local] &quot;$request&quot; &apos;</div><div class="line">                      &apos;$status $body_bytes_sent &quot;$http_referer&quot; &apos;</div><div class="line">                      &apos;&quot;$http_user_agent&quot; &quot;$http_x_forwarded_for&quot;&apos;;</div><div class="line"></div><div class="line">    access_log  /var/log/nginx/access.log  main;</div><div class="line"></div><div class="line">    sendfile            on;</div><div class="line">    tcp_nopush          on;</div><div class="line">    tcp_nodelay         on;</div><div class="line">    keepalive_timeout   65;</div><div class="line">    types_hash_max_size 2048;</div><div class="line"></div><div class="line">    include             /etc/nginx/mime.types;</div><div class="line">    default_type        application/octet-stream;</div><div class="line"></div><div class="line">    add_header &apos;Access-Control-Allow-Origin&apos; &apos;*&apos;;</div><div class="line">    add_header &apos;Access-Control-Allow-Credentials&apos; &apos;true&apos;;</div><div class="line">    add_header &apos;Access-Control-Allow-Headers&apos; &apos;Authorization,Content-Type,Accept,Origin,User-Agent,DNT,Cache-Control,X-Mx-ReqToken,X-Requested-With&apos;;</div><div class="line">    add_header &apos;Access-Control-Allow-Methods&apos; &apos;GET,POST,OPTIONS&apos;;</div><div class="line"></div><div class="line">    include /etc/nginx/conf.d/*.conf;</div><div class="line"></div><div class="line">&#125;</div><div class="line"></div><div class="line">* ../conf.d/www.conf</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>upstream xxx.com {<br>    server 127.0.0.1:8081;<br>}</p>
+<p>server {<br>    listen       80 default_server;<br>    listen       [::]:80 default_server;</p>
+<pre><code>#$DOMAINS中的所有域名，一定要做好CNAME或者A记录
+server_name  xxx.com www.xxx.com admin.xxx.com m.xxx.com;
+root        /usr/share/nginx/html;
+
+location ~ /\.well-known\/acme-challenge {
+    allow all;
+}
+
+location / {
+
+}
+
+error_page 404 /404.html;
+location = /40x.html {
+
+}
+
+error_page 500 502 503 504 /50x.html;
+    location = /50x.html {
+}
+</code></pre><p>}<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">* ../conf.d/ssl.www.conf</div></pre></td></tr></table></figure></p>
+<p>upstream ssl.xxx.com {<br>    server 127.0.0.1:8081;<br>}</p>
+<p>server {<br>    listen       443 ssl http2 default_server;<br>    listen       [::]:443 ssl http2 default_server;<br>    server_name  maylingyi.com www.ruitaowang.com haiji.ruitaowang.com;<br>    root         /usr/share/nginx/html;</p>
+<pre><code># 创建证书之前先注释一下三行
+ssl_certificate /etc/letsencrypt/live/ruitaowang.com/fullchain.pem;
+ssl_certificate_key /etc/letsencrypt/live/ruitaowang.com/privkey.pem;
+ssl_trusted_certificate /etc/letsencrypt/live/ruitaowang.com/chain.pem;
+
+ssl_session_cache shared:SSL:1m;
+ssl_session_timeout  10m;
+ssl_ciphers HIGH:!aNULL:!MD5;
+ssl_prefer_server_ciphers on;
+
+location / {
+
+}
+
+error_page 404 /404.html;
+    location = /40x.html {
+}
+
+error_page 500 502 503 504 /50x.html;
+    location = /50x.html {
+}
+</code></pre><p>}<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"></div><div class="line">### Obtain a Certificate</div></pre></td></tr></table></figure></p>
+<p>export DOMAINS=”ruitaowang.com,www.ruitaowang.com,test.ruitaowang.com,admin.ruitaowang.com,api.ruitaowang.com,m.ruitaowang.com,statics.ruitaowang.com,search.ruitaowang.com,web.ruitaowang.com,live.ruitaowang.com”<br>export DIR=/usr/share/nginx/letsencrypt<br>sudo certbot certonly -a webroot –webroot-path=$DIR -d $DOMAINS<br>```</p>
 <h3 id="结束"><a href="#结束" class="headerlink" title="结束"></a>结束</h3><pre><code>还会陆续遇到各种坑，慢慢填吧...
  :)~
 </code></pre>]]></content>
@@ -666,7 +714,7 @@ Let&amp;apos;s Encrypt给我们带来了免费的午餐，而且是各大顶级�
     <link href="http://www.nealma.com/2016/10/01/centos-72-4-redis/"/>
     <id>http://www.nealma.com/2016/10/01/centos-72-4-redis/</id>
     <published>2016-10-01T03:46:48.000Z</published>
-    <updated>2016-11-26T13:35:14.000Z</updated>
+    <updated>2017-03-26T10:22:36.000Z</updated>
     
     <content type="html"><![CDATA[<pre><code>今天在CentOS 7.2上安装Redis,记录一下
 </code></pre><a id="more"></a>
@@ -674,9 +722,9 @@ Let&amp;apos;s Encrypt给我们带来了免费的午餐，而且是各大顶级�
 </code></pre><h3 id="Install-Redis"><a href="#Install-Redis" class="headerlink" title="Install Redis"></a>Install Redis</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">yum install -y redis</div><div class="line"></div><div class="line">#For Mac</div><div class="line">brew install redis</div></pre></td></tr></table></figure>
 <p>so easy!</p>
 <h3 id="Start-Redis"><a href="#Start-Redis" class="headerlink" title="Start Redis"></a>Start Redis</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">service redis start/stop/status/restart</div><div class="line"></div><div class="line"># For Mac</div><div class="line">brew services list</div><div class="line">brew services start/stop/restart redis</div></pre></td></tr></table></figure>
-<h3 id="服务器解除bind-允许远程访问"><a href="#服务器解除bind-允许远程访问" class="headerlink" title="服务器解除bind, 允许远程访问"></a>服务器解除bind, 允许远程访问</h3><p>```</p>
-<p>#vim /etc/redis.conf</p>
-<p>#注释掉这一行<br>bind 127.0.0.1</p>
+<h3 id="服务器解除bind-允许远程访问"><a href="#服务器解除bind-允许远程访问" class="headerlink" title="服务器解除bind, 允许远程访问"></a>服务器解除bind, 允许远程访问</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">#vim /etc/redis.conf</div><div class="line">#注释掉这一行</div><div class="line">bind 127.0.0.1</div><div class="line"></div><div class="line"># change password on MAC</div></pre></td></tr></table></figure>
+<p>/usr/local/etc/redis.conf </p>
+<p> brew services restart redis<br>```</p>
 <h3 id="结束"><a href="#结束" class="headerlink" title="结束"></a>结束</h3><p>:)~</p>
 ]]></content>
     
@@ -747,16 +795,22 @@ Let&amp;apos;s Encrypt给我们带来了免费的午餐，而且是各大顶级�
     <link href="http://www.nealma.com/2016/10/01/centos-72-2-install-mariadb/"/>
     <id>http://www.nealma.com/2016/10/01/centos-72-2-install-mariadb/</id>
     <published>2016-10-01T03:46:46.000Z</published>
-    <updated>2016-12-03T03:19:21.000Z</updated>
+    <updated>2017-03-26T10:24:19.000Z</updated>
     
     <content type="html"><![CDATA[<pre><code>今天在CentOS 7.2上安装MySQL（MariaDB）,记录一下
 </code></pre><a id="more"></a>
 <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><pre><code>今天在CentOS 7.2上安装MySQL（MariaDB）,记录一下
 </code></pre><h3 id="Install-MariaDB"><a href="#Install-MariaDB" class="headerlink" title="Install MariaDB"></a>Install MariaDB</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">yum install mariadb-server mariadb</div></pre></td></tr></table></figure>
 <h3 id="Start-MariaDB"><a href="#Start-MariaDB" class="headerlink" title="Start MariaDB"></a>Start MariaDB</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">systemsctl start mariadb</div></pre></td></tr></table></figure>
-<h3 id="Setting-Secure"><a href="#Setting-Secure" class="headerlink" title="Setting Secure"></a>Setting Secure</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div></pre></td><td class="code"><pre><div class="line"># 设置root密码，是否允许远程，test数据库等	</div><div class="line"></div><div class="line">mysql_secure_installation</div><div class="line"></div><div class="line"># Or</div><div class="line"></div><div class="line">set password for &apos;root&apos;@&apos;localhost&apos; =password(&apos;password&apos;);</div><div class="line"></div><div class="line"># 远程连接设置</div><div class="line">grant all privileges on *.* to root@&apos;%&apos; identified by &apos;password&apos;;</div><div class="line">flush privileges;</div><div class="line"></div><div class="line"># 通过以上方式，对于用户root的localhost情况，可能出现如下异常</div><div class="line"># java.sql.SQLException: Access denied for user &apos;root&apos;@&apos;localhost&apos; (using password: YES)</div><div class="line"># 解决办法</div><div class="line">use mysql;</div><div class="line">UPDATE user SET Password=PASSWORD(&apos;******&apos;) where USER=&apos;root&apos;;</div><div class="line">flush privileges;</div><div class="line"></div><div class="line">#Or</div><div class="line"></div><div class="line">mysql&gt; use mysql</div><div class="line"></div><div class="line">mysql&gt; update user set Host=&apos;%&apos; where User=&apos;root&apos;;</div><div class="line"></div><div class="line">mysql&gt; flush privileges;</div><div class="line"></div><div class="line"># 创建新用户</div><div class="line">create user &apos;username&apos;@&apos;%&apos; identified by &apos;password&apos;;</div></pre></td></tr></table></figure>
+<p>###更换data目录<br>通常数据库需要额外的磁盘，这个时候会遇到目录权限的问题，需要给目录授予权限</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">chown -R mysql:mysql /mnt/mysql</div><div class="line">chmod 640 /mnt/mysql</div><div class="line">chmod +x /mnt/mysql</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">[mysqld]</div><div class="line">datadir=/mnt/mysql</div><div class="line">socket=/mnt/mysql/mysql.sock</div><div class="line">user=mysql</div><div class="line"># Disabling symbolic-links is recommended to prevent assorted security risks</div><div class="line">symbolic-links=0</div><div class="line"># Settings user and group are ignored when systemd is used.</div><div class="line"># If you need to run mysqld under a different user or group,</div><div class="line"># customize your systemd unit file for mariadb according to the</div><div class="line"># instructions in http://fedoraproject.org/wiki/Systemd</div><div class="line"></div><div class="line">[mysqld_safe]</div><div class="line">log-error=/mnt/mysql/log/mariadb/mariadb.log</div><div class="line">pid-file=/mnt/mysql/mariadb/mariadb.pid</div><div class="line"></div><div class="line">#</div><div class="line"># include all files from the config directory</div><div class="line">#</div><div class="line">!includedir /etc/my.cnf.d</div></pre></td></tr></table></figure>
+<h3 id="Setting-Secure"><a href="#Setting-Secure" class="headerlink" title="Setting Secure"></a>Setting Secure</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">### 可能会出现找不到mysql.sock问题</div></pre></td></tr></table></figure>
+<p>$ sudo ln -s /mnt/mysql/mysql.sock /var/lib/mysql/mysql.sock</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div></pre></td><td class="code"><pre><div class="line"># 设置root密码，是否允许远程，test数据库等	</div><div class="line"></div><div class="line">mysql_secure_installation</div><div class="line"></div><div class="line"># Or</div><div class="line"></div><div class="line">set password for &apos;root&apos;@&apos;localhost&apos; =password(&apos;password&apos;);</div><div class="line"></div><div class="line"># 远程连接设置</div><div class="line">grant all privileges on &apos;rtshop&apos;.* to fuckyou@&apos;%&apos; identified by &apos;******&apos;;</div><div class="line">flush privileges;</div><div class="line"></div><div class="line"># 通过以上方式，对于用户root的localhost情况，可能出现如下异常</div><div class="line"># java.sql.SQLException: Access denied for user &apos;root&apos;@&apos;localhost&apos; (using password: YES)</div><div class="line"># 解决办法</div><div class="line">use mysql;</div><div class="line">UPDATE user SET Password=PASSWORD(&apos;******&apos;) where USER=&apos;root&apos;;</div><div class="line">flush privileges;</div><div class="line"></div><div class="line">#Or</div><div class="line"></div><div class="line">mysql&gt; use mysql</div><div class="line"></div><div class="line">mysql&gt; update user set Host=&apos;%&apos; where User=&apos;root&apos;;</div><div class="line"></div><div class="line">mysql&gt; flush privileges;</div><div class="line"></div><div class="line"># 创建新用户</div><div class="line">create user &apos;fuckyou&apos;@&apos;10.%.%.%&apos; identified by &apos;******&apos;;</div></pre></td></tr></table></figure>
 <h3 id="Start-on-boot"><a href="#Start-on-boot" class="headerlink" title="Start on boot"></a>Start on boot</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">systemctl enable mariadb.service</div></pre></td></tr></table></figure>
 <h3 id="MySQL-配置防火墙"><a href="#MySQL-配置防火墙" class="headerlink" title="MySQL 配置防火墙"></a>MySQL 配置防火墙</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">firewall-cmd --permanent --zone=public --add-service=mysql</div><div class="line">firewall-cmd --reload</div></pre></td></tr></table></figure>
+<p>###<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">Cannot load from mysql.proc. The table is probably corrupted。</div><div class="line"></div><div class="line">在命令行中执行mysql_upgrade -uroot -p 即可~</div></pre></td></tr></table></figure></p>
 <h3 id="结束"><a href="#结束" class="headerlink" title="结束"></a>结束</h3><p>:)~</p>
 ]]></content>
     
