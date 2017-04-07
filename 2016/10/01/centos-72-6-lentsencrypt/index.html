@@ -94,7 +94,7 @@ Let&amp;apos;s Encrypt给我们带来了免费的午餐，而且是各大顶级�
 <meta property="og:site_name" content="nealma.com">
 <meta property="og:description" content="HTTPS即将普及，各大互联网公司早已实现全面HTTPS化，但是证书的价格对于个人或者初创企业都是支出，
 Let&amp;apos;s Encrypt给我们带来了免费的午餐，而且是各大顶级组织在背后支持，没理由不用。">
-<meta property="og:updated_time" content="2017-01-07T04:49:08.000Z">
+<meta property="og:updated_time" content="2017-04-06T23:51:04.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="CentOS7（六）Let's Encrypt">
 <meta name="twitter:description" content="HTTPS即将普及，各大互联网公司早已实现全面HTTPS化，但是证书的价格对于个人或者初创企业都是支出，
@@ -401,7 +401,14 @@ error_page 500 502 503 504 /50x.html;
     location = /50x.html {
 }
 </code></pre><p>}<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"></div><div class="line">### Obtain a Certificate</div></pre></td></tr></table></figure></p>
-<p>export DOMAINS=”ruitaowang.com,www.ruitaowang.com,test.ruitaowang.com,admin.ruitaowang.com,api.ruitaowang.com,m.ruitaowang.com,statics.ruitaowang.com,search.ruitaowang.com,web.ruitaowang.com,live.ruitaowang.com”<br>export DIR=/usr/share/nginx/letsencrypt<br>sudo certbot certonly -a webroot –webroot-path=$DIR -d $DOMAINS<br>```</p>
+<p>export DOMAINS=”ruitaowang.com,www.ruitaowang.com,test.ruitaowang.com,admin.ruitaowang.com,api.ruitaowang.com,m.ruitaowang.com,statics.ruitaowang.com,search.ruitaowang.com,web.ruitaowang.com,live.ruitaowang.com”<br>export DIR=/usr/share/nginx/letsencrypt<br>sudo certbot certonly -a webroot –webroot-path=$DIR -d $DOMAINS<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">#### 续期</div></pre></td></tr></table></figure></p>
+<p>certbot renew –force-renew<br>nginx -s reload<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">### aliyun负载均衡数字证书配置</div><div class="line">    在给阿里云配置负载均衡的HTTPs的数字证书时，要注意</div><div class="line">* 密钥 cat /etc/letsencrypt/live/xxx.com/privkey.pem，BEGIN后面紧跟RSA，否则检测错误</div></pre></td></tr></table></figure></p>
+<p>—–BEGIN PRIVATE KEY—–</p>
+<p>…</p>
+<p>—–END PRIVATE KEY—–<br>```</p>
+<ul>
+<li>证书内容 cat /etc/letsencrypt/live/xxx.com/fullchain.pem，复制全部内容，否则授权unknown</li>
+</ul>
 <h3 id="结束"><a href="#结束" class="headerlink" title="结束"></a>结束</h3><pre><code>还会陆续遇到各种坑，慢慢填吧...
  :)~
 </code></pre>

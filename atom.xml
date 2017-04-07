@@ -210,6 +210,53 @@
   </entry>
   
   <entry>
+    <title>工作中遇到的问题 (二) Ajax重复提交</title>
+    <link href="http://www.nealma.com/2016/11/26/work-problerm-2/"/>
+    <id>http://www.nealma.com/2016/11/26/work-problerm-2/</id>
+    <published>2016-11-26T03:46:45.000Z</published>
+    <updated>2016-12-11T08:47:03.000Z</updated>
+    
+    <content type="html"><![CDATA[<pre><code>最近也不知道写点啥，工作任务太饱和了，遇到些小问题，做个总结
+</code></pre><a id="more"></a>
+<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><pre><code>最近也不知道写点啥，工作任务太饱和了，遇到些小问题，做个总结
+</code></pre><h3 id="Linux-使用cp-rf-总是提醒是否覆盖"><a href="#Linux-使用cp-rf-总是提醒是否覆盖" class="headerlink" title="Linux 使用cp -rf 总是提醒是否覆盖"></a>Linux 使用cp -rf 总是提醒是否覆盖</h3><pre><code>刚觉很奇怪，rf本来就是要强制覆盖的，为什么还总是提醒呢？Google之后，才知道原来是别名在作怪。
+通过alias命令可以看到,我们执行cp命令，其实是执行的cp -i, 所以无论我们怎么-rf加参数，总是提示。
+</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">[root@apple]# alias</div><div class="line">alias cp=&apos;cp -i&apos;</div><div class="line">alias egrep=&apos;egrep --color=auto&apos;</div><div class="line">alias fgrep=&apos;fgrep --color=auto&apos;</div><div class="line">alias grep=&apos;grep --color=auto&apos;</div><div class="line">alias l.=&apos;ls -d .* --color=auto&apos;</div><div class="line">alias ll=&apos;ls -l --color=auto&apos;</div><div class="line">alias ls=&apos;ls --color=auto&apos;</div><div class="line">alias mv=&apos;mv -i&apos;</div><div class="line">alias rm=&apos;rm -i&apos;</div><div class="line">alias which=&apos;alias | /usr/bin/which --tty-only --read-alias --show-dot --show-tilde&apos;</div></pre></td></tr></table></figure>
+<pre><code>解决办法：
+
+打开~/.bashrc文件，注释掉即可。
+</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">#alias cp=&apos;cp -i&apos;</div></pre></td></tr></table></figure>
+<pre><code>或者这样：
+</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">/usr/bin/cp</div></pre></td></tr></table></figure>
+<h3 id="Ajax重复提交的问题"><a href="#Ajax重复提交的问题" class="headerlink" title="Ajax重复提交的问题"></a>Ajax重复提交的问题</h3><pre><code>我们在使用ajax调用接口，异步提交的时候，特别是在网络环境不好的时候，会在短时间内，连续提交多次，
+导致数据库中出现很多垃圾数据，首先是客户端的限制措施。
+</code></pre><ul>
+<li>使用jQuery.ajaxPrefilter，其实是个过滤器，如下：</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div></pre></td><td class="code"><pre><div class="line">var pendingRequests = &#123;&#125;;</div><div class="line">jQuery.ajaxPrefilter(function( options, originalOptions, jqXHR ) &#123;</div><div class="line">    var key = originalOptions.url+&quot;_&quot;+originalOptions.type.toUpperCase();</div><div class="line">    console.log(key)</div><div class="line">    if (!pendingRequests[key]</div><div class="line">            || (pendingRequests[key] &amp;&amp; originalOptions.type.toUpperCase() !=&apos;POST&apos;)) &#123;</div><div class="line">        pendingRequests[key] = jqXHR;</div><div class="line">        console.log(&apos;start&apos;);</div><div class="line">    &#125;else&#123;</div><div class="line">        jqXHR.abort();    //放弃后触发的提交</div><div class="line">        //pendingRequests[key].abort();   // 放弃先触发的提交</div><div class="line">        console.log(&apos;abort&apos;);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    var complete = options.complete;</div><div class="line">    options.complete = function(jqXHR, textStatus) &#123;</div><div class="line">        console.log(&apos;complete&apos;);</div><div class="line">        //TODO: pendingRequests[key] = null;</div><div class="line">        setTimeout(function () &#123;</div><div class="line">            pendingRequests[key] = null;</div><div class="line">        &#125;, 10000);</div><div class="line">        if (jQuery.isFunction(complete)) &#123;</div><div class="line">            complete.apply(this, arguments);</div><div class="line">        &#125;</div><div class="line">    &#125;;</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<ul>
+<li>服务器端限制</li>
+</ul>
+<p>…</p>
+<h3 id="结束"><a href="#结束" class="headerlink" title="结束"></a>结束</h3><pre><code>夜长长，路漫漫...
+ :)~
+</code></pre>]]></content>
+    
+    <summary type="html">
+    
+      &lt;pre&gt;&lt;code&gt;最近也不知道写点啥，工作任务太饱和了，遇到些小问题，做个总结
+&lt;/code&gt;&lt;/pre&gt;
+    
+    </summary>
+    
+      <category term="work" scheme="http://www.nealma.com/categories/work/"/>
+    
+    
+      <category term="大杂烩" scheme="http://www.nealma.com/tags/%E5%A4%A7%E6%9D%82%E7%83%A9/"/>
+    
+  </entry>
+  
+  <entry>
     <title>工作中遇到的问题（一） Spring MVC Restfull API</title>
     <link href="http://www.nealma.com/2016/11/26/work-problerm-1/"/>
     <id>http://www.nealma.com/2016/11/26/work-problerm-1/</id>
@@ -241,53 +288,6 @@ We did it。
 <pre><code>从两处标记可以看出，Accept的两次值不一样；Accept的值直接影响Controller的consumes,
 Spring会根据Accept来对Request的参数做相应的处理。
 </code></pre><h3 id="XMLHttpRequest-cannot-load-http-yourdomain-com-api-addresses-Response-to-preflight-request-doesn’t-pass-access-control-check-The-‘Access-Control-Allow-Origin’-header-contains-multiple-values-‘http-localhost-8080-’-but-only-one-is-allowed-Origin-‘http-localhost-8080‘-is-therefore-not-allowed-access"><a href="#XMLHttpRequest-cannot-load-http-yourdomain-com-api-addresses-Response-to-preflight-request-doesn’t-pass-access-control-check-The-‘Access-Control-Allow-Origin’-header-contains-multiple-values-‘http-localhost-8080-’-but-only-one-is-allowed-Origin-‘http-localhost-8080‘-is-therefore-not-allowed-access" class="headerlink" title="XMLHttpRequest cannot load http://yourdomain.com/api/addresses. Response to preflight request doesn’t pass access control check: The ‘Access-Control-Allow-Origin’ header contains multiple values ‘http://localhost:8080, *’, but only one is allowed. Origin ‘http://localhost:8080‘ is therefore not allowed access."></a>XMLHttpRequest cannot load <a href="http://yourdomain.com/api/addresses" target="_blank" rel="external">http://yourdomain.com/api/addresses</a>. Response to preflight request doesn’t pass access control check: The ‘Access-Control-Allow-Origin’ header contains multiple values ‘<a href="http://localhost:8080" target="_blank" rel="external">http://localhost:8080</a>, *’, but only one is allowed. Origin ‘<a href="http://localhost:8080" target="_blank" rel="external">http://localhost:8080</a>‘ is therefore not allowed access.</h3><h3 id="结束"><a href="#结束" class="headerlink" title="结束"></a>结束</h3><pre><code>还会陆续遇到各种坑，慢慢填吧...
- :)~
-</code></pre>]]></content>
-    
-    <summary type="html">
-    
-      &lt;pre&gt;&lt;code&gt;最近也不知道写点啥，工作任务太饱和了，遇到些小问题，做个总结
-&lt;/code&gt;&lt;/pre&gt;
-    
-    </summary>
-    
-      <category term="work" scheme="http://www.nealma.com/categories/work/"/>
-    
-    
-      <category term="大杂烩" scheme="http://www.nealma.com/tags/%E5%A4%A7%E6%9D%82%E7%83%A9/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>工作中遇到的问题 (二) Ajax重复提交</title>
-    <link href="http://www.nealma.com/2016/11/26/work-problerm-2/"/>
-    <id>http://www.nealma.com/2016/11/26/work-problerm-2/</id>
-    <published>2016-11-26T03:46:45.000Z</published>
-    <updated>2016-12-11T08:47:03.000Z</updated>
-    
-    <content type="html"><![CDATA[<pre><code>最近也不知道写点啥，工作任务太饱和了，遇到些小问题，做个总结
-</code></pre><a id="more"></a>
-<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><pre><code>最近也不知道写点啥，工作任务太饱和了，遇到些小问题，做个总结
-</code></pre><h3 id="Linux-使用cp-rf-总是提醒是否覆盖"><a href="#Linux-使用cp-rf-总是提醒是否覆盖" class="headerlink" title="Linux 使用cp -rf 总是提醒是否覆盖"></a>Linux 使用cp -rf 总是提醒是否覆盖</h3><pre><code>刚觉很奇怪，rf本来就是要强制覆盖的，为什么还总是提醒呢？Google之后，才知道原来是别名在作怪。
-通过alias命令可以看到,我们执行cp命令，其实是执行的cp -i, 所以无论我们怎么-rf加参数，总是提示。
-</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">[root@apple]# alias</div><div class="line">alias cp=&apos;cp -i&apos;</div><div class="line">alias egrep=&apos;egrep --color=auto&apos;</div><div class="line">alias fgrep=&apos;fgrep --color=auto&apos;</div><div class="line">alias grep=&apos;grep --color=auto&apos;</div><div class="line">alias l.=&apos;ls -d .* --color=auto&apos;</div><div class="line">alias ll=&apos;ls -l --color=auto&apos;</div><div class="line">alias ls=&apos;ls --color=auto&apos;</div><div class="line">alias mv=&apos;mv -i&apos;</div><div class="line">alias rm=&apos;rm -i&apos;</div><div class="line">alias which=&apos;alias | /usr/bin/which --tty-only --read-alias --show-dot --show-tilde&apos;</div></pre></td></tr></table></figure>
-<pre><code>解决办法：
-
-打开~/.bashrc文件，注释掉即可。
-</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">#alias cp=&apos;cp -i&apos;</div></pre></td></tr></table></figure>
-<pre><code>或者这样：
-</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">/usr/bin/cp</div></pre></td></tr></table></figure>
-<h3 id="Ajax重复提交的问题"><a href="#Ajax重复提交的问题" class="headerlink" title="Ajax重复提交的问题"></a>Ajax重复提交的问题</h3><pre><code>我们在使用ajax调用接口，异步提交的时候，特别是在网络环境不好的时候，会在短时间内，连续提交多次，
-导致数据库中出现很多垃圾数据，首先是客户端的限制措施。
-</code></pre><ul>
-<li>使用jQuery.ajaxPrefilter，其实是个过滤器，如下：</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div></pre></td><td class="code"><pre><div class="line">var pendingRequests = &#123;&#125;;</div><div class="line">jQuery.ajaxPrefilter(function( options, originalOptions, jqXHR ) &#123;</div><div class="line">    var key = originalOptions.url+&quot;_&quot;+originalOptions.type.toUpperCase();</div><div class="line">    console.log(key)</div><div class="line">    if (!pendingRequests[key]</div><div class="line">            || (pendingRequests[key] &amp;&amp; originalOptions.type.toUpperCase() !=&apos;POST&apos;)) &#123;</div><div class="line">        pendingRequests[key] = jqXHR;</div><div class="line">        console.log(&apos;start&apos;);</div><div class="line">    &#125;else&#123;</div><div class="line">        jqXHR.abort();    //放弃后触发的提交</div><div class="line">        //pendingRequests[key].abort();   // 放弃先触发的提交</div><div class="line">        console.log(&apos;abort&apos;);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    var complete = options.complete;</div><div class="line">    options.complete = function(jqXHR, textStatus) &#123;</div><div class="line">        console.log(&apos;complete&apos;);</div><div class="line">        //TODO: pendingRequests[key] = null;</div><div class="line">        setTimeout(function () &#123;</div><div class="line">            pendingRequests[key] = null;</div><div class="line">        &#125;, 10000);</div><div class="line">        if (jQuery.isFunction(complete)) &#123;</div><div class="line">            complete.apply(this, arguments);</div><div class="line">        &#125;</div><div class="line">    &#125;;</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
-<ul>
-<li>服务器端限制</li>
-</ul>
-<p>…</p>
-<h3 id="结束"><a href="#结束" class="headerlink" title="结束"></a>结束</h3><pre><code>夜长长，路漫漫...
  :)~
 </code></pre>]]></content>
     
@@ -619,7 +619,7 @@ CookieHttpSessionStrategy，如果是API就用HeaderHttpSessionStrategy，具体
     <link href="http://www.nealma.com/2016/10/01/centos-72-6-lentsencrypt/"/>
     <id>http://www.nealma.com/2016/10/01/centos-72-6-lentsencrypt/</id>
     <published>2016-10-01T03:46:49.000Z</published>
-    <updated>2017-01-07T04:49:08.000Z</updated>
+    <updated>2017-04-06T23:51:04.000Z</updated>
     
     <content type="html"><![CDATA[<pre><code>HTTPS即将普及，各大互联网公司早已实现全面HTTPS化，但是证书的价格对于个人或者初创企业都是支出，
 Let&apos;s Encrypt给我们带来了免费的午餐，而且是各大顶级组织在背后支持，没理由不用。
@@ -685,7 +685,14 @@ error_page 500 502 503 504 /50x.html;
     location = /50x.html {
 }
 </code></pre><p>}<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"></div><div class="line">### Obtain a Certificate</div></pre></td></tr></table></figure></p>
-<p>export DOMAINS=”ruitaowang.com,www.ruitaowang.com,test.ruitaowang.com,admin.ruitaowang.com,api.ruitaowang.com,m.ruitaowang.com,statics.ruitaowang.com,search.ruitaowang.com,web.ruitaowang.com,live.ruitaowang.com”<br>export DIR=/usr/share/nginx/letsencrypt<br>sudo certbot certonly -a webroot –webroot-path=$DIR -d $DOMAINS<br>```</p>
+<p>export DOMAINS=”ruitaowang.com,www.ruitaowang.com,test.ruitaowang.com,admin.ruitaowang.com,api.ruitaowang.com,m.ruitaowang.com,statics.ruitaowang.com,search.ruitaowang.com,web.ruitaowang.com,live.ruitaowang.com”<br>export DIR=/usr/share/nginx/letsencrypt<br>sudo certbot certonly -a webroot –webroot-path=$DIR -d $DOMAINS<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">#### 续期</div></pre></td></tr></table></figure></p>
+<p>certbot renew –force-renew<br>nginx -s reload<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">### aliyun负载均衡数字证书配置</div><div class="line">    在给阿里云配置负载均衡的HTTPs的数字证书时，要注意</div><div class="line">* 密钥 cat /etc/letsencrypt/live/xxx.com/privkey.pem，BEGIN后面紧跟RSA，否则检测错误</div></pre></td></tr></table></figure></p>
+<p>—–BEGIN PRIVATE KEY—–</p>
+<p>…</p>
+<p>—–END PRIVATE KEY—–<br>```</p>
+<ul>
+<li>证书内容 cat /etc/letsencrypt/live/xxx.com/fullchain.pem，复制全部内容，否则授权unknown</li>
+</ul>
 <h3 id="结束"><a href="#结束" class="headerlink" title="结束"></a>结束</h3><pre><code>还会陆续遇到各种坑，慢慢填吧...
  :)~
 </code></pre>]]></content>
