@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://www.nealma.com/"/>
-  <updated>2017-03-09T01:51:58.000Z</updated>
+  <updated>2017-04-19T04:27:34.000Z</updated>
   <id>http://www.nealma.com/</id>
   
   <author>
@@ -14,6 +14,157 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Spring-Boot（十) JPA Hibernate</title>
+    <link href="http://www.nealma.com/2017/04/18/spring-boot-10-jpa-hibernate/"/>
+    <id>http://www.nealma.com/2017/04/18/spring-boot-10-jpa-hibernate/</id>
+    <published>2017-04-18T03:46:45.000Z</published>
+    <updated>2017-04-19T04:27:34.000Z</updated>
+    
+    <content type="html"><![CDATA[<pre><code>一直都在用MyBatis，感觉很好用，自己也熟悉。考虑到Spring Boot天生支持JPA，而且Hibernate也支持
+分布式事务，有成熟的解决方案，值得研究一下
+</code></pre><a id="more"></a>
+<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><pre><code>一直都在用MyBatis，感觉很好用，自己也熟悉。考虑到Spring Boot天生支持JPA，而且Hibernate也支持
+分布式事务，有成熟的解决方案，值得研究一下
+</code></pre><p>开发环境：<br>OS: Mac 10.11.6<br>IDE: IDEA<br>Build: Maven</p>
+<h3 id="引入依赖"><a href="#引入依赖" class="headerlink" title="引入依赖"></a>引入依赖</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">&lt;dependency&gt;</div><div class="line">	&lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;</div><div class="line">	&lt;artifactId&gt;spring-boot-starter-data-jpa&lt;/artifactId&gt;</div><div class="line">&lt;/dependency&gt;</div><div class="line"></div><div class="line">&lt;dependency&gt;</div><div class="line">	&lt;groupId&gt;mysql&lt;/groupId&gt;</div><div class="line">	&lt;artifactId&gt;mysql-connector-java&lt;/artifactId&gt;</div><div class="line">	&lt;scope&gt;runtime&lt;/scope&gt;</div><div class="line">&lt;/dependency&gt;</div></pre></td></tr></table></figure>
+<h3 id="JPA-Config"><a href="#JPA-Config" class="headerlink" title="JPA Config"></a>JPA Config</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">@Order(Ordered.HIGHEST_PRECEDENCE)</div><div class="line">@Configuration</div><div class="line">@EnableTransactionManagement(proxyTargetClass = true)</div><div class="line">@EnableJpaRepositories(basePackages = &quot;tech.lingyi.**.dao&quot;)</div><div class="line">@EntityScan(basePackages = &quot;tech.lingyi.**.entity&quot;)</div><div class="line">public class JpaConfiguration &#123;</div><div class="line"></div><div class="line">    @Bean</div><div class="line">    PersistenceExceptionTranslationPostProcessor persistenceExceptionTranslationPostProcessor()&#123;</div><div class="line">        return new PersistenceExceptionTranslationPostProcessor();</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="业务接口"><a href="#业务接口" class="headerlink" title="业务接口"></a>业务接口</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">@Repository</div><div class="line">public interface UserRepository extends JpaRepository&lt;User, Long&gt; &#123;</div><div class="line">    Page&lt;User&gt; findAll(Specification&lt;User&gt; s, Pageable pageRequest);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<pre><code>JPA 实现了几乎我们所用的所有方法，你需要继承就可以了，提高了生产效率，解放了广大码农，可以去约妹子了。
+</code></pre><h3 id="JPA-CRUD-和-联合条件、分页查询"><a href="#JPA-CRUD-和-联合条件、分页查询" class="headerlink" title="JPA CRUD 和 联合条件、分页查询"></a>JPA CRUD 和 联合条件、分页查询</h3><ul>
+<li><p>insert</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">public User insert()&#123;</div><div class="line">	User user = new User();</div><div class="line">	user.setNickname(&quot;neal&quot;);</div><div class="line">	return userRepository.save(user);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+<li><p>updateByPK</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">public User updateByPK()&#123;</div><div class="line">	User user = new User();</div><div class="line">    user.setId(31L);</div><div class="line">	user.setNickname(&quot;lingyi&quot;);</div><div class="line">	return userRepository.save(user);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+<li><p>deleteByPK</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">public void deleteByPK(Long id)&#123;</div><div class="line">	userRepository.delete(id);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+<li><p>selectByPK</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">public User selectByPK(Long id)&#123;</div><div class="line">	return userRepository.findOne(id);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+<li><p>findPage 只分页 没有条件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">public void  findPage()&#123;</div><div class="line">	Pageable pageable = new PageRequest(0,10, new Sort(</div><div class="line">									new Sort.Order(Sort.Direction.ASC, &quot;username&quot;),</div><div class="line">									new Sort.Order(Sort.Direction.DESC, &quot;id&quot;))</div><div class="line">	);</div><div class="line">	Page&lt;User&gt; page = userRepository.findAll(pageable);</div><div class="line">	Assert.notNull(page);</div><div class="line">	for (User user : page.getContent())&#123;</div><div class="line">		LOGGER.info(&quot;id=&#123;&#125;, name=&#123;&#125;, department=&#123;&#125;, role=&#123;&#125;&quot;, user.getId(), user.getNickname(), user.getUsername(),&quot;&quot;);</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+<li><p>findPage 只分页 没有条件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">public void  findPage()&#123;</div><div class="line">	Pageable pageable = new PageRequest(0,10, new Sort(</div><div class="line">									new Sort.Order(Sort.Direction.ASC, &quot;username&quot;),</div><div class="line">									new Sort.Order(Sort.Direction.DESC, &quot;id&quot;))</div><div class="line">	);</div><div class="line">	Page&lt;User&gt; page = userRepository.findAll(pageable);</div><div class="line">	Assert.notNull(page);</div><div class="line">	for (User user : page.getContent())&#123;</div><div class="line">		LOGGER.info(&quot;id=&#123;&#125;, name=&#123;&#125;, department=&#123;&#125;, role=&#123;&#125;&quot;, user.getId(), user.getNickname(), user.getUsername(),&quot;&quot;);</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+<li><p>findCriteria, findCriteriaV2 两种方式 关联条件分页查询</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">public Page&lt;User&gt; findCriteria(final User user, int page, int pageSize) throws Exception &#123;</div><div class="line">	Sort sort = new Sort(Sort.Direction.DESC, &quot;id&quot;);</div><div class="line">	Pageable pageable  =  new PageRequest(page, pageSize, sort);</div><div class="line"></div><div class="line">	return userRepository.findAll((root, query, builder) -&gt; &#123;</div><div class="line">        List&lt;Predicate&gt; predicates = new ArrayList&lt;&gt;();</div><div class="line">        if(null != user.getUsername())&#123;</div><div class="line">            predicates.add(builder.equal(root.get(&quot;username&quot;).as(Long.class), user.getUsername()));</div><div class="line">        &#125;</div><div class="line">        if(null != user.getNickname())&#123;</div><div class="line">            predicates.add(builder.equal(root.get(&quot;nickname&quot;).as(String.class), user.getNickname()));</div><div class="line">        &#125;</div><div class="line">        query.where(predicates.toArray(new Predicate[predicates.size()]));</div><div class="line">        return query.getRestriction();</div><div class="line">    &#125;, pageable);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>OR<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">public Page&lt;User&gt; findCriteriaV2(final User user, int page, int pageSize) throws Exception &#123;</div><div class="line">	Sort sort = new Sort(Sort.Direction.DESC, &quot;id&quot;);</div><div class="line">	Pageable pageable  =  new PageRequest(page, pageSize, sort);</div><div class="line"></div><div class="line">	return userRepository.findAll((root, query, builder) -&gt; &#123;</div><div class="line">		Predicate p1 = builder.equal(root.get(&quot;username&quot;).as(String.class), user.getUsername());</div><div class="line">		Predicate p2 = builder.equal(root.get(&quot;nickname&quot;).as(Long.class), user.getNickname());</div><div class="line"></div><div class="line">		query.where(builder.and(p1, p2));</div><div class="line">		return query.getRestriction();</div><div class="line">	&#125;, pageable);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h3 id="结束"><a href="#结束" class="headerlink" title="结束"></a>结束</h3><pre><code>使用频率最多的都列举出来了，够我们用了。
+但是程序员就像偷懒，不想每个domain都要写个XxxRepository,写个基础BaseRepository岂不是节省好多事呢，有空在写吧...
+</code></pre>]]></content>
+    
+    <summary type="html">
+    
+      &lt;pre&gt;&lt;code&gt;一直都在用MyBatis，感觉很好用，自己也熟悉。考虑到Spring Boot天生支持JPA，而且Hibernate也支持
+分布式事务，有成熟的解决方案，值得研究一下
+&lt;/code&gt;&lt;/pre&gt;
+    
+    </summary>
+    
+      <category term="Java" scheme="http://www.nealma.com/categories/Java/"/>
+    
+    
+      <category term="Java" scheme="http://www.nealma.com/tags/Java/"/>
+    
+      <category term="Spring" scheme="http://www.nealma.com/tags/Spring/"/>
+    
+      <category term="Spring-Boot" scheme="http://www.nealma.com/tags/Spring-Boot/"/>
+    
+      <category term="Hibernate" scheme="http://www.nealma.com/tags/Hibernate/"/>
+    
+      <category term="JPA" scheme="http://www.nealma.com/tags/JPA/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>【微信公众平台】自动回复机器人</title>
+    <link href="http://www.nealma.com/2017/03/01/work-problerm-7-wx-mp-robot/"/>
+    <id>http://www.nealma.com/2017/03/01/work-problerm-7-wx-mp-robot/</id>
+    <published>2017-03-01T03:46:45.000Z</published>
+    <updated>2017-04-19T03:50:52.000Z</updated>
+    
+    <content type="html"><![CDATA[<pre><code>微信公众号后台java开发实现自动回复机器人
+</code></pre><a id="more"></a>
+<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><pre><code>很早之前写过微信公众平台消息自动接收的项目，现在重新捡起来，还有点忘了，故此写一篇记录，防止老年痴呆。
+</code></pre><h3 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h3><ul>
+<li><p>注册微信公众号。</p>
+</li>
+<li><p>注册百度图灵机器人。（<a href="http://www.tuling123.com/）" target="_blank" rel="external">http://www.tuling123.com/）</a></p>
+</li>
+<li><p>配置微信公众号服务器验证，注意验证的接口方法是GET</p>
+</li>
+</ul>
+<p>1）在开发的基本配置下，填写控制器servlet访问的路径。</p>
+<p>2）token随意写，不过要和后台一致</p>
+<p>3）选择明文</p>
+<p>4）随机选个字符串</p>
+<p>5) token验证和消息处理是同一个接口URI的不同的METHOD，valid是GET方法，handle是POST</p>
+<h3 id="结束"><a href="#结束" class="headerlink" title="结束"></a>结束</h3><pre><code>百度图灵机器人可以直接选择微信公众号机器人，只要授权就可以了。
+过成功遇到： 启用后台服务器接口消息的功能后，公众号的菜单没有了，还不知道怎么能两者兼得
+
+ :)~
+</code></pre>]]></content>
+    
+    <summary type="html">
+    
+      &lt;pre&gt;&lt;code&gt;微信公众号后台java开发实现自动回复机器人
+&lt;/code&gt;&lt;/pre&gt;
+    
+    </summary>
+    
+      <category term="work" scheme="http://www.nealma.com/categories/work/"/>
+    
+    
+      <category term="大杂烩" scheme="http://www.nealma.com/tags/%E5%A4%A7%E6%9D%82%E7%83%A9/"/>
+    
+      <category term="微信" scheme="http://www.nealma.com/tags/%E5%BE%AE%E4%BF%A1/"/>
+    
+      <category term="公众号" scheme="http://www.nealma.com/tags/%E5%85%AC%E4%BC%97%E5%8F%B7/"/>
+    
+      <category term="机器人" scheme="http://www.nealma.com/tags/%E6%9C%BA%E5%99%A8%E4%BA%BA/"/>
+    
+      <category term="java" scheme="http://www.nealma.com/tags/java/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>【IDEA】cannot resolve syambol xxx</title>
+    <link href="http://www.nealma.com/2017/01/01/work-problerm-6-idea-cannot-resolve-syambol/"/>
+    <id>http://www.nealma.com/2017/01/01/work-problerm-6-idea-cannot-resolve-syambol/</id>
+    <published>2017-01-01T03:46:45.000Z</published>
+    <updated>2017-04-18T04:20:25.000Z</updated>
+    
+    <content type="html"><![CDATA[<pre><code>cannot resolve syambol xxx
+</code></pre><a id="more"></a>
+<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>解决方法如下：<br>点击菜单中的 “File” -&gt; “Invalidate Caches / Restart”，然后点击对话框中的 “Invalidate and Restart”，清空 cache 并且重启。语法就会正确的高亮了。</p>
+<h3 id="结束"><a href="#结束" class="headerlink" title="结束"></a>结束</h3><pre><code>还会陆续遇到各种坑，慢慢填吧...
+ :)~
+</code></pre>]]></content>
+    
+    <summary type="html">
+    
+      &lt;pre&gt;&lt;code&gt;cannot resolve syambol xxx
+&lt;/code&gt;&lt;/pre&gt;
+    
+    </summary>
+    
+      <category term="work" scheme="http://www.nealma.com/categories/work/"/>
+    
+    
+      <category term="MySQL" scheme="http://www.nealma.com/tags/MySQL/"/>
+    
+      <category term="大杂烩" scheme="http://www.nealma.com/tags/%E5%A4%A7%E6%9D%82%E7%83%A9/"/>
+    
+      <category term="sql" scheme="http://www.nealma.com/tags/sql/"/>
+    
+  </entry>
   
   <entry>
     <title>常用的sql操作</title>
@@ -927,206 +1078,6 @@ Let&amp;apos;s Encrypt给我们带来了免费的午餐，而且是各大顶级�
       <category term="RN" scheme="http://www.nealma.com/tags/RN/"/>
     
       <category term="ipa" scheme="http://www.nealma.com/tags/ipa/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>React Native (十一) bundle打离线包</title>
-    <link href="http://www.nealma.com/2016/09/02/react-native-911-bundle/"/>
-    <id>http://www.nealma.com/2016/09/02/react-native-911-bundle/</id>
-    <published>2016-09-02T06:46:45.000Z</published>
-    <updated>2016-11-17T01:57:36.000Z</updated>
-    
-    <content type="html"><![CDATA[<pre><code>在开发阶段，我们都是通过模拟器，或者自己的手机，直接连接Xcode和Android Studio,
-这样调试代码非常方便，然而我们的App开发好了，最终的目的是上线App Store和各个Android市场。
-最后还是要进行打包，把所有的资源打包成一个最终能够安装的应用包。iOS对应的ipa，Android对应的apk。
-</code></pre><a id="more"></a>
-<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><pre><code>在开发阶段，我们都是通过模拟器，或者自己的手机，直接连接Xcode和Android Studio,
-这样调试代码非常方便，然而我们的App开发好了，最终的目的是上线App Store和各个Android市场。
-最后还是要进行打包，把所有的资源打包成一个最终能够安装的应用包。iOS对应的ipa，Android对应的apk。
-
-那如何打包呢？
-</code></pre><p>开发环境：<br>OS: Mac 10.11.6<br>Xcode: Version 8.0 (8A218a)</p>
-<h3 id="react-native-bundle"><a href="#react-native-bundle" class="headerlink" title="react-native bundle"></a>react-native bundle</h3><ul>
-<li>–entry-file ,ios或者android入口的js名称，比如index.ios.js</li>
-<li>–platform ,平台名称(ios或者android)</li>
-<li>–dev ,设置为false的时候将会对JavaScript代码进行优化处理</li>
-<li>–bundle-output, 生成的jsbundle文件的名称，比如./ios/index.ios.jsbundle</li>
-<li><p>–assets-dest 图片以及其他资源存放的目录,比如./ios 默认会生成一个新的文件夹assets</p>
-</li>
-<li><p>For iOS</p>
-</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">react-native bundle --entry-file index.ios.js --bundle-output ./ios/main.jsbundle --platform ios --assets-dest ./ios --dev false</div></pre></td></tr></table></figure>
-<ul>
-<li>For Android<br>  跟iOS差不多，只不过变量变为android，同时资源文件指定到现有的文件即可。</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">react-native bundle --entry-file index.android.js --bundle-output ./android/app/src/main/assets/index.android.bundle --platform android --assets-dest ./android/app/src/main/res --dev false</div></pre></td></tr></table></figure>
-<ul>
-<li>Repeat Work</li>
-</ul>
-<p>这样的一串命令以后还得用呢，那是不是可以写个脚本留给以后重复用呢？<br>其实可以利用npm的脚本就可以，在package.json中添加（bundle-ios）如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">&quot;scripts&quot;: &#123;</div><div class="line">    &quot;start&quot;: &quot;node node_modules/react-native/local-cli/cli.js start&quot;,</div><div class="line">    &quot;bundle-ios&quot;: &quot;react-native bundle --entry-file index.ios.js --bundle-output ./ios/main.jsbundle --platform ios --assets-dest ./ios --dev false&quot;,</div><div class="line">    &quot;bundle-android&quot;: &quot;react-native bundle --entry-file index.android.js --bundle-output ./android/app/src/main/assets/index.android.bundle --platform android --assets-dest ./android/app/src/main/res --dev false&quot;</div><div class="line">  &#125;,</div></pre></td></tr></table></figure>
-<p>以后每次打包直接运行:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">npm run bundle-ios</div><div class="line"></div><div class="line">npm run bundle-android</div></pre></td></tr></table></figure></p>
-<h3 id="把打包好的资源文件添加到Xcode"><a href="#把打包好的资源文件添加到Xcode" class="headerlink" title="把打包好的资源文件添加到Xcode"></a>把打包好的资源文件添加到Xcode</h3><ul>
-<li>添加文件到项目</li>
-</ul>
-<p><img src="/images/addfilesto.png" alt=""></p>
-<ul>
-<li>找到刚才的assets文件夹</li>
-</ul>
-<p><img src="/images/assets.png" alt=""></p>
-<h3 id="修改程序加载js的方式-AppDelegate-m"><a href="#修改程序加载js的方式-AppDelegate-m" class="headerlink" title="修改程序加载js的方式(AppDelegate.m)"></a>修改程序加载js的方式(AppDelegate.m)</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">//  jsCodeLocation = [[RCTBundleURLProvider sharedSettings] jsBundleURLForBundleRoot:@&quot;index.ios&quot; fallbackResource:nil];</div><div class="line"></div><div class="line">  jsCodeLocation = [[NSBundle mainBundle] URLForResource:@&quot;main&quot; withExtension:@&quot;jsbundle&quot;];</div></pre></td></tr></table></figure>
-<h3 id="结束"><a href="#结束" class="headerlink" title="结束"></a>结束</h3><pre><code>：）～
-</code></pre>]]></content>
-    
-    <summary type="html">
-    
-      &lt;pre&gt;&lt;code&gt;在开发阶段，我们都是通过模拟器，或者自己的手机，直接连接Xcode和Android Studio,
-这样调试代码非常方便，然而我们的App开发好了，最终的目的是上线App Store和各个Android市场。
-最后还是要进行打包，把所有的资源打包成一个最终能够安装的应用包。iOS对应的ipa，Android对应的apk。
-&lt;/code&gt;&lt;/pre&gt;
-    
-    </summary>
-    
-      <category term="React-Native" scheme="http://www.nealma.com/categories/React-Native/"/>
-    
-    
-      <category term="React-Native" scheme="http://www.nealma.com/tags/React-Native/"/>
-    
-      <category term="RN" scheme="http://www.nealma.com/tags/RN/"/>
-    
-      <category term="bundle" scheme="http://www.nealma.com/tags/bundle/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>React Native (十) 给App设置icon</title>
-    <link href="http://www.nealma.com/2016/09/01/react-native-910-app-icon/"/>
-    <id>http://www.nealma.com/2016/09/01/react-native-910-app-icon/</id>
-    <published>2016-09-01T06:46:45.000Z</published>
-    <updated>2016-11-17T01:57:48.000Z</updated>
-    
-    <content type="html"><![CDATA[<pre><code>App开发好了，在你的手机桌面上就能看到，一个好的icon会给人耳目一新的感觉。
-作为一个专业搬砖的来说，很有难度。主要看你的设计和视觉天赋了。我们一般运行个helloworld，
-你会在手机上找你的App，但都是各个平台默认的，iOS里面是多个同心圆，一环一环的，
-具体叫啥还真不知道，Android则是那个呆萌的小机器人。
-</code></pre><a id="more"></a>
-<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><pre><code>App开发好了，在你的手机桌面上就能看到，一个好的icon会给人耳目一新的感觉。
-作为一个专业搬砖的来说，很有难度。主要看你的设计和视觉天赋了。我们一般运行个helloworld，
-你会在手机上找你的App，但都是各个平台默认的，iOS里面是多个同心圆，一环一环的，
-具体叫啥还真不知道，Android则是那个呆萌的小机器人。
-
-那如何替换成我们自己的icon呢？
-</code></pre><p>开发环境：<br>OS: Mac 10.11.6<br>Xcode: Version 8.0 (8A218a)</p>
-<h3 id="For-iOS"><a href="#For-iOS" class="headerlink" title="For iOS"></a>For iOS</h3><ul>
-<li><p>修改应用icon</p>
-<p>  在Xcode中单击Images.xcassets文件夹，右侧会看到AppIcon。<br>  单击AppIcon，映入你眼帘的是一个个待填补的虚线😊方框。<br>  看到这个你不要慌，也不用管这些是什么，你只看每组对应说明的单位即可。</p>
-<p>  比如第一组20pt，2x就是40pt，3x就是60pt，我都是用的像素，也没问题。<br>  按照这些尺寸制作icon即可，其他以此类推。</p>
-<p>  做好所有尺寸的icon后，拖拽到相应的位置上就OK。<br>  即：更新不同的尺寸 29pt 29pt<em>2 29pt</em>3 40pt<em>2 40pt</em>3 57pt 57pt<em>2 60pt</em>2 60pt*3</p>
-</li>
-<li><p>修改应用名称</p>
-<p>  还有一点就是，App name ，默认会是你的项目的名称。我们呢，都用中文，当然得提前设置了。</p>
-<p>  在哪设置呢？</p>
-<p>  在Xcode 8中，单击项目，左侧出现跟项目相关的信息。<br>  选择Targets -&gt; General -&gt; Display Name,值部分就是你要填的<br>  显示在AppIcon 下面的文本部分了。</p>
-</li>
-</ul>
-<p><img src="/images/appicon.png" alt=""></p>
-<h3 id="For-Android"><a href="#For-Android" class="headerlink" title="For Android"></a>For Android</h3><ul>
-<li><p>修改应用icon</p>
-<p>   把 ic_launcher.png 放到文件夹 [PrjDir]/android/app/src/main/res/mipmap-*.</p>
-<p>  相应的尺寸：</p>
-<pre><code>72*72 ic_launcher.png to mipmap-hdpi.
-48*48 ic_launcher.png to mipmap-mdpi.
-96*96 ic_launcher.png to mipmap-xhdpi.
-144*144 ic_launcher.png to mipmap-xxhdpi.
-</code></pre></li>
-<li><p>修改应用名称</p>
-<p>  在a[PrjDir]/ndroid/app/src/main/res/values/strings.xml中，<br>  找到<string name="app_name">MyProject</string>, MyProject替换为你自己的应用名称即可。</p>
-</li>
-</ul>
-<h3 id="结束"><a href="#结束" class="headerlink" title="结束"></a>结束</h3><pre><code>：）～
-</code></pre>]]></content>
-    
-    <summary type="html">
-    
-      &lt;pre&gt;&lt;code&gt;App开发好了，在你的手机桌面上就能看到，一个好的icon会给人耳目一新的感觉。
-作为一个专业搬砖的来说，很有难度。主要看你的设计和视觉天赋了。我们一般运行个helloworld，
-你会在手机上找你的App，但都是各个平台默认的，iOS里面是多个同心圆，一环一环的，
-具体叫啥还真不知道，Android则是那个呆萌的小机器人。
-&lt;/code&gt;&lt;/pre&gt;
-    
-    </summary>
-    
-      <category term="React-Native" scheme="http://www.nealma.com/categories/React-Native/"/>
-    
-    
-      <category term="React-Native" scheme="http://www.nealma.com/tags/React-Native/"/>
-    
-      <category term="RN" scheme="http://www.nealma.com/tags/RN/"/>
-    
-      <category term="AppIcon" scheme="http://www.nealma.com/tags/AppIcon/"/>
-    
-      <category term="AppName" scheme="http://www.nealma.com/tags/AppName/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>React Native (九) TextInput 文本输入</title>
-    <link href="http://www.nealma.com/2016/08/31/react-native-9-TextInput/"/>
-    <id>http://www.nealma.com/2016/08/31/react-native-9-TextInput/</id>
-    <published>2016-08-31T03:46:45.000Z</published>
-    <updated>2016-11-17T01:57:59.000Z</updated>
-    
-    <content type="html"><![CDATA[<p>  TextInput组件作为基础部分，必不可少。<br>  我们在做登录、提交信息时经常使用。</p>
-<a id="more"></a>
-<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><pre><code>TextInput组件作为基础部分，必不可少。
-我们在做登录、提交信息时经常使用。
-</code></pre><p>开发环境：<br>OS: Mac 10.11.6<br>Xcode: Version 8.0 (8A218a)</p>
-<h3 id="简单用例"><a href="#简单用例" class="headerlink" title="简单用例"></a>简单用例</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">&lt;TextInput</div><div class="line">    style=&#123;Styles.postTextInput&#125;</div><div class="line">    autoCapitalize=&quot;none&quot;</div><div class="line">    multiline=&#123;true&#125; //是否多行</div><div class="line">    keyboardType=&apos;numeric&apos; //键盘类型：default, numeric, </div><div class="line">    placeholder=&#123;this.state.placeHolder&#125; //占位字符 背景提示,这里犯了错误，当时把颜色和背景设置一样了，死活看不到，满眼都是泪啊</div><div class="line">    placeholderTextColor=&quot;#bfbfbf&quot; //占位符颜色</div><div class="line">    onChangeText=&#123;(text) =&gt; this.setState(&#123;text&#125;)&#125; //文本改变时触发这个事件, 获取本文时需要这个方法</div><div class="line">/&gt;</div><div class="line"></div><div class="line"># keyboardType决定键盘类型,是个枚举</div><div class="line"># enum(&apos;default&apos;, &quot;ascii-capable&quot;, &apos;numbers-and-punctuation&apos;, &apos;url&apos;, &apos;number-pad&apos;, &apos;phone-pad&apos;, </div><div class="line">#&apos;name-phone-pad&apos;, &apos;email-address&apos;, &apos;decimal-pad&apos;, &apos;twitter&apos;, &apos;web-search&apos;, &quot;numeric&quot;)</div></pre></td></tr></table></figure>
-<h3 id="获取文本内容"><a href="#获取文本内容" class="headerlink" title="获取文本内容"></a>获取文本内容</h3><pre><code>在onChangeText中，我们已经告知文本内容，并实时保存在了state中，
-
-我们只要在相应的处理函数中进行处理即可。
-</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">_handleInput() &#123;</div><div class="line">    console.log(this.state.text);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h3 id="设置width和height"><a href="#设置width和height" class="headerlink" title="设置width和height"></a>设置width和height</h3><pre><code>如果你没有设置TextInput的样式，并且没有文本内容，那么默认是wrap的，因为TextInput不是块元素，
-初次调试的时候，总是觉得很蹊跷，怎么看不到内容呢？在这里耽误了很长时间...
-</code></pre><h3 id="获得焦点，呼出键盘"><a href="#获得焦点，呼出键盘" class="headerlink" title="获得焦点，呼出键盘"></a>获得焦点，呼出键盘</h3><pre><code>从使用来看，当你单击输入框的时候，如果单击的位置偏上了或者偏下了，都不会触发onFocus事件，这时候不要谎，
-单击中间部分，看到键盘了吧。
-
-当然如果是iOS，需要打开Simulator-&gt;Hardware-&gt;Keyboard-&gt;Toggle Software Keyboard
-快捷键   Command + K
-</code></pre><h3 id="失去焦点，隐藏键盘"><a href="#失去焦点，隐藏键盘" class="headerlink" title="失去焦点，隐藏键盘"></a>失去焦点，隐藏键盘</h3><pre><code>这里有两个方法，也是经过搜索和尝试的，都可以正常满足你的需求。
-</code></pre><ul>
-<li>把整个视图换成ScrollView</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">&lt;ScrollView style=&#123;styles.container&#125; keyboardShouldPersistTaps=&#123;false&#125;&gt;</div><div class="line">    &lt;TextInput</div><div class="line">        placeholder=&quot;Post Title&quot;</div><div class="line">        onChange=&#123;(event) =&gt; this.updateTitle(event.nativeEvent.text)&#125;</div><div class="line">        style=&#123;styles.default&#125;/&gt;</div><div class="line"> &lt;/ScrollView&gt;</div></pre></td></tr></table></figure>
-<ul>
-<li>使用dismissKeyboard和TouchableWithoutFeedback配合</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line">import DismissKeyboard from &apos;dismissKeyboard&apos;;</div><div class="line"></div><div class="line">&lt;View style=&#123;styles.container&#125;&gt;</div><div class="line"></div><div class="line">  &lt;TouchableWithoutFeedback onPress=&#123; DismissKeyboard &#125;&gt;</div><div class="line"></div><div class="line">    &lt;View&gt;</div><div class="line">      &lt;Text style=&#123;styles.welcome&#125;&gt;</div><div class="line">        Welcome to React Native!</div><div class="line">      &lt;/Text&gt;</div><div class="line">      &lt;Text style=&#123;styles.instructions&#125;&gt;</div><div class="line">        To get started, edit index.ios.js</div><div class="line">      &lt;/Text&gt;</div><div class="line">      &lt;Text style=&#123;styles.instructions&#125;&gt;</div><div class="line">        Press Cmd+R to reload,&#123;&apos;\n&apos;&#125;</div><div class="line">        Cmd+D or shake for dev menu</div><div class="line">      &lt;/Text&gt;</div><div class="line">      &lt;TextInput style=&#123;&#123;height: 40, borderColor: &apos;gray&apos;, borderWidth: 1&#125;&#125; /&gt;</div><div class="line">    &lt;/View&gt;</div><div class="line">  &lt;/TouchableWithoutFeedback&gt;</div><div class="line"></div><div class="line">&lt;/View&gt;</div></pre></td></tr></table></figure>
-<h3 id="Android-取消默认文本下划线"><a href="#Android-取消默认文本下划线" class="headerlink" title="Android 取消默认文本下划线"></a>Android 取消默认文本下划线</h3><pre><code>一开始不知道设置这个属性，导致在Android平台上出现不一致的风格。如果匹配还好，
-
-事实上，很别扭。一开始以为可以通过设置边框可以改变，通过尝试是行不通的。后来发现
-
-下面的属性，一下子解决了我的问题。还是得看书啊
-</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">#TextInput 属性</div><div class="line">   underlineColorAndroid=&#123;&apos;transparent&apos;&#125;</div></pre></td></tr></table></figure>
-<h3 id="结束"><a href="#结束" class="headerlink" title="结束"></a>结束</h3><pre><code>：）～
-</code></pre>]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;  TextInput组件作为基础部分，必不可少。&lt;br&gt;  我们在做登录、提交信息时经常使用。&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="React-Native" scheme="http://www.nealma.com/categories/React-Native/"/>
-    
-    
-      <category term="React-Native" scheme="http://www.nealma.com/tags/React-Native/"/>
-    
-      <category term="RN" scheme="http://www.nealma.com/tags/RN/"/>
-    
-      <category term="TextInput" scheme="http://www.nealma.com/tags/TextInput/"/>
     
   </entry>
   
