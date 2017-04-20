@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://www.nealma.com/"/>
-  <updated>2017-04-19T04:27:34.000Z</updated>
+  <updated>2017-04-20T07:41:16.000Z</updated>
   <id>http://www.nealma.com/</id>
   
   <author>
@@ -16,11 +16,54 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>Spring-Boot（十一) not fat jar ,but jar</title>
+    <link href="http://www.nealma.com/2017/04/19/spring-boot-11-not-fat-jar/"/>
+    <id>http://www.nealma.com/2017/04/19/spring-boot-11-not-fat-jar/</id>
+    <published>2017-04-19T03:46:45.000Z</published>
+    <updated>2017-04-20T07:41:16.000Z</updated>
+    
+    <content type="html"><![CDATA[<pre><code>使用spring boot有一段时间了，想抽离出公共的内容，以备后用。
+于是写个两个jar，分别为A 和 B，B引用A，发现引用失败，出现&quot;cannot resolve symbol xxx&quot;,
+才发现Spring Boot默认都是打包成“fat jar”，那怎么才能打包成普通的jar呢？
+</code></pre><a id="more"></a>
+<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><pre><code>使用spring boot有一段时间了，想抽离出公共的内容，以备后用。
+于是写个两个jar，分别为A 和 B，B引用A，发现引用失败，出现&quot;cannot resolve symbol xxx&quot;,
+才发现Spring Boot默认都是打包成“fat jar”，那怎么才能打包成普通的jar呢？
+</code></pre><p>开发环境：<br>OS: Mac 10.11.6<br>IDE: IDEA<br>Build: Maven</p>
+<h3 id="直接下面就OK了"><a href="#直接下面就OK了" class="headerlink" title="直接下面就OK了"></a>直接下面就OK了</h3><p><a href="http://docs.spring.io/spring-boot/docs/current/reference/html/howto-build.html#howto-create-a-nonexecutable-jar" target="_blank" rel="external">可以直接看官方文档</a></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div></pre></td><td class="code"><pre><div class="line">&lt;plugin&gt;</div><div class="line">	&lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;</div><div class="line">	&lt;artifactId&gt;spring-boot-maven-plugin&lt;/artifactId&gt;</div><div class="line">	&lt;configuration&gt;</div><div class="line">		&lt;classifier&gt;exec&lt;/classifier&gt;</div><div class="line">	&lt;/configuration&gt;</div><div class="line">&lt;/plugin&gt;</div><div class="line">&lt;plugin&gt;</div><div class="line">	&lt;artifactId&gt;maven-jar-plugin&lt;/artifactId&gt;</div><div class="line">	&lt;executions&gt;</div><div class="line">		&lt;execution&gt;</div><div class="line">			&lt;id&gt;exec&lt;/id&gt;</div><div class="line">			&lt;phase&gt;package&lt;/phase&gt;</div><div class="line">			&lt;goals&gt;</div><div class="line">				&lt;goal&gt;jar&lt;/goal&gt;</div><div class="line">			&lt;/goals&gt;</div><div class="line">			&lt;configuration&gt;</div><div class="line">				&lt;classifier&gt;exec&lt;/classifier&gt;</div><div class="line">			&lt;/configuration&gt;</div><div class="line">		&lt;/execution&gt;</div><div class="line">		&lt;execution&gt;</div><div class="line">			&lt;phase&gt;package&lt;/phase&gt;</div><div class="line">			&lt;goals&gt;</div><div class="line">				&lt;goal&gt;jar&lt;/goal&gt;</div><div class="line">			&lt;/goals&gt;</div><div class="line">			&lt;configuration&gt;</div><div class="line">				&lt;!-- Need this to ensure application.yml is excluded --&gt;</div><div class="line">				&lt;forceCreation&gt;true&lt;/forceCreation&gt;</div><div class="line">				&lt;excludes&gt;</div><div class="line">					&lt;exclude&gt;application.yml&lt;/exclude&gt;</div><div class="line">				&lt;/excludes&gt;</div><div class="line">			&lt;/configuration&gt;</div><div class="line">		&lt;/execution&gt;</div><div class="line">	&lt;/executions&gt;</div><div class="line">&lt;/plugin&gt;</div></pre></td></tr></table></figure>
+<h3 id="结束"><a href="#结束" class="headerlink" title="结束"></a>结束</h3><pre><code>使用频率最多的都列举出来了，够我们用了。
+但是程序员就像偷懒，不想每个domain都要写个XxxRepository,写个基础BaseRepository岂不是节省好多事呢，有空在写吧...
+</code></pre>]]></content>
+    
+    <summary type="html">
+    
+      &lt;pre&gt;&lt;code&gt;使用spring boot有一段时间了，想抽离出公共的内容，以备后用。
+于是写个两个jar，分别为A 和 B，B引用A，发现引用失败，出现&amp;quot;cannot resolve symbol xxx&amp;quot;,
+才发现Spring Boot默认都是打包成“fat jar”，那怎么才能打包成普通的jar呢？
+&lt;/code&gt;&lt;/pre&gt;
+    
+    </summary>
+    
+      <category term="Java" scheme="http://www.nealma.com/categories/Java/"/>
+    
+    
+      <category term="Java" scheme="http://www.nealma.com/tags/Java/"/>
+    
+      <category term="Spring" scheme="http://www.nealma.com/tags/Spring/"/>
+    
+      <category term="Spring-Boot" scheme="http://www.nealma.com/tags/Spring-Boot/"/>
+    
+      <category term="module" scheme="http://www.nealma.com/tags/module/"/>
+    
+  </entry>
+  
+  <entry>
     <title>Spring-Boot（十) JPA Hibernate</title>
     <link href="http://www.nealma.com/2017/04/18/spring-boot-10-jpa-hibernate/"/>
     <id>http://www.nealma.com/2017/04/18/spring-boot-10-jpa-hibernate/</id>
     <published>2017-04-18T03:46:45.000Z</published>
-    <updated>2017-04-19T04:27:34.000Z</updated>
+    <updated>2017-04-20T01:36:01.000Z</updated>
     
     <content type="html"><![CDATA[<pre><code>一直都在用MyBatis，感觉很好用，自己也熟悉。考虑到Spring Boot天生支持JPA，而且Hibernate也支持
 分布式事务，有成熟的解决方案，值得研究一下
@@ -1032,52 +1075,6 @@ Let&amp;apos;s Encrypt给我们带来了免费的午餐，而且是各大顶级�
       <category term="CentOS" scheme="http://www.nealma.com/tags/CentOS/"/>
     
       <category term="Linux" scheme="http://www.nealma.com/tags/Linux/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>React Native (十二) 趟雷过程中遇到的陷阱</title>
-    <link href="http://www.nealma.com/2016/09/03/react-native-912-archive/"/>
-    <id>http://www.nealma.com/2016/09/03/react-native-912-archive/</id>
-    <published>2016-09-03T06:46:45.000Z</published>
-    <updated>2016-11-17T01:57:23.000Z</updated>
-    
-    <content type="html"><![CDATA[<p>导出分发包的过程中，遇到了许多小问题，做个总结吧</p>
-<a id="more"></a>
-<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><pre><code>导出分发包的过程中，遇到了许多小问题，做个总结吧
-</code></pre><p>开发环境：<br>OS: Mac 10.11.6<br>Xcode: Version 8.0 (8A218a)</p>
-<h3 id="趟雷过程中遇到的陷阱"><a href="#趟雷过程中遇到的陷阱" class="headerlink" title="趟雷过程中遇到的陷阱"></a>趟雷过程中遇到的陷阱</h3><ul>
-<li><p>{For iOS} 突然Products中的archive变成灰色，不能archive了</p>
-<p>  把device换成Generic iOS Device</p>
-</li>
-<li><p>在模拟器中运行出现</p>
-</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">clang: error: no such file or directory: &apos;/Users/neal/Library/Developer/Xcode/DerivedData/haiji-hakrywogbjraxiheecjpbwbxsood/Build/Products/Debug-iphonesimulator/libReact.a&apos;</div></pre></td></tr></table></figure>
-<pre><code>把Build Settings -&gt; Architectures -&gt; Build Active Architectures Only 设置成 NO
-</code></pre><ul>
-<li><p>Duplicate module name: XXX</p>
-<p>   有可能是React的版本不一样，我的做法是  </p>
-</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">rm -rf node_modules &amp;&amp; npm install</div></pre></td></tr></table></figure>
-<h3 id="结束"><a href="#结束" class="headerlink" title="结束"></a>结束</h3><pre><code>：）～
-</code></pre>]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;导出分发包的过程中，遇到了许多小问题，做个总结吧&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="React-Native" scheme="http://www.nealma.com/categories/React-Native/"/>
-    
-    
-      <category term="React-Native" scheme="http://www.nealma.com/tags/React-Native/"/>
-    
-      <category term="RN" scheme="http://www.nealma.com/tags/RN/"/>
-    
-      <category term="ipa" scheme="http://www.nealma.com/tags/ipa/"/>
     
   </entry>
   

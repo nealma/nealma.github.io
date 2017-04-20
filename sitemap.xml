@@ -2,9 +2,23 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://www.nealma.com/2017/04/19/spring-boot-11-not-fat-jar/</loc>
+    
+    <lastmod>2017-04-20T07:41:16.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://www.nealma.com/2016/05/30/shell-jar/</loc>
+    
+    <lastmod>2017-04-20T01:45:06.000Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://www.nealma.com/2017/04/18/spring-boot-10-jpa-hibernate/</loc>
     
-    <lastmod>2017-04-19T04:27:34.000Z</lastmod>
+    <lastmod>2017-04-20T01:36:01.000Z</lastmod>
     
   </url>
   
