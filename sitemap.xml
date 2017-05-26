@@ -2,6 +2,34 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://www.nealma.com/2017/05/01/work-problerm-8-server-response-size/</loc>
+    
+    <lastmod>2017-05-26T15:22:02.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://www.nealma.com/2016/10/01/centos-72-2-install-mariadb/</loc>
+    
+    <lastmod>2017-05-07T22:58:45.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://www.nealma.com/2016/10/01/centos-72-4-redis/</loc>
+    
+    <lastmod>2017-05-07T22:58:43.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://www.nealma.com/2016/10/01/centos-72-7-install-mysql57/</loc>
+    
+    <lastmod>2017-05-05T08:53:48.000Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://www.nealma.com/2017/04/19/spring-boot-11-not-fat-jar/</loc>
     
     <lastmod>2017-04-20T07:41:16.000Z</lastmod>
@@ -68,20 +96,6 @@
     <loc>http://www.nealma.com/2016/03/16/nginx-example-work-1/</loc>
     
     <lastmod>2017-03-26T10:26:10.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://www.nealma.com/2016/10/01/centos-72-2-install-mariadb/</loc>
-    
-    <lastmod>2017-03-26T10:24:19.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://www.nealma.com/2016/10/01/centos-72-4-redis/</loc>
-    
-    <lastmod>2017-03-26T10:22:36.000Z</lastmod>
     
   </url>
   

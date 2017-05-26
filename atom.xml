@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://www.nealma.com/"/>
-  <updated>2017-04-20T07:41:16.000Z</updated>
+  <updated>2017-05-26T15:22:02.000Z</updated>
   <id>http://www.nealma.com/</id>
   
   <author>
@@ -14,6 +14,50 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>【Response Body】服务器端返回值大小</title>
+    <link href="http://www.nealma.com/2017/05/01/work-problerm-8-server-response-size/"/>
+    <id>http://www.nealma.com/2017/05/01/work-problerm-8-server-response-size/</id>
+    <published>2017-05-01T03:46:45.000Z</published>
+    <updated>2017-05-26T15:22:02.000Z</updated>
+    
+    <content type="html"><![CDATA[<pre><code>有的时候，你会遇到很奇怪的事情，就是请求一切正常，但服务器端就是没有返回值。
+特别是上传文件的时候，那到底发生了什么呢？
+</code></pre><a id="more"></a>
+<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><pre><code>客户端请求报文的大小和服务器端响应报文的大小，在我们的实际项目中，可能会涉及到一下几个方面
+</code></pre><h3 id="Nginx设置"><a href="#Nginx设置" class="headerlink" title="Nginx设置"></a>Nginx设置</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">#在http中</div><div class="line">client_max_body_size 30m;</div></pre></td></tr></table></figure>
+<h3 id="数据库设置"><a href="#数据库设置" class="headerlink" title="数据库设置"></a>数据库设置</h3><ul>
+<li><p>字段长度设置</p>
+</li>
+<li><p>数据库报文大小设置</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">#在my.cnf中,在[mysqld]段或者mysql的server配置段进行修改。</div><div class="line">max_allowed_packet = 20M</div><div class="line"></div><div class="line">#如果找不到，可以查询</div><div class="line">mysql --help |grep my.cnf</div><div class="line"></div><div class="line">#也可以更改全局变量</div><div class="line">set global max_allowed_packet = 2*1024*1024*10</div><div class="line"></div><div class="line">#不需要重启，可以查看</div><div class="line">show VARIABLES like &apos;%max_allowed_packet%&apos;;</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h3><h3 id="结束"><a href="#结束" class="headerlink" title="结束"></a>结束</h3><pre><code>百度图灵机器人可以直接选择微信公众号机器人，只要授权就可以了。
+过成功遇到： 启用后台服务器接口消息的功能后，公众号的菜单没有了，还不知道怎么能两者兼得
+
+ :)~
+</code></pre>]]></content>
+    
+    <summary type="html">
+    
+      &lt;pre&gt;&lt;code&gt;有的时候，你会遇到很奇怪的事情，就是请求一切正常，但服务器端就是没有返回值。
+特别是上传文件的时候，那到底发生了什么呢？
+&lt;/code&gt;&lt;/pre&gt;
+    
+    </summary>
+    
+      <category term="work" scheme="http://www.nealma.com/categories/work/"/>
+    
+    
+      <category term="Nginx" scheme="http://www.nealma.com/tags/Nginx/"/>
+    
+      <category term="大杂烩" scheme="http://www.nealma.com/tags/%E5%A4%A7%E6%9D%82%E7%83%A9/"/>
+    
+      <category term="数据库" scheme="http://www.nealma.com/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/"/>
+    
+  </entry>
   
   <entry>
     <title>Spring-Boot（十一) not fat jar ,but jar</title>
@@ -178,38 +222,6 @@
   </entry>
   
   <entry>
-    <title>【IDEA】cannot resolve syambol xxx</title>
-    <link href="http://www.nealma.com/2017/01/01/work-problerm-6-idea-cannot-resolve-syambol/"/>
-    <id>http://www.nealma.com/2017/01/01/work-problerm-6-idea-cannot-resolve-syambol/</id>
-    <published>2017-01-01T03:46:45.000Z</published>
-    <updated>2017-04-18T04:20:25.000Z</updated>
-    
-    <content type="html"><![CDATA[<pre><code>cannot resolve syambol xxx
-</code></pre><a id="more"></a>
-<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>解决方法如下：<br>点击菜单中的 “File” -&gt; “Invalidate Caches / Restart”，然后点击对话框中的 “Invalidate and Restart”，清空 cache 并且重启。语法就会正确的高亮了。</p>
-<h3 id="结束"><a href="#结束" class="headerlink" title="结束"></a>结束</h3><pre><code>还会陆续遇到各种坑，慢慢填吧...
- :)~
-</code></pre>]]></content>
-    
-    <summary type="html">
-    
-      &lt;pre&gt;&lt;code&gt;cannot resolve syambol xxx
-&lt;/code&gt;&lt;/pre&gt;
-    
-    </summary>
-    
-      <category term="work" scheme="http://www.nealma.com/categories/work/"/>
-    
-    
-      <category term="MySQL" scheme="http://www.nealma.com/tags/MySQL/"/>
-    
-      <category term="大杂烩" scheme="http://www.nealma.com/tags/%E5%A4%A7%E6%9D%82%E7%83%A9/"/>
-    
-      <category term="sql" scheme="http://www.nealma.com/tags/sql/"/>
-    
-  </entry>
-  
-  <entry>
     <title>常用的sql操作</title>
     <link href="http://www.nealma.com/2017/01/01/work-problerm-5-mysql-common-operate/"/>
     <id>http://www.nealma.com/2017/01/01/work-problerm-5-mysql-common-operate/</id>
@@ -237,6 +249,38 @@
     <summary type="html">
     
       &lt;pre&gt;&lt;code&gt;频繁的sql操作，总结一些经常用的。
+&lt;/code&gt;&lt;/pre&gt;
+    
+    </summary>
+    
+      <category term="work" scheme="http://www.nealma.com/categories/work/"/>
+    
+    
+      <category term="MySQL" scheme="http://www.nealma.com/tags/MySQL/"/>
+    
+      <category term="大杂烩" scheme="http://www.nealma.com/tags/%E5%A4%A7%E6%9D%82%E7%83%A9/"/>
+    
+      <category term="sql" scheme="http://www.nealma.com/tags/sql/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>【IDEA】cannot resolve syambol xxx</title>
+    <link href="http://www.nealma.com/2017/01/01/work-problerm-6-idea-cannot-resolve-syambol/"/>
+    <id>http://www.nealma.com/2017/01/01/work-problerm-6-idea-cannot-resolve-syambol/</id>
+    <published>2017-01-01T03:46:45.000Z</published>
+    <updated>2017-04-18T04:20:25.000Z</updated>
+    
+    <content type="html"><![CDATA[<pre><code>cannot resolve syambol xxx
+</code></pre><a id="more"></a>
+<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>解决方法如下：<br>点击菜单中的 “File” -&gt; “Invalidate Caches / Restart”，然后点击对话框中的 “Invalidate and Restart”，清空 cache 并且重启。语法就会正确的高亮了。</p>
+<h3 id="结束"><a href="#结束" class="headerlink" title="结束"></a>结束</h3><pre><code>还会陆续遇到各种坑，慢慢填吧...
+ :)~
+</code></pre>]]></content>
+    
+    <summary type="html">
+    
+      &lt;pre&gt;&lt;code&gt;cannot resolve syambol xxx
 &lt;/code&gt;&lt;/pre&gt;
     
     </summary>
@@ -915,7 +959,7 @@ Let&amp;apos;s Encrypt给我们带来了免费的午餐，而且是各大顶级�
     <link href="http://www.nealma.com/2016/10/01/centos-72-4-redis/"/>
     <id>http://www.nealma.com/2016/10/01/centos-72-4-redis/</id>
     <published>2016-10-01T03:46:48.000Z</published>
-    <updated>2017-03-26T10:22:36.000Z</updated>
+    <updated>2017-05-07T22:58:43.000Z</updated>
     
     <content type="html"><![CDATA[<pre><code>今天在CentOS 7.2上安装Redis,记录一下
 </code></pre><a id="more"></a>
@@ -992,32 +1036,28 @@ Let&amp;apos;s Encrypt给我们带来了免费的午餐，而且是各大顶级�
   </entry>
   
   <entry>
-    <title>CentOS7（二）Install MySQL (MariaDB)</title>
-    <link href="http://www.nealma.com/2016/10/01/centos-72-2-install-mariadb/"/>
-    <id>http://www.nealma.com/2016/10/01/centos-72-2-install-mariadb/</id>
+    <title>CentOS7（七）Install MySQL5.7</title>
+    <link href="http://www.nealma.com/2016/10/01/centos-72-7-install-mysql57/"/>
+    <id>http://www.nealma.com/2016/10/01/centos-72-7-install-mysql57/</id>
     <published>2016-10-01T03:46:46.000Z</published>
-    <updated>2017-03-26T10:24:19.000Z</updated>
+    <updated>2017-05-05T08:53:48.000Z</updated>
     
-    <content type="html"><![CDATA[<pre><code>今天在CentOS 7.2上安装MySQL（MariaDB）,记录一下
+    <content type="html"><![CDATA[<pre><code>今天在CentOS 7.2上安装MySQL5.7,记录一下
 </code></pre><a id="more"></a>
-<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><pre><code>今天在CentOS 7.2上安装MySQL（MariaDB）,记录一下
-</code></pre><h3 id="Install-MariaDB"><a href="#Install-MariaDB" class="headerlink" title="Install MariaDB"></a>Install MariaDB</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">yum install mariadb-server mariadb</div></pre></td></tr></table></figure>
-<h3 id="Start-MariaDB"><a href="#Start-MariaDB" class="headerlink" title="Start MariaDB"></a>Start MariaDB</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">systemsctl start mariadb</div></pre></td></tr></table></figure>
-<p>###更换data目录<br>通常数据库需要额外的磁盘，这个时候会遇到目录权限的问题，需要给目录授予权限</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">chown -R mysql:mysql /mnt/mysql</div><div class="line">chmod 640 /mnt/mysql</div><div class="line">chmod +x /mnt/mysql</div></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">[mysqld]</div><div class="line">datadir=/mnt/mysql</div><div class="line">socket=/mnt/mysql/mysql.sock</div><div class="line">user=mysql</div><div class="line"># Disabling symbolic-links is recommended to prevent assorted security risks</div><div class="line">symbolic-links=0</div><div class="line"># Settings user and group are ignored when systemd is used.</div><div class="line"># If you need to run mysqld under a different user or group,</div><div class="line"># customize your systemd unit file for mariadb according to the</div><div class="line"># instructions in http://fedoraproject.org/wiki/Systemd</div><div class="line"></div><div class="line">[mysqld_safe]</div><div class="line">log-error=/mnt/mysql/log/mariadb/mariadb.log</div><div class="line">pid-file=/mnt/mysql/mariadb/mariadb.pid</div><div class="line"></div><div class="line">#</div><div class="line"># include all files from the config directory</div><div class="line">#</div><div class="line">!includedir /etc/my.cnf.d</div></pre></td></tr></table></figure>
-<h3 id="Setting-Secure"><a href="#Setting-Secure" class="headerlink" title="Setting Secure"></a>Setting Secure</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">### 可能会出现找不到mysql.sock问题</div></pre></td></tr></table></figure>
-<p>$ sudo ln -s /mnt/mysql/mysql.sock /var/lib/mysql/mysql.sock</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div></pre></td><td class="code"><pre><div class="line"># 设置root密码，是否允许远程，test数据库等	</div><div class="line"></div><div class="line">mysql_secure_installation</div><div class="line"></div><div class="line"># Or</div><div class="line"></div><div class="line">set password for &apos;root&apos;@&apos;localhost&apos; =password(&apos;password&apos;);</div><div class="line"></div><div class="line"># 远程连接设置</div><div class="line">grant all privileges on &apos;rtshop&apos;.* to fuckyou@&apos;%&apos; identified by &apos;******&apos;;</div><div class="line">flush privileges;</div><div class="line"></div><div class="line"># 通过以上方式，对于用户root的localhost情况，可能出现如下异常</div><div class="line"># java.sql.SQLException: Access denied for user &apos;root&apos;@&apos;localhost&apos; (using password: YES)</div><div class="line"># 解决办法</div><div class="line">use mysql;</div><div class="line">UPDATE user SET Password=PASSWORD(&apos;******&apos;) where USER=&apos;root&apos;;</div><div class="line">flush privileges;</div><div class="line"></div><div class="line">#Or</div><div class="line"></div><div class="line">mysql&gt; use mysql</div><div class="line"></div><div class="line">mysql&gt; update user set Host=&apos;%&apos; where User=&apos;root&apos;;</div><div class="line"></div><div class="line">mysql&gt; flush privileges;</div><div class="line"></div><div class="line"># 创建新用户</div><div class="line">create user &apos;fuckyou&apos;@&apos;10.%.%.%&apos; identified by &apos;******&apos;;</div></pre></td></tr></table></figure>
-<h3 id="Start-on-boot"><a href="#Start-on-boot" class="headerlink" title="Start on boot"></a>Start on boot</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">systemctl enable mariadb.service</div></pre></td></tr></table></figure>
-<h3 id="MySQL-配置防火墙"><a href="#MySQL-配置防火墙" class="headerlink" title="MySQL 配置防火墙"></a>MySQL 配置防火墙</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">firewall-cmd --permanent --zone=public --add-service=mysql</div><div class="line">firewall-cmd --reload</div></pre></td></tr></table></figure>
-<p>###<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">Cannot load from mysql.proc. The table is probably corrupted。</div><div class="line"></div><div class="line">在命令行中执行mysql_upgrade -uroot -p 即可~</div></pre></td></tr></table></figure></p>
+<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><pre><code>今天在CentOS 7.2上安装MySQL5.7,记录一下
+</code></pre><h3 id="install-local-repo"><a href="#install-local-repo" class="headerlink" title="install local repo"></a>install local repo</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo yum localinstall https://dev.mysql.com/get/mysql57-community-release-el7-9.noarch.rpm</div></pre></td></tr></table></figure>
+<h3 id="install-MySQL5-7"><a href="#install-MySQL5-7" class="headerlink" title="install MySQL5.7"></a>install MySQL5.7</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo yum install -y mysql-community-server</div></pre></td></tr></table></figure>
+<h3 id="启动-MySQL-服务"><a href="#启动-MySQL-服务" class="headerlink" title="启动 MySQL 服务"></a>启动 MySQL 服务</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">systemctl start/status mysqld.service</div></pre></td></tr></table></figure>
+<h3 id="登陆数据库"><a href="#登陆数据库" class="headerlink" title="登陆数据库"></a>登陆数据库</h3><p>第一次登录时需要密码的，在mysql的log文件里可以看到</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">cat /var/log/mysqld.log | grep &apos;password&apos;</div><div class="line"></div><div class="line">2017-05-05T06:49:46.880893Z 1 [Note] A temporary password is generated for root@localhost: (0%Zt%EG_Ak1</div></pre></td></tr></table></figure>
+<h3 id="拿到密码登录就可以了"><a href="#拿到密码登录就可以了" class="headerlink" title="拿到密码登录就可以了"></a>拿到密码登录就可以了</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">mysql -uroot -p</div></pre></td></tr></table></figure>
+<h3 id="修改密码"><a href="#修改密码" class="headerlink" title="修改密码"></a>修改密码</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ALTER USER &apos;root&apos;@&apos;localhost&apos; IDENTIFIED BY &apos;L1******&apos;;</div></pre></td></tr></table></figure>
 <h3 id="结束"><a href="#结束" class="headerlink" title="结束"></a>结束</h3><p>:)~</p>
 ]]></content>
     
     <summary type="html">
     
-      &lt;pre&gt;&lt;code&gt;今天在CentOS 7.2上安装MySQL（MariaDB）,记录一下
+      &lt;pre&gt;&lt;code&gt;今天在CentOS 7.2上安装MySQL5.7,记录一下
 &lt;/code&gt;&lt;/pre&gt;
     
     </summary>
@@ -1030,51 +1070,6 @@ Let&amp;apos;s Encrypt给我们带来了免费的午餐，而且是各大顶级�
       <category term="Linux" scheme="http://www.nealma.com/tags/Linux/"/>
     
       <category term="MySQL" scheme="http://www.nealma.com/tags/MySQL/"/>
-    
-      <category term="MariaDB" scheme="http://www.nealma.com/tags/MariaDB/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>CentOS7（一）Java环境搭建</title>
-    <link href="http://www.nealma.com/2016/10/01/centos-72-1-install-java-envirment/"/>
-    <id>http://www.nealma.com/2016/10/01/centos-72-1-install-java-envirment/</id>
-    <published>2016-10-01T03:46:45.000Z</published>
-    <updated>2016-12-28T03:23:21.000Z</updated>
-    
-    <content type="html"><![CDATA[<pre><code>最近要从0开发新项目，以前都是用的CengOS6.5,觉得太历史了，7.x已经出来很久了。
-而且云上的景象都是7.2了，没理由不用。第一次使用肯定会遇到坑，其实也是自身对这个系统的不了解。
-尝鲜可定会出事，但是只要你打破舒适区，一路下来，你会觉得没那么难
-</code></pre><a id="more"></a>
-<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><pre><code>最近要从0开发新项目，以前都是用的CengOS6.5,觉得太历史了，7.x已经出来很久了。
-而且云上的景象都是7.2了，没理由不用。第一次使用肯定会遇到坑，其实也是自身对这个系统的不了解。
-尝鲜可定会出事，但是只要你打破舒适区，一路下来，你会觉得没那么难
-</code></pre><h3 id="安装-JDK8-0"><a href="#安装-JDK8-0" class="headerlink" title="安装 JDK8.0"></a>安装 JDK8.0</h3><p>直接使用openJDK,直接使用8.0,没必要考虑之前的版本了。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">yum search openJDK</div><div class="line">yum install java-1.8.0-openjdk.x86_64</div></pre></td></tr></table></figure>
-<h3 id="安装-Maven"><a href="#安装-Maven" class="headerlink" title="安装 Maven"></a>安装 Maven</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div></pre></td><td class="code"><pre><div class="line">＃ 去官网下载最新的Maven版本，zip包就行了</div><div class="line">wget http://mirror.bit.edu.cn/apache/maven/maven-3/3.3.9/binaries/apache-maven-3.3.9-bin.zip</div><div class="line"></div><div class="line">unzip apache-maven-3.3.9-bin.zip</div><div class="line"></div><div class="line"># 如果没有unzip工具的，先安装unzip</div><div class="line">yum install unzip</div><div class="line"></div><div class="line">＃ 把解压文件夹移动到/opt/maven下</div><div class="line">mv apache-maven-3.3.9 /opt/maven</div><div class="line"></div><div class="line"># 做个软连接</div><div class="line">ln -s /opt/maven/bin/mvn /usr/bin/mvn</div><div class="line"></div><div class="line">＃设置Maven环境变量</div><div class="line">vim /etc/profile.d/maven.sh</div><div class="line"></div><div class="line">#!/bin/bash</div><div class="line">MAVEN_HOME=/opt/maven</div><div class="line">PATH=$MAVEN_HOME/bin:$PATH</div><div class="line">export PATH MAVEN_HOME</div><div class="line">export CLASSPATH=.</div><div class="line"></div><div class="line"># 添加可执行权限</div><div class="line">chmod +x /etc/profile.d/maven.sh</div><div class="line"></div><div class="line"># 立即生效</div><div class="line">source /etc/profile.d/maven.sh</div><div class="line"></div><div class="line"># 检查是否安装成功</div><div class="line">mvn -version</div></pre></td></tr></table></figure>
-<h3 id="安装-Tomcat-8"><a href="#安装-Tomcat-8" class="headerlink" title="安装 Tomcat 8"></a>安装 Tomcat 8</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div></pre></td><td class="code"><pre><div class="line">＃ download</div><div class="line">wget http://mirrors.cnnic.cn/apache/tomcat/tomcat-8/v8.5.6/bin/apache-tomcat-8.5.6.zip</div><div class="line"></div><div class="line">＃ extract</div><div class="line">unzip apache-tomcat-8.5.6.zip </div><div class="line"></div><div class="line"># move to /opt</div><div class="line">mv apache-tomcat-8.5.6 /opt/tomcat</div><div class="line"></div><div class="line"># set enviroment </div><div class="line">vim /etc/profile.d/tomcat.sh</div><div class="line"></div><div class="line">#!/bin/bash</div><div class="line">CATALINA_HOME=/opt/tomcat</div><div class="line">PATH=$CATALINA_HOME/bin:$PATH</div><div class="line">export PATH CATALINA_HOME</div><div class="line">export CLASSPATH=.</div><div class="line"></div><div class="line"># make it executable</div><div class="line">chmod +x /etc/profile.d/tomcat.sh</div><div class="line"></div><div class="line"># set enviroment permanently</div><div class="line">source /etc/profile.d/tomcat.sh</div><div class="line"></div><div class="line"># make shell executable permisson</div><div class="line">chmod +x $CATALINA_HOME/bin/startup.sh</div><div class="line">chmod +x $CATALINA_HOME/bin/shutdown.sh</div><div class="line">chmod +x $CATALINA_HOME/bin/catalina.sh</div><div class="line"></div><div class="line"># start tomcat</div><div class="line">sh $CATALINA_HOME/bin/startup.sh</div></pre></td></tr></table></figure>
-<h3 id="用浏览器访问的时候，你很可能会失败，那就是firewall在作怪"><a href="#用浏览器访问的时候，你很可能会失败，那就是firewall在作怪" class="headerlink" title="用浏览器访问的时候，你很可能会失败，那就是firewall在作怪"></a>用浏览器访问的时候，你很可能会失败，那就是firewall在作怪</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">＃ Enable Firewalld</div><div class="line">systemctl enable firewalld</div><div class="line"></div><div class="line"># Start Firewalld</div><div class="line">systemctl start firewalld</div><div class="line"></div><div class="line"># check the status</div><div class="line">systemctl status firewalld</div></pre></td></tr></table></figure>
-<h3 id="开启了Firewalld-添加如下"><a href="#开启了Firewalld-添加如下" class="headerlink" title="开启了Firewalld,添加如下"></a>开启了Firewalld,添加如下</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">firewall-cmd --permanent --add-port=8080/tcp</div><div class="line">firewall-cmd --reload</div></pre></td></tr></table></figure>
-<h3 id="开机启动"><a href="#开机启动" class="headerlink" title="开机启动"></a>开机启动</h3><h1 id="创建调用脚本"><a href="#创建调用脚本" class="headerlink" title="创建调用脚本"></a>创建调用脚本</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div></pre></td><td class="code"><pre><div class="line">vim /etc/init.d/tomcat</div><div class="line"></div><div class="line">######################################################</div><div class="line">#!/bin/sh</div><div class="line"># chkconfig: 2345 80 20</div><div class="line"></div><div class="line"># Description: Tomcat Start/Shutdown script</div><div class="line"></div><div class="line">export JAVA_HOME=/usr/lib/jvm/java</div><div class="line"></div><div class="line">case $1 in</div><div class="line">start)</div><div class="line">cd /opt/tomcat/bin/</div><div class="line">./startup.sh</div><div class="line">;;</div><div class="line">stop)</div><div class="line">cd /opt/tomcat/bin/</div><div class="line">./shutdown.sh</div><div class="line">;;</div><div class="line">restart)</div><div class="line">cd /opt/tomcat/bin/</div><div class="line">./shutdown.sh</div><div class="line">cd /opt/tomcat/bin/</div><div class="line">./startup.sh</div><div class="line">;;</div><div class="line">esac</div><div class="line">exit 0</div><div class="line">######################################################</div><div class="line"></div><div class="line"># Make it executable</div><div class="line">chmod a+x /etc/init.d/tomcat</div><div class="line"></div><div class="line"># Add the tomcat to service</div><div class="line">chkconfig --add tomcat</div><div class="line"></div><div class="line"># auto as reboot</div><div class="line">systemctl start tomcat</div><div class="line">chkconfig tomcat on</div></pre></td></tr></table></figure>
-<h3 id="给Tomcat添加管理角色"><a href="#给Tomcat添加管理角色" class="headerlink" title="给Tomcat添加管理角色"></a>给Tomcat添加管理角色</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div></pre></td><td class="code"><pre><div class="line">vim $CATALINA_HOME/conf/tomcat-users.xml</div><div class="line"></div><div class="line">#在&lt;tomcat-users&gt;&lt;/tomcat-users&gt;之间加入如下指令</div><div class="line"></div><div class="line">[...]</div><div class="line">&lt;role rolename=&quot;manager-gui&quot;/&gt;</div><div class="line">&lt;role rolename=&quot;manager-script&quot;/&gt;</div><div class="line">&lt;role rolename=&quot;manager-jmx&quot;/&gt;</div><div class="line">&lt;role rolename=&quot;manager-status&quot;/&gt;</div><div class="line">&lt;role rolename=&quot;admin-gui&quot;/&gt;</div><div class="line">&lt;role rolename=&quot;admin-script&quot;/&gt;</div><div class="line">&lt;user username=&quot;admin&quot; password=&quot;admin&quot; roles=&quot;manager-gui,manager-script,manager-jmx,manager-status,admin-gui,admin-script&quot;/&gt;</div><div class="line">[...]</div><div class="line"></div><div class="line"># Restart tomcat </div><div class="line">systemctl restart tomcat</div><div class="line"></div><div class="line"># 用户名 密码  admin/admin</div><div class="line"></div><div class="line">#如果遇到403 Access Denied, 如下操作</div><div class="line">vim $CATALINA_HOME/webapps/manager/META-INF/context.xml</div><div class="line"></div><div class="line">#注释Value</div><div class="line"></div><div class="line">&lt;Context antiResourceLocking=&quot;false&quot; privileged=&quot;true&quot; &gt;</div><div class="line">&lt;!--</div><div class="line">&lt;Valve className=&quot;org.apache.catalina.valves.RemoteAddrValve&quot; allow=&quot;127\.\d+\.\d+\.\d+|::1|0:0:0:0:0:0:0:1&quot; /&gt;</div><div class="line">--&gt;</div><div class="line">&lt;/Context&gt;</div><div class="line"></div><div class="line">#访问host-manager时 403 Access Denied，操作类似</div><div class="line"></div><div class="line">vim $CATALINA_HOME/webapps/host-manager/META-INF/context.xml</div><div class="line"></div><div class="line">#注释Value</div><div class="line"></div><div class="line">&lt;Context antiResourceLocking=&quot;false&quot; privileged=&quot;true&quot; &gt;</div><div class="line">&lt;!--</div><div class="line">&lt;Valve className=&quot;org.apache.catalina.valves.RemoteAddrValve&quot; allow=&quot;127\.\d+\.\d+\.\d+|::1|0:0:0:0:0:0:0:1&quot; /&gt;</div><div class="line">--&gt;</div><div class="line">&lt;/Context&gt;</div></pre></td></tr></table></figure>
-<h3 id="结束"><a href="#结束" class="headerlink" title="结束"></a>结束</h3><p>:)~</p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;pre&gt;&lt;code&gt;最近要从0开发新项目，以前都是用的CengOS6.5,觉得太历史了，7.x已经出来很久了。
-而且云上的景象都是7.2了，没理由不用。第一次使用肯定会遇到坑，其实也是自身对这个系统的不了解。
-尝鲜可定会出事，但是只要你打破舒适区，一路下来，你会觉得没那么难
-&lt;/code&gt;&lt;/pre&gt;
-    
-    </summary>
-    
-      <category term="Linux" scheme="http://www.nealma.com/categories/Linux/"/>
-    
-    
-      <category term="CentOS" scheme="http://www.nealma.com/tags/CentOS/"/>
-    
-      <category term="Linux" scheme="http://www.nealma.com/tags/Linux/"/>
     
   </entry>
   
