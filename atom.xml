@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://www.nealma.com/"/>
-  <updated>2017-05-26T15:22:02.000Z</updated>
+  <updated>2017-06-01T06:04:25.000Z</updated>
   <id>http://www.nealma.com/</id>
   
   <author>
@@ -14,6 +14,46 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Spring-Boot（十一) 获取request和session</title>
+    <link href="http://www.nealma.com/2017/06/01/spring-boot-12-not-thread/"/>
+    <id>http://www.nealma.com/2017/06/01/spring-boot-12-not-thread/</id>
+    <published>2017-06-01T03:46:45.000Z</published>
+    <updated>2017-06-01T06:04:25.000Z</updated>
+    
+    <content type="html"><![CDATA[<pre><code>Spring Boot中获取全局request，咩有controller中获取，而是在一个工具类中，
+这次也不知是为什么之前根本不需要配置的，但是就是会报一个错，看看神马影响的呢？
+</code></pre><a id="more"></a>
+<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><pre><code>Spring Boot中获取全局request，咩有controller中获取，而是在一个工具类中，
+ 这次也不知是为什么之前根本不需要配置的，但是就是会报一个错，看看神马影响的呢？
+</code></pre><p>开发环境：<br>OS: Mac 10.11.6<br>IDE: IDEA<br>Build: Maven</p>
+<h3 id="获取request"><a href="#获取request" class="headerlink" title="获取request"></a>获取request</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">public static HttpServletRequest getRequest()&#123;</div><div class="line">    ServletRequestAttributes servletRequestAttributes = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();</div><div class="line">    return servletRequestAttributes.getRequest();</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="可恶的异常来了"><a href="#可恶的异常来了" class="headerlink" title="可恶的异常来了"></a>可恶的异常来了</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">java spring——Getting a &apos;No thread bound request found&apos; error from spring in my web app.</div><div class="line">In this case, use RequestContextListener or RequestContextFilter to expose the current request.</div></pre></td></tr></table></figure>
+<p>###解决方案: 在MvcConfig中注入RequestContextListener<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">@Bean</div><div class="line">public RequestContextListener requestContextListener() &#123;</div><div class="line">    return new RequestContextListener();</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h3 id="结束"><a href="#结束" class="headerlink" title="结束"></a>结束</h3><pre><code>慢慢趟，总有趟完的时候...
+</code></pre>]]></content>
+    
+    <summary type="html">
+    
+      &lt;pre&gt;&lt;code&gt;Spring Boot中获取全局request，咩有controller中获取，而是在一个工具类中，
+这次也不知是为什么之前根本不需要配置的，但是就是会报一个错，看看神马影响的呢？
+&lt;/code&gt;&lt;/pre&gt;
+    
+    </summary>
+    
+      <category term="Java" scheme="http://www.nealma.com/categories/Java/"/>
+    
+    
+      <category term="Java" scheme="http://www.nealma.com/tags/Java/"/>
+    
+      <category term="Spring" scheme="http://www.nealma.com/tags/Spring/"/>
+    
+      <category term="Spring-Boot" scheme="http://www.nealma.com/tags/Spring-Boot/"/>
+    
+      <category term="Session" scheme="http://www.nealma.com/tags/Session/"/>
+    
+  </entry>
   
   <entry>
     <title>【Response Body】服务器端返回值大小</title>
@@ -222,6 +262,38 @@
   </entry>
   
   <entry>
+    <title>【IDEA】cannot resolve syambol xxx</title>
+    <link href="http://www.nealma.com/2017/01/01/work-problerm-6-idea-cannot-resolve-syambol/"/>
+    <id>http://www.nealma.com/2017/01/01/work-problerm-6-idea-cannot-resolve-syambol/</id>
+    <published>2017-01-01T03:46:45.000Z</published>
+    <updated>2017-04-18T04:20:25.000Z</updated>
+    
+    <content type="html"><![CDATA[<pre><code>cannot resolve syambol xxx
+</code></pre><a id="more"></a>
+<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>解决方法如下：<br>点击菜单中的 “File” -&gt; “Invalidate Caches / Restart”，然后点击对话框中的 “Invalidate and Restart”，清空 cache 并且重启。语法就会正确的高亮了。</p>
+<h3 id="结束"><a href="#结束" class="headerlink" title="结束"></a>结束</h3><pre><code>还会陆续遇到各种坑，慢慢填吧...
+ :)~
+</code></pre>]]></content>
+    
+    <summary type="html">
+    
+      &lt;pre&gt;&lt;code&gt;cannot resolve syambol xxx
+&lt;/code&gt;&lt;/pre&gt;
+    
+    </summary>
+    
+      <category term="work" scheme="http://www.nealma.com/categories/work/"/>
+    
+    
+      <category term="MySQL" scheme="http://www.nealma.com/tags/MySQL/"/>
+    
+      <category term="大杂烩" scheme="http://www.nealma.com/tags/%E5%A4%A7%E6%9D%82%E7%83%A9/"/>
+    
+      <category term="sql" scheme="http://www.nealma.com/tags/sql/"/>
+    
+  </entry>
+  
+  <entry>
     <title>常用的sql操作</title>
     <link href="http://www.nealma.com/2017/01/01/work-problerm-5-mysql-common-operate/"/>
     <id>http://www.nealma.com/2017/01/01/work-problerm-5-mysql-common-operate/</id>
@@ -249,38 +321,6 @@
     <summary type="html">
     
       &lt;pre&gt;&lt;code&gt;频繁的sql操作，总结一些经常用的。
-&lt;/code&gt;&lt;/pre&gt;
-    
-    </summary>
-    
-      <category term="work" scheme="http://www.nealma.com/categories/work/"/>
-    
-    
-      <category term="MySQL" scheme="http://www.nealma.com/tags/MySQL/"/>
-    
-      <category term="大杂烩" scheme="http://www.nealma.com/tags/%E5%A4%A7%E6%9D%82%E7%83%A9/"/>
-    
-      <category term="sql" scheme="http://www.nealma.com/tags/sql/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>【IDEA】cannot resolve syambol xxx</title>
-    <link href="http://www.nealma.com/2017/01/01/work-problerm-6-idea-cannot-resolve-syambol/"/>
-    <id>http://www.nealma.com/2017/01/01/work-problerm-6-idea-cannot-resolve-syambol/</id>
-    <published>2017-01-01T03:46:45.000Z</published>
-    <updated>2017-04-18T04:20:25.000Z</updated>
-    
-    <content type="html"><![CDATA[<pre><code>cannot resolve syambol xxx
-</code></pre><a id="more"></a>
-<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>解决方法如下：<br>点击菜单中的 “File” -&gt; “Invalidate Caches / Restart”，然后点击对话框中的 “Invalidate and Restart”，清空 cache 并且重启。语法就会正确的高亮了。</p>
-<h3 id="结束"><a href="#结束" class="headerlink" title="结束"></a>结束</h3><pre><code>还会陆续遇到各种坑，慢慢填吧...
- :)~
-</code></pre>]]></content>
-    
-    <summary type="html">
-    
-      &lt;pre&gt;&lt;code&gt;cannot resolve syambol xxx
 &lt;/code&gt;&lt;/pre&gt;
     
     </summary>
@@ -387,7 +427,7 @@
     <link href="http://www.nealma.com/2016/12/12/work-problerm-3-wxpay/"/>
     <id>http://www.nealma.com/2016/12/12/work-problerm-3-wxpay/</id>
     <published>2016-12-12T02:46:45.000Z</published>
-    <updated>2017-01-07T11:18:50.000Z</updated>
+    <updated>2017-05-27T06:33:15.000Z</updated>
     
     <content type="html"><![CDATA[<pre><code>微信获取用户信息和微信H5支付
 </code></pre><a id="more"></a>
@@ -425,7 +465,8 @@
 </ul>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div></pre></td><td class="code"><pre><div class="line">#https://pay.weixin.qq.com/wiki/doc/api/jsapi.php?chapter=7_7&amp;index=6</div><div class="line"></div><div class="line">function onBridgeReady()&#123;</div><div class="line">   WeixinJSBridge.invoke(</div><div class="line">       &apos;getBrandWCPayRequest&apos;, &#123;</div><div class="line">           &quot;appId&quot; ： &quot;xxx&quot;,     //公众号名称，由商户传入     </div><div class="line">           &quot;timeStamp&quot;：&quot; 1395712654&quot;,         //时间戳，自1970年以来的秒数     </div><div class="line">           &quot;nonceStr&quot; ： &quot;e61463f8efa94090b1f366cccfbbb444&quot;, //随机串     </div><div class="line">           &quot;package&quot; ： &quot;prepay_id=u802345jgfjsdfgsdg888&quot;,     </div><div class="line">           &quot;signType&quot; ： &quot;MD5&quot;,         //微信签名方式：     </div><div class="line">           &quot;paySign&quot; ： &quot;70EA570631E4BB79628FBCA90534C63FF7FADD89&quot; //微信签名,注意key要追加到参数尾部</div><div class="line">       &#125;,</div><div class="line">       function(res)&#123;     </div><div class="line">           if(res.err_msg == &quot;get_brand_wcpay_request：ok&quot; ) &#123;&#125;     // 使用以上方式判断前端返回,微信团队郑重提示：res.err_msg将在用户支付成功后返回    ok，但并不保证它绝对可靠。 </div><div class="line">       &#125;</div><div class="line">   ); </div><div class="line">&#125;</div><div class="line">if (typeof WeixinJSBridge == &quot;undefined&quot;)&#123;</div><div class="line">   if( document.addEventListener )&#123;</div><div class="line">       document.addEventListener(&apos;WeixinJSBridgeReady&apos;, onBridgeReady, false);</div><div class="line">   &#125;else if (document.attachEvent)&#123;</div><div class="line">       document.attachEvent(&apos;WeixinJSBridgeReady&apos;, onBridgeReady); </div><div class="line">       document.attachEvent(&apos;onWeixinJSBridgeReady&apos;, onBridgeReady);</div><div class="line">   &#125;</div><div class="line">&#125;else&#123;</div><div class="line">   onBridgeReady();</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <h3 id="通知接口"><a href="#通知接口" class="headerlink" title="通知接口"></a>通知接口</h3><p>首先设置notify_url,必须为公众号后台设置的授支付url.<br>你的notify_url的接受方法必须是POST,<br>返回值是xml结构</p>
-<h3 id="接口权限-网页授权"><a href="#接口权限-网页授权" class="headerlink" title="接口权限 网页授权"></a>接口权限 网页授权</h3><h3 id="结束"><a href="#结束" class="headerlink" title="结束"></a>结束</h3><pre><code>在调试接口的时候，最耗费时间的是在网页端调起支付API,前前后后弄了两天，好狼狈啊！！！
+<h3 id="接口权限-网页授权"><a href="#接口权限-网页授权" class="headerlink" title="接口权限 网页授权"></a>接口权限 网页授权</h3><p>开发 -&gt; 开发者工具 -&gt; 绑定开发者微信账号</p>
+<h3 id="结束"><a href="#结束" class="headerlink" title="结束"></a>结束</h3><pre><code>在调试接口的时候，最耗费时间的是在网页端调起支付API,前前后后弄了两天，好狼狈啊！！！
 主要是折在了paySign上，看文档根本就没有key的事，可是签名的时候，
 还得在排序好的参数后架上key=xxx,然后在MD5，总算是让我可以好好睡一觉了
 
@@ -1032,44 +1073,6 @@ Let&amp;apos;s Encrypt给我们带来了免费的午餐，而且是各大顶级�
       <category term="Linux" scheme="http://www.nealma.com/tags/Linux/"/>
     
       <category term="PHP" scheme="http://www.nealma.com/tags/PHP/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>CentOS7（七）Install MySQL5.7</title>
-    <link href="http://www.nealma.com/2016/10/01/centos-72-7-install-mysql57/"/>
-    <id>http://www.nealma.com/2016/10/01/centos-72-7-install-mysql57/</id>
-    <published>2016-10-01T03:46:46.000Z</published>
-    <updated>2017-05-05T08:53:48.000Z</updated>
-    
-    <content type="html"><![CDATA[<pre><code>今天在CentOS 7.2上安装MySQL5.7,记录一下
-</code></pre><a id="more"></a>
-<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><pre><code>今天在CentOS 7.2上安装MySQL5.7,记录一下
-</code></pre><h3 id="install-local-repo"><a href="#install-local-repo" class="headerlink" title="install local repo"></a>install local repo</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo yum localinstall https://dev.mysql.com/get/mysql57-community-release-el7-9.noarch.rpm</div></pre></td></tr></table></figure>
-<h3 id="install-MySQL5-7"><a href="#install-MySQL5-7" class="headerlink" title="install MySQL5.7"></a>install MySQL5.7</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo yum install -y mysql-community-server</div></pre></td></tr></table></figure>
-<h3 id="启动-MySQL-服务"><a href="#启动-MySQL-服务" class="headerlink" title="启动 MySQL 服务"></a>启动 MySQL 服务</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">systemctl start/status mysqld.service</div></pre></td></tr></table></figure>
-<h3 id="登陆数据库"><a href="#登陆数据库" class="headerlink" title="登陆数据库"></a>登陆数据库</h3><p>第一次登录时需要密码的，在mysql的log文件里可以看到</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">cat /var/log/mysqld.log | grep &apos;password&apos;</div><div class="line"></div><div class="line">2017-05-05T06:49:46.880893Z 1 [Note] A temporary password is generated for root@localhost: (0%Zt%EG_Ak1</div></pre></td></tr></table></figure>
-<h3 id="拿到密码登录就可以了"><a href="#拿到密码登录就可以了" class="headerlink" title="拿到密码登录就可以了"></a>拿到密码登录就可以了</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">mysql -uroot -p</div></pre></td></tr></table></figure>
-<h3 id="修改密码"><a href="#修改密码" class="headerlink" title="修改密码"></a>修改密码</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ALTER USER &apos;root&apos;@&apos;localhost&apos; IDENTIFIED BY &apos;L1******&apos;;</div></pre></td></tr></table></figure>
-<h3 id="结束"><a href="#结束" class="headerlink" title="结束"></a>结束</h3><p>:)~</p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;pre&gt;&lt;code&gt;今天在CentOS 7.2上安装MySQL5.7,记录一下
-&lt;/code&gt;&lt;/pre&gt;
-    
-    </summary>
-    
-      <category term="Linux" scheme="http://www.nealma.com/categories/Linux/"/>
-    
-    
-      <category term="CentOS" scheme="http://www.nealma.com/tags/CentOS/"/>
-    
-      <category term="Linux" scheme="http://www.nealma.com/tags/Linux/"/>
-    
-      <category term="MySQL" scheme="http://www.nealma.com/tags/MySQL/"/>
     
   </entry>
   

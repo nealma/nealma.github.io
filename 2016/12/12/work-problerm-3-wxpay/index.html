@@ -92,7 +92,7 @@
 <meta property="og:url" content="http://www.nealma.com/2016/12/12/work-problerm-3-wxpay/index.html">
 <meta property="og:site_name" content="nealma.com">
 <meta property="og:description" content="微信获取用户信息和微信H5支付">
-<meta property="og:updated_time" content="2017-01-07T11:18:50.000Z">
+<meta property="og:updated_time" content="2017-05-27T06:33:15.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="工作中遇到的问题 (三) 微信支付">
 <meta name="twitter:description" content="微信获取用户信息和微信H5支付">
@@ -370,7 +370,8 @@
 </ul>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div></pre></td><td class="code"><pre><div class="line">#https://pay.weixin.qq.com/wiki/doc/api/jsapi.php?chapter=7_7&amp;index=6</div><div class="line"></div><div class="line">function onBridgeReady()&#123;</div><div class="line">   WeixinJSBridge.invoke(</div><div class="line">       &apos;getBrandWCPayRequest&apos;, &#123;</div><div class="line">           &quot;appId&quot; ： &quot;xxx&quot;,     //公众号名称，由商户传入     </div><div class="line">           &quot;timeStamp&quot;：&quot; 1395712654&quot;,         //时间戳，自1970年以来的秒数     </div><div class="line">           &quot;nonceStr&quot; ： &quot;e61463f8efa94090b1f366cccfbbb444&quot;, //随机串     </div><div class="line">           &quot;package&quot; ： &quot;prepay_id=u802345jgfjsdfgsdg888&quot;,     </div><div class="line">           &quot;signType&quot; ： &quot;MD5&quot;,         //微信签名方式：     </div><div class="line">           &quot;paySign&quot; ： &quot;70EA570631E4BB79628FBCA90534C63FF7FADD89&quot; //微信签名,注意key要追加到参数尾部</div><div class="line">       &#125;,</div><div class="line">       function(res)&#123;     </div><div class="line">           if(res.err_msg == &quot;get_brand_wcpay_request：ok&quot; ) &#123;&#125;     // 使用以上方式判断前端返回,微信团队郑重提示：res.err_msg将在用户支付成功后返回    ok，但并不保证它绝对可靠。 </div><div class="line">       &#125;</div><div class="line">   ); </div><div class="line">&#125;</div><div class="line">if (typeof WeixinJSBridge == &quot;undefined&quot;)&#123;</div><div class="line">   if( document.addEventListener )&#123;</div><div class="line">       document.addEventListener(&apos;WeixinJSBridgeReady&apos;, onBridgeReady, false);</div><div class="line">   &#125;else if (document.attachEvent)&#123;</div><div class="line">       document.attachEvent(&apos;WeixinJSBridgeReady&apos;, onBridgeReady); </div><div class="line">       document.attachEvent(&apos;onWeixinJSBridgeReady&apos;, onBridgeReady);</div><div class="line">   &#125;</div><div class="line">&#125;else&#123;</div><div class="line">   onBridgeReady();</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <h3 id="通知接口"><a href="#通知接口" class="headerlink" title="通知接口"></a>通知接口</h3><p>首先设置notify_url,必须为公众号后台设置的授支付url.<br>你的notify_url的接受方法必须是POST,<br>返回值是xml结构</p>
-<h3 id="接口权限-网页授权"><a href="#接口权限-网页授权" class="headerlink" title="接口权限 网页授权"></a>接口权限 网页授权</h3><h3 id="结束"><a href="#结束" class="headerlink" title="结束"></a>结束</h3><pre><code>在调试接口的时候，最耗费时间的是在网页端调起支付API,前前后后弄了两天，好狼狈啊！！！
+<h3 id="接口权限-网页授权"><a href="#接口权限-网页授权" class="headerlink" title="接口权限 网页授权"></a>接口权限 网页授权</h3><p>开发 -&gt; 开发者工具 -&gt; 绑定开发者微信账号</p>
+<h3 id="结束"><a href="#结束" class="headerlink" title="结束"></a>结束</h3><pre><code>在调试接口的时候，最耗费时间的是在网页端调起支付API,前前后后弄了两天，好狼狈啊！！！
 主要是折在了paySign上，看文档根本就没有key的事，可是签名的时候，
 还得在排序好的参数后架上key=xxx,然后在MD5，总算是让我可以好好睡一觉了
 
@@ -511,7 +512,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="../../../../archives">
-              <span class="site-state-item-count">63</span>
+              <span class="site-state-item-count">64</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -528,7 +529,7 @@
           
             <div class="site-state-item site-state-tags">
               <a href="../../../../tags">
-                <span class="site-state-item-count">66</span>
+                <span class="site-state-item-count">67</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
