@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://www.nealma.com/"/>
-  <updated>2017-06-01T06:05:26.000Z</updated>
+  <updated>2017-06-04T07:52:42.000Z</updated>
   <id>http://www.nealma.com/</id>
   
   <author>
@@ -14,6 +14,39 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title></title>
+    <link href="http://www.nealma.com/2017/06/04/nginx-example-work-3-temp-proxy/"/>
+    <id>http://www.nealma.com/2017/06/04/nginx-example-work-3-temp-proxy/</id>
+    <published>2017-06-04T03:46:45.000Z</published>
+    <updated>2017-06-04T07:52:42.000Z</updated>
+    
+    <content type="html"><![CDATA[<pre><code>访问网页的时候，经常出现 net::ERR_CONTENT_LENGTH_MISMATCH这个问题，一开始也为是某些文件过大导致的，
+还特意把大的资源文件放在CDN上，肯定不行了。
+可是后来发现不管文件大小，都会偶尔报这个错，后来经过Google，才知道是nginx的问题，学无止境。
+</code></pre><a id="more"></a>
+<h3 id="原因"><a href="#原因" class="headerlink" title="原因"></a>原因</h3><pre><code>nginx的工作进程对大文件做了缓存，存储在/var/lib/nginx/tmp/proxy下，通过查看error.log文件可以看到，
+</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">2017/06/04 15:30:29 [crit] 24446#0: *21029 open() &quot;/var/lib/nginx/tmp/proxy/1/14/0000000141&quot; failed (13: Permission denied) while reading upstream,</div></pre></td></tr></table></figure>
+<p>也即是nginx的启动进程用户没有权限访问proxy的目录，导致读取文件失败，可以变更nginx.conf中的user为nginx，若果<br>想使用自定义用户xxx，那需要给xxx授权，<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">chown -R xxx /var/lib/nginx/tmp/proxy</div></pre></td></tr></table></figure></p>
+<p>重新启动nginx, 问题解决。</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;pre&gt;&lt;code&gt;访问网页的时候，经常出现 net::ERR_CONTENT_LENGTH_MISMATCH这个问题，一开始也为是某些文件过大导致的，
+还特意把大的资源文件放在CDN上，肯定不行了。
+可是后来发现不管文件大小，都会偶尔报这个错，后来经过Google，才知道是nginx的问题，学无止境。
+&lt;/code&gt;&lt;/pre&gt;
+    
+    </summary>
+    
+      <category term="Nginx" scheme="http://www.nealma.com/categories/Nginx/"/>
+    
+    
+      <category term="Nginx" scheme="http://www.nealma.com/tags/Nginx/"/>
+    
+  </entry>
   
   <entry>
     <title>Spring-Boot（十二) 获取request和session</title>
@@ -1029,50 +1062,6 @@ Let&amp;apos;s Encrypt给我们带来了免费的午餐，而且是各大顶级�
       <category term="Linux" scheme="http://www.nealma.com/tags/Linux/"/>
     
       <category term="Redis" scheme="http://www.nealma.com/tags/Redis/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>CentOS7（三）Install PHP</title>
-    <link href="http://www.nealma.com/2016/10/01/centos-72-3-php/"/>
-    <id>http://www.nealma.com/2016/10/01/centos-72-3-php/</id>
-    <published>2016-10-01T03:46:47.000Z</published>
-    <updated>2016-12-27T22:31:33.000Z</updated>
-    
-    <content type="html"><![CDATA[<pre><code>今天在CentOS 7.2上安装PHP,记录一下
-</code></pre><a id="more"></a>
-<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><pre><code>今天在CentOS 7.2上安装PHP,记录一下
-</code></pre><h3 id="Install-PHP"><a href="#Install-PHP" class="headerlink" title="Install PHP"></a>Install PHP</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">yum install php php-mysql</div></pre></td></tr></table></figure>
-<h3 id="Restart-Apache-web-server"><a href="#Restart-Apache-web-server" class="headerlink" title="Restart Apache web server"></a>Restart Apache web server</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">yum -y install httpd</div><div class="line"></div><div class="line">systemctl restart httpd.service</div></pre></td></tr></table></figure>
-<h3 id="Install-PHP-Modules"><a href="#Install-PHP-Modules" class="headerlink" title="Install PHP Modules"></a>Install PHP Modules</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">yum install php-fpm</div></pre></td></tr></table></figure>
-<h3 id="Test-php"><a href="#Test-php" class="headerlink" title="Test php"></a>Test php</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">vim /var/www/html/info.php</div><div class="line"></div><div class="line">#文件内容</div><div class="line">&lt;?php phpinfo(); ?&gt;</div></pre></td></tr></table></figure>
-<h3 id="如果开启了firewall，请允许HTTP和HTTPS-Traffic"><a href="#如果开启了firewall，请允许HTTP和HTTPS-Traffic" class="headerlink" title="如果开启了firewall，请允许HTTP和HTTPS Traffic"></a>如果开启了firewall，请允许HTTP和HTTPS Traffic</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">firewall-cmd --permanent --zone=public --add-service=http </div><div class="line">firewall-cmd --permanent --zone=public --add-service=https</div><div class="line">firewall-cmd --reload</div></pre></td></tr></table></figure>
-<h3 id="Install-phpMyAdmin"><a href="#Install-phpMyAdmin" class="headerlink" title="Install phpMyAdmin"></a>Install phpMyAdmin</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">yum -y update</div><div class="line">yum -y install phpmyadmin</div></pre></td></tr></table></figure>
-<h3 id="安装完后，发现还是5-x-x，还得继续，升级到7-x"><a href="#安装完后，发现还是5-x-x，还得继续，升级到7-x" class="headerlink" title="安装完后，发现还是5.x.x，还得继续，升级到7.x"></a>安装完后，发现还是5.x.x，还得继续，升级到7.x</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">rpm -Uvh https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm</div><div class="line">rpm -Uvh https://mirror.webtatic.com/yum/el7/webtatic-release.rpm</div><div class="line"></div><div class="line">yum install php70w php70w-opcache</div><div class="line"></div><div class="line">yum install yum-plugin-replace</div><div class="line"></div><div class="line">yum replace php-common --replace-with=php70w-common -y</div><div class="line"></div><div class="line">yum install php70w-opcache -y</div></pre></td></tr></table></figure>
-<h3 id="安装ecshop-检查结果，文件不可写"><a href="#安装ecshop-检查结果，文件不可写" class="headerlink" title="安装ecshop,检查结果，文件不可写"></a>安装ecshop,检查结果，文件不可写</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">chmod -R 777 /var/www/html/ecshop/</div></pre></td></tr></table></figure>
-<h3 id="安装依赖"><a href="#安装依赖" class="headerlink" title="安装依赖"></a>安装依赖</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">yum -y install mysql mysql-server mysql-devel php-mysql gd gd-devel httpd php php-gd</div></pre></td></tr></table></figure>
-<h3 id="如果想删除php，更换版本，如下："><a href="#如果想删除php，更换版本，如下：" class="headerlink" title="如果想删除php，更换版本，如下："></a>如果想删除php，更换版本，如下：</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line"># remove</div><div class="line">yum remove php</div><div class="line">yum remove php-fpm</div><div class="line"></div><div class="line">php -v</div><div class="line">#if exists php, then</div><div class="line">rpm -qa | grep php</div><div class="line"></div><div class="line">[xxx]# rpm -qa | grep php</div><div class="line">php70-runtime-1.0-5.el7.remi.x86_64</div><div class="line">php-pdo-5.4.16-36.3.el7_2.x86_64</div><div class="line">php-gd-5.4.16-36.3.el7_2.x86_64</div><div class="line">php-common-5.4.16-36.3.el7_2.x86_64</div><div class="line">php-mysql-5.4.16-36.3.el7_2.x86_64</div><div class="line">php-cli-5.4.16-36.3.el7_2.x86_64</div><div class="line"></div><div class="line">#erase </div><div class="line">rpm -qa | grep php | xargs rpm -e</div><div class="line"></div><div class="line"></div><div class="line">＃ search</div><div class="line">yum search php</div><div class="line"></div><div class="line"># remove common</div><div class="line">yum remove php-commen(以search的结果为准)</div></pre></td></tr></table></figure>
-<h3 id="fast-cgi-运行"><a href="#fast-cgi-运行" class="headerlink" title="fast-cgi 运行"></a>fast-cgi 运行</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">php-cgi -b 9001</div><div class="line"></div><div class="line">### darmon start</div><div class="line">php-fpm -D -c /etc/php.ini </div><div class="line"></div><div class="line">#如果没有php-fpm, 先安装</div><div class="line">yum install php-fpm -y</div><div class="line">``` </div><div class="line"></div><div class="line">### nginx 配置</div></pre></td></tr></table></figure>
-<p>location  ~ ^(.+.php)(.<em>)$ {<br>    fastcgi_pass 127.0.0.1:9000;<br>    fastcgi_index index.php;<br>    fastcgi_split_path_info ^(.+.php)(.</em>)$; fastcgi_param   SCRIPT_FILENAME $document_root$fastcgi_script_name;<br>    fastcgi_param   PATH_INFO $fastcgi_path_info;<br>    fastcgi_param   PATH_TRANSLATED $document_root$fastcgi_path_info;<br>    include fastcgi_params;<br>}<br>```</p>
-<p>注意要把你的php项目cp到nginx的html下</p>
-<h3 id="结束"><a href="#结束" class="headerlink" title="结束"></a>结束</h3><p>:)~</p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;pre&gt;&lt;code&gt;今天在CentOS 7.2上安装PHP,记录一下
-&lt;/code&gt;&lt;/pre&gt;
-    
-    </summary>
-    
-      <category term="Linux" scheme="http://www.nealma.com/categories/Linux/"/>
-    
-    
-      <category term="CentOS" scheme="http://www.nealma.com/tags/CentOS/"/>
-    
-      <category term="Linux" scheme="http://www.nealma.com/tags/Linux/"/>
-    
-      <category term="PHP" scheme="http://www.nealma.com/tags/PHP/"/>
     
   </entry>
   

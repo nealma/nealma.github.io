@@ -68,7 +68,7 @@
 <link href="../../../../css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="大杂烩," />
+  <meta name="keywords" content="Nginx," />
 
 
 
@@ -86,16 +86,22 @@
 
 
 
-<meta name="description" content="最近也不知道写点啥，工作任务太饱和了，遇到些小问题，做个总结">
+<meta name="description" content="访问网页的时候，经常出现 net::ERR_CONTENT_LENGTH_MISMATCH这个问题，一开始也为是某些文件过大导致的，
+还特意把大的资源文件放在CDN上，肯定不行了。
+可是后来发现不管文件大小，都会偶尔报这个错，后来经过Google，才知道是nginx的问题，学无止境。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="工作中遇到的问题 (二) Ajax重复提交">
-<meta property="og:url" content="http://www.nealma.com/2016/11/26/work-problerm-2/index.html">
+<meta property="og:title" content="nealma.com">
+<meta property="og:url" content="http://www.nealma.com/2017/06/04/nginx-example-work-3-temp-proxy/index.html">
 <meta property="og:site_name" content="nealma.com">
-<meta property="og:description" content="最近也不知道写点啥，工作任务太饱和了，遇到些小问题，做个总结">
-<meta property="og:updated_time" content="2016-12-11T08:47:03.000Z">
+<meta property="og:description" content="访问网页的时候，经常出现 net::ERR_CONTENT_LENGTH_MISMATCH这个问题，一开始也为是某些文件过大导致的，
+还特意把大的资源文件放在CDN上，肯定不行了。
+可是后来发现不管文件大小，都会偶尔报这个错，后来经过Google，才知道是nginx的问题，学无止境。">
+<meta property="og:updated_time" content="2017-06-04T07:52:42.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="工作中遇到的问题 (二) Ajax重复提交">
-<meta name="twitter:description" content="最近也不知道写点啥，工作任务太饱和了，遇到些小问题，做个总结">
+<meta name="twitter:title" content="nealma.com">
+<meta name="twitter:description" content="访问网页的时候，经常出现 net::ERR_CONTENT_LENGTH_MISMATCH这个问题，一开始也为是某些文件过大导致的，
+还特意把大的资源文件放在CDN上，肯定不行了。
+可是后来发现不管文件大小，都会偶尔报这个错，后来经过Google，才知道是nginx的问题，学无止境。">
 
 
 
@@ -116,9 +122,9 @@
 
 
 
-  <link rel="canonical" href="http://www.nealma.com/2016/11/26/work-problerm-2/"/>
+  <link rel="canonical" href="http://www.nealma.com/2017/06/04/nginx-example-work-3-temp-proxy/"/>
 
-  <title> 工作中遇到的问题 (二) Ajax重复提交 | nealma.com </title>
+  <title>  | nealma.com </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -268,7 +274,7 @@
             
             
               
-                工作中遇到的问题 (二) Ajax重复提交
+                
               
             
           </h1>
@@ -280,8 +286,8 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-11-26T11:46:45+08:00" content="2016-11-26">
-              2016-11-26
+            <time itemprop="dateCreated" datetime="2017-06-04T11:46:45+08:00" content="2017-06-04">
+              2017-06-04
             </time>
           </span>
 
@@ -294,8 +300,8 @@
               <span class="post-meta-item-text">分类于</span>
               
                 <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="../../../../categories/work/" itemprop="url" rel="index">
-                    <span itemprop="name">work</span>
+                  <a href="../../../../categories/Nginx/" itemprop="url" rel="index">
+                    <span itemprop="name">Nginx</span>
                   </a>
                 </span>
 
@@ -311,7 +317,7 @@
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
                 <a href="#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2016/11/26/work-problerm-2/" itemprop="commentsCount"></span>
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2017/06/04/nginx-example-work-3-temp-proxy/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -334,31 +340,15 @@
       
 
       
-        <pre><code>最近也不知道写点啥，工作任务太饱和了，遇到些小问题，做个总结
+        <pre><code>访问网页的时候，经常出现 net::ERR_CONTENT_LENGTH_MISMATCH这个问题，一开始也为是某些文件过大导致的，
+还特意把大的资源文件放在CDN上，肯定不行了。
+可是后来发现不管文件大小，都会偶尔报这个错，后来经过Google，才知道是nginx的问题，学无止境。
 </code></pre><a id="more"></a>
-<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><pre><code>最近也不知道写点啥，工作任务太饱和了，遇到些小问题，做个总结
-</code></pre><h3 id="Linux-使用cp-rf-总是提醒是否覆盖"><a href="#Linux-使用cp-rf-总是提醒是否覆盖" class="headerlink" title="Linux 使用cp -rf 总是提醒是否覆盖"></a>Linux 使用cp -rf 总是提醒是否覆盖</h3><pre><code>刚觉很奇怪，rf本来就是要强制覆盖的，为什么还总是提醒呢？Google之后，才知道原来是别名在作怪。
-通过alias命令可以看到,我们执行cp命令，其实是执行的cp -i, 所以无论我们怎么-rf加参数，总是提示。
-</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">[root@apple]# alias</div><div class="line">alias cp=&apos;cp -i&apos;</div><div class="line">alias egrep=&apos;egrep --color=auto&apos;</div><div class="line">alias fgrep=&apos;fgrep --color=auto&apos;</div><div class="line">alias grep=&apos;grep --color=auto&apos;</div><div class="line">alias l.=&apos;ls -d .* --color=auto&apos;</div><div class="line">alias ll=&apos;ls -l --color=auto&apos;</div><div class="line">alias ls=&apos;ls --color=auto&apos;</div><div class="line">alias mv=&apos;mv -i&apos;</div><div class="line">alias rm=&apos;rm -i&apos;</div><div class="line">alias which=&apos;alias | /usr/bin/which --tty-only --read-alias --show-dot --show-tilde&apos;</div></pre></td></tr></table></figure>
-<pre><code>解决办法：
+<h3 id="原因"><a href="#原因" class="headerlink" title="原因"></a>原因</h3><pre><code>nginx的工作进程对大文件做了缓存，存储在/var/lib/nginx/tmp/proxy下，通过查看error.log文件可以看到，
+</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">2017/06/04 15:30:29 [crit] 24446#0: *21029 open() &quot;/var/lib/nginx/tmp/proxy/1/14/0000000141&quot; failed (13: Permission denied) while reading upstream,</div></pre></td></tr></table></figure>
+<p>也即是nginx的启动进程用户没有权限访问proxy的目录，导致读取文件失败，可以变更nginx.conf中的user为nginx，若果<br>想使用自定义用户xxx，那需要给xxx授权，<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">chown -R xxx /var/lib/nginx/tmp/proxy</div></pre></td></tr></table></figure></p>
+<p>重新启动nginx, 问题解决。</p>
 
-打开~/.bashrc文件，注释掉即可。
-</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">#alias cp=&apos;cp -i&apos;</div></pre></td></tr></table></figure>
-<pre><code>或者这样：
-</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">/usr/bin/cp</div></pre></td></tr></table></figure>
-<h3 id="Ajax重复提交的问题"><a href="#Ajax重复提交的问题" class="headerlink" title="Ajax重复提交的问题"></a>Ajax重复提交的问题</h3><pre><code>我们在使用ajax调用接口，异步提交的时候，特别是在网络环境不好的时候，会在短时间内，连续提交多次，
-导致数据库中出现很多垃圾数据，首先是客户端的限制措施。
-</code></pre><ul>
-<li>使用jQuery.ajaxPrefilter，其实是个过滤器，如下：</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div></pre></td><td class="code"><pre><div class="line">var pendingRequests = &#123;&#125;;</div><div class="line">jQuery.ajaxPrefilter(function( options, originalOptions, jqXHR ) &#123;</div><div class="line">    var key = originalOptions.url+&quot;_&quot;+originalOptions.type.toUpperCase();</div><div class="line">    console.log(key)</div><div class="line">    if (!pendingRequests[key]</div><div class="line">            || (pendingRequests[key] &amp;&amp; originalOptions.type.toUpperCase() !=&apos;POST&apos;)) &#123;</div><div class="line">        pendingRequests[key] = jqXHR;</div><div class="line">        console.log(&apos;start&apos;);</div><div class="line">    &#125;else&#123;</div><div class="line">        jqXHR.abort();    //放弃后触发的提交</div><div class="line">        //pendingRequests[key].abort();   // 放弃先触发的提交</div><div class="line">        console.log(&apos;abort&apos;);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    var complete = options.complete;</div><div class="line">    options.complete = function(jqXHR, textStatus) &#123;</div><div class="line">        console.log(&apos;complete&apos;);</div><div class="line">        //TODO: pendingRequests[key] = null;</div><div class="line">        setTimeout(function () &#123;</div><div class="line">            pendingRequests[key] = null;</div><div class="line">        &#125;, 10000);</div><div class="line">        if (jQuery.isFunction(complete)) &#123;</div><div class="line">            complete.apply(this, arguments);</div><div class="line">        &#125;</div><div class="line">    &#125;;</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
-<ul>
-<li>服务器端限制</li>
-</ul>
-<p>…</p>
-<h3 id="结束"><a href="#结束" class="headerlink" title="结束"></a>结束</h3><pre><code>夜长长，路漫漫...
- :)~
-</code></pre>
       
 
     </div>
@@ -402,7 +392,7 @@
       
         <div class="post-tags">
           
-            <a href="../../../../tags/大杂烩/" rel="tag">#大杂烩</a>
+            <a href="../../../../tags/Nginx/" rel="tag">#Nginx</a>
           
         </div>
       
@@ -411,17 +401,13 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="../../05/spring-boot-9-package-and-deploy/" rel="next" title="Spring-Boot（九) 微服务发布、部署">
-                <i class="fa fa-chevron-left"></i> Spring-Boot（九) 微服务发布、部署
+              <a href="../../01/spring-boot-12-not-thread/" rel="next" title="Spring-Boot（十二) 获取request和session">
+                <i class="fa fa-chevron-left"></i> Spring-Boot（十二) 获取request和session
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="../work-problerm-1/" rel="prev" title="工作中遇到的问题（一） Spring MVC Restfull API">
-                工作中遇到的问题（一） Spring MVC Restfull API <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -567,7 +553,7 @@
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Linux-使用cp-rf-总是提醒是否覆盖"><span class="nav-number">2.</span> <span class="nav-text">Linux 使用cp -rf 总是提醒是否覆盖</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Ajax重复提交的问题"><span class="nav-number">3.</span> <span class="nav-text">Ajax重复提交的问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#结束"><span class="nav-number">4.</span> <span class="nav-text">结束</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#原因"><span class="nav-number">1.</span> <span class="nav-text">原因</span></a></li></ol></div>
             
           </div>
         </section>
@@ -691,9 +677,9 @@
 
     <script type="text/javascript">
       var disqus_shortname = 'nealma';
-      var disqus_identifier = '2016/11/26/work-problerm-2/';
-      var disqus_title = "工作中遇到的问题 (二) Ajax重复提交";
-      var disqus_url = 'http://www.nealma.com/2016/11/26/work-problerm-2/';
+      var disqus_identifier = '2017/06/04/nginx-example-work-3-temp-proxy/';
+      var disqus_title = "";
+      var disqus_url = 'http://www.nealma.com/2017/06/04/nginx-example-work-3-temp-proxy/';
 
       function run_disqus_script(disqus_script){
         var dsq = document.createElement('script');

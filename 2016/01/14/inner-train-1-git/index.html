@@ -92,7 +92,7 @@
 <meta property="og:url" content="http://www.nealma.com/2016/01/14/inner-train-1-git/index.html">
 <meta property="og:site_name" content="nealma.com">
 <meta property="og:description" content="Git的日常基础-内部培训">
-<meta property="og:updated_time" content="2017-01-07T03:15:37.000Z">
+<meta property="og:updated_time" content="2017-06-04T00:43:34.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="内部培训(一) Git 日常使用">
 <meta name="twitter:description" content="Git的日常基础-内部培训">
@@ -311,7 +311,7 @@
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
                 <a href="#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/01/14/inner-train-1-git/" itemprop="commentsCount"></span>
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2016/01/14/inner-train-1-git/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -338,6 +338,9 @@
 </code></pre><a id="more"></a>
 <h3 id="初级"><a href="#初级" class="headerlink" title="初级"></a>初级</h3><h3 id="git-clone"><a href="#git-clone" class="headerlink" title="git clone"></a>git clone</h3><h3 id="git-status"><a href="#git-status" class="headerlink" title="git status"></a>git status</h3><h3 id="git-add"><a href="#git-add" class="headerlink" title="git add ."></a>git add .</h3><h3 id="git-commit-m’fix-xxx-bug’"><a href="#git-commit-m’fix-xxx-bug’" class="headerlink" title="git commit -m’fix xxx bug’"></a>git commit -m’fix xxx bug’</h3><h3 id="git-pull"><a href="#git-pull" class="headerlink" title="git pull"></a>git pull</h3><h3 id="git-push"><a href="#git-push" class="headerlink" title="git push"></a>git push</h3><h3 id="git-remote-add-branch-name-remote-repo-url"><a href="#git-remote-add-branch-name-remote-repo-url" class="headerlink" title="git remote add branch_name remote_repo_url"></a>git remote add branch_name remote_repo_url</h3><h3 id="git-init"><a href="#git-init" class="headerlink" title="git init"></a>git init</h3><h3 id="gitignore-忽略不必要的文件"><a href="#gitignore-忽略不必要的文件" class="headerlink" title=".gitignore 忽略不必要的文件"></a>.gitignore 忽略不必要的文件</h3><h3 id="回滚到历史某个commit点"><a href="#回滚到历史某个commit点" class="headerlink" title="回滚到历史某个commit点"></a>回滚到历史某个commit点</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">git reset -hard history_commit</div><div class="line"></div><div class="line">git push -f origin</div></pre></td></tr></table></figure>
 <h3 id="创建新分支"><a href="#创建新分支" class="headerlink" title="创建新分支"></a>创建新分支</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">git checkout -b new_branch_name</div><div class="line"></div><div class="line">git push -u origin new_branch_name</div></pre></td></tr></table></figure>
+<h3 id="忽略环境文件"><a href="#忽略环境文件" class="headerlink" title="忽略环境文件"></a>忽略环境文件</h3><p>特别是java项目，使用idea或者eclipse,项目中会包含根本地项目相关的.idea以及编译的目录target，这些我们都不需要纳入到git管理，<br>可以使用.gitignore文件，将其过滤掉。但是如果你的文件或者文件夹已经在git的管理中，需要先删除，否则不起作用。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">git rm --cached &lt;文件名&gt; 删除文件的缓存</div><div class="line">git rm --cached -r &lt;目录名&gt; 删除目录下的所有文件的缓存</div></pre></td></tr></table></figure>
+<p>通过上面的命令把缓存删除后，commit后再push到服务器。</p>
 <p><a href="https://ruitao-static.oss-cn-shanghai.aliyuncs.com/qr/qr_0.png" target="_blank" rel="external">https://ruitao-static.oss-cn-shanghai.aliyuncs.com/qr/qr_0.png</a></p>
 
       
@@ -394,8 +397,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="../../../../2015/12/18/elasticsearch/" rel="next" title="ElasticSearch">
-                <i class="fa fa-chevron-left"></i> ElasticSearch
+              <a href="../../../../2015/12/18/newrelic/" rel="next" title="newrelic使用">
+                <i class="fa fa-chevron-left"></i> newrelic使用
               </a>
             
           </div>
@@ -430,8 +433,11 @@
           
   <div class="comments" id="comments">
     
-      <div class="ds-thread" data-thread-key="2016/01/14/inner-train-1-git/"
-           data-title="内部培训(一) Git 日常使用" data-url="http://www.nealma.com/2016/01/14/inner-train-1-git/">
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
       </div>
     
   </div>
@@ -476,7 +482,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="../../../../archives">
-              <span class="site-state-item-count">64</span>
+              <span class="site-state-item-count">65</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -547,7 +553,7 @@
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#初级"><span class="nav-number">1.</span> <span class="nav-text">初级</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#git-clone"><span class="nav-number">2.</span> <span class="nav-text">git clone</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#git-status"><span class="nav-number">3.</span> <span class="nav-text">git status</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#git-add"><span class="nav-number">4.</span> <span class="nav-text">git add .</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#git-commit-m’fix-xxx-bug’"><span class="nav-number">5.</span> <span class="nav-text">git commit -m’fix xxx bug’</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#git-pull"><span class="nav-number">6.</span> <span class="nav-text">git pull</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#git-push"><span class="nav-number">7.</span> <span class="nav-text">git push</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#git-remote-add-branch-name-remote-repo-url"><span class="nav-number">8.</span> <span class="nav-text">git remote add branch_name remote_repo_url</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#git-init"><span class="nav-number">9.</span> <span class="nav-text">git init</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#gitignore-忽略不必要的文件"><span class="nav-number">10.</span> <span class="nav-text">.gitignore 忽略不必要的文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#回滚到历史某个commit点"><span class="nav-number">11.</span> <span class="nav-text">回滚到历史某个commit点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#创建新分支"><span class="nav-number">12.</span> <span class="nav-text">创建新分支</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#初级"><span class="nav-number">1.</span> <span class="nav-text">初级</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#git-clone"><span class="nav-number">2.</span> <span class="nav-text">git clone</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#git-status"><span class="nav-number">3.</span> <span class="nav-text">git status</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#git-add"><span class="nav-number">4.</span> <span class="nav-text">git add .</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#git-commit-m’fix-xxx-bug’"><span class="nav-number">5.</span> <span class="nav-text">git commit -m’fix xxx bug’</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#git-pull"><span class="nav-number">6.</span> <span class="nav-text">git pull</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#git-push"><span class="nav-number">7.</span> <span class="nav-text">git push</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#git-remote-add-branch-name-remote-repo-url"><span class="nav-number">8.</span> <span class="nav-text">git remote add branch_name remote_repo_url</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#git-init"><span class="nav-number">9.</span> <span class="nav-text">git init</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#gitignore-忽略不必要的文件"><span class="nav-number">10.</span> <span class="nav-text">.gitignore 忽略不必要的文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#回滚到历史某个commit点"><span class="nav-number">11.</span> <span class="nav-text">回滚到历史某个commit点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#创建新分支"><span class="nav-number">12.</span> <span class="nav-text">创建新分支</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#忽略环境文件"><span class="nav-number">13.</span> <span class="nav-text">忽略环境文件</span></a></li></ol></div>
             
           </div>
         </section>
@@ -665,30 +671,30 @@
 
   
 
-  
-    
-  
-
-  <script type="text/javascript">
-    var duoshuoQuery = {short_name:"nealma"};
-    (function() {
-      var ds = document.createElement('script');
-      ds.type = 'text/javascript';ds.async = true;
-      ds.id = 'duoshuo-script';
-      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
-      ds.charset = 'UTF-8';
-      (document.getElementsByTagName('head')[0]
-      || document.getElementsByTagName('body')[0]).appendChild(ds);
-    })();
-  </script>
-
-  
-    
-    <script src="../../../../lib/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
-    <script src="../../../../js/src/hook-duoshuo.js"></script>
-  
 
 
+  
+
+    <script type="text/javascript">
+      var disqus_shortname = 'nealma';
+      var disqus_identifier = '2016/01/14/inner-train-1-git/';
+      var disqus_title = "内部培训(一) Git 日常使用";
+      var disqus_url = 'http://www.nealma.com/2016/01/14/inner-train-1-git/';
+
+      function run_disqus_script(disqus_script){
+        var dsq = document.createElement('script');
+        dsq.type = 'text/javascript';
+        dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      }
+
+      run_disqus_script('count.js');
+      
+        run_disqus_script('embed.js');
+      
+    </script>
+  
 
 
 
