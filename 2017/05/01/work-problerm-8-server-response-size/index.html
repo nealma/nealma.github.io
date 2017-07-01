@@ -94,7 +94,7 @@
 <meta property="og:site_name" content="nealma.com">
 <meta property="og:description" content="有的时候，你会遇到很奇怪的事情，就是请求一切正常，但服务器端就是没有返回值。
 特别是上传文件的时候，那到底发生了什么呢？">
-<meta property="og:updated_time" content="2017-05-26T15:22:02.000Z">
+<meta property="og:updated_time" content="2017-07-01T03:20:30.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="【Response Body】服务器端返回值大小">
 <meta name="twitter:description" content="有的时候，你会遇到很奇怪的事情，就是请求一切正常，但服务器端就是没有返回值。
@@ -311,13 +311,6 @@
 
           
             
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2017/05/01/work-problerm-8-server-response-size/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
           
 
           
@@ -349,10 +342,7 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">#在my.cnf中,在[mysqld]段或者mysql的server配置段进行修改。</div><div class="line">max_allowed_packet = 20M</div><div class="line"></div><div class="line">#如果找不到，可以查询</div><div class="line">mysql --help |grep my.cnf</div><div class="line"></div><div class="line">#也可以更改全局变量</div><div class="line">set global max_allowed_packet = 2*1024*1024*10</div><div class="line"></div><div class="line">#不需要重启，可以查看</div><div class="line">show VARIABLES like &apos;%max_allowed_packet%&apos;;</div></pre></td></tr></table></figure>
 </li>
 </ul>
-<h3 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h3><h3 id="结束"><a href="#结束" class="headerlink" title="结束"></a>结束</h3><pre><code>百度图灵机器人可以直接选择微信公众号机器人，只要授权就可以了。
-过成功遇到： 启用后台服务器接口消息的功能后，公众号的菜单没有了，还不知道怎么能两者兼得
-
- :)~
+<h3 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h3><h3 id="结束"><a href="#结束" class="headerlink" title="结束"></a>结束</h3><pre><code>:)~
 </code></pre>
       
 
@@ -446,12 +436,20 @@
           
   <div class="comments" id="comments">
     
-      <div id="disqus_thread">
-        <noscript>
-          Please enable JavaScript to view the
-          <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a>
-        </noscript>
+      <div id="wangyi_thread">
+        <div id="cloud-tie-wrapper" class="cloud-tie-wrapper"></div>
+        <script>
+          var cloudTieConfig = {
+            url: document.location.href, 
+            sourceId: "http://www.nealma.com/2017/05/01/work-problerm-8-server-response-size/",
+            productKey: "2356e963b0574384a27d221f2acf9ef4",
+            target: "cloud-tie-wrapper"
+          };
+        </script>
+        <script src="https://img1.cache.netease.com/f2e/tie/yun/sdk/loader.js"></script>
       </div>
+    
+
     
   </div>
 
@@ -495,7 +493,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="../../../../archives">
-              <span class="site-state-item-count">65</span>
+              <span class="site-state-item-count">67</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -503,7 +501,7 @@
           
             <div class="site-state-item site-state-categories">
               <a href="../../../../categories">
-                <span class="site-state-item-count">17</span>
+                <span class="site-state-item-count">19</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -512,7 +510,7 @@
           
             <div class="site-state-item site-state-tags">
               <a href="../../../../tags">
-                <span class="site-state-item-count">67</span>
+                <span class="site-state-item-count">70</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -686,27 +684,6 @@
 
 
 
-  
-
-    <script type="text/javascript">
-      var disqus_shortname = 'nealma';
-      var disqus_identifier = '2017/05/01/work-problerm-8-server-response-size/';
-      var disqus_title = "【Response Body】服务器端返回值大小";
-      var disqus_url = 'http://www.nealma.com/2017/05/01/work-problerm-8-server-response-size/';
-
-      function run_disqus_script(disqus_script){
-        var dsq = document.createElement('script');
-        dsq.type = 'text/javascript';
-        dsq.async = true;
-        dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
-        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-      }
-
-      run_disqus_script('count.js');
-      
-        run_disqus_script('embed.js');
-      
-    </script>
   
 
 

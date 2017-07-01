@@ -308,13 +308,6 @@
 
           
             
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2016/10/01/centos-72-2-install-mariadb/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
           
 
           
@@ -408,16 +401,16 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="../centos-72-1-install-java-envirment/" rel="next" title="CentOS7（一）Java环境搭建">
-                <i class="fa fa-chevron-left"></i> CentOS7（一）Java环境搭建
+              <a href="../centos-72-7-install-mysql57/" rel="next" title="CentOS7（七）Install MySQL5.7">
+                <i class="fa fa-chevron-left"></i> CentOS7（七）Install MySQL5.7
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="../centos-72-7-install-mysql57/" rel="prev" title="CentOS7（七）Install MySQL5.7">
-                CentOS7（七）Install MySQL5.7 <i class="fa fa-chevron-right"></i>
+              <a href="../centos-72-3-php/" rel="prev" title="CentOS7（三）Install PHP">
+                CentOS7（三）Install PHP <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -444,12 +437,20 @@
           
   <div class="comments" id="comments">
     
-      <div id="disqus_thread">
-        <noscript>
-          Please enable JavaScript to view the
-          <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a>
-        </noscript>
+      <div id="wangyi_thread">
+        <div id="cloud-tie-wrapper" class="cloud-tie-wrapper"></div>
+        <script>
+          var cloudTieConfig = {
+            url: document.location.href, 
+            sourceId: "http://www.nealma.com/2016/10/01/centos-72-2-install-mariadb/",
+            productKey: "2356e963b0574384a27d221f2acf9ef4",
+            target: "cloud-tie-wrapper"
+          };
+        </script>
+        <script src="https://img1.cache.netease.com/f2e/tie/yun/sdk/loader.js"></script>
       </div>
+    
+
     
   </div>
 
@@ -493,7 +494,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="../../../../archives">
-              <span class="site-state-item-count">65</span>
+              <span class="site-state-item-count">67</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -501,7 +502,7 @@
           
             <div class="site-state-item site-state-categories">
               <a href="../../../../categories">
-                <span class="site-state-item-count">17</span>
+                <span class="site-state-item-count">19</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -510,7 +511,7 @@
           
             <div class="site-state-item site-state-tags">
               <a href="../../../../tags">
-                <span class="site-state-item-count">67</span>
+                <span class="site-state-item-count">70</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -684,27 +685,6 @@
 
 
 
-  
-
-    <script type="text/javascript">
-      var disqus_shortname = 'nealma';
-      var disqus_identifier = '2016/10/01/centos-72-2-install-mariadb/';
-      var disqus_title = "CentOS7（二）Install MySQL (MariaDB)";
-      var disqus_url = 'http://www.nealma.com/2016/10/01/centos-72-2-install-mariadb/';
-
-      function run_disqus_script(disqus_script){
-        var dsq = document.createElement('script');
-        dsq.type = 'text/javascript';
-        dsq.async = true;
-        dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
-        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-      }
-
-      run_disqus_script('count.js');
-      
-        run_disqus_script('embed.js');
-      
-    </script>
   
 
 

@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://www.nealma.com/"/>
-  <updated>2017-06-04T07:52:42.000Z</updated>
+  <updated>2017-07-01T02:57:35.000Z</updated>
   <id>http://www.nealma.com/</id>
   
   <author>
@@ -16,11 +16,120 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
-    <title></title>
+    <title>Spring Cloud | 配置服务</title>
+    <link href="http://www.nealma.com/2017/06/30/spring-cloud-1-config/"/>
+    <id>http://www.nealma.com/2017/06/30/spring-cloud-1-config/</id>
+    <published>2017-06-30T03:46:45.000Z</published>
+    <updated>2017-07-01T02:57:35.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>Spring Boot提供了application.[properties|yml]文件来提供默认配置，<br>简化了原来冗余的配置，但是随着环境和应用服务的增多，很难管理分散在各个项目中的配置，<br>但是，现在Spring Cloud 提供了 Config Server, 使其在分布式系统开发中输出外部配置的能力。<br>通过 Config Server，我们可以集中存储所有应用的配置文件</p>
+<a id="more"></a>
+<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>Spring Boot提供了application.[properties|yml]文件来提供默认配置，<br>简化了原来冗余的配置，但是随着环境和应用服务的增多，很难管理分散在各个项目中的配置，<br>但是，现在Spring Cloud 提供了 Config Server, 使其在分布式系统开发中输出外部配置的能力。<br>通过 Config Server，我们可以集中存储所有应用的配置文件</p>
+<p>Config Server 支持git或者在文件系统中放置配置文件，<br>可以通过以下格式来区分不同应用的不同配置文件<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">/&#123;application&#125;/&#123;profile&#125;/&#123;label&#125;</div><div class="line">/&#123;application&#125;-&#123;profile&#125;.yml</div><div class="line">/&#123;label&#125;/&#123;application&#125;/&#123;profile&#125;.yml</div><div class="line">/&#123;application&#125;-&#123;profile&#125;.properties</div><div class="line">/&#123;label&#125;/&#123;application&#125;/&#123;profile&#125;.properties</div></pre></td></tr></table></figure></p>
+<p>Spring Cloud 提供了注解@EnableConfigServer来启用配置服务</p>
+<p>开发环境：<br>OS: Mac 10.11.6<br>IDE: IDEA 2016.2<br>Build: Maven</p>
+<p>### </p>
+<p>Spring-Boot是从run开始的，所以你的项目必须包含类似以下的一段代码<br>我习惯于放在com.domain.project包下</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@SpringBootApplication</span></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Application</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</div><div class="line">        SpringApplication.run(Application.class, args);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="POM依赖"><a href="#POM依赖" class="headerlink" title="POM依赖"></a>POM依赖</h3><figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="comment">&lt;!-- Inherit defaults from Spring Boot --&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">parent</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-parent<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.3.5.RELEASE<span class="tag">&lt;/<span class="name">version</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">parent</span>&gt;</span></div></pre></td></tr></table></figure>
+<p>当然也可以不依赖，使用scope=import，没有尝试过。</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">parent</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-parent<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.3.5.RELEASE<span class="tag">&lt;/<span class="name">version</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">type</span>&gt;</span>pom<span class="tag">&lt;/<span class="name">type</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">scope</span>&gt;</span>import<span class="tag">&lt;/<span class="name">scope</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">parent</span>&gt;</span></div></pre></td></tr></table></figure>
+<h3 id="使用Spring-Boot-Maven插件"><a href="#使用Spring-Boot-Maven插件" class="headerlink" title="使用Spring-Boot-Maven插件"></a>使用Spring-Boot-Maven插件</h3><p>将项目打包成“flat jars”，独立可执行jar包</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">plugin</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-maven-plugin<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">plugin</span>&gt;</span></div></pre></td></tr></table></figure>
+<h3 id="Starter-POMs"><a href="#Starter-POMs" class="headerlink" title="Starter POMs"></a>Starter POMs</h3><p>starts是开箱即用，方便的的依赖集合，不用在像spring那样一个一个的配置依赖了<br>只需要引入如下就可以跑起来了</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">...</div><div class="line"></div><div class="line">    &lt;dependency&gt;</div><div class="line">        &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;</div><div class="line">        &lt;artifactId&gt;spring-boot-starter&lt;/artifactId&gt;</div><div class="line">    &lt;/dependency</div><div class="line"></div><div class="line">...</div></pre></td></tr></table></figure>
+<h3 id="跑起来"><a href="#跑起来" class="headerlink" title="跑起来"></a>跑起来</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">mvn clean spring-boot:run</div></pre></td></tr></table></figure>
+<h3 id="多个-SpringBootApplication处理"><a href="#多个-SpringBootApplication处理" class="headerlink" title="多个@SpringBootApplication处理"></a>多个@SpringBootApplication处理</h3><pre><code>现实工作中，不止一个项目，而是多个子项目并存，这个时候，你有多个start-class,就要用到下面给每个子项目设定start-class
+</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&lt;properties&gt;</div><div class="line">       &lt;start-class&gt;com.SpringBootWayApplication&lt;/start-class&gt;</div><div class="line">   &lt;/properties&gt;</div></pre></td></tr></table></figure>
+<pre><code>否则，你在打包时会出现下面的错误，意思是“我找不到唯一的start-class,你给我指定下”,
+</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Failed to execute goal org.springframework.boot:spring-boot-maven-plugin:1.4.0.RELEASE:repackage (default) on project xxx: Execution default of goal org.springframework.boot:spring-boot-maven-plugin:1.4.0.RELEASE:repackage failed: Unable to find a single main class from the following candidates [com.x.Application, com.y.Application]</div></pre></td></tr></table></figure>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;Spring Boot提供了application.[properties|yml]文件来提供默认配置，&lt;br&gt;简化了原来冗余的配置，但是随着环境和应用服务的增多，很难管理分散在各个项目中的配置，&lt;br&gt;但是，现在Spring Cloud 提供了 Config Server, 使其在分布式系统开发中输出外部配置的能力。&lt;br&gt;通过 Config Server，我们可以集中存储所有应用的配置文件&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="Spring Cloud" scheme="http://www.nealma.com/categories/Spring-Cloud/"/>
+    
+    
+      <category term="Java" scheme="http://www.nealma.com/tags/Java/"/>
+    
+      <category term="Spring-Boot" scheme="http://www.nealma.com/tags/Spring-Boot/"/>
+    
+      <category term="Spring Cloud" scheme="http://www.nealma.com/tags/Spring-Cloud/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>JavaScript| jQuery 自定义插件</title>
+    <link href="http://www.nealma.com/2017/06/24/js-1-jquery-extend/"/>
+    <id>http://www.nealma.com/2017/06/24/js-1-jquery-extend/</id>
+    <published>2017-06-24T03:46:45.000Z</published>
+    <updated>2017-06-26T07:32:07.000Z</updated>
+    
+    <content type="html"><![CDATA[<pre><code>以前写过javascript，但都是临时更改，没怎么太研究怎么去写好，怎么去封装，还有jQuery，都是拿来即用，
+根本就没想过去写插件，主要吧，都是作后端的内容，很少写前端代码。其实写写前端挺有意思的，顺便心血来潮，
+整个jQuery插件玩玩：）～
+</code></pre><a id="more"></a>
+<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><pre><code>以前写过javascript，但都是临时更改，没怎么太研究怎么去写好，怎么去封装，还有JQuery，都是拿来即用，
+根本就没想过去写插件，主要吧，都是做后端的内容，很少写前端代码。其实写写前端挺有意思的，顺便心血来潮，
+整个JQuery插件玩玩：）～
+
+* $.fn.extend 当然这种方式只适用实例范围, 例如：$([class name | tag | et..]).hi(),可以调用
+</code></pre><h3 id="无参插件"><a href="#无参插件" class="headerlink" title="无参插件"></a>无参插件</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">$.fn.extend(&#123;</div><div class="line">	hi: function () &#123;</div><div class="line">	  alert(&quot;hello world.&quot;);</div><div class="line">	&#125;</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<p>切记：为了不和其他插件对共享$这个符号的冲突，尽量用下面这个包起来，妥妥的</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">(function($)&#123;</div><div class="line">	</div><div class="line">&#125;)(jQuery);</div></pre></td></tr></table></figure>
+<p>调用<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$(&quot;#id&quot;).hi();</div></pre></td></tr></table></figure></p>
+<h3 id="有残参插件，当然这种方式只适用实例范围-例如：-class-name-tag-et-hi-可以调用"><a href="#有残参插件，当然这种方式只适用实例范围-例如：-class-name-tag-et-hi-可以调用" class="headerlink" title="有残参插件，当然这种方式只适用实例范围, 例如：$([class name | tag | et..]).hi(),可以调用"></a>有残参插件，当然这种方式只适用实例范围, 例如：$([class name | tag | et..]).hi(),可以调用</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">$.fn.extend(&#123;</div><div class="line">	hi: function (options) &#123;</div><div class="line">	  var defaults=&#123;</div><div class="line">	      background:&apos;red&apos;</div><div class="line">	  &#125;;</div><div class="line">	  var opts = $.extend(defaults,options);//合并两个对象为一个，类似于java的copyProperties(original, target)</div><div class="line">	  $(this).css(&quot;background-color&quot;,opts.background);</div><div class="line">	&#125;</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<p>切记：为了不和其他插件对共享$这个符号的冲突，尽量用下面这个包起来，妥妥的</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">(function($)&#123;</div><div class="line">	</div><div class="line">&#125;)(jQuery);</div></pre></td></tr></table></figure>
+<p>调用</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$(&quot;#id&quot;).hi(&#123;&quot;background&quot;: &quot;red&quot;&#125;);</div></pre></td></tr></table></figure>
+<h3 id="jQuery的链式调用"><a href="#jQuery的链式调用" class="headerlink" title="jQuery的链式调用"></a>jQuery的链式调用</h3><pre><code>大家都知道，也都在使用jQuery的链式调用，很优雅，那我们自己的插件可以这样调用吗？
+能不能，我们来做个实验,直接执行如下：
+</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$(&quot;#id&quot;).hi(&#123;&quot;background&quot;: &quot;red&quot;&#125;).html();</div></pre></td></tr></table></figure>
+<pre><code>不好意思，你会看到令人厌烦的异常
+</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Uncaught TypeError: Cannot read property &apos;html&apos; of undefined at &lt;anonymous&gt;:1:46</div></pre></td></tr></table></figure>
+<pre><code>也就是说，我们自己的插件打破了jQuery的链式传递，怎么办呢？其实很简单，在函数最后添加如下：
+</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">return this.each(function() &#123;</div><div class="line">  // Using return allows for chainability</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<h3 id="最后完整代码"><a href="#最后完整代码" class="headerlink" title="最后完整代码"></a>最后完整代码</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">(function($)&#123;</div><div class="line">  $.fn.extend(&#123;</div><div class="line">    hi: function (options) &#123;</div><div class="line">      var defaults=&#123;&#125;;</div><div class="line">      var opts = $.extend(defaults,options);</div><div class="line">      console.log(opts);</div><div class="line">      $(this).css(&quot;background-color&quot;, opts.background);</div><div class="line">      return this.each(function() &#123;</div><div class="line">        // Using return allows for chainability</div><div class="line">      &#125;);</div><div class="line">    &#125;</div><div class="line">  &#125;);</div><div class="line">&#125;)(jQuery);</div></pre></td></tr></table></figure>
+<h3 id="注意：如果你直接-hi-来调用，会抛出异常"><a href="#注意：如果你直接-hi-来调用，会抛出异常" class="headerlink" title="注意：如果你直接 $.hi() 来调用，会抛出异常"></a>注意：如果你直接 $.hi() 来调用，会抛出异常</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Uncaught TypeError: $.hi is not a functionx at &lt;anonymous&gt;:1:3</div></pre></td></tr></table></figure>
+<p>这也证实了hi方法只是赋予了选择器的实例上，那么我们想给$(jQuery)对象赋予自定义功能，该如何实现呢？</p>
+<p>###jQuery类级别的自定义插件,也可以理解为静态方法，工具类。</p>
+<pre><code>跟之前比较类似，如下：
+</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">(function($)&#123;</div><div class="line">  $.extend(&#123;</div><div class="line">    hiDate: function () &#123;</div><div class="line">      return new Date().toJSON().slice(0,10)</div><div class="line">    &#125;</div><div class="line">  &#125;);</div><div class="line">&#125;)(jQuery);</div></pre></td></tr></table></figure>
+<pre><code>调用方式
+</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$.hiDate();</div></pre></td></tr></table></figure>
+<h3 id="结束"><a href="#结束" class="headerlink" title="结束"></a>结束</h3><pre><code>没事写写代码，写写后端，写写前端，哦，js已经不仅限于前端啦：）～
+ :)~
+</code></pre>]]></content>
+    
+    <summary type="html">
+    
+      &lt;pre&gt;&lt;code&gt;以前写过javascript，但都是临时更改，没怎么太研究怎么去写好，怎么去封装，还有jQuery，都是拿来即用，
+根本就没想过去写插件，主要吧，都是作后端的内容，很少写前端代码。其实写写前端挺有意思的，顺便心血来潮，
+整个jQuery插件玩玩：）～
+&lt;/code&gt;&lt;/pre&gt;
+    
+    </summary>
+    
+      <category term="前端" scheme="http://www.nealma.com/categories/%E5%89%8D%E7%AB%AF/"/>
+    
+    
+      <category term="JavaScript" scheme="http://www.nealma.com/tags/JavaScript/"/>
+    
+      <category term="jQuery" scheme="http://www.nealma.com/tags/jQuery/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Nginx | ERR_CONTENT_LENGTH_MISMATCH</title>
     <link href="http://www.nealma.com/2017/06/04/nginx-example-work-3-temp-proxy/"/>
     <id>http://www.nealma.com/2017/06/04/nginx-example-work-3-temp-proxy/</id>
     <published>2017-06-04T03:46:45.000Z</published>
-    <updated>2017-06-04T07:52:42.000Z</updated>
+    <updated>2017-07-01T03:21:35.000Z</updated>
     
     <content type="html"><![CDATA[<pre><code>访问网页的时候，经常出现 net::ERR_CONTENT_LENGTH_MISMATCH这个问题，一开始也为是某些文件过大导致的，
 还特意把大的资源文件放在CDN上，肯定不行了。
@@ -93,7 +202,7 @@
     <link href="http://www.nealma.com/2017/05/01/work-problerm-8-server-response-size/"/>
     <id>http://www.nealma.com/2017/05/01/work-problerm-8-server-response-size/</id>
     <published>2017-05-01T03:46:45.000Z</published>
-    <updated>2017-05-26T15:22:02.000Z</updated>
+    <updated>2017-07-01T03:20:30.000Z</updated>
     
     <content type="html"><![CDATA[<pre><code>有的时候，你会遇到很奇怪的事情，就是请求一切正常，但服务器端就是没有返回值。
 特别是上传文件的时候，那到底发生了什么呢？
@@ -107,10 +216,7 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">#在my.cnf中,在[mysqld]段或者mysql的server配置段进行修改。</div><div class="line">max_allowed_packet = 20M</div><div class="line"></div><div class="line">#如果找不到，可以查询</div><div class="line">mysql --help |grep my.cnf</div><div class="line"></div><div class="line">#也可以更改全局变量</div><div class="line">set global max_allowed_packet = 2*1024*1024*10</div><div class="line"></div><div class="line">#不需要重启，可以查看</div><div class="line">show VARIABLES like &apos;%max_allowed_packet%&apos;;</div></pre></td></tr></table></figure>
 </li>
 </ul>
-<h3 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h3><h3 id="结束"><a href="#结束" class="headerlink" title="结束"></a>结束</h3><pre><code>百度图灵机器人可以直接选择微信公众号机器人，只要授权就可以了。
-过成功遇到： 启用后台服务器接口消息的功能后，公众号的菜单没有了，还不知道怎么能两者兼得
-
- :)~
+<h3 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h3><h3 id="结束"><a href="#结束" class="headerlink" title="结束"></a>结束</h3><pre><code>:)~
 </code></pre>]]></content>
     
     <summary type="html">
@@ -923,145 +1029,6 @@ CookieHttpSessionStrategy，如果是API就用HeaderHttpSessionStrategy，具体
       <category term="Linux" scheme="http://www.nealma.com/tags/Linux/"/>
     
       <category term="Vim" scheme="http://www.nealma.com/tags/Vim/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>CentOS7（六）Let&#39;s Encrypt</title>
-    <link href="http://www.nealma.com/2016/10/01/centos-72-6-lentsencrypt/"/>
-    <id>http://www.nealma.com/2016/10/01/centos-72-6-lentsencrypt/</id>
-    <published>2016-10-01T03:46:49.000Z</published>
-    <updated>2017-04-06T23:51:04.000Z</updated>
-    
-    <content type="html"><![CDATA[<pre><code>HTTPS即将普及，各大互联网公司早已实现全面HTTPS化，但是证书的价格对于个人或者初创企业都是支出，
-Let&apos;s Encrypt给我们带来了免费的午餐，而且是各大顶级组织在背后支持，没理由不用。
-</code></pre><a id="more"></a>
-<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><pre><code>HTTPS即将普及，各大互联网公司早已实现全面HTTPS化，但是证书的价格对于个人或者初创企业都是支出，
-Let&apos;s Encrypt给我们带来了免费的午餐，而且是各大顶级组织在背后支持，没理由不用。
-</code></pre><h3 id="Install-the-Certbot-Let’s-Encrypt-Client"><a href="#Install-the-Certbot-Let’s-Encrypt-Client" class="headerlink" title="Install the Certbot Let’s Encrypt Client"></a>Install the Certbot Let’s Encrypt Client</h3><ul>
-<li><p>EPEL repository</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ sudo yum install epel-release -y</div></pre></td></tr></table></figure>
-</li>
-<li><p>Certbot package</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ sudo yum install certbot -y</div></pre></td></tr></table></figure>
-</li>
-</ul>
-<h3 id="Nginx-Config"><a href="#Nginx-Config" class="headerlink" title="Nginx Config"></a>Nginx Config</h3><ul>
-<li>nginx.conf<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div></pre></td><td class="code"><pre><div class="line">user nginx;</div><div class="line">worker_processes auto;</div><div class="line">error_log /var/log/nginx/error.log;</div><div class="line">pid /run/nginx.pid;</div><div class="line"></div><div class="line">include /usr/share/nginx/modules/*.conf;</div><div class="line"></div><div class="line">events &#123;</div><div class="line">    worker_connections 1024;</div><div class="line">&#125;</div><div class="line"></div><div class="line">http &#123;</div><div class="line">    log_format  main  &apos;$remote_addr - $remote_user [$time_local] &quot;$request&quot; &apos;</div><div class="line">                      &apos;$status $body_bytes_sent &quot;$http_referer&quot; &apos;</div><div class="line">                      &apos;&quot;$http_user_agent&quot; &quot;$http_x_forwarded_for&quot;&apos;;</div><div class="line"></div><div class="line">    access_log  /var/log/nginx/access.log  main;</div><div class="line"></div><div class="line">    sendfile            on;</div><div class="line">    tcp_nopush          on;</div><div class="line">    tcp_nodelay         on;</div><div class="line">    keepalive_timeout   65;</div><div class="line">    types_hash_max_size 2048;</div><div class="line"></div><div class="line">    include             /etc/nginx/mime.types;</div><div class="line">    default_type        application/octet-stream;</div><div class="line"></div><div class="line">    add_header &apos;Access-Control-Allow-Origin&apos; &apos;*&apos;;</div><div class="line">    add_header &apos;Access-Control-Allow-Credentials&apos; &apos;true&apos;;</div><div class="line">    add_header &apos;Access-Control-Allow-Headers&apos; &apos;Authorization,Content-Type,Accept,Origin,User-Agent,DNT,Cache-Control,X-Mx-ReqToken,X-Requested-With&apos;;</div><div class="line">    add_header &apos;Access-Control-Allow-Methods&apos; &apos;GET,POST,OPTIONS&apos;;</div><div class="line"></div><div class="line">    include /etc/nginx/conf.d/*.conf;</div><div class="line"></div><div class="line">&#125;</div><div class="line"></div><div class="line">* ../conf.d/www.conf</div></pre></td></tr></table></figure>
-</li>
-</ul>
-<p>upstream xxx.com {<br>    server 127.0.0.1:8081;<br>}</p>
-<p>server {<br>    listen       80 default_server;<br>    listen       [::]:80 default_server;</p>
-<pre><code>#$DOMAINS中的所有域名，一定要做好CNAME或者A记录
-server_name  xxx.com www.xxx.com admin.xxx.com m.xxx.com;
-root        /usr/share/nginx/html;
-
-location ~ /\.well-known\/acme-challenge {
-    allow all;
-}
-
-location / {
-
-}
-
-error_page 404 /404.html;
-location = /40x.html {
-
-}
-
-error_page 500 502 503 504 /50x.html;
-    location = /50x.html {
-}
-</code></pre><p>}<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">* ../conf.d/ssl.www.conf</div></pre></td></tr></table></figure></p>
-<p>upstream ssl.xxx.com {<br>    server 127.0.0.1:8081;<br>}</p>
-<p>server {<br>    listen       443 ssl http2 default_server;<br>    listen       [::]:443 ssl http2 default_server;<br>    server_name  maylingyi.com www.ruitaowang.com haiji.ruitaowang.com;<br>    root         /usr/share/nginx/html;</p>
-<pre><code># 创建证书之前先注释一下三行
-ssl_certificate /etc/letsencrypt/live/ruitaowang.com/fullchain.pem;
-ssl_certificate_key /etc/letsencrypt/live/ruitaowang.com/privkey.pem;
-ssl_trusted_certificate /etc/letsencrypt/live/ruitaowang.com/chain.pem;
-
-ssl_session_cache shared:SSL:1m;
-ssl_session_timeout  10m;
-ssl_ciphers HIGH:!aNULL:!MD5;
-ssl_prefer_server_ciphers on;
-
-location / {
-
-}
-
-error_page 404 /404.html;
-    location = /40x.html {
-}
-
-error_page 500 502 503 504 /50x.html;
-    location = /50x.html {
-}
-</code></pre><p>}<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"></div><div class="line">### Obtain a Certificate</div></pre></td></tr></table></figure></p>
-<p>export DOMAINS=”ruitaowang.com,www.ruitaowang.com,test.ruitaowang.com,admin.ruitaowang.com,api.ruitaowang.com,m.ruitaowang.com,statics.ruitaowang.com,search.ruitaowang.com,web.ruitaowang.com,live.ruitaowang.com”<br>export DIR=/usr/share/nginx/letsencrypt<br>sudo certbot certonly -a webroot –webroot-path=$DIR -d $DOMAINS<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">#### 续期</div></pre></td></tr></table></figure></p>
-<p>certbot renew –force-renew<br>nginx -s reload<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">### aliyun负载均衡数字证书配置</div><div class="line">    在给阿里云配置负载均衡的HTTPs的数字证书时，要注意</div><div class="line">* 密钥 cat /etc/letsencrypt/live/xxx.com/privkey.pem，BEGIN后面紧跟RSA，否则检测错误</div></pre></td></tr></table></figure></p>
-<p>—–BEGIN PRIVATE KEY—–</p>
-<p>…</p>
-<p>—–END PRIVATE KEY—–<br>```</p>
-<ul>
-<li>证书内容 cat /etc/letsencrypt/live/xxx.com/fullchain.pem，复制全部内容，否则授权unknown</li>
-</ul>
-<h3 id="结束"><a href="#结束" class="headerlink" title="结束"></a>结束</h3><pre><code>还会陆续遇到各种坑，慢慢填吧...
- :)~
-</code></pre>]]></content>
-    
-    <summary type="html">
-    
-      &lt;pre&gt;&lt;code&gt;HTTPS即将普及，各大互联网公司早已实现全面HTTPS化，但是证书的价格对于个人或者初创企业都是支出，
-Let&amp;apos;s Encrypt给我们带来了免费的午餐，而且是各大顶级组织在背后支持，没理由不用。
-&lt;/code&gt;&lt;/pre&gt;
-    
-    </summary>
-    
-      <category term="Linux" scheme="http://www.nealma.com/categories/Linux/"/>
-    
-    
-      <category term="CentOS" scheme="http://www.nealma.com/tags/CentOS/"/>
-    
-      <category term="Linux" scheme="http://www.nealma.com/tags/Linux/"/>
-    
-      <category term="Let&#39;s Encrypt" scheme="http://www.nealma.com/tags/Let-s-Encrypt/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>CentOS7（四）Install Redis</title>
-    <link href="http://www.nealma.com/2016/10/01/centos-72-4-redis/"/>
-    <id>http://www.nealma.com/2016/10/01/centos-72-4-redis/</id>
-    <published>2016-10-01T03:46:48.000Z</published>
-    <updated>2017-05-07T22:58:43.000Z</updated>
-    
-    <content type="html"><![CDATA[<pre><code>今天在CentOS 7.2上安装Redis,记录一下
-</code></pre><a id="more"></a>
-<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><pre><code>今天在CentOS 7.2上安装Redis,记录一下
-</code></pre><h3 id="Install-Redis"><a href="#Install-Redis" class="headerlink" title="Install Redis"></a>Install Redis</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">yum install -y redis</div><div class="line"></div><div class="line">#For Mac</div><div class="line">brew install redis</div></pre></td></tr></table></figure>
-<p>so easy!</p>
-<h3 id="Start-Redis"><a href="#Start-Redis" class="headerlink" title="Start Redis"></a>Start Redis</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">service redis start/stop/status/restart</div><div class="line"></div><div class="line"># For Mac</div><div class="line">brew services list</div><div class="line">brew services start/stop/restart redis</div></pre></td></tr></table></figure>
-<h3 id="服务器解除bind-允许远程访问"><a href="#服务器解除bind-允许远程访问" class="headerlink" title="服务器解除bind, 允许远程访问"></a>服务器解除bind, 允许远程访问</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">#vim /etc/redis.conf</div><div class="line">#注释掉这一行</div><div class="line">bind 127.0.0.1</div><div class="line"></div><div class="line"># change password on MAC</div></pre></td></tr></table></figure>
-<p>/usr/local/etc/redis.conf </p>
-<p> brew services restart redis<br>```</p>
-<h3 id="结束"><a href="#结束" class="headerlink" title="结束"></a>结束</h3><p>:)~</p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;pre&gt;&lt;code&gt;今天在CentOS 7.2上安装Redis,记录一下
-&lt;/code&gt;&lt;/pre&gt;
-    
-    </summary>
-    
-      <category term="Linux" scheme="http://www.nealma.com/categories/Linux/"/>
-    
-    
-      <category term="CentOS" scheme="http://www.nealma.com/tags/CentOS/"/>
-    
-      <category term="Linux" scheme="http://www.nealma.com/tags/Linux/"/>
-    
-      <category term="Redis" scheme="http://www.nealma.com/tags/Redis/"/>
     
   </entry>
   
