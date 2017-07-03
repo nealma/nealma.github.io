@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://www.nealma.com/"/>
-  <updated>2017-07-01T02:57:35.000Z</updated>
+  <updated>2017-07-03T23:42:57.000Z</updated>
   <id>http://www.nealma.com/</id>
   
   <author>
@@ -16,34 +16,38 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>Spring Cloud | 配置服务</title>
+    <title>Spring Cloud | 配置服务 1</title>
     <link href="http://www.nealma.com/2017/06/30/spring-cloud-1-config/"/>
     <id>http://www.nealma.com/2017/06/30/spring-cloud-1-config/</id>
     <published>2017-06-30T03:46:45.000Z</published>
-    <updated>2017-07-01T02:57:35.000Z</updated>
+    <updated>2017-07-03T23:42:57.000Z</updated>
     
     <content type="html"><![CDATA[<p>Spring Boot提供了application.[properties|yml]文件来提供默认配置，<br>简化了原来冗余的配置，但是随着环境和应用服务的增多，很难管理分散在各个项目中的配置，<br>但是，现在Spring Cloud 提供了 Config Server, 使其在分布式系统开发中输出外部配置的能力。<br>通过 Config Server，我们可以集中存储所有应用的配置文件</p>
 <a id="more"></a>
 <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>Spring Boot提供了application.[properties|yml]文件来提供默认配置，<br>简化了原来冗余的配置，但是随着环境和应用服务的增多，很难管理分散在各个项目中的配置，<br>但是，现在Spring Cloud 提供了 Config Server, 使其在分布式系统开发中输出外部配置的能力。<br>通过 Config Server，我们可以集中存储所有应用的配置文件</p>
-<p>Config Server 支持git或者在文件系统中放置配置文件，<br>可以通过以下格式来区分不同应用的不同配置文件<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">/&#123;application&#125;/&#123;profile&#125;/&#123;label&#125;</div><div class="line">/&#123;application&#125;-&#123;profile&#125;.yml</div><div class="line">/&#123;label&#125;/&#123;application&#125;/&#123;profile&#125;.yml</div><div class="line">/&#123;application&#125;-&#123;profile&#125;.properties</div><div class="line">/&#123;label&#125;/&#123;application&#125;/&#123;profile&#125;.properties</div></pre></td></tr></table></figure></p>
+<p>Config Server 支持git或者在文件系统中放置配置文件，<br>可以通过以下格式来区分不同应用的不同配置文件<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">/&#123;application&#125;/&#123;profile&#125;/&#123;label&#125;</div><div class="line">/&#123;application&#125;-&#123;profile&#125;.yml</div><div class="line">/&#123;label&#125;/&#123;application&#125;-&#123;profile&#125;.yml</div><div class="line">/&#123;application&#125;-&#123;profile&#125;.properties</div><div class="line">/&#123;label&#125;/&#123;application&#125;-&#123;profile&#125;.properties</div></pre></td></tr></table></figure></p>
 <p>Spring Cloud 提供了注解@EnableConfigServer来启用配置服务</p>
 <p>开发环境：<br>OS: Mac 10.11.6<br>IDE: IDEA 2016.2<br>Build: Maven</p>
-<p>### </p>
-<p>Spring-Boot是从run开始的，所以你的项目必须包含类似以下的一段代码<br>我习惯于放在com.domain.project包下</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@SpringBootApplication</span></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Application</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</div><div class="line">        SpringApplication.run(Application.class, args);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h3 id="POM依赖"><a href="#POM依赖" class="headerlink" title="POM依赖"></a>POM依赖</h3><figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="comment">&lt;!-- Inherit defaults from Spring Boot --&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">parent</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-parent<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.3.5.RELEASE<span class="tag">&lt;/<span class="name">version</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">parent</span>&gt;</span></div></pre></td></tr></table></figure>
-<p>当然也可以不依赖，使用scope=import，没有尝试过。</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">parent</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-parent<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.3.5.RELEASE<span class="tag">&lt;/<span class="name">version</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">type</span>&gt;</span>pom<span class="tag">&lt;/<span class="name">type</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">scope</span>&gt;</span>import<span class="tag">&lt;/<span class="name">scope</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">parent</span>&gt;</span></div></pre></td></tr></table></figure>
-<h3 id="使用Spring-Boot-Maven插件"><a href="#使用Spring-Boot-Maven插件" class="headerlink" title="使用Spring-Boot-Maven插件"></a>使用Spring-Boot-Maven插件</h3><p>将项目打包成“flat jars”，独立可执行jar包</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">plugin</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-maven-plugin<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">plugin</span>&gt;</span></div></pre></td></tr></table></figure>
-<h3 id="Starter-POMs"><a href="#Starter-POMs" class="headerlink" title="Starter POMs"></a>Starter POMs</h3><p>starts是开箱即用，方便的的依赖集合，不用在像spring那样一个一个的配置依赖了<br>只需要引入如下就可以跑起来了</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">...</div><div class="line"></div><div class="line">    &lt;dependency&gt;</div><div class="line">        &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;</div><div class="line">        &lt;artifactId&gt;spring-boot-starter&lt;/artifactId&gt;</div><div class="line">    &lt;/dependency</div><div class="line"></div><div class="line">...</div></pre></td></tr></table></figure>
-<h3 id="跑起来"><a href="#跑起来" class="headerlink" title="跑起来"></a>跑起来</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">mvn clean spring-boot:run</div></pre></td></tr></table></figure>
-<h3 id="多个-SpringBootApplication处理"><a href="#多个-SpringBootApplication处理" class="headerlink" title="多个@SpringBootApplication处理"></a>多个@SpringBootApplication处理</h3><pre><code>现实工作中，不止一个项目，而是多个子项目并存，这个时候，你有多个start-class,就要用到下面给每个子项目设定start-class
-</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&lt;properties&gt;</div><div class="line">       &lt;start-class&gt;com.SpringBootWayApplication&lt;/start-class&gt;</div><div class="line">   &lt;/properties&gt;</div></pre></td></tr></table></figure>
-<pre><code>否则，你在打包时会出现下面的错误，意思是“我找不到唯一的start-class,你给我指定下”,
-</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Failed to execute goal org.springframework.boot:spring-boot-maven-plugin:1.4.0.RELEASE:repackage (default) on project xxx: Execution default of goal org.springframework.boot:spring-boot-maven-plugin:1.4.0.RELEASE:repackage failed: Unable to find a single main class from the following candidates [com.x.Application, com.y.Application]</div></pre></td></tr></table></figure>
-]]></content>
+<h3 id="添加POM依赖"><a href="#添加POM依赖" class="headerlink" title="添加POM依赖"></a>添加POM依赖</h3><figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">&lt;dependencyManagement&gt;</div><div class="line">    &lt;dependencies&gt;</div><div class="line">        &lt;dependency&gt;</div><div class="line">            &lt;groupId&gt;org.springframework.cloud&lt;/groupId&gt;</div><div class="line">            &lt;artifactId&gt;spring-cloud-dependencies&lt;/artifactId&gt;</div><div class="line">            &lt;version&gt;Dalston.SR1&lt;/version&gt;</div><div class="line">            &lt;type&gt;pom&lt;/type&gt;</div><div class="line">            &lt;scope&gt;import&lt;/scope&gt;</div><div class="line">        &lt;/dependency&gt;</div><div class="line">    &lt;/dependencies&gt;</div><div class="line">&lt;/dependencyManagement&gt;</div><div class="line"></div><div class="line">&lt;dependencies&gt;</div><div class="line">    &lt;dependency&gt;</div><div class="line">        &lt;groupId&gt;org.springframework.cloud&lt;/groupId&gt;</div><div class="line">        &lt;artifactId&gt;spring-cloud-config-server&lt;/artifactId&gt;</div><div class="line">    &lt;/dependency&gt;</div><div class="line">&lt;/dependencies&gt;</div></pre></td></tr></table></figure>
+<p>如果项目报依赖找不到，执行下面的命令<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">mvn -U clean install</div></pre></td></tr></table></figure></p>
+<h3 id="在入口类加上注解-EnableConfigServer，开启配置服务"><a href="#在入口类加上注解-EnableConfigServer，开启配置服务" class="headerlink" title="在入口类加上注解@EnableConfigServer，开启配置服务"></a>在入口类加上注解@EnableConfigServer，开启配置服务</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">@SpringBootApplication</div><div class="line">@EnableConfigServer</div><div class="line">public class ConfigServerApplication &#123;</div><div class="line"></div><div class="line">    public static void main(String[] args) &#123;</div><div class="line">        SpringApplication.run(ConfigServerApplication.class, args);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="git方式的配置中心使用"><a href="#git方式的配置中心使用" class="headerlink" title="git方式的配置中心使用"></a>git方式的配置中心使用</h3><pre><code>Config Server使用git来配置，其实原理就是配置服务获取远程git的文件，存在app的本地host中
+相关配置如下：
+</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">cloud:</div><div class="line">    config:</div><div class="line">      server:</div><div class="line">        git:</div><div class="line">          uri: git@git.oschina.net:x/y.git</div><div class="line">          clone-on-start: true</div><div class="line">          strict-host-key-checking: false</div></pre></td></tr></table></figure>
+<p>git@git.oschina.net:x/y.git为配置中心的repo的配置文件的存储位置，<br>我们创建一个配置文件：application_name-env_name.yml<br>eg. configserver-dev.yml</p>
+<p>启动项目后，我们可以通过如下url来访问：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">http://localhost:8080/configserver/dev/master</div><div class="line">http://localhost:8080/configserver-dev.yml</div><div class="line">http://localhost:8080/master/configserver-dev.yml</div><div class="line">#json格式</div><div class="line">http://localhost:8080/master/configserver-dev.json</div><div class="line">#properties格式</div><div class="line">http://localhost:8080/master/configserver-dev.properties</div></pre></td></tr></table></figure>
+<h3 id="这样很容易就能访问到配置信息，很恐怖，那怎么办呢？别担心，so-easy"><a href="#这样很容易就能访问到配置信息，很恐怖，那怎么办呢？别担心，so-easy" class="headerlink" title="这样很容易就能访问到配置信息，很恐怖，那怎么办呢？别担心，so easy."></a>这样很容易就能访问到配置信息，很恐怖，那怎么办呢？别担心，so easy.</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">security:</div><div class="line">  user: </div><div class="line">    name: abc</div><div class="line">    password: xyz</div></pre></td></tr></table></figure>
+<p>看你还能访问。</p>
+<p>如果想要你的用户密码起作用，还得引入下面的依赖，你懂的<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&lt;dependency&gt;</div><div class="line">    &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;</div><div class="line">    &lt;artifactId&gt;spring-boot-starter-security&lt;/artifactId&gt;</div><div class="line">&lt;/dependency</div></pre></td></tr></table></figure></p>
+<h3 id="client端如何使用"><a href="#client端如何使用" class="headerlink" title="client端如何使用"></a>client端如何使用</h3><ul>
+<li>首先引入依赖<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">&lt;dependencyManagement&gt;</div><div class="line">    &lt;dependencies&gt;</div><div class="line">        &lt;dependency&gt;</div><div class="line">            &lt;groupId&gt;org.springframework.cloud&lt;/groupId&gt;</div><div class="line">            &lt;artifactId&gt;spring-cloud-dependencies&lt;/artifactId&gt;</div><div class="line">            &lt;version&gt;Dalston.SR1&lt;/version&gt;</div><div class="line">            &lt;type&gt;pom&lt;/type&gt;</div><div class="line">            &lt;scope&gt;import&lt;/scope&gt;</div><div class="line">        &lt;/dependency&gt;</div><div class="line">    &lt;/dependencies&gt;</div><div class="line">&lt;/dependencyManagement&gt;</div><div class="line"></div><div class="line">&lt;dependencies&gt;</div><div class="line">    &lt;dependency&gt;</div><div class="line">        &lt;groupId&gt;org.springframework.cloud&lt;/groupId&gt;</div><div class="line">        &lt;artifactId&gt;spring-cloud-config-server&lt;/artifactId&gt;</div><div class="line">    &lt;/dependency&gt;</div><div class="line">&lt;/dependencies&gt;</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="增加bootstraps-yml文件"><a href="#增加bootstraps-yml文件" class="headerlink" title="增加bootstraps.yml文件"></a>增加bootstraps.yml文件</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">spring:</div><div class="line"> application:</div><div class="line">   name: your app name</div><div class="line"> cloud:</div><div class="line">   config:</div><div class="line">     uri: http://localhost:8088 //你的 config server 服务</div><div class="line">     profile: dev</div></pre></td></tr></table></figure>
+<h3 id="未完待续"><a href="#未完待续" class="headerlink" title="未完待续"></a>未完待续</h3><pre><code>通过以上配置，我们还不能动态更新配置，你会发现，我的git中文件有更新，
+但是你的app不会及时更新，那需要额外的工作，且听下回分解 :)~
+</code></pre>]]></content>
     
     <summary type="html">
     
@@ -63,11 +67,11 @@
   </entry>
   
   <entry>
-    <title>JavaScript| jQuery 自定义插件</title>
+    <title>JavaScript | jQuery 自定义插件</title>
     <link href="http://www.nealma.com/2017/06/24/js-1-jquery-extend/"/>
     <id>http://www.nealma.com/2017/06/24/js-1-jquery-extend/</id>
     <published>2017-06-24T03:46:45.000Z</published>
-    <updated>2017-06-26T07:32:07.000Z</updated>
+    <updated>2017-07-01T04:02:31.000Z</updated>
     
     <content type="html"><![CDATA[<pre><code>以前写过javascript，但都是临时更改，没怎么太研究怎么去写好，怎么去封装，还有jQuery，都是拿来即用，
 根本就没想过去写插件，主要吧，都是作后端的内容，很少写前端代码。其实写写前端挺有意思的，顺便心血来潮，
@@ -115,7 +119,7 @@
     
     </summary>
     
-      <category term="前端" scheme="http://www.nealma.com/categories/%E5%89%8D%E7%AB%AF/"/>
+      <category term="Frontend" scheme="http://www.nealma.com/categories/Frontend/"/>
     
     
       <category term="JavaScript" scheme="http://www.nealma.com/tags/JavaScript/"/>
@@ -129,7 +133,7 @@
     <link href="http://www.nealma.com/2017/06/04/nginx-example-work-3-temp-proxy/"/>
     <id>http://www.nealma.com/2017/06/04/nginx-example-work-3-temp-proxy/</id>
     <published>2017-06-04T03:46:45.000Z</published>
-    <updated>2017-07-01T03:21:35.000Z</updated>
+    <updated>2017-07-01T03:58:15.000Z</updated>
     
     <content type="html"><![CDATA[<pre><code>访问网页的时候，经常出现 net::ERR_CONTENT_LENGTH_MISMATCH这个问题，一开始也为是某些文件过大导致的，
 还特意把大的资源文件放在CDN上，肯定不行了。
@@ -162,7 +166,7 @@
     <link href="http://www.nealma.com/2017/06/01/spring-boot-12-not-thread/"/>
     <id>http://www.nealma.com/2017/06/01/spring-boot-12-not-thread/</id>
     <published>2017-06-01T03:46:45.000Z</published>
-    <updated>2017-06-01T06:05:26.000Z</updated>
+    <updated>2017-07-01T03:58:31.000Z</updated>
     
     <content type="html"><![CDATA[<pre><code>Spring Boot中获取全局request，咩有controller中获取，而是在一个工具类中，
 这次也不知是为什么之前根本不需要配置的，但是就是会报一个错，看看神马影响的呢？
@@ -184,7 +188,7 @@
     
     </summary>
     
-      <category term="Java" scheme="http://www.nealma.com/categories/Java/"/>
+      <category term="Spring Boot" scheme="http://www.nealma.com/categories/Spring-Boot/"/>
     
     
       <category term="Java" scheme="http://www.nealma.com/tags/Java/"/>
@@ -243,7 +247,7 @@
     <link href="http://www.nealma.com/2017/04/19/spring-boot-11-not-fat-jar/"/>
     <id>http://www.nealma.com/2017/04/19/spring-boot-11-not-fat-jar/</id>
     <published>2017-04-19T03:46:45.000Z</published>
-    <updated>2017-04-20T07:41:16.000Z</updated>
+    <updated>2017-07-01T03:58:02.000Z</updated>
     
     <content type="html"><![CDATA[<pre><code>使用spring boot有一段时间了，想抽离出公共的内容，以备后用。
 于是写个两个jar，分别为A 和 B，B引用A，发现引用失败，出现&quot;cannot resolve symbol xxx&quot;,
@@ -268,7 +272,7 @@
     
     </summary>
     
-      <category term="Java" scheme="http://www.nealma.com/categories/Java/"/>
+      <category term="Spring Boot" scheme="http://www.nealma.com/categories/Spring-Boot/"/>
     
     
       <category term="Java" scheme="http://www.nealma.com/tags/Java/"/>
@@ -286,7 +290,7 @@
     <link href="http://www.nealma.com/2017/04/18/spring-boot-10-jpa-hibernate/"/>
     <id>http://www.nealma.com/2017/04/18/spring-boot-10-jpa-hibernate/</id>
     <published>2017-04-18T03:46:45.000Z</published>
-    <updated>2017-04-20T01:36:01.000Z</updated>
+    <updated>2017-07-01T03:58:07.000Z</updated>
     
     <content type="html"><![CDATA[<pre><code>一直都在用MyBatis，感觉很好用，自己也熟悉。考虑到Spring Boot天生支持JPA，而且Hibernate也支持
 分布式事务，有成熟的解决方案，值得研究一下
@@ -334,7 +338,7 @@
     
     </summary>
     
-      <category term="Java" scheme="http://www.nealma.com/categories/Java/"/>
+      <category term="Spring Boot" scheme="http://www.nealma.com/categories/Spring-Boot/"/>
     
     
       <category term="Java" scheme="http://www.nealma.com/tags/Java/"/>
@@ -401,38 +405,6 @@
   </entry>
   
   <entry>
-    <title>【IDEA】cannot resolve syambol xxx</title>
-    <link href="http://www.nealma.com/2017/01/01/work-problerm-6-idea-cannot-resolve-syambol/"/>
-    <id>http://www.nealma.com/2017/01/01/work-problerm-6-idea-cannot-resolve-syambol/</id>
-    <published>2017-01-01T03:46:45.000Z</published>
-    <updated>2017-04-18T04:20:25.000Z</updated>
-    
-    <content type="html"><![CDATA[<pre><code>cannot resolve syambol xxx
-</code></pre><a id="more"></a>
-<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>解决方法如下：<br>点击菜单中的 “File” -&gt; “Invalidate Caches / Restart”，然后点击对话框中的 “Invalidate and Restart”，清空 cache 并且重启。语法就会正确的高亮了。</p>
-<h3 id="结束"><a href="#结束" class="headerlink" title="结束"></a>结束</h3><pre><code>还会陆续遇到各种坑，慢慢填吧...
- :)~
-</code></pre>]]></content>
-    
-    <summary type="html">
-    
-      &lt;pre&gt;&lt;code&gt;cannot resolve syambol xxx
-&lt;/code&gt;&lt;/pre&gt;
-    
-    </summary>
-    
-      <category term="work" scheme="http://www.nealma.com/categories/work/"/>
-    
-    
-      <category term="MySQL" scheme="http://www.nealma.com/tags/MySQL/"/>
-    
-      <category term="大杂烩" scheme="http://www.nealma.com/tags/%E5%A4%A7%E6%9D%82%E7%83%A9/"/>
-    
-      <category term="sql" scheme="http://www.nealma.com/tags/sql/"/>
-    
-  </entry>
-  
-  <entry>
     <title>常用的sql操作</title>
     <link href="http://www.nealma.com/2017/01/01/work-problerm-5-mysql-common-operate/"/>
     <id>http://www.nealma.com/2017/01/01/work-problerm-5-mysql-common-operate/</id>
@@ -460,6 +432,38 @@
     <summary type="html">
     
       &lt;pre&gt;&lt;code&gt;频繁的sql操作，总结一些经常用的。
+&lt;/code&gt;&lt;/pre&gt;
+    
+    </summary>
+    
+      <category term="work" scheme="http://www.nealma.com/categories/work/"/>
+    
+    
+      <category term="MySQL" scheme="http://www.nealma.com/tags/MySQL/"/>
+    
+      <category term="大杂烩" scheme="http://www.nealma.com/tags/%E5%A4%A7%E6%9D%82%E7%83%A9/"/>
+    
+      <category term="sql" scheme="http://www.nealma.com/tags/sql/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>【IDEA】cannot resolve syambol xxx</title>
+    <link href="http://www.nealma.com/2017/01/01/work-problerm-6-idea-cannot-resolve-syambol/"/>
+    <id>http://www.nealma.com/2017/01/01/work-problerm-6-idea-cannot-resolve-syambol/</id>
+    <published>2017-01-01T03:46:45.000Z</published>
+    <updated>2017-04-18T04:20:25.000Z</updated>
+    
+    <content type="html"><![CDATA[<pre><code>cannot resolve syambol xxx
+</code></pre><a id="more"></a>
+<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>解决方法如下：<br>点击菜单中的 “File” -&gt; “Invalidate Caches / Restart”，然后点击对话框中的 “Invalidate and Restart”，清空 cache 并且重启。语法就会正确的高亮了。</p>
+<h3 id="结束"><a href="#结束" class="headerlink" title="结束"></a>结束</h3><pre><code>还会陆续遇到各种坑，慢慢填吧...
+ :)~
+</code></pre>]]></content>
+    
+    <summary type="html">
+    
+      &lt;pre&gt;&lt;code&gt;cannot resolve syambol xxx
 &lt;/code&gt;&lt;/pre&gt;
     
     </summary>
@@ -728,7 +732,7 @@ Spring会根据Accept来对Request的参数做相应的处理。
     <link href="http://www.nealma.com/2016/11/05/spring-boot-9-package-and-deploy/"/>
     <id>http://www.nealma.com/2016/11/05/spring-boot-9-package-and-deploy/</id>
     <published>2016-11-05T03:46:45.000Z</published>
-    <updated>2016-11-26T13:02:38.000Z</updated>
+    <updated>2017-07-01T03:59:24.000Z</updated>
     
     <content type="html"><![CDATA[<pre><code>有关部署，我们平时最多的就是package成war，然后放到Tomcat的webappp路径下，
 Spring Boot 提供了直接打包成fat-jar或者war的功能，很方便...
@@ -755,7 +759,7 @@ Spring Boot 提供了直接打包成fat-jar或者war的功能，很方便...
     
     </summary>
     
-      <category term="Java" scheme="http://www.nealma.com/categories/Java/"/>
+      <category term="Spring Boot" scheme="http://www.nealma.com/categories/Spring-Boot/"/>
     
     
       <category term="Java" scheme="http://www.nealma.com/tags/Java/"/>
@@ -773,7 +777,7 @@ Spring Boot 提供了直接打包成fat-jar或者war的功能，很方便...
     <link href="http://www.nealma.com/2016/11/04/spring-boot-8-multiple-environment/"/>
     <id>http://www.nealma.com/2016/11/04/spring-boot-8-multiple-environment/</id>
     <published>2016-11-04T03:46:45.000Z</published>
-    <updated>2016-11-17T18:43:49.000Z</updated>
+    <updated>2017-07-01T03:59:19.000Z</updated>
     
     <content type="html"><![CDATA[<pre><code>我们在做开发的时候，都是使用本地数据库，本地缓存服务器，也只有我们一个人来开发，
 这是我们最最初级的场景，在实际工作中，我们不可能只有一个环境。通常会有Test,Dev,
@@ -823,7 +827,7 @@ Live环境，Dev是我们的开发环境，Test作为我们的测试环境，Liv
     
     </summary>
     
-      <category term="Java" scheme="http://www.nealma.com/categories/Java/"/>
+      <category term="Spring Boot" scheme="http://www.nealma.com/categories/Spring-Boot/"/>
     
     
       <category term="Java" scheme="http://www.nealma.com/tags/Java/"/>
@@ -841,7 +845,7 @@ Live环境，Dev是我们的开发环境，Test作为我们的测试环境，Liv
     <link href="http://www.nealma.com/2016/11/03/spring-boot-7-thymeleaf/"/>
     <id>http://www.nealma.com/2016/11/03/spring-boot-7-thymeleaf/</id>
     <published>2016-11-03T03:46:45.000Z</published>
-    <updated>2016-12-09T17:17:06.000Z</updated>
+    <updated>2017-07-01T03:59:15.000Z</updated>
     
     <content type="html"><![CDATA[<pre><code>模版引擎千千万，今个说说Thymeleaf，主要是不想在混用jsp标签和使用jsp后缀文件，
 直接使用html文件，便于前后端分离。
@@ -910,7 +914,7 @@ TemplateEngine，ThymeleafViewResolver会自用实例化。
     
     </summary>
     
-      <category term="Java" scheme="http://www.nealma.com/categories/Java/"/>
+      <category term="Spring Boot" scheme="http://www.nealma.com/categories/Spring-Boot/"/>
     
     
       <category term="Java" scheme="http://www.nealma.com/tags/Java/"/>
@@ -930,7 +934,7 @@ TemplateEngine，ThymeleafViewResolver会自用实例化。
     <link href="http://www.nealma.com/2016/11/01/spring-boot-6-spring-session/"/>
     <id>http://www.nealma.com/2016/11/01/spring-boot-6-spring-session/</id>
     <published>2016-11-01T03:46:45.000Z</published>
-    <updated>2016-11-17T01:54:06.000Z</updated>
+    <updated>2017-07-01T03:59:05.000Z</updated>
     
     <content type="html"><![CDATA[<pre><code>使用Spring Security的时候，觉得省了好多的事情。但是它使用的是内存来存储CurrentUser的信息
 和登录凭证，一旦单机不能承受大用户量，就需要水平扩展，就会涉及到session的问题。怎么才能实现
@@ -969,7 +973,7 @@ CookieHttpSessionStrategy，如果是API就用HeaderHttpSessionStrategy，具体
     
     </summary>
     
-      <category term="Java" scheme="http://www.nealma.com/categories/Java/"/>
+      <category term="Spring Boot" scheme="http://www.nealma.com/categories/Spring-Boot/"/>
     
     
       <category term="Java" scheme="http://www.nealma.com/tags/Java/"/>
