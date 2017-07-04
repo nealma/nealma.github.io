@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://www.nealma.com/"/>
-  <updated>2017-07-03T23:42:57.000Z</updated>
+  <updated>2017-07-04T09:24:00.000Z</updated>
   <id>http://www.nealma.com/</id>
   
   <author>
@@ -20,7 +20,7 @@
     <link href="http://www.nealma.com/2017/06/30/spring-cloud-1-config/"/>
     <id>http://www.nealma.com/2017/06/30/spring-cloud-1-config/</id>
     <published>2017-06-30T03:46:45.000Z</published>
-    <updated>2017-07-03T23:42:57.000Z</updated>
+    <updated>2017-07-04T09:24:00.000Z</updated>
     
     <content type="html"><![CDATA[<p>Spring Boot提供了application.[properties|yml]文件来提供默认配置，<br>简化了原来冗余的配置，但是随着环境和应用服务的增多，很难管理分散在各个项目中的配置，<br>但是，现在Spring Cloud 提供了 Config Server, 使其在分布式系统开发中输出外部配置的能力。<br>通过 Config Server，我们可以集中存储所有应用的配置文件</p>
 <a id="more"></a>
@@ -41,10 +41,14 @@
 <p>看你还能访问。</p>
 <p>如果想要你的用户密码起作用，还得引入下面的依赖，你懂的<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&lt;dependency&gt;</div><div class="line">    &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;</div><div class="line">    &lt;artifactId&gt;spring-boot-starter-security&lt;/artifactId&gt;</div><div class="line">&lt;/dependency</div></pre></td></tr></table></figure></p>
 <h3 id="client端如何使用"><a href="#client端如何使用" class="headerlink" title="client端如何使用"></a>client端如何使用</h3><ul>
-<li>首先引入依赖<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">&lt;dependencyManagement&gt;</div><div class="line">    &lt;dependencies&gt;</div><div class="line">        &lt;dependency&gt;</div><div class="line">            &lt;groupId&gt;org.springframework.cloud&lt;/groupId&gt;</div><div class="line">            &lt;artifactId&gt;spring-cloud-dependencies&lt;/artifactId&gt;</div><div class="line">            &lt;version&gt;Dalston.SR1&lt;/version&gt;</div><div class="line">            &lt;type&gt;pom&lt;/type&gt;</div><div class="line">            &lt;scope&gt;import&lt;/scope&gt;</div><div class="line">        &lt;/dependency&gt;</div><div class="line">    &lt;/dependencies&gt;</div><div class="line">&lt;/dependencyManagement&gt;</div><div class="line"></div><div class="line">&lt;dependencies&gt;</div><div class="line">    &lt;dependency&gt;</div><div class="line">        &lt;groupId&gt;org.springframework.cloud&lt;/groupId&gt;</div><div class="line">        &lt;artifactId&gt;spring-cloud-config-server&lt;/artifactId&gt;</div><div class="line">    &lt;/dependency&gt;</div><div class="line">&lt;/dependencies&gt;</div></pre></td></tr></table></figure>
+<li>首先引入依赖<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line">&lt;dependencyManagement&gt;</div><div class="line">    &lt;dependencies&gt;</div><div class="line">        &lt;dependency&gt;</div><div class="line">            &lt;groupId&gt;org.springframework.cloud&lt;/groupId&gt;</div><div class="line">            &lt;artifactId&gt;spring-cloud-dependencies&lt;/artifactId&gt;</div><div class="line">            &lt;version&gt;Dalston.SR1&lt;/version&gt;</div><div class="line">            &lt;type&gt;pom&lt;/type&gt;</div><div class="line">            &lt;scope&gt;import&lt;/scope&gt;</div><div class="line">        &lt;/dependency&gt;</div><div class="line">    &lt;/dependencies&gt;</div><div class="line">&lt;/dependencyManagement&gt;</div><div class="line"></div><div class="line">&lt;dependencies&gt;</div><div class="line">    &lt;dependency&gt;</div><div class="line">        &lt;groupId&gt;org.springframework.cloud&lt;/groupId&gt;</div><div class="line">        &lt;artifactId&gt;spring-cloud-config-client&lt;/artifactId&gt;</div><div class="line">    &lt;/dependency&gt;</div><div class="line">    &lt;dependency&gt;</div><div class="line">        &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;</div><div class="line">        &lt;artifactId&gt;spring-boot-starter-actuator&lt;/artifactId&gt;</div><div class="line">    &lt;/dependency&gt;</div><div class="line">&lt;/dependencies&gt;</div></pre></td></tr></table></figure>
 </li>
 </ul>
-<h3 id="增加bootstraps-yml文件"><a href="#增加bootstraps-yml文件" class="headerlink" title="增加bootstraps.yml文件"></a>增加bootstraps.yml文件</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">spring:</div><div class="line"> application:</div><div class="line">   name: your app name</div><div class="line"> cloud:</div><div class="line">   config:</div><div class="line">     uri: http://localhost:8088 //你的 config server 服务</div><div class="line">     profile: dev</div></pre></td></tr></table></figure>
+<h3 id="增加bootstraps-yml文件-如果开启了security请注意username和password"><a href="#增加bootstraps-yml文件-如果开启了security请注意username和password" class="headerlink" title="增加bootstraps.yml文件, 如果开启了security请注意username和password"></a>增加bootstraps.yml文件, 如果开启了security请注意username和password</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">spring:</div><div class="line"> application:</div><div class="line">   name: your app name</div><div class="line"> cloud:</div><div class="line">   config:</div><div class="line">     uri: http://localhost:8088 //你的 config server 服务</div><div class="line">     profile: dev</div><div class="line">     username: abc</div><div class="line">     password: xyz</div></pre></td></tr></table></figure>
+<h3 id="手动更新"><a href="#手动更新" class="headerlink" title="手动更新"></a>手动更新</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">curl -v -XPOST &apos;http://localhost:8080/refresh&apos;</div></pre></td></tr></table></figure>
+<p>这个时候，你可能会遇到这个问题，401权限问题<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&lt; X-Frame-Options: DENY</div><div class="line">&lt; Strict-Transport-Security: max-age=31536000 ; includeSubDomains</div><div class="line">&lt; WWW-Authenticate: Basic realm=&quot;Spring&quot;</div><div class="line">&lt; Location: http://localhost:8080/error/401.html</div></pre></td></tr></table></figure></p>
+<p>这是因为actuator中POST方法相关的接口是受限的，如果你想免去鉴权，可以在配置文件中添加如下配置<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">management:</div><div class="line">  security:</div><div class="line">    enabled: false</div><div class="line">`</div></pre></td></tr></table></figure></p>
+<p>这样一旦配置变更，客户端也不需要重启服务，可以动态更新了，然而还是需要手动来做/refresh的操作。</p>
 <h3 id="未完待续"><a href="#未完待续" class="headerlink" title="未完待续"></a>未完待续</h3><pre><code>通过以上配置，我们还不能动态更新配置，你会发现，我的git中文件有更新，
 但是你的app不会及时更新，那需要额外的工作，且听下回分解 :)~
 </code></pre>]]></content>
@@ -405,6 +409,38 @@
   </entry>
   
   <entry>
+    <title>【IDEA】cannot resolve syambol xxx</title>
+    <link href="http://www.nealma.com/2017/01/01/work-problerm-6-idea-cannot-resolve-syambol/"/>
+    <id>http://www.nealma.com/2017/01/01/work-problerm-6-idea-cannot-resolve-syambol/</id>
+    <published>2017-01-01T03:46:45.000Z</published>
+    <updated>2017-04-18T04:20:25.000Z</updated>
+    
+    <content type="html"><![CDATA[<pre><code>cannot resolve syambol xxx
+</code></pre><a id="more"></a>
+<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>解决方法如下：<br>点击菜单中的 “File” -&gt; “Invalidate Caches / Restart”，然后点击对话框中的 “Invalidate and Restart”，清空 cache 并且重启。语法就会正确的高亮了。</p>
+<h3 id="结束"><a href="#结束" class="headerlink" title="结束"></a>结束</h3><pre><code>还会陆续遇到各种坑，慢慢填吧...
+ :)~
+</code></pre>]]></content>
+    
+    <summary type="html">
+    
+      &lt;pre&gt;&lt;code&gt;cannot resolve syambol xxx
+&lt;/code&gt;&lt;/pre&gt;
+    
+    </summary>
+    
+      <category term="work" scheme="http://www.nealma.com/categories/work/"/>
+    
+    
+      <category term="MySQL" scheme="http://www.nealma.com/tags/MySQL/"/>
+    
+      <category term="大杂烩" scheme="http://www.nealma.com/tags/%E5%A4%A7%E6%9D%82%E7%83%A9/"/>
+    
+      <category term="sql" scheme="http://www.nealma.com/tags/sql/"/>
+    
+  </entry>
+  
+  <entry>
     <title>常用的sql操作</title>
     <link href="http://www.nealma.com/2017/01/01/work-problerm-5-mysql-common-operate/"/>
     <id>http://www.nealma.com/2017/01/01/work-problerm-5-mysql-common-operate/</id>
@@ -432,38 +468,6 @@
     <summary type="html">
     
       &lt;pre&gt;&lt;code&gt;频繁的sql操作，总结一些经常用的。
-&lt;/code&gt;&lt;/pre&gt;
-    
-    </summary>
-    
-      <category term="work" scheme="http://www.nealma.com/categories/work/"/>
-    
-    
-      <category term="MySQL" scheme="http://www.nealma.com/tags/MySQL/"/>
-    
-      <category term="大杂烩" scheme="http://www.nealma.com/tags/%E5%A4%A7%E6%9D%82%E7%83%A9/"/>
-    
-      <category term="sql" scheme="http://www.nealma.com/tags/sql/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>【IDEA】cannot resolve syambol xxx</title>
-    <link href="http://www.nealma.com/2017/01/01/work-problerm-6-idea-cannot-resolve-syambol/"/>
-    <id>http://www.nealma.com/2017/01/01/work-problerm-6-idea-cannot-resolve-syambol/</id>
-    <published>2017-01-01T03:46:45.000Z</published>
-    <updated>2017-04-18T04:20:25.000Z</updated>
-    
-    <content type="html"><![CDATA[<pre><code>cannot resolve syambol xxx
-</code></pre><a id="more"></a>
-<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>解决方法如下：<br>点击菜单中的 “File” -&gt; “Invalidate Caches / Restart”，然后点击对话框中的 “Invalidate and Restart”，清空 cache 并且重启。语法就会正确的高亮了。</p>
-<h3 id="结束"><a href="#结束" class="headerlink" title="结束"></a>结束</h3><pre><code>还会陆续遇到各种坑，慢慢填吧...
- :)~
-</code></pre>]]></content>
-    
-    <summary type="html">
-    
-      &lt;pre&gt;&lt;code&gt;cannot resolve syambol xxx
 &lt;/code&gt;&lt;/pre&gt;
     
     </summary>
