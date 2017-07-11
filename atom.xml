@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://www.nealma.com/"/>
-  <updated>2017-07-04T09:24:00.000Z</updated>
+  <updated>2017-07-11T09:42:49.000Z</updated>
   <id>http://www.nealma.com/</id>
   
   <author>
@@ -14,6 +14,103 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Spring Cloud | 配置服务 2</title>
+    <link href="http://www.nealma.com/2017/07/01/spring-cloud-1-config2/"/>
+    <id>http://www.nealma.com/2017/07/01/spring-cloud-1-config2/</id>
+    <published>2017-07-01T03:46:45.000Z</published>
+    <updated>2017-07-11T09:42:49.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>上文我们了解了Config Server的基本使用，以及手动更新具体的服务，<br>但是现在的应用都是分布式，微服务会随着App的增多，管理会更难，更辛苦。怎么解放我们<br>的运维伙伴呢，我们慢慢来探索吧。</p>
+<a id="more"></a>
+<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>git的方式对于我们程序员来说，非常熟悉和了解，易于上手。对于版本控制更是拿手，下面我们来看看<br>如何才能让每个App自己来感知和自动更新配置信息。</p>
+<p>Spring Cloud为我们送来了Spring Cloud Bus消息总线，让每个App自动感知和更新配置信息，<br>这里需要借助RabbitMQ、Redis、Kafka等第三方工具。</p>
+<p>接下来，让我们以rabbitMQ为例，看看如何使用吧。</p>
+<p>开发环境：<br>OS: Mac 10.11.6<br>IDE: IDEA 2016.2<br>Build: Maven</p>
+<h3 id="安装rabbitMQ"><a href="#安装rabbitMQ" class="headerlink" title="安装rabbitMQ"></a>安装rabbitMQ</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">brew install rabbitmq</div><div class="line"></div><div class="line">#run</div><div class="line">brew services start rebbitmq</div><div class="line"></div><div class="line">#通过浏览器查看信息</div><div class="line">http://localhost:15672</div><div class="line"></div><div class="line">#初始化时只有guest用户，可以在操控台创建一个新用户，切记点击新用户，为他授权，否则访问不了</div></pre></td></tr></table></figure>
+<p>注意浏览器里和配置文件里使用的是不同的端口，分别是：15672、5672</p>
+<p>###继前文，ConfigServer端我们需要增加依赖和配置信息</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&lt;dependency&gt;</div><div class="line">  &lt;groupId&gt;org.springframework.cloud&lt;/groupId&gt;</div><div class="line">  &lt;artifactId&gt;spring-cloud-starter-bus-amqp&lt;/artifactId&gt;</div><div class="line">&lt;/dependency&gt;</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">spring:</div><div class="line">  rabbitmq:</div><div class="line">    host: localhost</div><div class="line">    port: 5672</div><div class="line">    username: neal</div><div class="line">    password: neal</div></pre></td></tr></table></figure>
+<h3 id="根据上一篇文章，改造client端"><a href="#根据上一篇文章，改造client端" class="headerlink" title="根据上一篇文章，改造client端"></a>根据上一篇文章，改造client端</h3><ul>
+<li>首先引入依赖</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">&lt;dependencies&gt;</div><div class="line">    &lt;!-- 增加bus-amqp依赖 --&gt;</div><div class="line">    &lt;dependency&gt;</div><div class="line">        &lt;groupId&gt;org.springframework.cloud&lt;/groupId&gt;</div><div class="line">        &lt;artifactId&gt;spring-cloud-starter-bus-amqp&lt;/artifactId&gt;</div><div class="line">    &lt;/dependency&gt;</div><div class="line">&lt;/dependencies&gt;</div></pre></td></tr></table></figure>
+<ul>
+<li>配置文件增加rabbitmq内容</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">spring:</div><div class="line"> rabbitmq:</div><div class="line">   host: localhost</div><div class="line">   port: 5672</div><div class="line">   username: neal</div><div class="line">   password: neal</div></pre></td></tr></table></figure>
+<h3 id="手动更新ConfigServer服务器（刷新方式）"><a href="#手动更新ConfigServer服务器（刷新方式）" class="headerlink" title="手动更新ConfigServer服务器（刷新方式）"></a>手动更新ConfigServer服务器（刷新方式）</h3><ul>
+<li>全部更新</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">curl -v -XPOST &apos;http://localhost:8080/bus/refresh&apos;</div></pre></td></tr></table></figure>
+<p>这个时候，其他客户端也会同步自动更新</p>
+<ul>
+<li>只更新指定客户端,destination=appName:port为要刷新的服务</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">curl -v -XPOST &apos;http://localhost:8080/bus/refresh?destination=appName:port&apos;</div></pre></td></tr></table></figure>
+<h3 id="结束"><a href="#结束" class="headerlink" title="结束"></a>结束</h3><pre><code>好了，这下不需要手动刷新每一台服务了...
+</code></pre>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;上文我们了解了Config Server的基本使用，以及手动更新具体的服务，&lt;br&gt;但是现在的应用都是分布式，微服务会随着App的增多，管理会更难，更辛苦。怎么解放我们&lt;br&gt;的运维伙伴呢，我们慢慢来探索吧。&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="Spring Cloud" scheme="http://www.nealma.com/categories/Spring-Cloud/"/>
+    
+    
+      <category term="Java" scheme="http://www.nealma.com/tags/Java/"/>
+    
+      <category term="Spring-Boot" scheme="http://www.nealma.com/tags/Spring-Boot/"/>
+    
+      <category term="Spring Cloud" scheme="http://www.nealma.com/tags/Spring-Cloud/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Spring Cloud | 服务注册与发现</title>
+    <link href="http://www.nealma.com/2017/06/30/spring-cloud-2-euraka/"/>
+    <id>http://www.nealma.com/2017/06/30/spring-cloud-2-euraka/</id>
+    <published>2017-06-30T03:46:45.000Z</published>
+    <updated>2017-07-08T13:20:52.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>Spring Cloud为我构建分布式微服务系统提供了一站式的解决方案，其中服务注册与发现只是整个系统的一个模块，<br>是由eureka来承担，下面我们来看看如何使用吧</p>
+<a id="more"></a>
+<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>Spring Cloud为我构建分布式微服务系统提供了一站式的解决方案，其中服务注册与发现只是整个系统的一个模块，<br>是由eureka来承担，下面我们来看看如何使用吧</p>
+<p>用起来so easy, 普通的Spring Boot项目，使用@EnableEurekaServer注解，就启动了<br>一个服务注册中心，是不是很容易。当然了，避免不了添加以下依赖</p>
+<p>开发环境：<br>OS: Mac 10.11.6<br>IDE: IDEA 2016.2<br>Build: Maven</p>
+<h3 id="首先是eureka-server端-添加POM依赖"><a href="#首先是eureka-server端-添加POM依赖" class="headerlink" title="首先是eureka server端 添加POM依赖"></a>首先是eureka server端 添加POM依赖</h3><figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">&lt;dependencyManagement&gt;</div><div class="line">    &lt;dependencies&gt;</div><div class="line">        &lt;dependency&gt;</div><div class="line">            &lt;groupId&gt;org.springframework.cloud&lt;/groupId&gt;</div><div class="line">            &lt;artifactId&gt;spring-cloud-dependencies&lt;/artifactId&gt;</div><div class="line">            &lt;version&gt;Dalston.SR1&lt;/version&gt;</div><div class="line">            &lt;type&gt;pom&lt;/type&gt;</div><div class="line">            &lt;scope&gt;import&lt;/scope&gt;</div><div class="line">        &lt;/dependency&gt;</div><div class="line">    &lt;/dependencies&gt;</div><div class="line">&lt;/dependencyManagement&gt;</div><div class="line"></div><div class="line">&lt;dependencies&gt;</div><div class="line">    &lt;dependency&gt;</div><div class="line">        &lt;groupId&gt;org.springframework.cloud&lt;/groupId&gt;</div><div class="line">        &lt;artifactId&gt;spring-cloud-eureka-server&lt;/artifactId&gt;</div><div class="line">    &lt;/dependency&gt;</div><div class="line">&lt;/dependencies&gt;</div></pre></td></tr></table></figure>
+<p>application.yml配置如下(单机模式)：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">server:</div><div class="line">  port: 8082</div><div class="line">  tomcat:</div><div class="line">    uri-encoding: utf-8</div><div class="line">spring:</div><div class="line">  application:</div><div class="line">    name: eureka-server</div><div class="line">eureka:</div><div class="line">  instance:</div><div class="line">    appname: $&#123;spring.application.name&#125;</div><div class="line">  client:</div><div class="line">    registerWithEureka: false #是否将自身注册</div><div class="line">    fetchRegistry: false</div><div class="line">    serviceUrl:</div><div class="line">      defaultZone: http://$&#123;eureka.instance.hostname&#125;:$&#123;server.port&#125;/eureka/</div></pre></td></tr></table></figure></p>
+<h3 id="在入口类加上注解-EnableEurekaServer，开启服务发现与注册中心"><a href="#在入口类加上注解-EnableEurekaServer，开启服务发现与注册中心" class="headerlink" title="在入口类加上注解@EnableEurekaServer，开启服务发现与注册中心"></a>在入口类加上注解@EnableEurekaServer，开启服务发现与注册中心</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">@SpringBootApplication</div><div class="line">@EnableEurekaServer</div><div class="line">public class EurekaServerApplication &#123;</div><div class="line"></div><div class="line">    public static void main(String[] args) &#123;</div><div class="line">        SpringApplication.run(ConfigServerApplication.class, args);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="其次是eureka-client端-添加POM依赖"><a href="#其次是eureka-client端-添加POM依赖" class="headerlink" title="其次是eureka client端 添加POM依赖"></a>其次是eureka client端 添加POM依赖</h3><figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">&lt;dependencyManagement&gt;</div><div class="line">    &lt;dependencies&gt;</div><div class="line">        &lt;dependency&gt;</div><div class="line">            &lt;groupId&gt;org.springframework.cloud&lt;/groupId&gt;</div><div class="line">            &lt;artifactId&gt;spring-cloud-dependencies&lt;/artifactId&gt;</div><div class="line">            &lt;version&gt;Dalston.SR1&lt;/version&gt;</div><div class="line">            &lt;type&gt;pom&lt;/type&gt;</div><div class="line">            &lt;scope&gt;import&lt;/scope&gt;</div><div class="line">        &lt;/dependency&gt;</div><div class="line">    &lt;/dependencies&gt;</div><div class="line">&lt;/dependencyManagement&gt;</div><div class="line"></div><div class="line">&lt;dependencies&gt;</div><div class="line">    &lt;dependency&gt;</div><div class="line">        &lt;groupId&gt;org.springframework.cloud&lt;/groupId&gt;</div><div class="line">        &lt;artifactId&gt;spring-cloud-starter-eureka&lt;/artifactId&gt;</div><div class="line">    &lt;/dependency&gt;</div><div class="line">&lt;/dependencies&gt;</div></pre></td></tr></table></figure>
+<h3 id="在入口类加上注解-EnableEurekaClient"><a href="#在入口类加上注解-EnableEurekaClient" class="headerlink" title="在入口类加上注解@EnableEurekaClient"></a>在入口类加上注解@EnableEurekaClient</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">@SpringBootApplication</div><div class="line">@EnableEurekaClient</div><div class="line">public class EurekaClientApplication &#123;</div><div class="line"></div><div class="line">    public static void main(String[] args) &#123;</div><div class="line">        SpringApplication.run(ConfigServerApplication.class, args);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>application.yml增加eureka的配置内容：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">eureka:</div><div class="line">  client:</div><div class="line">    service-url:</div><div class="line">      defaultZone: http://localhost:8082/eureka/</div><div class="line">  instance:</div><div class="line">    appname: $&#123;spring.application.name&#125;</div></pre></td></tr></table></figure></p>
+<h3 id="EnableDiscoveryClient-和-EnableEurekaClient-区别"><a href="#EnableDiscoveryClient-和-EnableEurekaClient-区别" class="headerlink" title="EnableDiscoveryClient 和 EnableEurekaClient 区别"></a>EnableDiscoveryClient 和 EnableEurekaClient 区别</h3><p>SpringCLoud中的“Discovery Service”有多种实现，比如：eureka, consul, zookeeper。</p>
+<p>1，@EnableDiscoveryClient注解是基于spring-cloud-commons依赖<br>2，@EnableEurekaClient注解是基于spring-cloud-netflix依赖，只能为eureka作用；</p>
+<p>如果你添加了eureka，则它们的作用是一样的。</p>
+<h3 id="客户端查看已注册的instance"><a href="#客户端查看已注册的instance" class="headerlink" title="客户端查看已注册的instance"></a>客户端查看已注册的instance</h3><p>在客户段创建如下</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line">@RestController</div><div class="line">public class EurekaClientController &#123;</div><div class="line"></div><div class="line">    @Autowired</div><div class="line">    private DiscoveryClient discoveryClient;</div><div class="line"></div><div class="line">    @RequestMapping(value = &quot;/admin/eureka/client/test1&quot;)</div><div class="line">    public String hi()&#123;</div><div class="line"></div><div class="line">        for( String s :  discoveryClient.getServices())&#123;</div><div class="line">            System.out.println(&quot;services &quot; + s);</div><div class="line">            List&lt;ServiceInstance&gt; serviceInstances =  discoveryClient.getInstances(s);</div><div class="line">            for(ServiceInstance si : serviceInstances)&#123;</div><div class="line">                System.out.println(&quot;    services:&quot; + s + &quot;:getHost()=&quot; + si.getHost());</div><div class="line">                System.out.println(&quot;    services:&quot; + s + &quot;:getPort()=&quot; + si.getPort());</div><div class="line">                System.out.println(&quot;    services:&quot; + s + &quot;:getServiceId()=&quot; + si.getServiceId());</div><div class="line">                System.out.println(&quot;    services:&quot; + s + &quot;:getUri()=&quot; + si.getUri());</div><div class="line">                System.out.println(&quot;    services:&quot; + s + &quot;:getMetadata()=&quot; + si.getMetadata());</div><div class="line">            &#125;</div><div class="line"></div><div class="line">        &#125;</div><div class="line">        return &quot;hi, :)~&quot;;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;Spring Cloud为我构建分布式微服务系统提供了一站式的解决方案，其中服务注册与发现只是整个系统的一个模块，&lt;br&gt;是由eureka来承担，下面我们来看看如何使用吧&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="Spring Cloud" scheme="http://www.nealma.com/categories/Spring-Cloud/"/>
+    
+    
+      <category term="Java" scheme="http://www.nealma.com/tags/Java/"/>
+    
+      <category term="Spring-Boot" scheme="http://www.nealma.com/tags/Spring-Boot/"/>
+    
+      <category term="Spring Cloud" scheme="http://www.nealma.com/tags/Spring-Cloud/"/>
+    
+  </entry>
   
   <entry>
     <title>Spring Cloud | 配置服务 1</title>
@@ -362,7 +459,7 @@
     <link href="http://www.nealma.com/2017/03/01/work-problerm-7-wx-mp-robot/"/>
     <id>http://www.nealma.com/2017/03/01/work-problerm-7-wx-mp-robot/</id>
     <published>2017-03-01T03:46:45.000Z</published>
-    <updated>2017-04-19T03:50:52.000Z</updated>
+    <updated>2017-07-08T13:14:36.000Z</updated>
     
     <content type="html"><![CDATA[<pre><code>微信公众号后台java开发实现自动回复机器人
 </code></pre><a id="more"></a>
@@ -409,38 +506,6 @@
   </entry>
   
   <entry>
-    <title>【IDEA】cannot resolve syambol xxx</title>
-    <link href="http://www.nealma.com/2017/01/01/work-problerm-6-idea-cannot-resolve-syambol/"/>
-    <id>http://www.nealma.com/2017/01/01/work-problerm-6-idea-cannot-resolve-syambol/</id>
-    <published>2017-01-01T03:46:45.000Z</published>
-    <updated>2017-04-18T04:20:25.000Z</updated>
-    
-    <content type="html"><![CDATA[<pre><code>cannot resolve syambol xxx
-</code></pre><a id="more"></a>
-<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>解决方法如下：<br>点击菜单中的 “File” -&gt; “Invalidate Caches / Restart”，然后点击对话框中的 “Invalidate and Restart”，清空 cache 并且重启。语法就会正确的高亮了。</p>
-<h3 id="结束"><a href="#结束" class="headerlink" title="结束"></a>结束</h3><pre><code>还会陆续遇到各种坑，慢慢填吧...
- :)~
-</code></pre>]]></content>
-    
-    <summary type="html">
-    
-      &lt;pre&gt;&lt;code&gt;cannot resolve syambol xxx
-&lt;/code&gt;&lt;/pre&gt;
-    
-    </summary>
-    
-      <category term="work" scheme="http://www.nealma.com/categories/work/"/>
-    
-    
-      <category term="MySQL" scheme="http://www.nealma.com/tags/MySQL/"/>
-    
-      <category term="大杂烩" scheme="http://www.nealma.com/tags/%E5%A4%A7%E6%9D%82%E7%83%A9/"/>
-    
-      <category term="sql" scheme="http://www.nealma.com/tags/sql/"/>
-    
-  </entry>
-  
-  <entry>
     <title>常用的sql操作</title>
     <link href="http://www.nealma.com/2017/01/01/work-problerm-5-mysql-common-operate/"/>
     <id>http://www.nealma.com/2017/01/01/work-problerm-5-mysql-common-operate/</id>
@@ -468,6 +533,38 @@
     <summary type="html">
     
       &lt;pre&gt;&lt;code&gt;频繁的sql操作，总结一些经常用的。
+&lt;/code&gt;&lt;/pre&gt;
+    
+    </summary>
+    
+      <category term="work" scheme="http://www.nealma.com/categories/work/"/>
+    
+    
+      <category term="MySQL" scheme="http://www.nealma.com/tags/MySQL/"/>
+    
+      <category term="大杂烩" scheme="http://www.nealma.com/tags/%E5%A4%A7%E6%9D%82%E7%83%A9/"/>
+    
+      <category term="sql" scheme="http://www.nealma.com/tags/sql/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>【IDEA】cannot resolve syambol xxx</title>
+    <link href="http://www.nealma.com/2017/01/01/work-problerm-6-idea-cannot-resolve-syambol/"/>
+    <id>http://www.nealma.com/2017/01/01/work-problerm-6-idea-cannot-resolve-syambol/</id>
+    <published>2017-01-01T03:46:45.000Z</published>
+    <updated>2017-04-18T04:20:25.000Z</updated>
+    
+    <content type="html"><![CDATA[<pre><code>cannot resolve syambol xxx
+</code></pre><a id="more"></a>
+<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>解决方法如下：<br>点击菜单中的 “File” -&gt; “Invalidate Caches / Restart”，然后点击对话框中的 “Invalidate and Restart”，清空 cache 并且重启。语法就会正确的高亮了。</p>
+<h3 id="结束"><a href="#结束" class="headerlink" title="结束"></a>结束</h3><pre><code>还会陆续遇到各种坑，慢慢填吧...
+ :)~
+</code></pre>]]></content>
+    
+    <summary type="html">
+    
+      &lt;pre&gt;&lt;code&gt;cannot resolve syambol xxx
 &lt;/code&gt;&lt;/pre&gt;
     
     </summary>
@@ -636,6 +733,53 @@
   </entry>
   
   <entry>
+    <title>工作中遇到的问题 (二) Ajax重复提交</title>
+    <link href="http://www.nealma.com/2016/11/26/work-problerm-2/"/>
+    <id>http://www.nealma.com/2016/11/26/work-problerm-2/</id>
+    <published>2016-11-26T03:46:45.000Z</published>
+    <updated>2016-12-11T08:47:03.000Z</updated>
+    
+    <content type="html"><![CDATA[<pre><code>最近也不知道写点啥，工作任务太饱和了，遇到些小问题，做个总结
+</code></pre><a id="more"></a>
+<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><pre><code>最近也不知道写点啥，工作任务太饱和了，遇到些小问题，做个总结
+</code></pre><h3 id="Linux-使用cp-rf-总是提醒是否覆盖"><a href="#Linux-使用cp-rf-总是提醒是否覆盖" class="headerlink" title="Linux 使用cp -rf 总是提醒是否覆盖"></a>Linux 使用cp -rf 总是提醒是否覆盖</h3><pre><code>刚觉很奇怪，rf本来就是要强制覆盖的，为什么还总是提醒呢？Google之后，才知道原来是别名在作怪。
+通过alias命令可以看到,我们执行cp命令，其实是执行的cp -i, 所以无论我们怎么-rf加参数，总是提示。
+</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">[root@apple]# alias</div><div class="line">alias cp=&apos;cp -i&apos;</div><div class="line">alias egrep=&apos;egrep --color=auto&apos;</div><div class="line">alias fgrep=&apos;fgrep --color=auto&apos;</div><div class="line">alias grep=&apos;grep --color=auto&apos;</div><div class="line">alias l.=&apos;ls -d .* --color=auto&apos;</div><div class="line">alias ll=&apos;ls -l --color=auto&apos;</div><div class="line">alias ls=&apos;ls --color=auto&apos;</div><div class="line">alias mv=&apos;mv -i&apos;</div><div class="line">alias rm=&apos;rm -i&apos;</div><div class="line">alias which=&apos;alias | /usr/bin/which --tty-only --read-alias --show-dot --show-tilde&apos;</div></pre></td></tr></table></figure>
+<pre><code>解决办法：
+
+打开~/.bashrc文件，注释掉即可。
+</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">#alias cp=&apos;cp -i&apos;</div></pre></td></tr></table></figure>
+<pre><code>或者这样：
+</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">/usr/bin/cp</div></pre></td></tr></table></figure>
+<h3 id="Ajax重复提交的问题"><a href="#Ajax重复提交的问题" class="headerlink" title="Ajax重复提交的问题"></a>Ajax重复提交的问题</h3><pre><code>我们在使用ajax调用接口，异步提交的时候，特别是在网络环境不好的时候，会在短时间内，连续提交多次，
+导致数据库中出现很多垃圾数据，首先是客户端的限制措施。
+</code></pre><ul>
+<li>使用jQuery.ajaxPrefilter，其实是个过滤器，如下：</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div></pre></td><td class="code"><pre><div class="line">var pendingRequests = &#123;&#125;;</div><div class="line">jQuery.ajaxPrefilter(function( options, originalOptions, jqXHR ) &#123;</div><div class="line">    var key = originalOptions.url+&quot;_&quot;+originalOptions.type.toUpperCase();</div><div class="line">    console.log(key)</div><div class="line">    if (!pendingRequests[key]</div><div class="line">            || (pendingRequests[key] &amp;&amp; originalOptions.type.toUpperCase() !=&apos;POST&apos;)) &#123;</div><div class="line">        pendingRequests[key] = jqXHR;</div><div class="line">        console.log(&apos;start&apos;);</div><div class="line">    &#125;else&#123;</div><div class="line">        jqXHR.abort();    //放弃后触发的提交</div><div class="line">        //pendingRequests[key].abort();   // 放弃先触发的提交</div><div class="line">        console.log(&apos;abort&apos;);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    var complete = options.complete;</div><div class="line">    options.complete = function(jqXHR, textStatus) &#123;</div><div class="line">        console.log(&apos;complete&apos;);</div><div class="line">        //TODO: pendingRequests[key] = null;</div><div class="line">        setTimeout(function () &#123;</div><div class="line">            pendingRequests[key] = null;</div><div class="line">        &#125;, 10000);</div><div class="line">        if (jQuery.isFunction(complete)) &#123;</div><div class="line">            complete.apply(this, arguments);</div><div class="line">        &#125;</div><div class="line">    &#125;;</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<ul>
+<li>服务器端限制</li>
+</ul>
+<p>…</p>
+<h3 id="结束"><a href="#结束" class="headerlink" title="结束"></a>结束</h3><pre><code>夜长长，路漫漫...
+ :)~
+</code></pre>]]></content>
+    
+    <summary type="html">
+    
+      &lt;pre&gt;&lt;code&gt;最近也不知道写点啥，工作任务太饱和了，遇到些小问题，做个总结
+&lt;/code&gt;&lt;/pre&gt;
+    
+    </summary>
+    
+      <category term="work" scheme="http://www.nealma.com/categories/work/"/>
+    
+    
+      <category term="大杂烩" scheme="http://www.nealma.com/tags/%E5%A4%A7%E6%9D%82%E7%83%A9/"/>
+    
+  </entry>
+  
+  <entry>
     <title>工作中遇到的问题（一） Spring MVC Restfull API</title>
     <link href="http://www.nealma.com/2016/11/26/work-problerm-1/"/>
     <id>http://www.nealma.com/2016/11/26/work-problerm-1/</id>
@@ -667,53 +811,6 @@ We did it。
 <pre><code>从两处标记可以看出，Accept的两次值不一样；Accept的值直接影响Controller的consumes,
 Spring会根据Accept来对Request的参数做相应的处理。
 </code></pre><h3 id="XMLHttpRequest-cannot-load-http-yourdomain-com-api-addresses-Response-to-preflight-request-doesn’t-pass-access-control-check-The-‘Access-Control-Allow-Origin’-header-contains-multiple-values-‘http-localhost-8080-’-but-only-one-is-allowed-Origin-‘http-localhost-8080‘-is-therefore-not-allowed-access"><a href="#XMLHttpRequest-cannot-load-http-yourdomain-com-api-addresses-Response-to-preflight-request-doesn’t-pass-access-control-check-The-‘Access-Control-Allow-Origin’-header-contains-multiple-values-‘http-localhost-8080-’-but-only-one-is-allowed-Origin-‘http-localhost-8080‘-is-therefore-not-allowed-access" class="headerlink" title="XMLHttpRequest cannot load http://yourdomain.com/api/addresses. Response to preflight request doesn’t pass access control check: The ‘Access-Control-Allow-Origin’ header contains multiple values ‘http://localhost:8080, *’, but only one is allowed. Origin ‘http://localhost:8080‘ is therefore not allowed access."></a>XMLHttpRequest cannot load <a href="http://yourdomain.com/api/addresses" target="_blank" rel="external">http://yourdomain.com/api/addresses</a>. Response to preflight request doesn’t pass access control check: The ‘Access-Control-Allow-Origin’ header contains multiple values ‘<a href="http://localhost:8080" target="_blank" rel="external">http://localhost:8080</a>, *’, but only one is allowed. Origin ‘<a href="http://localhost:8080" target="_blank" rel="external">http://localhost:8080</a>‘ is therefore not allowed access.</h3><h3 id="结束"><a href="#结束" class="headerlink" title="结束"></a>结束</h3><pre><code>还会陆续遇到各种坑，慢慢填吧...
- :)~
-</code></pre>]]></content>
-    
-    <summary type="html">
-    
-      &lt;pre&gt;&lt;code&gt;最近也不知道写点啥，工作任务太饱和了，遇到些小问题，做个总结
-&lt;/code&gt;&lt;/pre&gt;
-    
-    </summary>
-    
-      <category term="work" scheme="http://www.nealma.com/categories/work/"/>
-    
-    
-      <category term="大杂烩" scheme="http://www.nealma.com/tags/%E5%A4%A7%E6%9D%82%E7%83%A9/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>工作中遇到的问题 (二) Ajax重复提交</title>
-    <link href="http://www.nealma.com/2016/11/26/work-problerm-2/"/>
-    <id>http://www.nealma.com/2016/11/26/work-problerm-2/</id>
-    <published>2016-11-26T03:46:45.000Z</published>
-    <updated>2016-12-11T08:47:03.000Z</updated>
-    
-    <content type="html"><![CDATA[<pre><code>最近也不知道写点啥，工作任务太饱和了，遇到些小问题，做个总结
-</code></pre><a id="more"></a>
-<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><pre><code>最近也不知道写点啥，工作任务太饱和了，遇到些小问题，做个总结
-</code></pre><h3 id="Linux-使用cp-rf-总是提醒是否覆盖"><a href="#Linux-使用cp-rf-总是提醒是否覆盖" class="headerlink" title="Linux 使用cp -rf 总是提醒是否覆盖"></a>Linux 使用cp -rf 总是提醒是否覆盖</h3><pre><code>刚觉很奇怪，rf本来就是要强制覆盖的，为什么还总是提醒呢？Google之后，才知道原来是别名在作怪。
-通过alias命令可以看到,我们执行cp命令，其实是执行的cp -i, 所以无论我们怎么-rf加参数，总是提示。
-</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">[root@apple]# alias</div><div class="line">alias cp=&apos;cp -i&apos;</div><div class="line">alias egrep=&apos;egrep --color=auto&apos;</div><div class="line">alias fgrep=&apos;fgrep --color=auto&apos;</div><div class="line">alias grep=&apos;grep --color=auto&apos;</div><div class="line">alias l.=&apos;ls -d .* --color=auto&apos;</div><div class="line">alias ll=&apos;ls -l --color=auto&apos;</div><div class="line">alias ls=&apos;ls --color=auto&apos;</div><div class="line">alias mv=&apos;mv -i&apos;</div><div class="line">alias rm=&apos;rm -i&apos;</div><div class="line">alias which=&apos;alias | /usr/bin/which --tty-only --read-alias --show-dot --show-tilde&apos;</div></pre></td></tr></table></figure>
-<pre><code>解决办法：
-
-打开~/.bashrc文件，注释掉即可。
-</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">#alias cp=&apos;cp -i&apos;</div></pre></td></tr></table></figure>
-<pre><code>或者这样：
-</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">/usr/bin/cp</div></pre></td></tr></table></figure>
-<h3 id="Ajax重复提交的问题"><a href="#Ajax重复提交的问题" class="headerlink" title="Ajax重复提交的问题"></a>Ajax重复提交的问题</h3><pre><code>我们在使用ajax调用接口，异步提交的时候，特别是在网络环境不好的时候，会在短时间内，连续提交多次，
-导致数据库中出现很多垃圾数据，首先是客户端的限制措施。
-</code></pre><ul>
-<li>使用jQuery.ajaxPrefilter，其实是个过滤器，如下：</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div></pre></td><td class="code"><pre><div class="line">var pendingRequests = &#123;&#125;;</div><div class="line">jQuery.ajaxPrefilter(function( options, originalOptions, jqXHR ) &#123;</div><div class="line">    var key = originalOptions.url+&quot;_&quot;+originalOptions.type.toUpperCase();</div><div class="line">    console.log(key)</div><div class="line">    if (!pendingRequests[key]</div><div class="line">            || (pendingRequests[key] &amp;&amp; originalOptions.type.toUpperCase() !=&apos;POST&apos;)) &#123;</div><div class="line">        pendingRequests[key] = jqXHR;</div><div class="line">        console.log(&apos;start&apos;);</div><div class="line">    &#125;else&#123;</div><div class="line">        jqXHR.abort();    //放弃后触发的提交</div><div class="line">        //pendingRequests[key].abort();   // 放弃先触发的提交</div><div class="line">        console.log(&apos;abort&apos;);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    var complete = options.complete;</div><div class="line">    options.complete = function(jqXHR, textStatus) &#123;</div><div class="line">        console.log(&apos;complete&apos;);</div><div class="line">        //TODO: pendingRequests[key] = null;</div><div class="line">        setTimeout(function () &#123;</div><div class="line">            pendingRequests[key] = null;</div><div class="line">        &#125;, 10000);</div><div class="line">        if (jQuery.isFunction(complete)) &#123;</div><div class="line">            complete.apply(this, arguments);</div><div class="line">        &#125;</div><div class="line">    &#125;;</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
-<ul>
-<li>服务器端限制</li>
-</ul>
-<p>…</p>
-<h3 id="结束"><a href="#结束" class="headerlink" title="结束"></a>结束</h3><pre><code>夜长长，路漫漫...
  :)~
 </code></pre>]]></content>
     
@@ -930,113 +1027,6 @@ TemplateEngine，ThymeleafViewResolver会自用实例化。
       <category term="Template" scheme="http://www.nealma.com/tags/Template/"/>
     
       <category term="Thymeleaf" scheme="http://www.nealma.com/tags/Thymeleaf/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Spring-Boot（六) Spring Session 分布式会话管理</title>
-    <link href="http://www.nealma.com/2016/11/01/spring-boot-6-spring-session/"/>
-    <id>http://www.nealma.com/2016/11/01/spring-boot-6-spring-session/</id>
-    <published>2016-11-01T03:46:45.000Z</published>
-    <updated>2017-07-01T03:59:05.000Z</updated>
-    
-    <content type="html"><![CDATA[<pre><code>使用Spring Security的时候，觉得省了好多的事情。但是它使用的是内存来存储CurrentUser的信息
-和登录凭证，一旦单机不能承受大用户量，就需要水平扩展，就会涉及到session的问题。怎么才能实现
-平滑扩展呢？还好有Sping Session，怎么用呢？
-</code></pre><a id="more"></a>
-<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><pre><code>使用Spring Security的时候，觉得省了好多的事情。但是它使用的是内存来存储CurrentUser的信息
-和登录凭证，一旦单机不能承受大用户量，就需要水平扩展，就会涉及到session的问题。怎么才能实现
-平滑扩展呢？还好有Sping Session，怎么用呢？
-</code></pre><p>开发环境：<br>OS: Mac 10.11.6<br>IDE: IDEA<br>Build: Maven</p>
-<h3 id="Spring-Session-是什么"><a href="#Spring-Session-是什么" class="headerlink" title="Spring Session 是什么"></a>Spring Session 是什么</h3><pre><code>其实也不是什么新鲜的事儿？我们在实现用户登录，授权的时候，最初是web场景，我们只需要在Cookies中
-操作即可，现在我们面临移动端、open API等多种场景，单纯的Cookies已经不满足或者不能优雅的体现Restful
-风格，此时需要在Header上动手脚，也就是把原来存放在Cookies中的信息移到了Header中，换汤不换药
-</code></pre><h3 id="在Web中使用CookieHttpSessionStrategy"><a href="#在Web中使用CookieHttpSessionStrategy" class="headerlink" title="在Web中使用CookieHttpSessionStrategy"></a>在Web中使用CookieHttpSessionStrategy</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="meta">@Bean</span></div><div class="line"><span class="function"><span class="keyword">public</span> HttpSessionStrategy <span class="title">httpSessionStrategy</span><span class="params">()</span> </span>&#123;</div><div class="line">    <span class="keyword">return</span> <span class="keyword">new</span> CookieHttpSessionStrategy();</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h3 id="在Header中使用HeaderHttpSessionStrategy"><a href="#在Header中使用HeaderHttpSessionStrategy" class="headerlink" title="在Header中使用HeaderHttpSessionStrategy"></a>在Header中使用HeaderHttpSessionStrategy</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="meta">@Bean</span></div><div class="line"><span class="function"><span class="keyword">public</span> HttpSessionStrategy <span class="title">httpSessionStrategy</span><span class="params">()</span> </span>&#123;</div><div class="line">    <span class="keyword">return</span> <span class="keyword">new</span> HeaderHttpSessionStrategy();</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h3 id="Session-外部存储"><a href="#Session-外部存储" class="headerlink" title="Session 外部存储"></a>Session 外部存储</h3><pre><code>单纯的把Session信息存在JVM内容已经不适合现在的技术架构，再加上外部存储的开源产品足够成熟(Redis等)，
-于是Sping Session对HttpSession进行了重新包装，使其很容易结合Redis等开源产品，节省了我们的开发时间。
-只需要在你自己实现的WebSecurityConfigurerAdapter中加上如下注解：
-</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">@EnableRedisHttpSession</div></pre></td></tr></table></figure>
-<h3 id="Cookies和Header混合支持"><a href="#Cookies和Header混合支持" class="headerlink" title="Cookies和Header混合支持"></a>Cookies和Header混合支持</h3><pre><code>但是在使用的过程中遇到一个问题，需要Cookie和Header都支持，这下麻烦了，还需要自己去实现，
-怎么才能都支持呢？那就是在自己实现的AllHttpSessionStrategy中，对Request进行判断，如果是html，就使用
-CookieHttpSessionStrategy，如果是API就用HeaderHttpSessionStrategy，具体如下：
-</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">@Bean</div><div class="line">  public HttpSessionStrategy httpSessionStrategy() &#123;</div><div class="line">      return new MyHttpSessionStrategy(new HeaderContentNegotiationStrategy());</div><div class="line">  &#125;</div></pre></td></tr></table></figure>
-<p>这里的MyHttpSessionStrategy是要自己实现的</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div></pre></td><td class="code"><pre><div class="line">public class MyHttpSessionStrategy implements HttpSessionStrategy &#123;</div><div class="line">    private HttpSessionStrategy browser;</div><div class="line"></div><div class="line">    private HttpSessionStrategy api;</div><div class="line"></div><div class="line">    private RequestMatcher browserMatcher;</div><div class="line"></div><div class="line">    @Autowired</div><div class="line">    public MyHttpSessionStrategy(ContentNegotiationStrategy contentNegotiationStrategy) &#123;</div><div class="line">        this(new CookieHttpSessionStrategy(), new HeaderHttpSessionStrategy());</div><div class="line">        MediaTypeRequestMatcher matcher = new MediaTypeRequestMatcher(contentNegotiationStrategy,</div><div class="line">                Arrays.asList(MediaType.TEXT_HTML));</div><div class="line">        matcher.setIgnoredMediaTypes(Collections.singleton(MediaType.ALL));</div><div class="line"></div><div class="line">        RequestHeaderRequestMatcher javascript = new RequestHeaderRequestMatcher(&quot;X-Requested-With&quot;);</div><div class="line"></div><div class="line">        this.browserMatcher = new OrRequestMatcher(Arrays.asList(matcher, javascript));</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    public MyHttpSessionStrategy(HttpSessionStrategy browser, HttpSessionStrategy api) &#123;</div><div class="line">        this.browser = browser;</div><div class="line">        this.api = api;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    @Override</div><div class="line">    public String getRequestedSessionId(HttpServletRequest request) &#123;</div><div class="line">        return getStrategy(request).getRequestedSessionId(request);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    @Override</div><div class="line">    public void onNewSession(Session session, HttpServletRequest request, HttpServletResponse response) &#123;</div><div class="line">        getStrategy(request).onNewSession(session, request, response);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    @Override</div><div class="line">    public void onInvalidateSession(HttpServletRequest request, HttpServletResponse response) &#123;</div><div class="line">        getStrategy(request).onInvalidateSession(request, response);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    private HttpSessionStrategy getStrategy(HttpServletRequest request) &#123;</div><div class="line">        return this.browserMatcher.matches(request) ? this.browser : this.api;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h3 id="结束"><a href="#结束" class="headerlink" title="结束"></a>结束</h3><pre><code>这样无论是网页端还是RESTFull API，都可以正常支持了。
-网页端通过cookie来传递session，API使用的是x-auth-token。
-这里有个问题就是还不知道怎么去更新Redis中会话信息,待续...
-</code></pre>]]></content>
-    
-    <summary type="html">
-    
-      &lt;pre&gt;&lt;code&gt;使用Spring Security的时候，觉得省了好多的事情。但是它使用的是内存来存储CurrentUser的信息
-和登录凭证，一旦单机不能承受大用户量，就需要水平扩展，就会涉及到session的问题。怎么才能实现
-平滑扩展呢？还好有Sping Session，怎么用呢？
-&lt;/code&gt;&lt;/pre&gt;
-    
-    </summary>
-    
-      <category term="Spring Boot" scheme="http://www.nealma.com/categories/Spring-Boot/"/>
-    
-    
-      <category term="Java" scheme="http://www.nealma.com/tags/Java/"/>
-    
-      <category term="Spring" scheme="http://www.nealma.com/tags/Spring/"/>
-    
-      <category term="Spring-Boot" scheme="http://www.nealma.com/tags/Spring-Boot/"/>
-    
-      <category term="Exception" scheme="http://www.nealma.com/tags/Exception/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Vim Commandline (一) 文本替换</title>
-    <link href="http://www.nealma.com/2016/10/02/vim-command-line-1-replace/"/>
-    <id>http://www.nealma.com/2016/10/02/vim-command-line-1-replace/</id>
-    <published>2016-10-02T03:46:45.000Z</published>
-    <updated>2016-11-17T01:54:55.000Z</updated>
-    
-    <content type="html"><![CDATA[<pre><code>文本替换在我们的工作中经常被使用，是一个高频的功能。
-可是我总是记不住，每次都得Google一下，还是自己记录下吧...
-</code></pre><a id="more"></a>
-<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><pre><code>文本替换在我们的工作中经常被使用，是一个高频的功能。
-可是我总是记不住，每次都得Google一下，还是自己记录下吧...
-</code></pre><h3 id="Replace-Text"><a href="#Replace-Text" class="headerlink" title="Replace Text"></a>Replace Text</h3><ul>
-<li>替换当前行第一个字符</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"># 将当前光标所在的行中，第一个出现的a替换成b</div><div class="line">:$s/a/b</div></pre></td></tr></table></figure>
-<ul>
-<li>替换前光标所在的行所有字符</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"># 将当前光标所在的行中，所有a替换成b</div><div class="line">:$s/a/b/g</div></pre></td></tr></table></figure>
-<ul>
-<li>替换第n行到当前行区间中所有行的第一个字符</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"># 将第n行到当前光标所在的行中，第一个出现的a替换成b</div><div class="line">#n 为行号</div><div class="line">:n,$s/a/b</div></pre></td></tr></table></figure>
-<ul>
-<li>替换前光标所在的行所有字符</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"># 将第n行到当前光标所在的行中，所有a替换成b</div><div class="line">:n,$s/a/b/g</div></pre></td></tr></table></figure>
-<h3 id="结束"><a href="#结束" class="headerlink" title="结束"></a>结束</h3><p>:)~</p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;pre&gt;&lt;code&gt;文本替换在我们的工作中经常被使用，是一个高频的功能。
-可是我总是记不住，每次都得Google一下，还是自己记录下吧...
-&lt;/code&gt;&lt;/pre&gt;
-    
-    </summary>
-    
-      <category term="Linux" scheme="http://www.nealma.com/categories/Linux/"/>
-    
-    
-      <category term="CentOS" scheme="http://www.nealma.com/tags/CentOS/"/>
-    
-      <category term="Linux" scheme="http://www.nealma.com/tags/Linux/"/>
-    
-      <category term="Vim" scheme="http://www.nealma.com/tags/Vim/"/>
     
   </entry>
   
