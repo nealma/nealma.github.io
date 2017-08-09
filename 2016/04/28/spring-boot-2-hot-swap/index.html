@@ -311,6 +311,13 @@
 
           
             
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2016/04/28/spring-boot-2-hot-swap/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
           
 
           
@@ -434,17 +441,11 @@
           
   <div class="comments" id="comments">
     
-      <div id="wangyi_thread">
-        <div id="cloud-tie-wrapper" class="cloud-tie-wrapper"></div>
-        <script>
-          var cloudTieConfig = {
-            url: document.location.href, 
-            sourceId: "http://www.nealma.com/2016/04/28/spring-boot-2-hot-swap/",
-            productKey: "2356e963b0574384a27d221f2acf9ef4",
-            target: "cloud-tie-wrapper"
-          };
-        </script>
-        <script src="https://img1.cache.netease.com/f2e/tie/yun/sdk/loader.js"></script>
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
       </div>
     
 
@@ -491,7 +492,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="../../../../archives">
-              <span class="site-state-item-count">69</span>
+              <span class="site-state-item-count">70</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -499,7 +500,7 @@
           
             <div class="site-state-item site-state-categories">
               <a href="../../../../categories">
-                <span class="site-state-item-count">20</span>
+                <span class="site-state-item-count">21</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -508,7 +509,7 @@
           
             <div class="site-state-item site-state-tags">
               <a href="../../../../tags">
-                <span class="site-state-item-count">70</span>
+                <span class="site-state-item-count">71</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -682,6 +683,27 @@
 
 
 
+  
+
+    <script type="text/javascript">
+      var disqus_shortname = 'nealma';
+      var disqus_identifier = '2016/04/28/spring-boot-2-hot-swap/';
+      var disqus_title = "Spring-Boot（二） 集成springloaded";
+      var disqus_url = 'http://www.nealma.com/2016/04/28/spring-boot-2-hot-swap/';
+
+      function run_disqus_script(disqus_script){
+        var dsq = document.createElement('script');
+        dsq.type = 'text/javascript';
+        dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      }
+
+      run_disqus_script('count.js');
+      
+        run_disqus_script('embed.js');
+      
+    </script>
   
 
 
