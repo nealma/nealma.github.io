@@ -513,6 +513,38 @@
   </entry>
   
   <entry>
+    <title>【IDEA】cannot resolve syambol xxx</title>
+    <link href="http://www.nealma.com/2017/01/01/work-problerm-6-idea-cannot-resolve-syambol/"/>
+    <id>http://www.nealma.com/2017/01/01/work-problerm-6-idea-cannot-resolve-syambol/</id>
+    <published>2017-01-01T03:46:45.000Z</published>
+    <updated>2017-04-18T04:20:25.000Z</updated>
+    
+    <content type="html"><![CDATA[<pre><code>cannot resolve syambol xxx
+</code></pre><a id="more"></a>
+<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>解决方法如下：<br>点击菜单中的 “File” -&gt; “Invalidate Caches / Restart”，然后点击对话框中的 “Invalidate and Restart”，清空 cache 并且重启。语法就会正确的高亮了。</p>
+<h3 id="结束"><a href="#结束" class="headerlink" title="结束"></a>结束</h3><pre><code>还会陆续遇到各种坑，慢慢填吧...
+ :)~
+</code></pre>]]></content>
+    
+    <summary type="html">
+    
+      &lt;pre&gt;&lt;code&gt;cannot resolve syambol xxx
+&lt;/code&gt;&lt;/pre&gt;
+    
+    </summary>
+    
+      <category term="work" scheme="http://www.nealma.com/categories/work/"/>
+    
+    
+      <category term="MySQL" scheme="http://www.nealma.com/tags/MySQL/"/>
+    
+      <category term="大杂烩" scheme="http://www.nealma.com/tags/%E5%A4%A7%E6%9D%82%E7%83%A9/"/>
+    
+      <category term="sql" scheme="http://www.nealma.com/tags/sql/"/>
+    
+  </entry>
+  
+  <entry>
     <title>常用的sql操作</title>
     <link href="http://www.nealma.com/2017/01/01/work-problerm-5-mysql-common-operate/"/>
     <id>http://www.nealma.com/2017/01/01/work-problerm-5-mysql-common-operate/</id>
@@ -540,38 +572,6 @@
     <summary type="html">
     
       &lt;pre&gt;&lt;code&gt;频繁的sql操作，总结一些经常用的。
-&lt;/code&gt;&lt;/pre&gt;
-    
-    </summary>
-    
-      <category term="work" scheme="http://www.nealma.com/categories/work/"/>
-    
-    
-      <category term="MySQL" scheme="http://www.nealma.com/tags/MySQL/"/>
-    
-      <category term="大杂烩" scheme="http://www.nealma.com/tags/%E5%A4%A7%E6%9D%82%E7%83%A9/"/>
-    
-      <category term="sql" scheme="http://www.nealma.com/tags/sql/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>【IDEA】cannot resolve syambol xxx</title>
-    <link href="http://www.nealma.com/2017/01/01/work-problerm-6-idea-cannot-resolve-syambol/"/>
-    <id>http://www.nealma.com/2017/01/01/work-problerm-6-idea-cannot-resolve-syambol/</id>
-    <published>2017-01-01T03:46:45.000Z</published>
-    <updated>2017-04-18T04:20:25.000Z</updated>
-    
-    <content type="html"><![CDATA[<pre><code>cannot resolve syambol xxx
-</code></pre><a id="more"></a>
-<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>解决方法如下：<br>点击菜单中的 “File” -&gt; “Invalidate Caches / Restart”，然后点击对话框中的 “Invalidate and Restart”，清空 cache 并且重启。语法就会正确的高亮了。</p>
-<h3 id="结束"><a href="#结束" class="headerlink" title="结束"></a>结束</h3><pre><code>还会陆续遇到各种坑，慢慢填吧...
- :)~
-</code></pre>]]></content>
-    
-    <summary type="html">
-    
-      &lt;pre&gt;&lt;code&gt;cannot resolve syambol xxx
 &lt;/code&gt;&lt;/pre&gt;
     
     </summary>

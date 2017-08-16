@@ -68,7 +68,7 @@
 <link href="../../../../css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="CentOS,Linux,MySQL,MariaDB," />
+  <meta name="keywords" content="面试题,Java,面向对象," />
 
 
 
@@ -86,16 +86,16 @@
 
 
 
-<meta name="description" content="今天在CentOS 7.2上安装MySQL（MariaDB）,记录一下">
+<meta name="description" content="为了使能更加灵活地控制对象的生命周期。从JDK 1.2版本开始，把对象的引用分为4种级别。这4种级别由高到低依次为：强引用、软引用、弱引用和虚引用。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="CentOS7（二）Install MySQL (MariaDB)">
-<meta property="og:url" content="http://www.nealma.com/2016/10/01/centos-72-2-install-mariadb/index.html">
+<meta property="og:title" content="Java面试题  Java中的四种引用">
+<meta property="og:url" content="http://www.nealma.com/2016/01/15/java-interview-4-reference/index.html">
 <meta property="og:site_name" content="nealma.com">
-<meta property="og:description" content="今天在CentOS 7.2上安装MySQL（MariaDB）,记录一下">
-<meta property="og:updated_time" content="2017-05-07T22:58:45.000Z">
+<meta property="og:description" content="为了使能更加灵活地控制对象的生命周期。从JDK 1.2版本开始，把对象的引用分为4种级别。这4种级别由高到低依次为：强引用、软引用、弱引用和虚引用。">
+<meta property="og:updated_time" content="2017-08-16T07:35:44.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="CentOS7（二）Install MySQL (MariaDB)">
-<meta name="twitter:description" content="今天在CentOS 7.2上安装MySQL（MariaDB）,记录一下">
+<meta name="twitter:title" content="Java面试题  Java中的四种引用">
+<meta name="twitter:description" content="为了使能更加灵活地控制对象的生命周期。从JDK 1.2版本开始，把对象的引用分为4种级别。这4种级别由高到低依次为：强引用、软引用、弱引用和虚引用。">
 
 
 
@@ -116,9 +116,9 @@
 
 
 
-  <link rel="canonical" href="http://www.nealma.com/2016/10/01/centos-72-2-install-mariadb/"/>
+  <link rel="canonical" href="http://www.nealma.com/2016/01/15/java-interview-4-reference/"/>
 
-  <title> CentOS7（二）Install MySQL (MariaDB) | nealma.com </title>
+  <title> Java面试题  Java中的四种引用 | nealma.com </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -268,7 +268,7 @@
             
             
               
-                CentOS7（二）Install MySQL (MariaDB)
+                Java面试题  Java中的四种引用
               
             
           </h1>
@@ -280,8 +280,8 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-10-01T11:46:46+08:00" content="2016-10-01">
-              2016-10-01
+            <time itemprop="dateCreated" datetime="2016-01-15T11:46:44+08:00" content="2016-01-15">
+              2016-01-15
             </time>
           </span>
 
@@ -294,8 +294,8 @@
               <span class="post-meta-item-text">分类于</span>
               
                 <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="../../../../categories/Linux/" itemprop="url" rel="index">
-                    <span itemprop="name">Linux</span>
+                  <a href="../../../../categories/Java面试题/" itemprop="url" rel="index">
+                    <span itemprop="name">Java面试题</span>
                   </a>
                 </span>
 
@@ -311,7 +311,7 @@
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
                 <a href="#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2016/10/01/centos-72-2-install-mariadb/" itemprop="commentsCount"></span>
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2016/01/15/java-interview-4-reference/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -334,21 +334,22 @@
       
 
       
-        <pre><code>今天在CentOS 7.2上安装MySQL（MariaDB）,记录一下
-</code></pre><a id="more"></a>
-<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><pre><code>今天在CentOS 7.2上安装MySQL（MariaDB）,记录一下
-</code></pre><h3 id="Install-MariaDB"><a href="#Install-MariaDB" class="headerlink" title="Install MariaDB"></a>Install MariaDB</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">yum install mariadb-server mariadb</div></pre></td></tr></table></figure>
-<h3 id="Start-MariaDB"><a href="#Start-MariaDB" class="headerlink" title="Start MariaDB"></a>Start MariaDB</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">systemsctl start mariadb</div></pre></td></tr></table></figure>
-<p>###更换data目录<br>通常数据库需要额外的磁盘，这个时候会遇到目录权限的问题，需要给目录授予权限</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">chown -R mysql:mysql /mnt/mysql</div><div class="line">chmod 640 /mnt/mysql</div><div class="line">chmod +x /mnt/mysql</div></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">[mysqld]</div><div class="line">datadir=/mnt/mysql</div><div class="line">socket=/mnt/mysql/mysql.sock</div><div class="line">user=mysql</div><div class="line"># Disabling symbolic-links is recommended to prevent assorted security risks</div><div class="line">symbolic-links=0</div><div class="line"># Settings user and group are ignored when systemd is used.</div><div class="line"># If you need to run mysqld under a different user or group,</div><div class="line"># customize your systemd unit file for mariadb according to the</div><div class="line"># instructions in http://fedoraproject.org/wiki/Systemd</div><div class="line"></div><div class="line">[mysqld_safe]</div><div class="line">log-error=/mnt/mysql/log/mariadb/mariadb.log</div><div class="line">pid-file=/mnt/mysql/mariadb/mariadb.pid</div><div class="line"></div><div class="line">#</div><div class="line"># include all files from the config directory</div><div class="line">#</div><div class="line">!includedir /etc/my.cnf.d</div></pre></td></tr></table></figure>
-<h3 id="Setting-Secure"><a href="#Setting-Secure" class="headerlink" title="Setting Secure"></a>Setting Secure</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">### 可能会出现找不到mysql.sock问题</div></pre></td></tr></table></figure>
-<p>$ sudo ln -s /mnt/mysql/mysql.sock /var/lib/mysql/mysql.sock</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div></pre></td><td class="code"><pre><div class="line"># 设置root密码，是否允许远程，test数据库等	</div><div class="line"></div><div class="line">mysql_secure_installation</div><div class="line"></div><div class="line"># Or</div><div class="line"></div><div class="line">set password for &apos;root&apos;@&apos;localhost&apos; =password(&apos;password&apos;);</div><div class="line"></div><div class="line"># 远程连接设置</div><div class="line">grant all privileges on &apos;rtshop&apos;.* to fuckyou@&apos;%&apos; identified by &apos;******&apos;;</div><div class="line">flush privileges;</div><div class="line"></div><div class="line"># 通过以上方式，对于用户root的localhost情况，可能出现如下异常</div><div class="line"># java.sql.SQLException: Access denied for user &apos;root&apos;@&apos;localhost&apos; (using password: YES)</div><div class="line"># 解决办法</div><div class="line">use mysql;</div><div class="line">UPDATE user SET password=PASSWORD(&apos;******&apos;) where USER=&apos;root&apos;;</div><div class="line">flush privileges;</div><div class="line"></div><div class="line">#MySQL 5.7</div><div class="line">update user set authentication_string=password(&apos;******&apos;) where user=&apos;root&apos;;</div><div class="line"></div><div class="line"></div><div class="line">#Or</div><div class="line"></div><div class="line">mysql&gt; use mysql</div><div class="line"></div><div class="line">mysql&gt; update user set Host=&apos;%&apos; where User=&apos;root&apos;;</div><div class="line"></div><div class="line">mysql&gt; flush privileges;</div><div class="line"></div><div class="line"># 创建新用户</div><div class="line">create user &apos;fuckyou&apos;@&apos;10.%.%.%&apos; identified by &apos;******&apos;;</div></pre></td></tr></table></figure>
-<h3 id="Start-on-boot"><a href="#Start-on-boot" class="headerlink" title="Start on boot"></a>Start on boot</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">systemctl enable mariadb.service</div></pre></td></tr></table></figure>
-<h3 id="MySQL-配置防火墙"><a href="#MySQL-配置防火墙" class="headerlink" title="MySQL 配置防火墙"></a>MySQL 配置防火墙</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">firewall-cmd --permanent --zone=public --add-service=mysql</div><div class="line">firewall-cmd --reload</div></pre></td></tr></table></figure>
-<p>###<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">Cannot load from mysql.proc. The table is probably corrupted。</div><div class="line"></div><div class="line">在命令行中执行mysql_upgrade -uroot -p 即可~</div></pre></td></tr></table></figure></p>
-<h3 id="结束"><a href="#结束" class="headerlink" title="结束"></a>结束</h3><p>:)~</p>
+        <p>为了使能更加灵活地控制对象的生命周期。从JDK 1.2版本开始，把对象的引用分为4种级别。这4种级别由高到低依次为：强引用、软引用、弱引用和虚引用。</p>
+<a id="more"></a>
+<h3 id="强引用"><a href="#强引用" class="headerlink" title="强引用"></a>强引用</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">String s = new String(&quot;hello&quot;); // s就是强引用</div></pre></td></tr></table></figure>
+<p>强引用不会被GC回收，JVM宁可OOM，终止程序，也不会随时回收强引用对象。</p>
+<ul>
+<li>软引用</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">//eg 1.</div><div class="line">SoftReference&lt;String&gt; srf = new SoftReference&lt;String&gt;(new String(&quot;hello&quot;));</div><div class="line">String s = srf.get();</div><div class="line"></div><div class="line">//eg 2.</div><div class="line">ReferenceQueue&lt;String&gt; referenceQueue = new ReferenceQueue&lt;String&gt;();</div><div class="line">SoftReference&lt;String&gt; soft = new SoftReference&lt;String&gt;(new String(&quot;hello&quot;), referenceQueue);</div></pre></td></tr></table></figure>
+<p>如果内存空间足够，垃圾回收器就不会回收它;<br>如果内存空间不足了，就会回收这些对象的内存。<br>只要垃圾回收器没有回收它，该对象就可以被程序使用。<br>软引用可用来实现内存敏感的高速缓存。<br>软引用可以和一个引用队列（ReferenceQueue）联合使用，如果软引用所引用的对象被垃圾回收，JAVA虚拟机就会把这个软引用加入到与之关联的引用队列中</p>
+<ul>
+<li>弱引用</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">//eg 1.</div><div class="line">WeakReference&lt;String&gt; srf = new WeakReference&lt;String&gt;(new String(&quot;hello&quot;));</div><div class="line">String s = srf.get();</div><div class="line">    </div><div class="line">//eg 2.</div><div class="line">ReferenceQueue&lt;String&gt; referenceQueue = new ReferenceQueue&lt;String&gt;();</div><div class="line">WeakReference&lt;String&gt; weak = new WeakReference&lt;String&gt;(new String(&quot;hello&quot;), referenceQueue);</div></pre></td></tr></table></figure>
+<p>只具有弱引用的对象拥有更短暂的生命周期。<br>在垃圾回收器线程扫描它所管辖的内存区域的过程中，一旦发现了只具有弱引用的对象，不管当前内存空间足够与否，都会回收它的内存。<br>由于垃圾回收器是一个优先级很低的线程，因此不一定会很快发现那些只具有弱引用的对象。<br>弱引用可以和一个引用队列（ReferenceQueue）联合使用，如果弱引用所引用的对象被垃圾回收，Java虚拟机就会把这个弱引用加入到与之关联的引用队列中</p>
+<h3 id="虚引用"><a href="#虚引用" class="headerlink" title="虚引用"></a>虚引用</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">ReferenceQueue&lt;String&gt; referenceQueue = new ReferenceQueue&lt;String&gt;();</div><div class="line">PhantomReference&lt;String&gt; phantom = new PhantomReference&lt;String&gt;(new String(&quot;hello&quot;), referenceQueue);</div></pre></td></tr></table></figure>
+<p>虚引用并不会决定对象的生命周期.<br>如果一个对象仅持有虚引用，在任何时候都可能被垃圾回收器回收。<br>虚引用主要用来跟踪对象被垃圾回收器回收的活动。<br>虚引用必须和引用队列联合使用。<br>当垃圾回收器准备回收一个对象时，如果发现它还有虚引用，就会在回收对象的内存之前，把这个虚引用加入到与之关联的引用队列中。</p>
 
       
 
@@ -393,13 +394,11 @@
       
         <div class="post-tags">
           
-            <a href="../../../../tags/CentOS/" rel="tag">#CentOS</a>
+            <a href="../../../../tags/面试题/" rel="tag">#面试题</a>
           
-            <a href="../../../../tags/Linux/" rel="tag">#Linux</a>
+            <a href="../../../../tags/Java/" rel="tag">#Java</a>
           
-            <a href="../../../../tags/MySQL/" rel="tag">#MySQL</a>
-          
-            <a href="../../../../tags/MariaDB/" rel="tag">#MariaDB</a>
+            <a href="../../../../tags/面向对象/" rel="tag">#面向对象</a>
           
         </div>
       
@@ -408,16 +407,16 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="../centos-72-1-install-java-envirment/" rel="next" title="CentOS7（一）Java环境搭建">
-                <i class="fa fa-chevron-left"></i> CentOS7（一）Java环境搭建
+              <a href="../../14/inner-train-1-git/" rel="next" title="内部培训(一) Git 日常使用">
+                <i class="fa fa-chevron-left"></i> 内部培训(一) Git 日常使用
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="../centos-72-7-install-mysql57/" rel="prev" title="CentOS7（七）Install MySQL5.7">
-                CentOS7（七）Install MySQL5.7 <i class="fa fa-chevron-right"></i>
+              <a href="../../26/work-problerm-2-ueditor/" rel="prev" title="百度UEditor使用">
+                百度UEditor使用 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -566,7 +565,7 @@
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Install-MariaDB"><span class="nav-number">2.</span> <span class="nav-text">Install MariaDB</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Start-MariaDB"><span class="nav-number">3.</span> <span class="nav-text">Start MariaDB</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Setting-Secure"><span class="nav-number">4.</span> <span class="nav-text">Setting Secure</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Start-on-boot"><span class="nav-number">5.</span> <span class="nav-text">Start on boot</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#MySQL-配置防火墙"><span class="nav-number">6.</span> <span class="nav-text">MySQL 配置防火墙</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#结束"><span class="nav-number">7.</span> <span class="nav-text">结束</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#强引用"><span class="nav-number">1.</span> <span class="nav-text">强引用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#虚引用"><span class="nav-number">2.</span> <span class="nav-text">虚引用</span></a></li></ol></div>
             
           </div>
         </section>
@@ -690,9 +689,9 @@
 
     <script type="text/javascript">
       var disqus_shortname = 'nealma';
-      var disqus_identifier = '2016/10/01/centos-72-2-install-mariadb/';
-      var disqus_title = "CentOS7（二）Install MySQL (MariaDB)";
-      var disqus_url = 'http://www.nealma.com/2016/10/01/centos-72-2-install-mariadb/';
+      var disqus_identifier = '2016/01/15/java-interview-4-reference/';
+      var disqus_title = "Java面试题  Java中的四种引用";
+      var disqus_url = 'http://www.nealma.com/2016/01/15/java-interview-4-reference/';
 
       function run_disqus_script(disqus_script){
         var dsq = document.createElement('script');
