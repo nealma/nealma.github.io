@@ -311,6 +311,37 @@
   
   <entry>
     <title>【Response Body】服务器端返回值大小</title>
+    <link href="http://www.nealma.com/2017/05/01/work-problerm-9-pk12/"/>
+    <id>http://www.nealma.com/2017/05/01/work-problerm-9-pk12/</id>
+    <published>2017-05-01T04:46:45.000Z</published>
+    <updated>2017-08-21T10:56:10.000Z</updated>
+    
+    <content type="html"><![CDATA[<pre><code>DerInputStream.getLength(): lengthTag=111, too big
+</code></pre><a id="more"></a>
+<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><pre><code>在开发微信企业付款时，在load证书时，发生DerInputStream.getLength(): lengthTag=111, too big错误，
+查了很多才知道，是maven打包惹的祸。
+</code></pre><h3 id="解决办法"><a href="#解决办法" class="headerlink" title="解决办法"></a>解决办法</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">#在pom.xml中加入这个配置即可</div><div class="line">&lt;plugin&gt;</div><div class="line">    &lt;artifactId&gt;maven-resources-plugin&lt;/artifactId&gt;</div><div class="line">    &lt;configuration&gt;</div><div class="line">        &lt;encoding&gt;UTF-8&lt;/encoding&gt;</div><div class="line">        &lt;!-- 过滤后缀为pem、pfx的证书文件 --&gt;</div><div class="line">        &lt;nonFilteredFileExtensions&gt;</div><div class="line">            &lt;nonFilteredFileExtension&gt;pem&lt;/nonFilteredFileExtension&gt;</div><div class="line">            &lt;nonFilteredFileExtension&gt;p12&lt;/nonFilteredFileExtension&gt;</div><div class="line">            &lt;nonFilteredFileExtension&gt;pfx&lt;/nonFilteredFileExtension&gt;</div><div class="line">        &lt;/nonFilteredFileExtensions&gt;</div><div class="line">    &lt;/configuration&gt;</div><div class="line">&lt;/plugin&gt;</div></pre></td></tr></table></figure>
+<h3 id="结束"><a href="#结束" class="headerlink" title="结束"></a>结束</h3><pre><code>:)~
+</code></pre>]]></content>
+    
+    <summary type="html">
+    
+      &lt;pre&gt;&lt;code&gt;DerInputStream.getLength(): lengthTag=111, too big
+&lt;/code&gt;&lt;/pre&gt;
+    
+    </summary>
+    
+      <category term="work" scheme="http://www.nealma.com/categories/work/"/>
+    
+    
+      <category term="java" scheme="http://www.nealma.com/tags/java/"/>
+    
+      <category term="maven" scheme="http://www.nealma.com/tags/maven/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>【Response Body】服务器端返回值大小</title>
     <link href="http://www.nealma.com/2017/05/01/work-problerm-8-server-response-size/"/>
     <id>http://www.nealma.com/2017/05/01/work-problerm-8-server-response-size/</id>
     <published>2017-05-01T03:46:45.000Z</published>
@@ -513,38 +544,6 @@
   </entry>
   
   <entry>
-    <title>【IDEA】cannot resolve syambol xxx</title>
-    <link href="http://www.nealma.com/2017/01/01/work-problerm-6-idea-cannot-resolve-syambol/"/>
-    <id>http://www.nealma.com/2017/01/01/work-problerm-6-idea-cannot-resolve-syambol/</id>
-    <published>2017-01-01T03:46:45.000Z</published>
-    <updated>2017-04-18T04:20:25.000Z</updated>
-    
-    <content type="html"><![CDATA[<pre><code>cannot resolve syambol xxx
-</code></pre><a id="more"></a>
-<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>解决方法如下：<br>点击菜单中的 “File” -&gt; “Invalidate Caches / Restart”，然后点击对话框中的 “Invalidate and Restart”，清空 cache 并且重启。语法就会正确的高亮了。</p>
-<h3 id="结束"><a href="#结束" class="headerlink" title="结束"></a>结束</h3><pre><code>还会陆续遇到各种坑，慢慢填吧...
- :)~
-</code></pre>]]></content>
-    
-    <summary type="html">
-    
-      &lt;pre&gt;&lt;code&gt;cannot resolve syambol xxx
-&lt;/code&gt;&lt;/pre&gt;
-    
-    </summary>
-    
-      <category term="work" scheme="http://www.nealma.com/categories/work/"/>
-    
-    
-      <category term="MySQL" scheme="http://www.nealma.com/tags/MySQL/"/>
-    
-      <category term="大杂烩" scheme="http://www.nealma.com/tags/%E5%A4%A7%E6%9D%82%E7%83%A9/"/>
-    
-      <category term="sql" scheme="http://www.nealma.com/tags/sql/"/>
-    
-  </entry>
-  
-  <entry>
     <title>常用的sql操作</title>
     <link href="http://www.nealma.com/2017/01/01/work-problerm-5-mysql-common-operate/"/>
     <id>http://www.nealma.com/2017/01/01/work-problerm-5-mysql-common-operate/</id>
@@ -572,6 +571,38 @@
     <summary type="html">
     
       &lt;pre&gt;&lt;code&gt;频繁的sql操作，总结一些经常用的。
+&lt;/code&gt;&lt;/pre&gt;
+    
+    </summary>
+    
+      <category term="work" scheme="http://www.nealma.com/categories/work/"/>
+    
+    
+      <category term="MySQL" scheme="http://www.nealma.com/tags/MySQL/"/>
+    
+      <category term="大杂烩" scheme="http://www.nealma.com/tags/%E5%A4%A7%E6%9D%82%E7%83%A9/"/>
+    
+      <category term="sql" scheme="http://www.nealma.com/tags/sql/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>【IDEA】cannot resolve syambol xxx</title>
+    <link href="http://www.nealma.com/2017/01/01/work-problerm-6-idea-cannot-resolve-syambol/"/>
+    <id>http://www.nealma.com/2017/01/01/work-problerm-6-idea-cannot-resolve-syambol/</id>
+    <published>2017-01-01T03:46:45.000Z</published>
+    <updated>2017-04-18T04:20:25.000Z</updated>
+    
+    <content type="html"><![CDATA[<pre><code>cannot resolve syambol xxx
+</code></pre><a id="more"></a>
+<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>解决方法如下：<br>点击菜单中的 “File” -&gt; “Invalidate Caches / Restart”，然后点击对话框中的 “Invalidate and Restart”，清空 cache 并且重启。语法就会正确的高亮了。</p>
+<h3 id="结束"><a href="#结束" class="headerlink" title="结束"></a>结束</h3><pre><code>还会陆续遇到各种坑，慢慢填吧...
+ :)~
+</code></pre>]]></content>
+    
+    <summary type="html">
+    
+      &lt;pre&gt;&lt;code&gt;cannot resolve syambol xxx
 &lt;/code&gt;&lt;/pre&gt;
     
     </summary>
@@ -945,95 +976,6 @@ Live环境，Dev是我们的开发环境，Test作为我们的测试环境，Liv
       <category term="Spring-Boot" scheme="http://www.nealma.com/tags/Spring-Boot/"/>
     
       <category term="Profile" scheme="http://www.nealma.com/tags/Profile/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Spring-Boot（七) Thymeleaf 模版引擎</title>
-    <link href="http://www.nealma.com/2016/11/03/spring-boot-7-thymeleaf/"/>
-    <id>http://www.nealma.com/2016/11/03/spring-boot-7-thymeleaf/</id>
-    <published>2016-11-03T03:46:45.000Z</published>
-    <updated>2017-07-01T03:59:15.000Z</updated>
-    
-    <content type="html"><![CDATA[<pre><code>模版引擎千千万，今个说说Thymeleaf，主要是不想在混用jsp标签和使用jsp后缀文件，
-直接使用html文件，便于前后端分离。
-</code></pre><a id="more"></a>
-<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><pre><code>模版引擎千千万，今个说说Thymeleaf，主要是不想在混用jsp标签和使用jsp后缀文件，
-直接使用html文件，便于前后端分离。
-</code></pre><p>开发环境：<br>OS: Mac 10.11.6<br>IDE: IDEA<br>Build: Maven</p>
-<h3 id="依赖"><a href="#依赖" class="headerlink" title="依赖"></a>依赖</h3><pre><code>Spring Boot天生内置了对Thymeleaf的支持，简化了配置，加速开发。只需要引入如下
-</code></pre> <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"> &lt;dependency&gt;</div><div class="line">  &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;</div><div class="line">  &lt;artifactId&gt;spring-boot-starter-thymeleaf&lt;/artifactId&gt;</div><div class="line">&lt;/dependency&gt;</div></pre></td></tr></table></figure>
-<h3 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h3><pre><code>在application.properties文件里加入如下
-</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">#thymeleaf</div><div class="line">#我倾向于放在webapp/WEB-INF的目录下,spring.thymeleaf.prefix=/templates</div><div class="line">spring.thymeleaf.prefix=classpath:/templates/</div><div class="line">spring.thymeleaf.suffix=.html</div><div class="line">spring.thymeleaf.mode=HTML5</div><div class="line">spring.thymeleaf.encoding=UTF-8</div><div class="line">spring.thymeleaf.content-type=text/html</div></pre></td></tr></table></figure>
-<pre><code>在src/main/resources/templates/文件夹下，存放你的模版文件,其实在应用启动的时候，
-TemplateEngine，ThymeleafViewResolver会自用实例化。
-</code></pre><h3 id="空间指定"><a href="#空间指定" class="headerlink" title="空间指定"></a>空间指定</h3><pre><code>没有指定空间，总是飘红，还是加上吧
-</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">&lt;html xmlns=&quot;http://www.w3.org/1999/xhtml&quot;</div><div class="line">      xmlns:th=&quot;http://www.thymeleaf.org&quot;&gt;</div></pre></td></tr></table></figure>
-<h3 id="最简用例"><a href="#最简用例" class="headerlink" title="最简用例"></a>最简用例</h3><ul>
-<li>Controller</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line">/**</div><div class="line"> *</div><div class="line"> * 商品信息</div><div class="line"> */</div><div class="line">@RestController</div><div class="line">public class GoodsPageController extends BaseController &#123;</div><div class="line">    /**</div><div class="line">     * 商品列表</div><div class="line">     */</div><div class="line">    @RequestMapping(value = &#123;&quot;/goods/list&quot;&#125;, method = RequestMethod.GET)</div><div class="line">    @PermitAll</div><div class="line">    public ModelAndView list(Model model) &#123;</div><div class="line">        LOGGER.info(&quot;|--&gt; &#123;&#125;&quot;, this.getRequest().getRequestURI());</div><div class="line">        model.addAttribute(&quot;name&quot;, &quot;neal&quot;);</div><div class="line">        Map&lt;String, Object&gt; map = new HashMap&lt;&gt;();</div><div class="line">        map.put(&quot;id&quot;, 1);</div><div class="line">        map.put(&quot;title&quot;, &quot;小怪兽来了&quot;);</div><div class="line">        Map&lt;String, Object&gt; map1 = new HashMap&lt;&gt;();</div><div class="line">        map1.put(&quot;id&quot;, 2);</div><div class="line">        map1.put(&quot;title&quot;, &quot;小怪兽来了&quot;);</div><div class="line">        model.addAttribute(&quot;list&quot;, Arrays.asList(new Object[]&#123;map,map1&#125;));</div><div class="line">        return new ModelAndView(&quot;/index&quot;);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<ul>
-<li>创建src/main/resources/templates/index.html</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">&lt;!DOCTYPE html&gt;</div><div class="line">&lt;html xmlns=&quot;http://www.w3.org/1999/xhtml&quot;</div><div class="line">      xmlns:th=&quot;http://www.thymeleaf.org&quot;&gt;</div><div class="line">&lt;head&gt;</div><div class="line">    &lt;meta charset=&quot;UTF-8&quot;/&gt;</div><div class="line">    &lt;title&gt;Thymeleaf Mini Demo&lt;/title&gt;</div><div class="line">&lt;/head&gt;</div><div class="line">&lt;body&gt;</div><div class="line">Hello, &lt;b th:text=&quot;$&#123;name&#125;&quot;&gt;Name&lt;/b&gt;</div><div class="line">&lt;div th:each=&quot;item:$&#123;list&#125;&quot;&gt;</div><div class="line">    &lt;b th:text=&quot;$&#123;item.id&#125;&quot;&gt;ID&lt;/b&gt;</div><div class="line">    &lt;b th:text=&quot;$&#123;item.title&#125;&quot;&gt;Title&lt;/b&gt;</div><div class="line">&lt;/div&gt;</div><div class="line">&lt;/body&gt;</div><div class="line">&lt;/html&gt;</div></pre></td></tr></table></figure>
-<h3 id="结束"><a href="#结束" class="headerlink" title="结束"></a>结束</h3><pre><code>使用过程中，发现thymeleaf对于html的语法要求的很严格，每个标签都要有结束tag。我的一个页面
-&lt;link &gt; &lt;img&gt; 没有&quot;/&quot;,导致报错；还有就是属性必须是&quot;=&quot;,即key=value, 在input中我使用了disable,结果报错了
-于是改成disable=&quot;disable&quot;.
-</code></pre><h3 id="更新日志-1"><a href="#更新日志-1" class="headerlink" title="更新日志 1"></a>更新日志 1</h3><pre><code>有的时候，老项目移植到新项目的时候，好多都不是严格的html，一个一个盖起来，费时又费力，当然如果有时间，
-还是建议使用严格格式。现在有一个偷懒的方法，就是做如下修改：
-</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">#非严格标准</div><div class="line">spring.thymeleaf.mode=LEGACYHTML5</div></pre></td></tr></table></figure>
-<pre><code>除了这个，还需要额外的增加依赖
-</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">&lt;!-- 非标准HTML5 --&gt;</div><div class="line">&lt;dependency&gt;</div><div class="line">    &lt;groupId&gt;net.sourceforge.nekohtml&lt;/groupId&gt;</div><div class="line">    &lt;artifactId&gt;nekohtml&lt;/artifactId&gt;</div><div class="line">    &lt;version&gt;1.9.22&lt;/version&gt;</div><div class="line">&lt;/dependency&gt;</div></pre></td></tr></table></figure>
-<h3 id="更新日志-2"><a href="#更新日志-2" class="headerlink" title="更新日志 2"></a>更新日志 2</h3><pre><code>thymeleaf的默认静态资源结构, static作为默认静态资源的根路径
-</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">src/main/resources</div><div class="line">├── static</div><div class="line">│   ├── favicon.png</div><div class="line">│   └── web</div><div class="line">└── templates</div><div class="line">    ├── error</div><div class="line">    └── web</div></pre></td></tr></table></figure>
-<h3 id="更新日志-3"><a href="#更新日志-3" class="headerlink" title="更新日志 3"></a>更新日志 3</h3><pre><code>thymeleaf的基本使用，按照工作中使用情况，随记
-</code></pre><ul>
-<li><p>变量</p>
-<p>  服务器端直接传递对象</p>
-</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">Server :</div><div class="line">   Entity e = new Entity();</div><div class="line">   model.addAttribute(&quot;entity&quot;, e);</div><div class="line"></div><div class="line">Client :</div><div class="line"></div><div class="line">    &lt;tag th:text=&quot;$&#123;entity.filed&#125;&quot;&gt;&lt;/tag&gt;</div></pre></td></tr></table></figure>
-<ul>
-<li><p>if, each语句和自定义属性th:attr</p>
-<p>  activities为服务端传过来的集合对象</p>
-</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">&lt;div th:each=&quot;activityItem, activityStat : $&#123;activities&#125;&quot; th:remove=&quot;tag&quot;&gt;</div><div class="line">    &lt;div class=&quot;index_ad&quot; th:if=&quot;$&#123;activityItem.activityType == 1&#125;&quot;&gt;</div><div class="line">        &lt;a th:href=&quot;$&#123;activityItemactivityUrl&#125;&quot;&gt;</div><div class="line">            &lt;img th:src=&quot;$&#123;activityItem.activityImageUrl&#125;&quot;&gt;</div><div class="line">        &lt;/a&gt;</div><div class="line">    &lt;/div&gt;</div><div class="line">&lt;/div&gt;</div><div class="line"></div><div class="line">#或者</div><div class="line"></div><div class="line">&lt;dl&gt;</div><div class="line">    &lt;div th:each=&quot;attribute : $&#123; attributes &#125;&quot; th:remove=&quot;tag&quot;&gt;</div><div class="line">        &lt;dd th:if=&quot;$&#123;attribute.attrName eq attributeName&#125;&quot; th:attr=&quot;goodsattrlinkid=$&#123;attribute.id&#125;&quot; th:text=&quot;$&#123;attribute.attrValue&#125;&quot;&gt;黑色&lt;/dd&gt;</div><div class="line">    &lt;/div&gt;</div><div class="line">&lt;/dl&gt;</div></pre></td></tr></table></figure>
-<ul>
-<li>作为html渲染，非text</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">Server:</div><div class="line"></div><div class="line">    String n = &quot;&lt;p&gt;&lt;img src=&apos;1.jpg&apos;&gt;&quot;;</div><div class="line">    model.addAttribute(&quot;n&quot;, n);</div><div class="line"></div><div class="line">client:</div><div class="line"></div><div class="line">    &lt;div th:remove=&quot;tag&quot; th:utext=&quot;$&#123;n&#125;&quot;&gt;&lt;/div&gt;</div></pre></td></tr></table></figure>
-<h3 id="在javascript中使用服务端传过来的参数-两种方式："><a href="#在javascript中使用服务端传过来的参数-两种方式：" class="headerlink" title="在javascript中使用服务端传过来的参数,两种方式："></a>在javascript中使用服务端传过来的参数,两种方式：</h3><ul>
-<li>隐藏域，在html中预埋相应的input标签，javascript中使用jquery选择器</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">HTML:</div><div class="line">    &lt;input id=&quot;goodsScreenPrice&quot; th:value=&quot;$&#123;goods.goodsScreenPrice&#125;&quot; type=&quot;number&quot;/&gt;</div><div class="line"></div><div class="line">JAVASCRIPT:</div><div class="line">    $(&apos;#goodsScreenPrice&apos;).val()</div></pre></td></tr></table></figure>
-<ul>
-<li>th:inline,直接使用</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">&lt;script th:inline=&quot;javascript&quot;&gt;</div><div class="line">    /*&lt;![CDATA[*/</div><div class="line">    goodsCategoryIdChecked = [[$&#123;goods.categoryId&#125;]];</div><div class="line">    goodsDetailChecked = [[$&#123;goods.goodsDetail&#125;]];</div><div class="line">    /*]]&gt;*/</div><div class="line">&lt;/script&gt;</div></pre></td></tr></table></figure>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;pre&gt;&lt;code&gt;模版引擎千千万，今个说说Thymeleaf，主要是不想在混用jsp标签和使用jsp后缀文件，
-直接使用html文件，便于前后端分离。
-&lt;/code&gt;&lt;/pre&gt;
-    
-    </summary>
-    
-      <category term="Spring Boot" scheme="http://www.nealma.com/categories/Spring-Boot/"/>
-    
-    
-      <category term="Java" scheme="http://www.nealma.com/tags/Java/"/>
-    
-      <category term="Spring" scheme="http://www.nealma.com/tags/Spring/"/>
-    
-      <category term="Spring-Boot" scheme="http://www.nealma.com/tags/Spring-Boot/"/>
-    
-      <category term="Template" scheme="http://www.nealma.com/tags/Template/"/>
-    
-      <category term="Thymeleaf" scheme="http://www.nealma.com/tags/Thymeleaf/"/>
     
   </entry>
   
