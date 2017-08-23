@@ -1,0 +1,745 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="../../../../lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="../../../../lib/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="../../../../css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Java,Spring,Spring-Boot,Transaction," />
+
+
+
+
+
+  <link rel="alternate" href="../../../../atom.xml" title="nealma.com" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="../../../../favicon.png?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="SpringBoot的事务管理（jdbc、jpa、mybatis）">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Spring-Boot（十三) 事物处理 Transaction">
+<meta property="og:url" content="http://www.nealma.com/2017/06/02/spring-boot-13-transaction/index.html">
+<meta property="og:site_name" content="nealma.com">
+<meta property="og:description" content="SpringBoot的事务管理（jdbc、jpa、mybatis）">
+<meta property="og:updated_time" content="2017-08-23T06:14:18.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Spring-Boot（十三) 事物处理 Transaction">
+<meta name="twitter:description" content="SpringBoot的事务管理（jdbc、jpa、mybatis）">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Mist',
+    sidebar: {"position":"right","display":"always"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="http://www.nealma.com/2017/06/02/spring-boot-13-transaction/"/>
+
+  <title> Spring-Boot（十三) 事物处理 Transaction | nealma.com </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?14f8b7b0ed1beacee64703963cbeab10";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-right page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta custom-logo">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">nealma.com</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                Spring-Boot（十三) 事物处理 Transaction
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2017-06-02T10:46:45+08:00" content="2017-06-02">
+              2017-06-02
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="../../../../categories/Spring-Boot/" itemprop="url" rel="index">
+                    <span itemprop="name">Spring Boot</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2017/06/02/spring-boot-13-transaction/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <pre><code>SpringBoot的事务管理（jdbc、jpa、mybatis）
+</code></pre><a id="more"></a>
+<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><pre><code>SpringBoot的事务管理（jdbc、jpa、mybatis）
+Springboot内部提供的事务管理器是根据autoconfigure来进行决定的。
+</code></pre><p>开发环境：<br>OS: Mac 10.11.6<br>IDE: IDEA<br>Build: Maven</p>
+<h3 id="触发不同的事物管理器"><a href="#触发不同的事物管理器" class="headerlink" title="触发不同的事物管理器"></a>触发不同的事物管理器</h3><ul>
+<li>当使用jpa（pom中加入了spring-boot-starter-data-jpa），Springboot会构造一个JpaTransactionManager事务管理器；</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">#触发HibernateJpaAutoConfiguration（该类继承了JpaBaseConfiguration类）自动配置</div><div class="line">@Bean</div><div class="line">@ConditionalOnMissingBean(PlatformTransactionManager.class)</div><div class="line">public PlatformTransactionManager transactionManager() &#123;</div><div class="line">    return new JpaTransactionManager();</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<ul>
+<li>当我们使用jdbc(pom中加入了spring-boot-starter-jdbc），Springboot会构造一个DataSourceTransactionManager事物管理器；</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">#触发DataSourceTransactionManagerAutoConfiguration这个自动化配置</div><div class="line">@Bean</div><div class="line">@ConditionalOnMissingBean(&#123;PlatformTransactionManager.class&#125;)</div><div class="line">public DataSourceTransactionManager transactionManager(DataSourceProperties properties) &#123;</div><div class="line">    DataSourceTransactionManager transactionManager = new DataSourceTransactionManager(this.dataSource);</div><div class="line">    if(this.transactionManagerCustomizers != null) &#123;</div><div class="line">        this.transactionManagerCustomizers.customize(transactionManager);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    return transactionManager;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>这两个接口都实现了PlatformTransactionManager这个接口，PlatformTransactionManager是spring事物管理的核心接口。</p>
+<h3 id="手动配置事物管理器"><a href="#手动配置事物管理器" class="headerlink" title="手动配置事物管理器"></a>手动配置事物管理器</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">@ConditionalOnMissingBean(&#123;PlatformTransactionManager.class&#125;)</div></pre></td></tr></table></figure>
+<p>在自动配置类中，我们发现@ConditionalOnMissingBean({PlatformTransactionManager.class})这个注解，什么意思呢？<br>就是如果我们手动配置了事物管理器，spring将不会再为我们构造事物管理器了。</p>
+<h3 id="那如果我们使用的是mybatis，如何处理事物呢"><a href="#那如果我们使用的是mybatis，如何处理事物呢" class="headerlink" title="那如果我们使用的是mybatis，如何处理事物呢"></a>那如果我们使用的是mybatis，如何处理事物呢</h3><p>MyBatis 中有两种类型的事务管理器（也就是 type=”[JDBC|MANAGED]”）</p>
+<ul>
+<li><p>JDBC - 直接使用了 JDBC 的提交和回滚设置，它依赖于从数据源得到的连接来管理事务范围。</p>
+</li>
+<li><p>MANAGED - 让容器来管理事务的整个生命周期（比如 JEE 应用服务器的上下文）。</p>
+</li>
+<li><p>SqlSessionFactory mybatis通过这个核心类来管理session，session进行提交和回滚。</p>
+</li>
+</ul>
+<h3 id="使用Spring-MyBatis"><a href="#使用Spring-MyBatis" class="headerlink" title="使用Spring+MyBatis"></a>使用Spring+MyBatis</h3><p>大部分情况下，我们不会单独使用MyBatis，都会结合Spring来使用。这个时候，事物处理统统有Spring来管理</p>
+<p>在与Spring、SpringBoot集成时，注意SqlSessionFactory和DataSourceTransactionManager必须给予同一个dataSource,<br>否则不能进行事物管理。</p>
+<h3 id="举个列子"><a href="#举个列子" class="headerlink" title="举个列子"></a>举个列子</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div></pre></td><td class="code"><pre><div class="line">@Configuration</div><div class="line">@MapperScan(DataSourceConfig.PACKAGE)</div><div class="line">public class DataSourceConfig &#123;</div><div class="line"></div><div class="line">    // 精确到 master 目录，以便跟其他数据源隔离</div><div class="line">    static final String PACKAGE = &quot;com.x.*.dao&quot;;</div><div class="line">    static final String MAPPER_LOCATION = &quot;classpath*:**/mappers/*.xml&quot;;</div><div class="line"></div><div class="line">    @Value(&quot;$&#123;spring.datasource.url&#125;&quot;)</div><div class="line">    private String url;</div><div class="line">    @Value(&quot;$&#123;spring.datasource.username&#125;&quot;)</div><div class="line">    private String username;</div><div class="line">    @Value(&quot;$&#123;spring.datasource.password&#125;&quot;)</div><div class="line">    private String password;</div><div class="line">    @Value(&quot;$&#123;spring.datasource.driver-class-name&#125;&quot;)</div><div class="line">    private String driver;</div><div class="line"></div><div class="line"></div><div class="line">    @Bean(name = &quot;dataSource&quot;)</div><div class="line">    public DataSource dataSource() &#123;</div><div class="line">        //DruidDataSource dataSource = new DruidDataSource();//alibaba druid datasource</div><div class="line">        DriverManagerDataSource dataSource = new DriverManagerDataSource();</div><div class="line">        dataSource.setDriverClassName(driver);</div><div class="line">        dataSource.setUrl(url);</div><div class="line">        dataSource.setUsername(username);</div><div class="line">        dataSource.setPassword(password);</div><div class="line">        return dataSource;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    @Bean(name = &quot;transactionManager&quot;)</div><div class="line">    public DataSourceTransactionManager transactionManager() &#123;</div><div class="line">        return new DataSourceTransactionManager(dataSource());</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    @Bean(name = &quot;sqlSessionFactory&quot;)</div><div class="line">    public SqlSessionFactory sqlSessionFactory(@Qualifier(&quot;dataSource&quot;) DataSource dataSource)</div><div class="line">            throws Exception &#123;</div><div class="line">        final SqlSessionFactoryBean sessionFactory = new SqlSessionFactoryBean();</div><div class="line">        sessionFactory.setDataSource(dataSource);</div><div class="line">        sessionFactory.setMapperLocations(new PathMatchingResourcePatternResolver()</div><div class="line">                .getResources(DataSourceConfig.MAPPER_LOCATION));</div><div class="line">        return sessionFactory.getObject();</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="可以使用多个事物处理器"><a href="#可以使用多个事物处理器" class="headerlink" title="可以使用多个事物处理器()"></a>可以使用多个事物处理器()</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">@Configuration</div><div class="line">public class DatabaseConfiguration &#123;</div><div class="line"> </div><div class="line">    @Bean</div><div class="line">    public PlatformTransactionManager transactionManager1(EntityManagerFactory entityManagerFactory) &#123;</div><div class="line">        return new JpaTransactionManager(entityManagerFactory);</div><div class="line">    &#125;</div><div class="line"> </div><div class="line">    @Bean</div><div class="line">    public PlatformTransactionManager transactionManager2(DataSource dataSource) &#123;</div><div class="line">        return new DataSourceTransactionManager(dataSource);</div><div class="line">    &#125;</div><div class="line"> </div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="在具体使用-Transactional时需要制定处理器的名字"><a href="#在具体使用-Transactional时需要制定处理器的名字" class="headerlink" title="在具体使用@Transactional时需要制定处理器的名字"></a>在具体使用@Transactional时需要制定处理器的名字</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"># @Transactional(value=&quot;transactionManager&quot;, rollbackFor = Exception.class)</div><div class="line"># @Transactional</div><div class="line"></div><div class="line">@Transactional(value=&quot;transactionManager1&quot;)</div><div class="line">public void insert() &#123;</div><div class="line">    insert();</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="继承TransactionManagementConfigurer类，覆盖默认事物处理器方法"><a href="#继承TransactionManagementConfigurer类，覆盖默认事物处理器方法" class="headerlink" title="继承TransactionManagementConfigurer类，覆盖默认事物处理器方法"></a>继承TransactionManagementConfigurer类，覆盖默认事物处理器方法</h3><p>**在Spring容器中，我们手工注解@Bean 将被优先加载，框架不会重新实例化其他的 PlatformTransactionManager 实现类。</p>
+<p>然后在Service中，被 @Transactional 注解的方法，将支持事务。如果注解在类上，则整个类的所有方法都默认支持事务。</p>
+<p>对于同一个工程中存在多个事务管理器要怎么处理，请看下面的实例，具体说明请看代码中的注释。**</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">// 实现接口 TransactionManagementConfigurer 方法，其返回值代表在拥有多个事务管理器的情况下默认使用的事务管理器</div><div class="line">    @Override</div><div class="line">    public PlatformTransactionManager annotationDrivenTransactionManager() &#123;</div><div class="line">        return txManager2;</div><div class="line">    &#125;</div></pre></td></tr></table></figure>
+<p><strong>如果Spring容器中存在多个 PlatformTransactionManager 实例，并且没有实现接口 TransactionManagementConfigurer 指定默认值，在我们在方法上使用注解 @Transactional 的时候，就必须要用value指定，如果不指定，则会抛出异常。</strong></p>
+
+      
+
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+    <div>打赏我的人，运气都不会太差~</div>
+    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+      <span>赏</span>
+    </button>
+    <div id="QR" style="display: none;">
+      
+        <div id="wechat" style="display: inline-block">
+          <img id="wechat_qr" src="/images/wechatpay.jpeg" alt="马英乘Neal WeChat Pay"/>
+          <p>微信打赏</p>
+        </div>
+      
+      
+        <div id="alipay" style="display: inline-block">
+          <img id="alipay_qr" src="/images/alipay.jpeg" alt="马英乘Neal Alipay"/>
+          <p>支付宝打赏</p>
+        </div>
+      
+    </div>
+  </div>
+
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="../../../../tags/Java/" rel="tag">#Java</a>
+          
+            <a href="../../../../tags/Spring/" rel="tag">#Spring</a>
+          
+            <a href="../../../../tags/Spring-Boot/" rel="tag">#Spring-Boot</a>
+          
+            <a href="../../../../tags/Transaction/" rel="tag">#Transaction</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="../../01/spring-boot-12-not-thread/" rel="next" title="Spring-Boot（十二) 获取request和session">
+                <i class="fa fa-chevron-left"></i> Spring-Boot（十二) 获取request和session
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="../../04/nginx-example-work-3-temp-proxy/" rel="prev" title="Nginx | ERR_CONTENT_LENGTH_MISMATCH">
+                Nginx | ERR_CONTENT_LENGTH_MISMATCH <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    
+
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="http://upload.jianshu.io/users/upload_avatars/2649507/df92b5ff1a68.jpeg"
+               alt="马英乘Neal" />
+          <p class="site-author-name" itemprop="name">马英乘Neal</p>
+          <p class="site-description motion-element" itemprop="description">Follow your heart, just do it.</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="../../../../archives">
+              <span class="site-state-item-count">75</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="../../../../categories">
+                <span class="site-state-item-count">21</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="../../../../tags">
+                <span class="site-state-item-count">74</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="../../../../atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              Links
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://github.com/nealma" title="GitHub" target="_blank">GitHub</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.jianshu.com/users/9772bc8f9aa0/latest_articles" title="简书" target="_blank">简书</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#触发不同的事物管理器"><span class="nav-number">2.</span> <span class="nav-text">触发不同的事物管理器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#手动配置事物管理器"><span class="nav-number">3.</span> <span class="nav-text">手动配置事物管理器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#那如果我们使用的是mybatis，如何处理事物呢"><span class="nav-number">4.</span> <span class="nav-text">那如果我们使用的是mybatis，如何处理事物呢</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用Spring-MyBatis"><span class="nav-number">5.</span> <span class="nav-text">使用Spring+MyBatis</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#举个列子"><span class="nav-number">6.</span> <span class="nav-text">举个列子</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#可以使用多个事物处理器"><span class="nav-number">7.</span> <span class="nav-text">可以使用多个事物处理器()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#在具体使用-Transactional时需要制定处理器的名字"><span class="nav-number">8.</span> <span class="nav-text">在具体使用@Transactional时需要制定处理器的名字</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#继承TransactionManagementConfigurer类，覆盖默认事物处理器方法"><span class="nav-number">9.</span> <span class="nav-text">继承TransactionManagementConfigurer类，覆盖默认事物处理器方法</span></a></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">马英乘Neal</span>
+</div>
+
+<div class="powered-by">
+  <span id="busuanzi_container_site_pv">
+      本站总访问量<span id="busuanzi_value_site_pv"></span>次
+  </span>
+</div>
+
+<div class="theme-info">
+  <span id="busuanzi_container_site_uv">
+    本站访客数
+    <span id="busuanzi_value_site_uv"></span>人次
+  </span>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="../../../../lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="../../../../lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="../../../../lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="../../../../lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="../../../../lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="../../../../lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="../../../../js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="../../../../js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="../../../../js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="../../../../js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="../../../../js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+
+
+  
+
+    <script type="text/javascript">
+      var disqus_shortname = 'nealma';
+      var disqus_identifier = '2017/06/02/spring-boot-13-transaction/';
+      var disqus_title = "Spring-Boot（十三) 事物处理 Transaction";
+      var disqus_url = 'http://www.nealma.com/2017/06/02/spring-boot-13-transaction/';
+
+      function run_disqus_script(disqus_script){
+        var dsq = document.createElement('script');
+        dsq.type = 'text/javascript';
+        dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      }
+
+      run_disqus_script('count.js');
+      
+        run_disqus_script('embed.js');
+      
+    </script>
+  
+
+
+
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
