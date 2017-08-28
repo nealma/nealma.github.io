@@ -274,7 +274,7 @@
     <link href="http://www.nealma.com/2017/06/02/spring-boot-13-transaction/"/>
     <id>http://www.nealma.com/2017/06/02/spring-boot-13-transaction/</id>
     <published>2017-06-02T02:46:45.000Z</published>
-    <updated>2017-08-23T06:14:18.000Z</updated>
+    <updated>2017-08-23T06:20:35.000Z</updated>
     
     <content type="html"><![CDATA[<pre><code>SpringBoot的事务管理（jdbc、jpa、mybatis）
 </code></pre><a id="more"></a>
@@ -306,9 +306,9 @@ Springboot内部提供的事务管理器是根据autoconfigure来进行决定的
 <h3 id="举个列子"><a href="#举个列子" class="headerlink" title="举个列子"></a>举个列子</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div></pre></td><td class="code"><pre><div class="line">@Configuration</div><div class="line">@MapperScan(DataSourceConfig.PACKAGE)</div><div class="line">public class DataSourceConfig &#123;</div><div class="line"></div><div class="line">    // 精确到 master 目录，以便跟其他数据源隔离</div><div class="line">    static final String PACKAGE = &quot;com.x.*.dao&quot;;</div><div class="line">    static final String MAPPER_LOCATION = &quot;classpath*:**/mappers/*.xml&quot;;</div><div class="line"></div><div class="line">    @Value(&quot;$&#123;spring.datasource.url&#125;&quot;)</div><div class="line">    private String url;</div><div class="line">    @Value(&quot;$&#123;spring.datasource.username&#125;&quot;)</div><div class="line">    private String username;</div><div class="line">    @Value(&quot;$&#123;spring.datasource.password&#125;&quot;)</div><div class="line">    private String password;</div><div class="line">    @Value(&quot;$&#123;spring.datasource.driver-class-name&#125;&quot;)</div><div class="line">    private String driver;</div><div class="line"></div><div class="line"></div><div class="line">    @Bean(name = &quot;dataSource&quot;)</div><div class="line">    public DataSource dataSource() &#123;</div><div class="line">        //DruidDataSource dataSource = new DruidDataSource();//alibaba druid datasource</div><div class="line">        DriverManagerDataSource dataSource = new DriverManagerDataSource();</div><div class="line">        dataSource.setDriverClassName(driver);</div><div class="line">        dataSource.setUrl(url);</div><div class="line">        dataSource.setUsername(username);</div><div class="line">        dataSource.setPassword(password);</div><div class="line">        return dataSource;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    @Bean(name = &quot;transactionManager&quot;)</div><div class="line">    public DataSourceTransactionManager transactionManager() &#123;</div><div class="line">        return new DataSourceTransactionManager(dataSource());</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    @Bean(name = &quot;sqlSessionFactory&quot;)</div><div class="line">    public SqlSessionFactory sqlSessionFactory(@Qualifier(&quot;dataSource&quot;) DataSource dataSource)</div><div class="line">            throws Exception &#123;</div><div class="line">        final SqlSessionFactoryBean sessionFactory = new SqlSessionFactoryBean();</div><div class="line">        sessionFactory.setDataSource(dataSource);</div><div class="line">        sessionFactory.setMapperLocations(new PathMatchingResourcePatternResolver()</div><div class="line">                .getResources(DataSourceConfig.MAPPER_LOCATION));</div><div class="line">        return sessionFactory.getObject();</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <h3 id="可以使用多个事物处理器"><a href="#可以使用多个事物处理器" class="headerlink" title="可以使用多个事物处理器()"></a>可以使用多个事物处理器()</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">@Configuration</div><div class="line">public class DatabaseConfiguration &#123;</div><div class="line"> </div><div class="line">    @Bean</div><div class="line">    public PlatformTransactionManager transactionManager1(EntityManagerFactory entityManagerFactory) &#123;</div><div class="line">        return new JpaTransactionManager(entityManagerFactory);</div><div class="line">    &#125;</div><div class="line"> </div><div class="line">    @Bean</div><div class="line">    public PlatformTransactionManager transactionManager2(DataSource dataSource) &#123;</div><div class="line">        return new DataSourceTransactionManager(dataSource);</div><div class="line">    &#125;</div><div class="line"> </div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <h3 id="在具体使用-Transactional时需要制定处理器的名字"><a href="#在具体使用-Transactional时需要制定处理器的名字" class="headerlink" title="在具体使用@Transactional时需要制定处理器的名字"></a>在具体使用@Transactional时需要制定处理器的名字</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"># @Transactional(value=&quot;transactionManager&quot;, rollbackFor = Exception.class)</div><div class="line"># @Transactional</div><div class="line"></div><div class="line">@Transactional(value=&quot;transactionManager1&quot;)</div><div class="line">public void insert() &#123;</div><div class="line">    insert();</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h3 id="继承TransactionManagementConfigurer类，覆盖默认事物处理器方法"><a href="#继承TransactionManagementConfigurer类，覆盖默认事物处理器方法" class="headerlink" title="继承TransactionManagementConfigurer类，覆盖默认事物处理器方法"></a>继承TransactionManagementConfigurer类，覆盖默认事物处理器方法</h3><p>**在Spring容器中，我们手工注解@Bean 将被优先加载，框架不会重新实例化其他的 PlatformTransactionManager 实现类。</p>
-<p>然后在Service中，被 @Transactional 注解的方法，将支持事务。如果注解在类上，则整个类的所有方法都默认支持事务。</p>
-<p>对于同一个工程中存在多个事务管理器要怎么处理，请看下面的实例，具体说明请看代码中的注释。**</p>
+<h3 id="继承TransactionManagementConfigurer类，覆盖默认事物处理器方法"><a href="#继承TransactionManagementConfigurer类，覆盖默认事物处理器方法" class="headerlink" title="继承TransactionManagementConfigurer类，覆盖默认事物处理器方法"></a>继承TransactionManagementConfigurer类，覆盖默认事物处理器方法</h3><p><strong>在Spring容器中，我们手工注解@Bean 将被优先加载，框架不会重新实例化其他的 PlatformTransactionManager 实现类。</strong></p>
+<p><strong>然后在Service中，被 @Transactional 注解的方法，将支持事务。如果注解在类上，则整个类的所有方法都默认支持事务。</strong></p>
+<p><strong>对于同一个工程中存在多个事务管理器要怎么处理，请看下面的实例，具体说明请看代码中的注释。</strong></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">// 实现接口 TransactionManagementConfigurer 方法，其返回值代表在拥有多个事务管理器的情况下默认使用的事务管理器</div><div class="line">    @Override</div><div class="line">    public PlatformTransactionManager annotationDrivenTransactionManager() &#123;</div><div class="line">        return txManager2;</div><div class="line">    &#125;</div></pre></td></tr></table></figure>
 <p><strong>如果Spring容器中存在多个 PlatformTransactionManager 实例，并且没有实现接口 TransactionManagementConfigurer 指定默认值，在我们在方法上使用注解 @Transactional 的时候，就必须要用value指定，如果不指定，则会抛出异常。</strong></p>
 ]]></content>
@@ -493,7 +493,7 @@ Springboot内部提供的事务管理器是根据autoconfigure来进行决定的
     <link href="http://www.nealma.com/2017/04/18/spring-boot-10-jpa-hibernate/"/>
     <id>http://www.nealma.com/2017/04/18/spring-boot-10-jpa-hibernate/</id>
     <published>2017-04-18T03:46:45.000Z</published>
-    <updated>2017-07-01T03:58:07.000Z</updated>
+    <updated>2017-08-28T07:32:42.000Z</updated>
     
     <content type="html"><![CDATA[<pre><code>一直都在用MyBatis，感觉很好用，自己也熟悉。考虑到Spring Boot天生支持JPA，而且Hibernate也支持
 分布式事务，有成熟的解决方案，值得研究一下
@@ -529,7 +529,10 @@ Springboot内部提供的事务管理器是根据autoconfigure来进行决定的
 </li>
 </ul>
 <p>OR<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">public Page&lt;User&gt; findCriteriaV2(final User user, int page, int pageSize) throws Exception &#123;</div><div class="line">	Sort sort = new Sort(Sort.Direction.DESC, &quot;id&quot;);</div><div class="line">	Pageable pageable  =  new PageRequest(page, pageSize, sort);</div><div class="line"></div><div class="line">	return userRepository.findAll((root, query, builder) -&gt; &#123;</div><div class="line">		Predicate p1 = builder.equal(root.get(&quot;username&quot;).as(String.class), user.getUsername());</div><div class="line">		Predicate p2 = builder.equal(root.get(&quot;nickname&quot;).as(Long.class), user.getNickname());</div><div class="line"></div><div class="line">		query.where(builder.and(p1, p2));</div><div class="line">		return query.getRestriction();</div><div class="line">	&#125;, pageable);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<h3 id="结束"><a href="#结束" class="headerlink" title="结束"></a>结束</h3><pre><code>使用频率最多的都列举出来了，够我们用了。
+<h3 id="客户端控制排序"><a href="#客户端控制排序" class="headerlink" title="客户端控制排序"></a>客户端控制排序</h3><p><em>**Server-Side</em><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">public MsgOut list(Article article, Pageable pageable, Integer rows)&#123;</div><div class="line">    return articleService.select(article, ServiceUtils.updatePageable(pageable, rows));</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p><em>**Client-Side</em></p>
+<pre><code>http://a.b.com/api/list?sort=id,desc&amp;sort=ctime,desc&amp;sort=mtime
+</code></pre><h3 id="结束"><a href="#结束" class="headerlink" title="结束"></a>结束</h3><pre><code>使用频率最多的都列举出来了，够我们用了。
 但是程序员就像偷懒，不想每个domain都要写个XxxRepository,写个基础BaseRepository岂不是节省好多事呢，有空在写吧...
 </code></pre>]]></content>
     
@@ -608,38 +611,6 @@ Springboot内部提供的事务管理器是根据autoconfigure来进行决定的
   </entry>
   
   <entry>
-    <title>【IDEA】cannot resolve syambol xxx</title>
-    <link href="http://www.nealma.com/2017/01/01/work-problerm-6-idea-cannot-resolve-syambol/"/>
-    <id>http://www.nealma.com/2017/01/01/work-problerm-6-idea-cannot-resolve-syambol/</id>
-    <published>2017-01-01T03:46:45.000Z</published>
-    <updated>2017-04-18T04:20:25.000Z</updated>
-    
-    <content type="html"><![CDATA[<pre><code>cannot resolve syambol xxx
-</code></pre><a id="more"></a>
-<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>解决方法如下：<br>点击菜单中的 “File” -&gt; “Invalidate Caches / Restart”，然后点击对话框中的 “Invalidate and Restart”，清空 cache 并且重启。语法就会正确的高亮了。</p>
-<h3 id="结束"><a href="#结束" class="headerlink" title="结束"></a>结束</h3><pre><code>还会陆续遇到各种坑，慢慢填吧...
- :)~
-</code></pre>]]></content>
-    
-    <summary type="html">
-    
-      &lt;pre&gt;&lt;code&gt;cannot resolve syambol xxx
-&lt;/code&gt;&lt;/pre&gt;
-    
-    </summary>
-    
-      <category term="work" scheme="http://www.nealma.com/categories/work/"/>
-    
-    
-      <category term="MySQL" scheme="http://www.nealma.com/tags/MySQL/"/>
-    
-      <category term="大杂烩" scheme="http://www.nealma.com/tags/%E5%A4%A7%E6%9D%82%E7%83%A9/"/>
-    
-      <category term="sql" scheme="http://www.nealma.com/tags/sql/"/>
-    
-  </entry>
-  
-  <entry>
     <title>常用的sql操作</title>
     <link href="http://www.nealma.com/2017/01/01/work-problerm-5-mysql-common-operate/"/>
     <id>http://www.nealma.com/2017/01/01/work-problerm-5-mysql-common-operate/</id>
@@ -667,6 +638,38 @@ Springboot内部提供的事务管理器是根据autoconfigure来进行决定的
     <summary type="html">
     
       &lt;pre&gt;&lt;code&gt;频繁的sql操作，总结一些经常用的。
+&lt;/code&gt;&lt;/pre&gt;
+    
+    </summary>
+    
+      <category term="work" scheme="http://www.nealma.com/categories/work/"/>
+    
+    
+      <category term="MySQL" scheme="http://www.nealma.com/tags/MySQL/"/>
+    
+      <category term="大杂烩" scheme="http://www.nealma.com/tags/%E5%A4%A7%E6%9D%82%E7%83%A9/"/>
+    
+      <category term="sql" scheme="http://www.nealma.com/tags/sql/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>【IDEA】cannot resolve syambol xxx</title>
+    <link href="http://www.nealma.com/2017/01/01/work-problerm-6-idea-cannot-resolve-syambol/"/>
+    <id>http://www.nealma.com/2017/01/01/work-problerm-6-idea-cannot-resolve-syambol/</id>
+    <published>2017-01-01T03:46:45.000Z</published>
+    <updated>2017-04-18T04:20:25.000Z</updated>
+    
+    <content type="html"><![CDATA[<pre><code>cannot resolve syambol xxx
+</code></pre><a id="more"></a>
+<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>解决方法如下：<br>点击菜单中的 “File” -&gt; “Invalidate Caches / Restart”，然后点击对话框中的 “Invalidate and Restart”，清空 cache 并且重启。语法就会正确的高亮了。</p>
+<h3 id="结束"><a href="#结束" class="headerlink" title="结束"></a>结束</h3><pre><code>还会陆续遇到各种坑，慢慢填吧...
+ :)~
+</code></pre>]]></content>
+    
+    <summary type="html">
+    
+      &lt;pre&gt;&lt;code&gt;cannot resolve syambol xxx
 &lt;/code&gt;&lt;/pre&gt;
     
     </summary>

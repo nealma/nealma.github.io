@@ -94,7 +94,7 @@
 <meta property="og:site_name" content="nealma.com">
 <meta property="og:description" content="一直都在用MyBatis，感觉很好用，自己也熟悉。考虑到Spring Boot天生支持JPA，而且Hibernate也支持
 分布式事务，有成熟的解决方案，值得研究一下">
-<meta property="og:updated_time" content="2017-07-01T03:58:07.000Z">
+<meta property="og:updated_time" content="2017-08-28T07:32:42.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Spring-Boot（十) JPA Hibernate">
 <meta name="twitter:description" content="一直都在用MyBatis，感觉很好用，自己也熟悉。考虑到Spring Boot天生支持JPA，而且Hibernate也支持
@@ -371,7 +371,10 @@
 </li>
 </ul>
 <p>OR<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">public Page&lt;User&gt; findCriteriaV2(final User user, int page, int pageSize) throws Exception &#123;</div><div class="line">	Sort sort = new Sort(Sort.Direction.DESC, &quot;id&quot;);</div><div class="line">	Pageable pageable  =  new PageRequest(page, pageSize, sort);</div><div class="line"></div><div class="line">	return userRepository.findAll((root, query, builder) -&gt; &#123;</div><div class="line">		Predicate p1 = builder.equal(root.get(&quot;username&quot;).as(String.class), user.getUsername());</div><div class="line">		Predicate p2 = builder.equal(root.get(&quot;nickname&quot;).as(Long.class), user.getNickname());</div><div class="line"></div><div class="line">		query.where(builder.and(p1, p2));</div><div class="line">		return query.getRestriction();</div><div class="line">	&#125;, pageable);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<h3 id="结束"><a href="#结束" class="headerlink" title="结束"></a>结束</h3><pre><code>使用频率最多的都列举出来了，够我们用了。
+<h3 id="客户端控制排序"><a href="#客户端控制排序" class="headerlink" title="客户端控制排序"></a>客户端控制排序</h3><p><em>**Server-Side</em><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">public MsgOut list(Article article, Pageable pageable, Integer rows)&#123;</div><div class="line">    return articleService.select(article, ServiceUtils.updatePageable(pageable, rows));</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p><em>**Client-Side</em></p>
+<pre><code>http://a.b.com/api/list?sort=id,desc&amp;sort=ctime,desc&amp;sort=mtime
+</code></pre><h3 id="结束"><a href="#结束" class="headerlink" title="结束"></a>结束</h3><pre><code>使用频率最多的都列举出来了，够我们用了。
 但是程序员就像偷懒，不想每个domain都要写个XxxRepository,写个基础BaseRepository岂不是节省好多事呢，有空在写吧...
 </code></pre>
       
@@ -521,7 +524,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="../../../../archives">
-              <span class="site-state-item-count">75</span>
+              <span class="site-state-item-count">76</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -538,7 +541,7 @@
           
             <div class="site-state-item site-state-tags">
               <a href="../../../../tags">
-                <span class="site-state-item-count">74</span>
+                <span class="site-state-item-count">78</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -592,7 +595,7 @@
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#引入依赖"><span class="nav-number">2.</span> <span class="nav-text">引入依赖</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#JPA-Config"><span class="nav-number">3.</span> <span class="nav-text">JPA Config</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#业务接口"><span class="nav-number">4.</span> <span class="nav-text">业务接口</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#JPA-CRUD-和-联合条件、分页查询"><span class="nav-number">5.</span> <span class="nav-text">JPA CRUD 和 联合条件、分页查询</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#结束"><span class="nav-number">6.</span> <span class="nav-text">结束</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#引入依赖"><span class="nav-number">2.</span> <span class="nav-text">引入依赖</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#JPA-Config"><span class="nav-number">3.</span> <span class="nav-text">JPA Config</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#业务接口"><span class="nav-number">4.</span> <span class="nav-text">业务接口</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#JPA-CRUD-和-联合条件、分页查询"><span class="nav-number">5.</span> <span class="nav-text">JPA CRUD 和 联合条件、分页查询</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#客户端控制排序"><span class="nav-number">6.</span> <span class="nav-text">客户端控制排序</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#结束"><span class="nav-number">7.</span> <span class="nav-text">结束</span></a></li></ol></div>
             
           </div>
         </section>
