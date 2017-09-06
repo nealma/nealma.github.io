@@ -94,7 +94,7 @@
 <meta property="og:site_name" content="nealma.com">
 <meta property="og:description" content="Spring Boot中获取全局request，咩有controller中获取，而是在一个工具类中，
 这次也不知是为什么之前根本不需要配置的，但是就是会报一个错，看看神马影响的呢？">
-<meta property="og:updated_time" content="2017-07-01T03:58:31.000Z">
+<meta property="og:updated_time" content="2017-09-03T13:09:38.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Spring-Boot（十二) 获取request和session">
 <meta name="twitter:description" content="Spring Boot中获取全局request，咩有controller中获取，而是在一个工具类中，
@@ -345,7 +345,7 @@
 </code></pre><p>开发环境：<br>OS: Mac 10.11.6<br>IDE: IDEA<br>Build: Maven</p>
 <h3 id="获取request"><a href="#获取request" class="headerlink" title="获取request"></a>获取request</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">public static HttpServletRequest getRequest()&#123;</div><div class="line">    ServletRequestAttributes servletRequestAttributes = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();</div><div class="line">    return servletRequestAttributes.getRequest();</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <h3 id="可恶的异常来了"><a href="#可恶的异常来了" class="headerlink" title="可恶的异常来了"></a>可恶的异常来了</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">java spring——Getting a &apos;No thread bound request found&apos; error from spring in my web app.</div><div class="line">In this case, use RequestContextListener or RequestContextFilter to expose the current request.</div></pre></td></tr></table></figure>
-<p>###解决方案: 在MvcConfig中注入RequestContextListener<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">@Bean</div><div class="line">public RequestContextListener requestContextListener() &#123;</div><div class="line">    return new RequestContextListener();</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h3 id="解决方案-在MvcConfig中注入RequestContextListener"><a href="#解决方案-在MvcConfig中注入RequestContextListener" class="headerlink" title="解决方案: 在MvcConfig中注入RequestContextListener"></a>解决方案: 在MvcConfig中注入RequestContextListener</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">@Bean</div><div class="line">public RequestContextListener requestContextListener() &#123;</div><div class="line">    return new RequestContextListener();</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <h3 id="结束"><a href="#结束" class="headerlink" title="结束"></a>结束</h3><pre><code>慢慢趟，总有趟完的时候...
 </code></pre>
       
@@ -564,7 +564,7 @@
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#获取request"><span class="nav-number">2.</span> <span class="nav-text">获取request</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#可恶的异常来了"><span class="nav-number">3.</span> <span class="nav-text">可恶的异常来了</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#结束"><span class="nav-number">4.</span> <span class="nav-text">结束</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#获取request"><span class="nav-number">2.</span> <span class="nav-text">获取request</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#可恶的异常来了"><span class="nav-number">3.</span> <span class="nav-text">可恶的异常来了</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#解决方案-在MvcConfig中注入RequestContextListener"><span class="nav-number">4.</span> <span class="nav-text">解决方案: 在MvcConfig中注入RequestContextListener</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#结束"><span class="nav-number">5.</span> <span class="nav-text">结束</span></a></li></ol></div>
             
           </div>
         </section>

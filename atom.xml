@@ -365,7 +365,7 @@ Springboot内部提供的事务管理器是根据autoconfigure来进行决定的
     <link href="http://www.nealma.com/2017/06/01/spring-boot-12-not-thread/"/>
     <id>http://www.nealma.com/2017/06/01/spring-boot-12-not-thread/</id>
     <published>2017-06-01T03:46:45.000Z</published>
-    <updated>2017-07-01T03:58:31.000Z</updated>
+    <updated>2017-09-03T13:09:38.000Z</updated>
     
     <content type="html"><![CDATA[<pre><code>Spring Boot中获取全局request，咩有controller中获取，而是在一个工具类中，
 这次也不知是为什么之前根本不需要配置的，但是就是会报一个错，看看神马影响的呢？
@@ -375,7 +375,7 @@ Springboot内部提供的事务管理器是根据autoconfigure来进行决定的
 </code></pre><p>开发环境：<br>OS: Mac 10.11.6<br>IDE: IDEA<br>Build: Maven</p>
 <h3 id="获取request"><a href="#获取request" class="headerlink" title="获取request"></a>获取request</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">public static HttpServletRequest getRequest()&#123;</div><div class="line">    ServletRequestAttributes servletRequestAttributes = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();</div><div class="line">    return servletRequestAttributes.getRequest();</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <h3 id="可恶的异常来了"><a href="#可恶的异常来了" class="headerlink" title="可恶的异常来了"></a>可恶的异常来了</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">java spring——Getting a &apos;No thread bound request found&apos; error from spring in my web app.</div><div class="line">In this case, use RequestContextListener or RequestContextFilter to expose the current request.</div></pre></td></tr></table></figure>
-<p>###解决方案: 在MvcConfig中注入RequestContextListener<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">@Bean</div><div class="line">public RequestContextListener requestContextListener() &#123;</div><div class="line">    return new RequestContextListener();</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h3 id="解决方案-在MvcConfig中注入RequestContextListener"><a href="#解决方案-在MvcConfig中注入RequestContextListener" class="headerlink" title="解决方案: 在MvcConfig中注入RequestContextListener"></a>解决方案: 在MvcConfig中注入RequestContextListener</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">@Bean</div><div class="line">public RequestContextListener requestContextListener() &#123;</div><div class="line">    return new RequestContextListener();</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <h3 id="结束"><a href="#结束" class="headerlink" title="结束"></a>结束</h3><pre><code>慢慢趟，总有趟完的时候...
 </code></pre>]]></content>
     
@@ -520,7 +520,7 @@ Springboot内部提供的事务管理器是根据autoconfigure来进行决定的
     <link href="http://www.nealma.com/2017/04/18/spring-boot-10-jpa-hibernate/"/>
     <id>http://www.nealma.com/2017/04/18/spring-boot-10-jpa-hibernate/</id>
     <published>2017-04-18T03:46:45.000Z</published>
-    <updated>2017-08-28T07:32:42.000Z</updated>
+    <updated>2017-09-06T07:24:40.000Z</updated>
     
     <content type="html"><![CDATA[<pre><code>一直都在用MyBatis，感觉很好用，自己也熟悉。考虑到Spring Boot天生支持JPA，而且Hibernate也支持
 分布式事务，有成熟的解决方案，值得研究一下
@@ -557,9 +557,9 @@ Springboot内部提供的事务管理器是根据autoconfigure来进行决定的
 </ul>
 <p>OR<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">public Page&lt;User&gt; findCriteriaV2(final User user, int page, int pageSize) throws Exception &#123;</div><div class="line">	Sort sort = new Sort(Sort.Direction.DESC, &quot;id&quot;);</div><div class="line">	Pageable pageable  =  new PageRequest(page, pageSize, sort);</div><div class="line"></div><div class="line">	return userRepository.findAll((root, query, builder) -&gt; &#123;</div><div class="line">		Predicate p1 = builder.equal(root.get(&quot;username&quot;).as(String.class), user.getUsername());</div><div class="line">		Predicate p2 = builder.equal(root.get(&quot;nickname&quot;).as(Long.class), user.getNickname());</div><div class="line"></div><div class="line">		query.where(builder.and(p1, p2));</div><div class="line">		return query.getRestriction();</div><div class="line">	&#125;, pageable);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
 <h3 id="客户端控制排序"><a href="#客户端控制排序" class="headerlink" title="客户端控制排序"></a>客户端控制排序</h3><p><em>**Server-Side</em><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">public MsgOut list(Article article, Pageable pageable, Integer rows)&#123;</div><div class="line">    return articleService.select(article, ServiceUtils.updatePageable(pageable, rows));</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p><em>**Client-Side</em></p>
-<pre><code>http://a.b.com/api/list?sort=id,desc&amp;sort=ctime,desc&amp;sort=mtime
-</code></pre><h3 id="结束"><a href="#结束" class="headerlink" title="结束"></a>结束</h3><pre><code>使用频率最多的都列举出来了，够我们用了。
+<p><em>**Client-Side</em><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">http://a.b.com/api/list?sort=id,desc&amp;sort=ctime,desc&amp;sort=mtime</div></pre></td></tr></table></figure></p>
+<p>具体的关键字，使用方法和生产成SQL如下表所示<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line">Keyword				Sample									JPQL snippet</div><div class="line">And					findByLastnameAndFirstname				… where x.lastname = ?1 and x.firstname = ?2</div><div class="line">Or					findByLastnameOrFirstname				… where x.lastname = ?1 or x.firstname = ?2</div><div class="line">Is,Equals			findByFirstnameIs,findByFirstnameEquals	… where x.firstname = ?1</div><div class="line">Between				findByStartDateBetween					… where x.startDate between ?1 and ?2</div><div class="line">LessThan			findByAgeLessThan						… where x.age &lt; ?1</div><div class="line">LessThanEqual		findByAgeLessThanEqual					… where x.age ⇐ ?1</div><div class="line">GreaterThan			findByAgeGreaterThan					… where x.age &gt; ?1</div><div class="line">GreaterThanEqual	findByAgeGreaterThanEqual				… where x.age &gt;= ?1</div><div class="line">After				findByStartDateAfter					… where x.startDate &gt; ?1</div><div class="line">Before				findByStartDateBefore					… where x.startDate &lt; ?1</div><div class="line">IsNull				findByAgeIsNull							… where x.age is null</div><div class="line">IsNotNull,NotNull	findByAge(Is)NotNull					… where x.age not null</div><div class="line">Like				findByFirstnameLike						… where x.firstname like ?1</div><div class="line">NotLike				findByFirstnameNotLike					… where x.firstname not like ?1</div><div class="line">StartingWith		findByFirstnameStartingWith				… where x.firstname like ?1 (parameter bound with appended %)</div><div class="line">EndingWith			findByFirstnameEndingWith			… where x.firstname like ?1 (parameter bound with prepended %)</div><div class="line">Containing			findByFirstnameContaining				… where x.firstname like ?1 (parameter bound wrapped in %)</div><div class="line">OrderBy				findByAgeOrderByLastnameDesc			… where x.age = ?1 order by x.lastname desc</div><div class="line">Not					findByLastnameNot						… where x.lastname &lt;&gt; ?1</div><div class="line">In					findByAgeIn(Collection ages)			… where x.age in ?1</div><div class="line">NotIn				findByAgeNotIn(Collection age)			… where x.age not in ?1</div><div class="line">TRUE				findByActiveTrue()						… where x.active = true</div><div class="line">FALSE				findByActiveFalse()						… where x.active = false</div><div class="line">IgnoreCase			findByFirstnameIgnoreCase				… where UPPER(x.firstame) = UPPER(?1)</div></pre></td></tr></table></figure></p>
+<h3 id="结束"><a href="#结束" class="headerlink" title="结束"></a>结束</h3><pre><code>使用频率最多的都列举出来了，够我们用了。
 但是程序员就像偷懒，不想每个domain都要写个XxxRepository,写个基础BaseRepository岂不是节省好多事呢，有空在写吧...
 </code></pre>]]></content>
     
@@ -638,38 +638,6 @@ Springboot内部提供的事务管理器是根据autoconfigure来进行决定的
   </entry>
   
   <entry>
-    <title>【IDEA】cannot resolve syambol xxx</title>
-    <link href="http://www.nealma.com/2017/01/01/work-problerm-6-idea-cannot-resolve-syambol/"/>
-    <id>http://www.nealma.com/2017/01/01/work-problerm-6-idea-cannot-resolve-syambol/</id>
-    <published>2017-01-01T03:46:45.000Z</published>
-    <updated>2017-04-18T04:20:25.000Z</updated>
-    
-    <content type="html"><![CDATA[<pre><code>cannot resolve syambol xxx
-</code></pre><a id="more"></a>
-<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>解决方法如下：<br>点击菜单中的 “File” -&gt; “Invalidate Caches / Restart”，然后点击对话框中的 “Invalidate and Restart”，清空 cache 并且重启。语法就会正确的高亮了。</p>
-<h3 id="结束"><a href="#结束" class="headerlink" title="结束"></a>结束</h3><pre><code>还会陆续遇到各种坑，慢慢填吧...
- :)~
-</code></pre>]]></content>
-    
-    <summary type="html">
-    
-      &lt;pre&gt;&lt;code&gt;cannot resolve syambol xxx
-&lt;/code&gt;&lt;/pre&gt;
-    
-    </summary>
-    
-      <category term="work" scheme="http://www.nealma.com/categories/work/"/>
-    
-    
-      <category term="MySQL" scheme="http://www.nealma.com/tags/MySQL/"/>
-    
-      <category term="大杂烩" scheme="http://www.nealma.com/tags/%E5%A4%A7%E6%9D%82%E7%83%A9/"/>
-    
-      <category term="sql" scheme="http://www.nealma.com/tags/sql/"/>
-    
-  </entry>
-  
-  <entry>
     <title>常用的sql操作</title>
     <link href="http://www.nealma.com/2017/01/01/work-problerm-5-mysql-common-operate/"/>
     <id>http://www.nealma.com/2017/01/01/work-problerm-5-mysql-common-operate/</id>
@@ -697,6 +665,38 @@ Springboot内部提供的事务管理器是根据autoconfigure来进行决定的
     <summary type="html">
     
       &lt;pre&gt;&lt;code&gt;频繁的sql操作，总结一些经常用的。
+&lt;/code&gt;&lt;/pre&gt;
+    
+    </summary>
+    
+      <category term="work" scheme="http://www.nealma.com/categories/work/"/>
+    
+    
+      <category term="MySQL" scheme="http://www.nealma.com/tags/MySQL/"/>
+    
+      <category term="大杂烩" scheme="http://www.nealma.com/tags/%E5%A4%A7%E6%9D%82%E7%83%A9/"/>
+    
+      <category term="sql" scheme="http://www.nealma.com/tags/sql/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>【IDEA】cannot resolve syambol xxx</title>
+    <link href="http://www.nealma.com/2017/01/01/work-problerm-6-idea-cannot-resolve-syambol/"/>
+    <id>http://www.nealma.com/2017/01/01/work-problerm-6-idea-cannot-resolve-syambol/</id>
+    <published>2017-01-01T03:46:45.000Z</published>
+    <updated>2017-04-18T04:20:25.000Z</updated>
+    
+    <content type="html"><![CDATA[<pre><code>cannot resolve syambol xxx
+</code></pre><a id="more"></a>
+<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>解决方法如下：<br>点击菜单中的 “File” -&gt; “Invalidate Caches / Restart”，然后点击对话框中的 “Invalidate and Restart”，清空 cache 并且重启。语法就会正确的高亮了。</p>
+<h3 id="结束"><a href="#结束" class="headerlink" title="结束"></a>结束</h3><pre><code>还会陆续遇到各种坑，慢慢填吧...
+ :)~
+</code></pre>]]></content>
+    
+    <summary type="html">
+    
+      &lt;pre&gt;&lt;code&gt;cannot resolve syambol xxx
 &lt;/code&gt;&lt;/pre&gt;
     
     </summary>
