@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://www.nealma.com/2017/06/03/spring-boot-14-redis-cache/</loc>
+    
+    <lastmod>2017-09-11T10:23:13.000Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://www.nealma.com/2017/04/18/spring-boot-10-jpa-hibernate/</loc>
     
     <lastmod>2017-09-06T07:24:40.000Z</lastmod>

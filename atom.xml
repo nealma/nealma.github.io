@@ -297,6 +297,60 @@
   </entry>
   
   <entry>
+    <title>Spring-Boot（十四) Spring Boot Use Redis As Cache</title>
+    <link href="http://www.nealma.com/2017/06/03/spring-boot-14-redis-cache/"/>
+    <id>http://www.nealma.com/2017/06/03/spring-boot-14-redis-cache/</id>
+    <published>2017-06-03T01:46:45.000Z</published>
+    <updated>2017-09-11T10:23:13.000Z</updated>
+    
+    <content type="html"><![CDATA[<pre><code>随着后期流量的增加，避免不了要上缓存。不要担心，幸好你遇到了Spring Boot，让你轻松搞定缓存。
+</code></pre><a id="more"></a>
+<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><pre><code>Spring Boot中提供了目前市面上的所有缓存支持，然而在实际生产中，大都会用redis来作为外部缓存的首选。
+为神马要用缓存呢，就一字“快”，可以减少频繁的数据库操作，节省资源。
+下面我们看看如何实现缓存。
+</code></pre><p>开发环境：<br>OS: Mac 10.11.6<br>IDE: IDEA<br>Build: Maven</p>
+<h3 id="加入依赖"><a href="#加入依赖" class="headerlink" title="加入依赖"></a>加入依赖</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&lt;dependency&gt;</div><div class="line">    &lt;groupId&gt;org.springframework.data&lt;/groupId&gt;</div><div class="line">    &lt;artifactId&gt;spring-data-redis&lt;/artifactId&gt;</div><div class="line">&lt;/dependency&gt;</div></pre></td></tr></table></figure>
+<h3 id="Spring中的CacheManager"><a href="#Spring中的CacheManager" class="headerlink" title="Spring中的CacheManager"></a>Spring中的CacheManager</h3><p>Spring中支持囊括了个大缓存组件，无需复杂的处理，都能完美支持。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">Any compliant JSR-107 (JCache) provider</div><div class="line"></div><div class="line">EhCache</div><div class="line"></div><div class="line">Hazelcast</div><div class="line"></div><div class="line">Infinispan</div><div class="line"></div><div class="line">Couchbase</div><div class="line"></div><div class="line">Redis</div><div class="line"></div><div class="line">Caffeine</div><div class="line"></div><div class="line">Simple provider based on ConcurrentHashMap</div><div class="line"></div><div class="line">Generic provider based on org.springframework.Cache bean definition(s)</div></pre></td></tr></table></figure></p>
+<h3 id="这里我们只是介绍RedisCacheManager实现集中缓存的方式"><a href="#这里我们只是介绍RedisCacheManager实现集中缓存的方式" class="headerlink" title="这里我们只是介绍RedisCacheManager实现集中缓存的方式"></a>这里我们只是介绍RedisCacheManager实现集中缓存的方式</h3><ul>
+<li><p>Java-based Configuration<br>我们需要创建一个Redis的配置类，使用@EnableCaching注解来告诉你的App开启缓存支持，这里面包括具体的CacheManager，<br>同时还要有factory和redisTesmplate来和redis进行通信。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div></pre></td><td class="code"><pre><div class="line">@Configuration</div><div class="line">@EnableCaching</div><div class="line">public class CacheConfig extends CachingConfigurerSupport&#123;</div><div class="line">    public static final Logger LOGGER = LoggerFactory.getLogger(CacheConfig.class);</div><div class="line">    @Value(&quot;$&#123;spring.redis.host&#125;&quot;)</div><div class="line">    private String redisHostName = &quot;localhost&quot;;</div><div class="line">    @Value(&quot;$&#123;spring.redis.port&#125;&quot;)</div><div class="line">    private  int redisPort = 6379;</div><div class="line">    @Value(&quot;$&#123;spring.redis.password&#125;&quot;)</div><div class="line">    private String redisPasswd = &quot;******&quot;;</div><div class="line"></div><div class="line">    @Bean</div><div class="line">    public JedisConnectionFactory jedisConnectionFactory() &#123;</div><div class="line">        JedisConnectionFactory factory = new JedisConnectionFactory();</div><div class="line">        factory.setHostName(redisHostName);</div><div class="line">        factory.setPort(redisPort);</div><div class="line">        factory.setPassword(redisPasswd);</div><div class="line">        factory.setUsePool(true);</div><div class="line">        return factory;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    @Bean</div><div class="line">    public RedisTemplate&lt;String, String&gt; redisTemplate(RedisConnectionFactory cf) &#123;</div><div class="line">        RedisTemplate&lt;String, String&gt; redisTemplate = new RedisTemplate();</div><div class="line">        redisTemplate.setConnectionFactory(cf);</div><div class="line">        return redisTemplate;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    @Bean</div><div class="line">    public CacheManager cacheManager(RedisTemplate redisTemplate) &#123;</div><div class="line">        RedisCacheManager cacheManager = new RedisCacheManager(redisTemplate);</div><div class="line"></div><div class="line">        // Number of seconds before expiration. Defaults to unlimited (0)</div><div class="line">        cacheManager.setDefaultExpiration(300);</div><div class="line">        return cacheManager;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+<li><p>xxxController使用@Cacheable开启缓存,进行测试</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">@RestController</div><div class="line">public class APIController&#123;</div><div class="line"></div><div class="line">    @RequestMapping(&quot;/api/caches/test1&quot;)</div><div class="line">    @Cacheable(&quot;test&quot;)</div><div class="line">    public String cacheTest1(Long userId, String name) &#123;</div><div class="line">        LOGGER.debug(&quot;performing expensive calculation...&quot;);</div><div class="line">        return this.renderJson(MsgOut.success());</div><div class="line">    &#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+<li><p>Redis存储结果<br>你会发现，在redis的控制台中，存储的key和value都是ascii码，这是因为RedisTemplate使用了基于Java的串行器来进行大部分的操作，包括key和value的序列化。如果你想更改java的序列化和反序列化的设置，可以在这个包下org.springframework.data.redis.serializer，寻找你所需要的串行器。</p>
+</li>
+</ul>
+<h3 id="另一种串行器以及自定义keyGenerator的逻辑"><a href="#另一种串行器以及自定义keyGenerator的逻辑" class="headerlink" title="另一种串行器以及自定义keyGenerator的逻辑"></a>另一种串行器以及自定义keyGenerator的逻辑</h3><p><strong>SpringBoot默认使用SimpleKeyGenerator生成key</strong></p>
+<h2 id="如果参数的名字和类型一样，就是出现缓存覆盖的问题，故可以自定义KeyGenerator"><a href="#如果参数的名字和类型一样，就是出现缓存覆盖的问题，故可以自定义KeyGenerator" class="headerlink" title="如果参数的名字和类型一样，就是出现缓存覆盖的问题，故可以自定义KeyGenerator"></a>如果参数的名字和类型一样，就是出现缓存覆盖的问题，故可以自定义KeyGenerator</h2><p>public SimpleKey(Object… elements) {<br>    Assert.notNull(elements, “Elements must not be null”);<br>    this.params = new Object[elements.length];<br>    System.arraycopy(elements, 0, this.params, 0, elements.length);<br>    this.hashCode = Arrays.deepHashCode(this.params);</p>
+<h2 id=""><a href="#" class="headerlink" title="}"></a>}</h2><p><strong>自定义KeyGenerator</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div></pre></td><td class="code"><pre><div class="line">@Configuration</div><div class="line">@EnableCaching</div><div class="line">public class CacheConfig extends CachingConfigurerSupport&#123;</div><div class="line">    public static final Logger LOGGER = LoggerFactory.getLogger(CacheConfig.class);</div><div class="line">    @Value(&quot;$&#123;spring.redis.host&#125;&quot;)</div><div class="line">    private String redisHostName = &quot;localhost&quot;;</div><div class="line">    @Value(&quot;$&#123;spring.redis.port&#125;&quot;)</div><div class="line">    private  int redisPort = 6379;</div><div class="line">    @Value(&quot;$&#123;spring.redis.password&#125;&quot;)</div><div class="line">    private String redisPasswd = &quot;******&quot;;</div><div class="line"></div><div class="line">    @Bean</div><div class="line">    public JedisConnectionFactory jedisConnectionFactory() &#123;</div><div class="line">        JedisConnectionFactory factory = new JedisConnectionFactory();</div><div class="line">        factory.setHostName(redisHostName);</div><div class="line">        factory.setPort(redisPort);</div><div class="line">        factory.setPassword(redisPasswd);</div><div class="line">        factory.setUsePool(true);</div><div class="line">        return factory;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    @Bean</div><div class="line">    public KeyGenerator keyGenerator() &#123;</div><div class="line">        return (o, method, objects) -&gt; &#123;</div><div class="line">            // This will generate a unique key of the class name, the method name,</div><div class="line">            // and all method parameters appended.</div><div class="line">            StringBuilder sb = new StringBuilder();</div><div class="line">            sb.append(o.getClass().getName());</div><div class="line">            sb.append(&quot;:&quot;);</div><div class="line">            sb.append(method.getName());</div><div class="line">            for (Object obj : objects) &#123;</div><div class="line">                sb.append(&quot;:&quot;);</div><div class="line">                sb.append(obj.toString());</div><div class="line">            &#125;</div><div class="line">            return sb.toString();</div><div class="line">        &#125;;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    @Bean</div><div class="line">    public RedisTemplate&lt;String, String&gt; redisTemplate(</div><div class="line">            RedisConnectionFactory factory) &#123;</div><div class="line">        StringRedisTemplate template = new StringRedisTemplate(factory);</div><div class="line">        Jackson2JsonRedisSerializer jackson2JsonRedisSerializer = new Jackson2JsonRedisSerializer(Object.class);</div><div class="line">        ObjectMapper om = new ObjectMapper();</div><div class="line">        om.setVisibility(PropertyAccessor.ALL, JsonAutoDetect.Visibility.ANY);</div><div class="line">        om.enableDefaultTyping(ObjectMapper.DefaultTyping.NON_FINAL);</div><div class="line">        jackson2JsonRedisSerializer.setObjectMapper(om);</div><div class="line">        template.setValueSerializer(jackson2JsonRedisSerializer);</div><div class="line">        template.afterPropertiesSet();</div><div class="line">        return template;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    @Bean</div><div class="line">    public CacheManager cacheManager(RedisTemplate redisTemplate) &#123;</div><div class="line">        RedisCacheManager cacheManager = new RedisCacheManager(redisTemplate);</div><div class="line"></div><div class="line">        // Number of seconds before expiration. Defaults to unlimited (0)</div><div class="line">        cacheManager.setDefaultExpiration(300);</div><div class="line">        return cacheManager;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>我一般喜欢存储json数据，这样可以跨平台，而不是只能java App可以用，未来如果混合了java以外的语言，也能从容应对。</p>
+<h3 id="缓存更新和过期-CachePut和-CacheEvict"><a href="#缓存更新和过期-CachePut和-CacheEvict" class="headerlink" title="缓存更新和过期: @CachePut和@CacheEvict"></a>缓存更新和过期: @CachePut和@CacheEvict</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">#设置</div><div class="line">@Cacheable(value = &quot;queue&quot;)</div><div class="line">public Queue selectByPK(Long id) &#123;</div><div class="line">	...</div><div class="line">&#125;</div><div class="line"></div><div class="line">#更新</div><div class="line">@CacheEvict(value = &quot;queue&quot;, key = &quot;#root.targetClass.name + &apos;:selectByPK:&apos; + #id&quot;)</div><div class="line">public int delete(Long id) &#123;</div><div class="line">    ...</div><div class="line">&#125;</div><div class="line"></div><div class="line">#失效or过期</div><div class="line"></div><div class="line">@CachePut(value = &quot;queue&quot;, key = &quot;#root.targetClass.name + &apos;:selectByPK:&apos; + #result.id&quot;)</div><div class="line">public Queue update(Queue Queue) &#123;</div><div class="line">    ...</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="结束"><a href="#结束" class="headerlink" title="结束"></a>结束</h3><pre><code>～：）～～～
+</code></pre>]]></content>
+    
+    <summary type="html">
+    
+      &lt;pre&gt;&lt;code&gt;随着后期流量的增加，避免不了要上缓存。不要担心，幸好你遇到了Spring Boot，让你轻松搞定缓存。
+&lt;/code&gt;&lt;/pre&gt;
+    
+    </summary>
+    
+      <category term="Spring Boot" scheme="http://www.nealma.com/categories/Spring-Boot/"/>
+    
+    
+      <category term="Java" scheme="http://www.nealma.com/tags/Java/"/>
+    
+      <category term="Spring" scheme="http://www.nealma.com/tags/Spring/"/>
+    
+      <category term="Spring-Boot" scheme="http://www.nealma.com/tags/Spring-Boot/"/>
+    
+      <category term="Cache" scheme="http://www.nealma.com/tags/Cache/"/>
+    
+  </entry>
+  
+  <entry>
     <title>Spring-Boot（十三) 事物处理 Transaction</title>
     <link href="http://www.nealma.com/2017/06/02/spring-boot-13-transaction/"/>
     <id>http://www.nealma.com/2017/06/02/spring-boot-13-transaction/</id>
@@ -853,55 +907,6 @@ Springboot内部提供的事务管理器是根据autoconfigure来进行决定的
     <summary type="html">
     
       &lt;pre&gt;&lt;code&gt;微信获取用户信息和微信H5支付
-&lt;/code&gt;&lt;/pre&gt;
-    
-    </summary>
-    
-      <category term="work" scheme="http://www.nealma.com/categories/work/"/>
-    
-    
-      <category term="大杂烩" scheme="http://www.nealma.com/tags/%E5%A4%A7%E6%9D%82%E7%83%A9/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>工作中遇到的问题（一） Spring MVC Restfull API</title>
-    <link href="http://www.nealma.com/2016/11/26/work-problerm-1/"/>
-    <id>http://www.nealma.com/2016/11/26/work-problerm-1/</id>
-    <published>2016-11-26T03:46:45.000Z</published>
-    <updated>2016-12-31T12:06:51.000Z</updated>
-    
-    <content type="html"><![CDATA[<pre><code>最近也不知道写点啥，工作任务太饱和了，遇到些小问题，做个总结
-</code></pre><a id="more"></a>
-<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><pre><code>最近也不知道写点啥，工作任务太饱和了，遇到些小问题，做个总结
-</code></pre><h3 id="MyBatis整型的问题"><a href="#MyBatis整型的问题" class="headerlink" title="MyBatis整型的问题"></a>MyBatis整型的问题</h3><pre><code>再一次工作中，一个实体的成员变量是整数型，我传递了0给mapper，奇怪的事情发生了。
-mapper总是认为这个变量为null。前前后后花了好长时间，最后还是Google的结果。看来遇到问题不能
-自己去一步一步去深挖，还得借助Google啊（不知道是不适合所有）。
-
-原来MyBatis对于整型类型如果值为0，会当做null来处理。（不知道作者是出于什么原因）
-
-解决办法：
-
-加强判断
-</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;if test=&quot;categoryName != null and categoryName != &apos;&apos; or categoryName == 0&quot;&gt;</div></pre></td></tr></table></figure>
-<h3 id="Spring-MVC的问题"><a href="#Spring-MVC的问题" class="headerlink" title="Spring MVC的问题"></a>Spring MVC的问题</h3><p>spring mvc put方法请求，ajax必须指定dataType: “json”<br>    在设计Restful接口的时候，其中Controller里面的PUT方法，前台html中使用ajax提交表单,很正常不过。<br>    可是在后台始终得不到</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">$.ajax(</div><div class="line">	&#123;</div><div class="line">	    url: API,</div><div class="line">	    type: &quot;PUT&quot;,</div><div class="line">	    data: &#123;k : v&#125;,</div><div class="line">	    async: false,</div><div class="line">	    success: function (data, textStatus, jqXHR) &#123;</div><div class="line">	        //TODO:</div><div class="line">	    &#125;,</div><div class="line">	    error: function (jqXHR, textStatus, errorThrown) &#123;</div><div class="line">	    	//TODO:</div><div class="line">	    &#125;</div><div class="line">	&#125;);</div></pre></td></tr></table></figure>
-<pre><code>抓取request的header，如下：
-</code></pre><p><img src="/images/put-method.png" alt=""></p>
-<pre><code>给ajax加入如下dataType参数，值为“json”，这样问题解决了，Controller成功的获得了参数。
-We did it。
-</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">$.ajax(</div><div class="line">	&#123;</div><div class="line">	    url: API,</div><div class="line">	    type: &quot;PUT&quot;,</div><div class="line">	    data: &#123;k : v&#125;,</div><div class="line">	    dataType: &quot;json&quot;,</div><div class="line">	    async: false,</div><div class="line">	    success: function (data, textStatus, jqXHR) &#123;</div><div class="line">	        //TODO:</div><div class="line">	    &#125;,</div><div class="line">	    error: function (jqXHR, textStatus, errorThrown) &#123;</div><div class="line">	    	//TODO:</div><div class="line">	    &#125;</div><div class="line">	&#125;);</div></pre></td></tr></table></figure>
-<pre><code>抓取request的header，如下：
-</code></pre><p><img src="/images/put-method-json.png" alt=""></p>
-<pre><code>从两处标记可以看出，Accept的两次值不一样；Accept的值直接影响Controller的consumes,
-Spring会根据Accept来对Request的参数做相应的处理。
-</code></pre><h3 id="XMLHttpRequest-cannot-load-http-yourdomain-com-api-addresses-Response-to-preflight-request-doesn’t-pass-access-control-check-The-‘Access-Control-Allow-Origin’-header-contains-multiple-values-‘http-localhost-8080-’-but-only-one-is-allowed-Origin-‘http-localhost-8080‘-is-therefore-not-allowed-access"><a href="#XMLHttpRequest-cannot-load-http-yourdomain-com-api-addresses-Response-to-preflight-request-doesn’t-pass-access-control-check-The-‘Access-Control-Allow-Origin’-header-contains-multiple-values-‘http-localhost-8080-’-but-only-one-is-allowed-Origin-‘http-localhost-8080‘-is-therefore-not-allowed-access" class="headerlink" title="XMLHttpRequest cannot load http://yourdomain.com/api/addresses. Response to preflight request doesn’t pass access control check: The ‘Access-Control-Allow-Origin’ header contains multiple values ‘http://localhost:8080, *’, but only one is allowed. Origin ‘http://localhost:8080‘ is therefore not allowed access."></a>XMLHttpRequest cannot load <a href="http://yourdomain.com/api/addresses" target="_blank" rel="external">http://yourdomain.com/api/addresses</a>. Response to preflight request doesn’t pass access control check: The ‘Access-Control-Allow-Origin’ header contains multiple values ‘<a href="http://localhost:8080" target="_blank" rel="external">http://localhost:8080</a>, *’, but only one is allowed. Origin ‘<a href="http://localhost:8080" target="_blank" rel="external">http://localhost:8080</a>‘ is therefore not allowed access.</h3><h3 id="结束"><a href="#结束" class="headerlink" title="结束"></a>结束</h3><pre><code>还会陆续遇到各种坑，慢慢填吧...
- :)~
-</code></pre>]]></content>
-    
-    <summary type="html">
-    
-      &lt;pre&gt;&lt;code&gt;最近也不知道写点啥，工作任务太饱和了，遇到些小问题，做个总结
 &lt;/code&gt;&lt;/pre&gt;
     
     </summary>
