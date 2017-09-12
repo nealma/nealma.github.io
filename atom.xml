@@ -47,7 +47,7 @@
     <link href="http://www.nealma.com/2017/07/02/spring-cloud-2-euraka/"/>
     <id>http://www.nealma.com/2017/07/02/spring-cloud-2-euraka/</id>
     <published>2017-07-02T03:46:45.000Z</published>
-    <updated>2017-07-13T15:45:52.000Z</updated>
+    <updated>2017-09-12T06:37:22.000Z</updated>
     
     <content type="html"><![CDATA[<p>Spring Cloud为我构建分布式微服务系统提供了一站式的解决方案，其中服务注册与发现只是整个系统的一个模块，<br>是由eureka来承担，下面我们来看看如何使用吧</p>
 <a id="more"></a>
@@ -85,9 +85,9 @@
     
       <category term="Java" scheme="http://www.nealma.com/tags/Java/"/>
     
-      <category term="Spring-Boot" scheme="http://www.nealma.com/tags/Spring-Boot/"/>
-    
       <category term="Spring Cloud" scheme="http://www.nealma.com/tags/Spring-Cloud/"/>
+    
+      <category term="Spring-Cloud" scheme="http://www.nealma.com/tags/Spring-Cloud/"/>
     
   </entry>
   
@@ -96,7 +96,7 @@
     <link href="http://www.nealma.com/2017/07/01/spring-cloud-1-config2/"/>
     <id>http://www.nealma.com/2017/07/01/spring-cloud-1-config2/</id>
     <published>2017-07-01T03:46:45.000Z</published>
-    <updated>2017-07-11T09:42:49.000Z</updated>
+    <updated>2017-09-12T06:37:16.000Z</updated>
     
     <content type="html"><![CDATA[<p>上文我们了解了Config Server的基本使用，以及手动更新具体的服务，<br>但是现在的应用都是分布式，微服务会随着App的增多，管理会更难，更辛苦。怎么解放我们<br>的运维伙伴呢，我们慢慢来探索吧。</p>
 <a id="more"></a>
@@ -140,9 +140,9 @@
     
       <category term="Java" scheme="http://www.nealma.com/tags/Java/"/>
     
-      <category term="Spring-Boot" scheme="http://www.nealma.com/tags/Spring-Boot/"/>
-    
       <category term="Spring Cloud" scheme="http://www.nealma.com/tags/Spring-Cloud/"/>
+    
+      <category term="Spring-Cloud" scheme="http://www.nealma.com/tags/Spring-Cloud/"/>
     
   </entry>
   
@@ -151,7 +151,7 @@
     <link href="http://www.nealma.com/2017/06/30/spring-cloud-1-config/"/>
     <id>http://www.nealma.com/2017/06/30/spring-cloud-1-config/</id>
     <published>2017-06-30T03:46:45.000Z</published>
-    <updated>2017-07-04T09:24:00.000Z</updated>
+    <updated>2017-09-12T06:37:10.000Z</updated>
     
     <content type="html"><![CDATA[<p>Spring Boot提供了application.[properties|yml]文件来提供默认配置，<br>简化了原来冗余的配置，但是随着环境和应用服务的增多，很难管理分散在各个项目中的配置，<br>但是，现在Spring Cloud 提供了 Config Server, 使其在分布式系统开发中输出外部配置的能力。<br>通过 Config Server，我们可以集中存储所有应用的配置文件</p>
 <a id="more"></a>
@@ -195,9 +195,9 @@
     
       <category term="Java" scheme="http://www.nealma.com/tags/Java/"/>
     
-      <category term="Spring-Boot" scheme="http://www.nealma.com/tags/Spring-Boot/"/>
-    
       <category term="Spring Cloud" scheme="http://www.nealma.com/tags/Spring-Cloud/"/>
+    
+      <category term="Spring-Cloud" scheme="http://www.nealma.com/tags/Spring-Cloud/"/>
     
   </entry>
   
@@ -297,11 +297,65 @@
   </entry>
   
   <entry>
+    <title>Spring-Boot（十五) PubSub Messaging with Spring Data Redis</title>
+    <link href="http://www.nealma.com/2017/06/04/spring-boot-15-pub-sub/"/>
+    <id>http://www.nealma.com/2017/06/04/spring-boot-15-pub-sub/</id>
+    <published>2017-06-04T01:46:45.000Z</published>
+    <updated>2017-09-12T06:36:47.000Z</updated>
+    
+    <content type="html"><![CDATA[<pre><code>异构系统之间如何解偶和很好的连接呢？发布订阅模式是个很好的选择。
+</code></pre><a id="more"></a>
+<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><pre><code>发布订阅是一种典型的异步通信模型，可以让消息的发布者和订阅者充分解耦。
+Spring Boot中，使用Redis很容易实现一个发布订阅系统，如果你想用，看这一篇就够了。
+</code></pre><p><a href="http://www.baeldung.com/spring-data-redis-pub-sub" target="_blank" rel="external">参考文章</a></p>
+<p>开发环境：<br>OS: Mac 10.11.6<br>IDE: IDEA<br>Build: Maven</p>
+<p><strong>本文依赖前文的CacheConfig.java文件</strong></p>
+<h3 id="加入依赖"><a href="#加入依赖" class="headerlink" title="加入依赖"></a>加入依赖</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&lt;dependency&gt;</div><div class="line">    &lt;groupId&gt;org.springframework.data&lt;/groupId&gt;</div><div class="line">    &lt;artifactId&gt;spring-data-redis&lt;/artifactId&gt;</div><div class="line">&lt;/dependency&gt;</div></pre></td></tr></table></figure>
+<h3 id="Redis-Configuration"><a href="#Redis-Configuration" class="headerlink" title="Redis Configuration"></a>Redis Configuration</h3><ul>
+<li><p>MessageListenerAdapter/MessageListener/RedisMessageSubscriber</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">@Bean</div><div class="line">MessageListenerAdapter messageListener() &#123; </div><div class="line">    return new MessageListenerAdapter(new RedisMessageSubscriber());</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+<li><p>RedisMessageListenerContainer<br>– “handles the low level details of listening, converting and message dispatching.”–</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">@Bean</div><div class="line">RedisMessageListenerContainer redisContainer() &#123;</div><div class="line">    RedisMessageListenerContainer container </div><div class="line">      = new RedisMessageListenerContainer(); </div><div class="line">    container.setConnectionFactory(jedisConnectionFactory()); </div><div class="line">    container.addMessageListener(messageListener(), topic()); </div><div class="line">    return container; </div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+<li><p>RedisMessagePublisher (redisTemplate and topic as constructor arguments)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">@Bean</div><div class="line">MessagePublisher redisPublisher() &#123; </div><div class="line">    return new RedisMessagePublisher(redisTemplate(), topic());</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+<li><p>Set up Topic</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">@Bean</div><div class="line">ChannelTopic topic() &#123;</div><div class="line">    return new ChannelTopic(&quot;messageQueue&quot;);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="用到的一些类"><a href="#用到的一些类" class="headerlink" title="用到的一些类"></a>用到的一些类</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div></pre></td><td class="code"><pre><div class="line">#MessagePublisher.java</div><div class="line">public interface MessagePublisher &#123;</div><div class="line">    void publish(final String message);</div><div class="line">&#125;</div><div class="line"></div><div class="line">#RedisMessagePublisher.java</div><div class="line">@Service</div><div class="line">public class RedisMessagePublisher implements MessagePublisher &#123;</div><div class="line">    @Autowired</div><div class="line">    private RedisTemplate&lt;Object, Object&gt; redisTemplate;</div><div class="line">    @Autowired</div><div class="line">    private ChannelTopic topic;</div><div class="line"></div><div class="line">    public RedisMessagePublisher(final RedisTemplate&lt;Object, Object&gt; redisTemplate, final ChannelTopic topic) &#123;</div><div class="line">        this.redisTemplate = redisTemplate;</div><div class="line">        this.topic = topic;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    public void publish(final String message) &#123;</div><div class="line">        redisTemplate.convertAndSend(topic.getTopic(), message);</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">#RedisMessageSubscriber.java</div><div class="line">@Service</div><div class="line">public class RedisMessageSubscriber implements MessageListener&#123;</div><div class="line">    public static List&lt;String&gt; messageList = new ArrayList();</div><div class="line"></div><div class="line">    public void onMessage(final Message message, final byte[] pattern) &#123;</div><div class="line">        messageList.add(message.toString());</div><div class="line">        System.out.println(&quot;Message received: &quot; + new String(message.getBody()));</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">@RunWith(SpringJUnit4ClassRunner.class)</div><div class="line">@SpringBootTest(classes = Application.class)</div><div class="line">public class RedisMessageListenerIntegrationTest &#123;</div><div class="line"></div><div class="line">    @Autowired</div><div class="line">    private RedisMessagePublisher redisMessagePublisher;</div><div class="line"></div><div class="line">    @Test</div><div class="line">    public void testOnMessage() throws Exception &#123;</div><div class="line">        String message = &quot;Message &quot; + UUID.randomUUID();</div><div class="line">        redisMessagePublisher.publish(message);</div><div class="line">        Thread.sleep(100);</div><div class="line">        assertTrue(RedisMessageSubscriber.messageList.get(0).contains(message));</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="结束"><a href="#结束" class="headerlink" title="结束"></a>结束</h3><pre><code>～：）～～～
+</code></pre>]]></content>
+    
+    <summary type="html">
+    
+      &lt;pre&gt;&lt;code&gt;异构系统之间如何解偶和很好的连接呢？发布订阅模式是个很好的选择。
+&lt;/code&gt;&lt;/pre&gt;
+    
+    </summary>
+    
+      <category term="Spring Boot" scheme="http://www.nealma.com/categories/Spring-Boot/"/>
+    
+    
+      <category term="Java" scheme="http://www.nealma.com/tags/Java/"/>
+    
+      <category term="Spring" scheme="http://www.nealma.com/tags/Spring/"/>
+    
+      <category term="Spring-Boot" scheme="http://www.nealma.com/tags/Spring-Boot/"/>
+    
+      <category term="PubSub" scheme="http://www.nealma.com/tags/PubSub/"/>
+    
+  </entry>
+  
+  <entry>
     <title>Spring-Boot（十四) Spring Boot Use Redis As Cache</title>
     <link href="http://www.nealma.com/2017/06/03/spring-boot-14-redis-cache/"/>
     <id>http://www.nealma.com/2017/06/03/spring-boot-14-redis-cache/</id>
     <published>2017-06-03T01:46:45.000Z</published>
-    <updated>2017-09-11T11:02:41.000Z</updated>
+    <updated>2017-09-12T02:15:01.000Z</updated>
     
     <content type="html"><![CDATA[<pre><code>随着后期流量的增加，避免不了要上缓存。不要担心，幸好你遇到了Spring Boot，让你轻松搞定缓存。
 </code></pre><a id="more"></a>
@@ -327,6 +381,7 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div></pre></td><td class="code"><pre><div class="line">@Configuration</div><div class="line">@EnableCaching</div><div class="line">public class CacheConfig extends CachingConfigurerSupport&#123;</div><div class="line">    public static final Logger LOGGER = LoggerFactory.getLogger(CacheConfig.class);</div><div class="line">    @Value(&quot;$&#123;spring.redis.host&#125;&quot;)</div><div class="line">    private String redisHostName = &quot;localhost&quot;;</div><div class="line">    @Value(&quot;$&#123;spring.redis.port&#125;&quot;)</div><div class="line">    private  int redisPort = 6379;</div><div class="line">    @Value(&quot;$&#123;spring.redis.password&#125;&quot;)</div><div class="line">    private String redisPasswd = &quot;******&quot;;</div><div class="line"></div><div class="line">    @Bean</div><div class="line">    public JedisConnectionFactory jedisConnectionFactory() &#123;</div><div class="line">        JedisConnectionFactory factory = new JedisConnectionFactory();</div><div class="line">        factory.setHostName(redisHostName);</div><div class="line">        factory.setPort(redisPort);</div><div class="line">        factory.setPassword(redisPasswd);</div><div class="line">        factory.setUsePool(true);</div><div class="line">        return factory;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    @Bean</div><div class="line">    public KeyGenerator keyGenerator() &#123;</div><div class="line">        return (o, method, objects) -&gt; &#123;</div><div class="line">            // This will generate a unique key of the class name, the method name,</div><div class="line">            // and all method parameters appended.</div><div class="line">            StringBuilder sb = new StringBuilder();</div><div class="line">            sb.append(o.getClass().getName());</div><div class="line">            sb.append(&quot;:&quot;);</div><div class="line">            sb.append(method.getName());</div><div class="line">            for (Object obj : objects) &#123;</div><div class="line">                sb.append(&quot;:&quot;);</div><div class="line">                sb.append(obj.toString());</div><div class="line">            &#125;</div><div class="line">            return sb.toString();</div><div class="line">        &#125;;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    @Bean</div><div class="line">    public RedisTemplate&lt;String, String&gt; redisTemplate(</div><div class="line">            RedisConnectionFactory factory) &#123;</div><div class="line">        StringRedisTemplate template = new StringRedisTemplate(factory);</div><div class="line">        Jackson2JsonRedisSerializer jackson2JsonRedisSerializer = new Jackson2JsonRedisSerializer(Object.class);</div><div class="line">        ObjectMapper om = new ObjectMapper();</div><div class="line">        om.setVisibility(PropertyAccessor.ALL, JsonAutoDetect.Visibility.ANY);</div><div class="line">        om.enableDefaultTyping(ObjectMapper.DefaultTyping.NON_FINAL);</div><div class="line">        jackson2JsonRedisSerializer.setObjectMapper(om);</div><div class="line">        template.setValueSerializer(jackson2JsonRedisSerializer);</div><div class="line">        template.afterPropertiesSet();</div><div class="line">        return template;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    @Bean</div><div class="line">    public CacheManager cacheManager(RedisTemplate redisTemplate) &#123;</div><div class="line">        RedisCacheManager cacheManager = new RedisCacheManager(redisTemplate);</div><div class="line"></div><div class="line">        // Number of seconds before expiration. Defaults to unlimited (0)</div><div class="line">        cacheManager.setDefaultExpiration(300);</div><div class="line">        return cacheManager;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <p>我一般喜欢存储json数据，这样可以跨平台，而不是只能java App可以用，未来如果混合了java以外的语言，也能从容应对。</p>
 <h3 id="缓存更新和过期-CachePut和-CacheEvict"><a href="#缓存更新和过期-CachePut和-CacheEvict" class="headerlink" title="缓存更新和过期: @CachePut和@CacheEvict"></a>缓存更新和过期: @CachePut和@CacheEvict</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">#设置</div><div class="line">@Cacheable(value = &quot;queue&quot;)</div><div class="line">public Queue selectByPK(Long id) &#123;</div><div class="line">	...</div><div class="line">&#125;</div><div class="line"></div><div class="line">#更新</div><div class="line">@CachePut(value = &quot;queue&quot;, key = &quot;#root.targetClass.name + &apos;:selectByPK:&apos; + #result.id&quot;)</div><div class="line">public Queue update(Queue Queue) &#123;</div><div class="line">    ...</div><div class="line">&#125;</div><div class="line"></div><div class="line">#失效or过期</div><div class="line">@CacheEvict(value = &quot;queue&quot;, key = &quot;#root.targetClass.name + &apos;:selectByPK:&apos; + #id&quot;)</div><div class="line">public int delete(Long id) &#123;</div><div class="line">    ...</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="SpEL生成key"><a href="#SpEL生成key" class="headerlink" title="SpEL生成key"></a>SpEL生成key</h3><p>Spring还为我们提供了一个root对象可以用来生成key。通过该root对象我们可以获取到以下信息。<br>属性名称    描述    示例<br>methodName    当前方法名    #root.methodName<br>method    当前方法    #root.method.name<br>target    当前被调用的对象    #root.target<br>targetClass    当前被调用的对象的class    #root.targetClass<br>args    当前方法参数组成的数组    #root.args[0]<br>caches    当前被调用的方法使用的Cache     #root.caches[0].name<br>当我们要使用root对象的属性作为key时我们也可以将“#root”省略，因为Spring默认使用的就是root对象的属性。</p>
 <h3 id="结束"><a href="#结束" class="headerlink" title="结束"></a>结束</h3><pre><code>～：）～～～
 </code></pre>]]></content>
     
@@ -907,53 +962,6 @@ Springboot内部提供的事务管理器是根据autoconfigure来进行决定的
     <summary type="html">
     
       &lt;pre&gt;&lt;code&gt;微信获取用户信息和微信H5支付
-&lt;/code&gt;&lt;/pre&gt;
-    
-    </summary>
-    
-      <category term="work" scheme="http://www.nealma.com/categories/work/"/>
-    
-    
-      <category term="大杂烩" scheme="http://www.nealma.com/tags/%E5%A4%A7%E6%9D%82%E7%83%A9/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>工作中遇到的问题 (二) Ajax重复提交</title>
-    <link href="http://www.nealma.com/2016/11/26/work-problerm-2/"/>
-    <id>http://www.nealma.com/2016/11/26/work-problerm-2/</id>
-    <published>2016-11-26T03:46:45.000Z</published>
-    <updated>2016-12-11T08:47:03.000Z</updated>
-    
-    <content type="html"><![CDATA[<pre><code>最近也不知道写点啥，工作任务太饱和了，遇到些小问题，做个总结
-</code></pre><a id="more"></a>
-<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><pre><code>最近也不知道写点啥，工作任务太饱和了，遇到些小问题，做个总结
-</code></pre><h3 id="Linux-使用cp-rf-总是提醒是否覆盖"><a href="#Linux-使用cp-rf-总是提醒是否覆盖" class="headerlink" title="Linux 使用cp -rf 总是提醒是否覆盖"></a>Linux 使用cp -rf 总是提醒是否覆盖</h3><pre><code>刚觉很奇怪，rf本来就是要强制覆盖的，为什么还总是提醒呢？Google之后，才知道原来是别名在作怪。
-通过alias命令可以看到,我们执行cp命令，其实是执行的cp -i, 所以无论我们怎么-rf加参数，总是提示。
-</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">[root@apple]# alias</div><div class="line">alias cp=&apos;cp -i&apos;</div><div class="line">alias egrep=&apos;egrep --color=auto&apos;</div><div class="line">alias fgrep=&apos;fgrep --color=auto&apos;</div><div class="line">alias grep=&apos;grep --color=auto&apos;</div><div class="line">alias l.=&apos;ls -d .* --color=auto&apos;</div><div class="line">alias ll=&apos;ls -l --color=auto&apos;</div><div class="line">alias ls=&apos;ls --color=auto&apos;</div><div class="line">alias mv=&apos;mv -i&apos;</div><div class="line">alias rm=&apos;rm -i&apos;</div><div class="line">alias which=&apos;alias | /usr/bin/which --tty-only --read-alias --show-dot --show-tilde&apos;</div></pre></td></tr></table></figure>
-<pre><code>解决办法：
-
-打开~/.bashrc文件，注释掉即可。
-</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">#alias cp=&apos;cp -i&apos;</div></pre></td></tr></table></figure>
-<pre><code>或者这样：
-</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">/usr/bin/cp</div></pre></td></tr></table></figure>
-<h3 id="Ajax重复提交的问题"><a href="#Ajax重复提交的问题" class="headerlink" title="Ajax重复提交的问题"></a>Ajax重复提交的问题</h3><pre><code>我们在使用ajax调用接口，异步提交的时候，特别是在网络环境不好的时候，会在短时间内，连续提交多次，
-导致数据库中出现很多垃圾数据，首先是客户端的限制措施。
-</code></pre><ul>
-<li>使用jQuery.ajaxPrefilter，其实是个过滤器，如下：</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div></pre></td><td class="code"><pre><div class="line">var pendingRequests = &#123;&#125;;</div><div class="line">jQuery.ajaxPrefilter(function( options, originalOptions, jqXHR ) &#123;</div><div class="line">    var key = originalOptions.url+&quot;_&quot;+originalOptions.type.toUpperCase();</div><div class="line">    console.log(key)</div><div class="line">    if (!pendingRequests[key]</div><div class="line">            || (pendingRequests[key] &amp;&amp; originalOptions.type.toUpperCase() !=&apos;POST&apos;)) &#123;</div><div class="line">        pendingRequests[key] = jqXHR;</div><div class="line">        console.log(&apos;start&apos;);</div><div class="line">    &#125;else&#123;</div><div class="line">        jqXHR.abort();    //放弃后触发的提交</div><div class="line">        //pendingRequests[key].abort();   // 放弃先触发的提交</div><div class="line">        console.log(&apos;abort&apos;);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    var complete = options.complete;</div><div class="line">    options.complete = function(jqXHR, textStatus) &#123;</div><div class="line">        console.log(&apos;complete&apos;);</div><div class="line">        //TODO: pendingRequests[key] = null;</div><div class="line">        setTimeout(function () &#123;</div><div class="line">            pendingRequests[key] = null;</div><div class="line">        &#125;, 10000);</div><div class="line">        if (jQuery.isFunction(complete)) &#123;</div><div class="line">            complete.apply(this, arguments);</div><div class="line">        &#125;</div><div class="line">    &#125;;</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
-<ul>
-<li>服务器端限制</li>
-</ul>
-<p>…</p>
-<h3 id="结束"><a href="#结束" class="headerlink" title="结束"></a>结束</h3><pre><code>夜长长，路漫漫...
- :)~
-</code></pre>]]></content>
-    
-    <summary type="html">
-    
-      &lt;pre&gt;&lt;code&gt;最近也不知道写点啥，工作任务太饱和了，遇到些小问题，做个总结
 &lt;/code&gt;&lt;/pre&gt;
     
     </summary>

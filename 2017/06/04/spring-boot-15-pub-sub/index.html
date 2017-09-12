@@ -68,7 +68,7 @@
 <link href="../../../../css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="curl," />
+  <meta name="keywords" content="Java,Spring,Spring-Boot,PubSub," />
 
 
 
@@ -86,19 +86,16 @@
 
 
 
-<meta name="description" content="curl在我们的开发过程中经常被用到，脑子记不住啊，总是过段时间就记不清楚了
-记录之，以备所用之需">
+<meta name="description" content="异构系统之间如何解偶和很好的连接呢？发布订阅模式是个很好的选择。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="curl（一) 常用命令">
-<meta property="og:url" content="http://www.nealma.com/2016/05/30/curl-1-how-to-use/index.html">
+<meta property="og:title" content="Spring-Boot（十五) PubSub Messaging with Spring Data Redis">
+<meta property="og:url" content="http://www.nealma.com/2017/06/04/spring-boot-15-pub-sub/index.html">
 <meta property="og:site_name" content="nealma.com">
-<meta property="og:description" content="curl在我们的开发过程中经常被用到，脑子记不住啊，总是过段时间就记不清楚了
-记录之，以备所用之需">
-<meta property="og:updated_time" content="2017-07-08T13:14:44.000Z">
+<meta property="og:description" content="异构系统之间如何解偶和很好的连接呢？发布订阅模式是个很好的选择。">
+<meta property="og:updated_time" content="2017-09-12T06:36:47.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="curl（一) 常用命令">
-<meta name="twitter:description" content="curl在我们的开发过程中经常被用到，脑子记不住啊，总是过段时间就记不清楚了
-记录之，以备所用之需">
+<meta name="twitter:title" content="Spring-Boot（十五) PubSub Messaging with Spring Data Redis">
+<meta name="twitter:description" content="异构系统之间如何解偶和很好的连接呢？发布订阅模式是个很好的选择。">
 
 
 
@@ -119,9 +116,9 @@
 
 
 
-  <link rel="canonical" href="http://www.nealma.com/2016/05/30/curl-1-how-to-use/"/>
+  <link rel="canonical" href="http://www.nealma.com/2017/06/04/spring-boot-15-pub-sub/"/>
 
-  <title> curl（一) 常用命令 | nealma.com </title>
+  <title> Spring-Boot（十五) PubSub Messaging with Spring Data Redis | nealma.com </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -271,7 +268,7 @@
             
             
               
-                curl（一) 常用命令
+                Spring-Boot（十五) PubSub Messaging with Spring Data Redis
               
             
           </h1>
@@ -283,8 +280,8 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-05-30T11:46:45+08:00" content="2016-05-30">
-              2016-05-30
+            <time itemprop="dateCreated" datetime="2017-06-04T09:46:45+08:00" content="2017-06-04">
+              2017-06-04
             </time>
           </span>
 
@@ -297,8 +294,8 @@
               <span class="post-meta-item-text">分类于</span>
               
                 <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="../../../../categories/curl/" itemprop="url" rel="index">
-                    <span itemprop="name">curl</span>
+                  <a href="../../../../categories/Spring-Boot/" itemprop="url" rel="index">
+                    <span itemprop="name">Spring Boot</span>
                   </a>
                 </span>
 
@@ -314,7 +311,7 @@
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
                 <a href="#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2016/05/30/curl-1-how-to-use/" itemprop="commentsCount"></span>
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2017/06/04/spring-boot-15-pub-sub/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -337,16 +334,31 @@
       
 
       
-        <pre><code>curl在我们的开发过程中经常被用到，脑子记不住啊，总是过段时间就记不清楚了
-记录之，以备所用之需
+        <pre><code>异构系统之间如何解偶和很好的连接呢？发布订阅模式是个很好的选择。
 </code></pre><a id="more"></a>
-<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><pre><code>curl在我们的开发过程中经常被用到，脑子记不住啊，总是过段时间就记不清楚了
-记录之，以备所用之需
-</code></pre><h3 id="GET请求"><a href="#GET请求" class="headerlink" title="GET请求"></a>GET请求</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">curl -i -v &quot;http://localhost/login?user=user&amp;password=user&quot;</div></pre></td></tr></table></figure>
-<h3 id="POST请求"><a href="#POST请求" class="headerlink" title="POST请求"></a>POST请求</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">curl -i -v -X POST http://localhost:8080/admin/login -d &quot;user=user&amp;password=user&quot;</div></pre></td></tr></table></figure>
-<h3 id="POST请求-JSON格式"><a href="#POST请求-JSON格式" class="headerlink" title="POST请求,JSON格式"></a>POST请求,JSON格式</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">curl -l -H &quot;Content-type: application/json&quot; -X POST -d &apos;&#123;&quot;user&quot;:&quot;user&quot;,&quot;password&quot;:&quot;user&quot;&#125;&apos;  http://localhost/login</div></pre></td></tr></table></figure>
-<h3 id="接口需要鉴权"><a href="#接口需要鉴权" class="headerlink" title="接口需要鉴权"></a>接口需要鉴权</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">curl -X POST -d &apos;&#123;&quot;user&quot;:&quot;user&quot;,&quot;password&quot;:&quot;user&quot;&#125;&apos;  http://localhost/auth -u username:password</div></pre></td></tr></table></figure>
-<h3 id="结束"><a href="#结束" class="headerlink" title="结束"></a>结束</h3><pre><code>：）～
+<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><pre><code>发布订阅是一种典型的异步通信模型，可以让消息的发布者和订阅者充分解耦。
+Spring Boot中，使用Redis很容易实现一个发布订阅系统，如果你想用，看这一篇就够了。
+</code></pre><p><a href="http://www.baeldung.com/spring-data-redis-pub-sub" target="_blank" rel="external">参考文章</a></p>
+<p>开发环境：<br>OS: Mac 10.11.6<br>IDE: IDEA<br>Build: Maven</p>
+<p><strong>本文依赖前文的CacheConfig.java文件</strong></p>
+<h3 id="加入依赖"><a href="#加入依赖" class="headerlink" title="加入依赖"></a>加入依赖</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&lt;dependency&gt;</div><div class="line">    &lt;groupId&gt;org.springframework.data&lt;/groupId&gt;</div><div class="line">    &lt;artifactId&gt;spring-data-redis&lt;/artifactId&gt;</div><div class="line">&lt;/dependency&gt;</div></pre></td></tr></table></figure>
+<h3 id="Redis-Configuration"><a href="#Redis-Configuration" class="headerlink" title="Redis Configuration"></a>Redis Configuration</h3><ul>
+<li><p>MessageListenerAdapter/MessageListener/RedisMessageSubscriber</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">@Bean</div><div class="line">MessageListenerAdapter messageListener() &#123; </div><div class="line">    return new MessageListenerAdapter(new RedisMessageSubscriber());</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+<li><p>RedisMessageListenerContainer<br>– “handles the low level details of listening, converting and message dispatching.”–</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">@Bean</div><div class="line">RedisMessageListenerContainer redisContainer() &#123;</div><div class="line">    RedisMessageListenerContainer container </div><div class="line">      = new RedisMessageListenerContainer(); </div><div class="line">    container.setConnectionFactory(jedisConnectionFactory()); </div><div class="line">    container.addMessageListener(messageListener(), topic()); </div><div class="line">    return container; </div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+<li><p>RedisMessagePublisher (redisTemplate and topic as constructor arguments)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">@Bean</div><div class="line">MessagePublisher redisPublisher() &#123; </div><div class="line">    return new RedisMessagePublisher(redisTemplate(), topic());</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+<li><p>Set up Topic</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">@Bean</div><div class="line">ChannelTopic topic() &#123;</div><div class="line">    return new ChannelTopic(&quot;messageQueue&quot;);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="用到的一些类"><a href="#用到的一些类" class="headerlink" title="用到的一些类"></a>用到的一些类</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div></pre></td><td class="code"><pre><div class="line">#MessagePublisher.java</div><div class="line">public interface MessagePublisher &#123;</div><div class="line">    void publish(final String message);</div><div class="line">&#125;</div><div class="line"></div><div class="line">#RedisMessagePublisher.java</div><div class="line">@Service</div><div class="line">public class RedisMessagePublisher implements MessagePublisher &#123;</div><div class="line">    @Autowired</div><div class="line">    private RedisTemplate&lt;Object, Object&gt; redisTemplate;</div><div class="line">    @Autowired</div><div class="line">    private ChannelTopic topic;</div><div class="line"></div><div class="line">    public RedisMessagePublisher(final RedisTemplate&lt;Object, Object&gt; redisTemplate, final ChannelTopic topic) &#123;</div><div class="line">        this.redisTemplate = redisTemplate;</div><div class="line">        this.topic = topic;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    public void publish(final String message) &#123;</div><div class="line">        redisTemplate.convertAndSend(topic.getTopic(), message);</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">#RedisMessageSubscriber.java</div><div class="line">@Service</div><div class="line">public class RedisMessageSubscriber implements MessageListener&#123;</div><div class="line">    public static List&lt;String&gt; messageList = new ArrayList();</div><div class="line"></div><div class="line">    public void onMessage(final Message message, final byte[] pattern) &#123;</div><div class="line">        messageList.add(message.toString());</div><div class="line">        System.out.println(&quot;Message received: &quot; + new String(message.getBody()));</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">@RunWith(SpringJUnit4ClassRunner.class)</div><div class="line">@SpringBootTest(classes = Application.class)</div><div class="line">public class RedisMessageListenerIntegrationTest &#123;</div><div class="line"></div><div class="line">    @Autowired</div><div class="line">    private RedisMessagePublisher redisMessagePublisher;</div><div class="line"></div><div class="line">    @Test</div><div class="line">    public void testOnMessage() throws Exception &#123;</div><div class="line">        String message = &quot;Message &quot; + UUID.randomUUID();</div><div class="line">        redisMessagePublisher.publish(message);</div><div class="line">        Thread.sleep(100);</div><div class="line">        assertTrue(RedisMessageSubscriber.messageList.get(0).contains(message));</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="结束"><a href="#结束" class="headerlink" title="结束"></a>结束</h3><pre><code>～：）～～～
 </code></pre>
       
 
@@ -391,7 +403,13 @@
       
         <div class="post-tags">
           
-            <a href="../../../../tags/curl/" rel="tag">#curl</a>
+            <a href="../../../../tags/Java/" rel="tag">#Java</a>
+          
+            <a href="../../../../tags/Spring/" rel="tag">#Spring</a>
+          
+            <a href="../../../../tags/Spring-Boot/" rel="tag">#Spring-Boot</a>
+          
+            <a href="../../../../tags/PubSub/" rel="tag">#PubSub</a>
           
         </div>
       
@@ -400,16 +418,16 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="../shell-find/" rel="next" title="find（一) 常用命令">
-                <i class="fa fa-chevron-left"></i> find（一) 常用命令
+              <a href="../../03/spring-boot-14-redis-cache/" rel="next" title="Spring-Boot（十四) Spring Boot Use Redis As Cache">
+                <i class="fa fa-chevron-left"></i> Spring-Boot（十四) Spring Boot Use Redis As Cache
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="../nodejs-1-very-slow/" rel="prev" title="npm 网络难以忍受">
-                npm 网络难以忍受 <i class="fa fa-chevron-right"></i>
+              <a href="../nginx-example-work-3-temp-proxy/" rel="prev" title="Nginx | ERR_CONTENT_LENGTH_MISMATCH">
+                Nginx | ERR_CONTENT_LENGTH_MISMATCH <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -558,7 +576,7 @@
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#GET请求"><span class="nav-number">2.</span> <span class="nav-text">GET请求</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#POST请求"><span class="nav-number">3.</span> <span class="nav-text">POST请求</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#POST请求-JSON格式"><span class="nav-number">4.</span> <span class="nav-text">POST请求,JSON格式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#接口需要鉴权"><span class="nav-number">5.</span> <span class="nav-text">接口需要鉴权</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#结束"><span class="nav-number">6.</span> <span class="nav-text">结束</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#加入依赖"><span class="nav-number">2.</span> <span class="nav-text">加入依赖</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Redis-Configuration"><span class="nav-number">3.</span> <span class="nav-text">Redis Configuration</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#用到的一些类"><span class="nav-number">4.</span> <span class="nav-text">用到的一些类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#测试"><span class="nav-number">5.</span> <span class="nav-text">测试</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#结束"><span class="nav-number">6.</span> <span class="nav-text">结束</span></a></li></ol></div>
             
           </div>
         </section>
@@ -682,9 +700,9 @@
 
     <script type="text/javascript">
       var disqus_shortname = 'nealma';
-      var disqus_identifier = '2016/05/30/curl-1-how-to-use/';
-      var disqus_title = "curl（一) 常用命令";
-      var disqus_url = 'http://www.nealma.com/2016/05/30/curl-1-how-to-use/';
+      var disqus_identifier = '2017/06/04/spring-boot-15-pub-sub/';
+      var disqus_title = "Spring-Boot（十五) PubSub Messaging with Spring Data Redis";
+      var disqus_url = 'http://www.nealma.com/2017/06/04/spring-boot-15-pub-sub/';
 
       function run_disqus_script(disqus_script){
         var dsq = document.createElement('script');
