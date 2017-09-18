@@ -2,6 +2,20 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://www.nealma.com/2017/07/04/spring-boot-16-websocket/</loc>
+    
+    <lastmod>2017-09-18T15:30:57.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://www.nealma.com/2017/06/04/spring-boot-15-pub-sub/</loc>
+    
+    <lastmod>2017-09-14T01:08:23.000Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://www.nealma.com/2017/07/02/spring-cloud-2-euraka/</loc>
     
     <lastmod>2017-09-12T06:37:22.000Z</lastmod>
@@ -19,13 +33,6 @@
     <loc>http://www.nealma.com/2017/06/30/spring-cloud-1-config/</loc>
     
     <lastmod>2017-09-12T06:37:10.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://www.nealma.com/2017/06/04/spring-boot-15-pub-sub/</loc>
-    
-    <lastmod>2017-09-12T06:36:47.000Z</lastmod>
     
   </url>
   

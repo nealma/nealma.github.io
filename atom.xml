@@ -43,6 +43,53 @@
   </entry>
   
   <entry>
+    <title>Spring-Boot（十六) WebSocket Base Of Spring Boot</title>
+    <link href="http://www.nealma.com/2017/07/04/spring-boot-16-websocket/"/>
+    <id>http://www.nealma.com/2017/07/04/spring-boot-16-websocket/</id>
+    <published>2017-07-04T02:56:45.000Z</published>
+    <updated>2017-09-18T15:30:57.000Z</updated>
+    
+    <content type="html"><![CDATA[<pre><code>websocket是一个持久化的协议，实现了浏览器与服务器的全双工通信。
+我们很轻松的就可以将服务器端的内容推送给浏览器。
+</code></pre><a id="more"></a>
+<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><pre><code>websocket是一个持久化的协议，实现了浏览器与服务器的全双工通信。
+我们很轻松的就可以将服务器端的内容推送给浏览器。这里需要借助STOMP协议，
+即Streaming Text Oriented Messaging Protocol.
+</code></pre><p>开发环境：<br>OS: Mac 10.11.6<br>IDE: IDEA<br>Build: Maven</p>
+<h3 id="加入依赖"><a href="#加入依赖" class="headerlink" title="加入依赖"></a>加入依赖</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">#Server Side</div><div class="line">&lt;dependency&gt;</div><div class="line">    &lt;groupId&gt;org.springframework.data&lt;/groupId&gt;</div><div class="line">    &lt;artifactId&gt;spring-boot-starter-websocket&lt;/artifactId&gt;</div><div class="line">&lt;/dependency&gt;</div><div class="line"></div><div class="line">#Browser Side</div><div class="line"></div><div class="line">sockjs.js</div><div class="line">stomp.js</div></pre></td></tr></table></figure>
+<h3 id="WebSocket-Configuration"><a href="#WebSocket-Configuration" class="headerlink" title="WebSocket Configuration"></a>WebSocket Configuration</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">@Configuration</div><div class="line">@EnableWebSocketMessageBroker</div><div class="line">public class WebSocketConfig extends AbstractWebSocketMessageBrokerConfigurer&#123;</div><div class="line"></div><div class="line">    @Override</div><div class="line">    public void registerStompEndpoints(StompEndpointRegistry registry) &#123;</div><div class="line">        registry.addEndpoint(&quot;/web-socket&quot;).withSockJS();//客户端js调用，new SockJS(&quot;/web-socket&quot;)</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    @Override</div><div class="line">    public void configureMessageBroker(MessageBrokerRegistry config) &#123;</div><div class="line">        config.setApplicationDestinationPrefixes(&quot;/app&quot;);//就是你的客户端请求的路径前缀</div><div class="line">        config.enableSimpleBroker(&quot;/topic&quot;);//可以设置多个</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="Controller-对外输出接口"><a href="#Controller-对外输出接口" class="headerlink" title="Controller 对外输出接口"></a>Controller 对外输出接口</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">@RestController</div><div class="line">public class WebSocketController extends BaseController &#123;</div><div class="line"></div><div class="line">    @MessageMapping(&quot;/greeting&quot;)//客户端请求路径，不要忘记客户端要加上前缀“/app”,即“/app/greeting”</div><div class="line">    @SendTo(&quot;/topic/hi&quot;)//给订阅这个路径的所有客户端(Browser)发送数据</div><div class="line">    public String handle(String greeting) &#123;</div><div class="line">        LOGGER.error(TimeUtils.getCurrentDate());</div><div class="line">        return &quot;[&quot; + TimeUtils.getCurrentDatetime() + &quot;: &quot; + greeting;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="客户端（Browser）"><a href="#客户端（Browser）" class="headerlink" title="客户端（Browser）"></a>客户端（Browser）</h3><p>–引入组件–</p>
+<script src="https://cdn.bootcss.com/stomp.js/2.3.3/stomp.min.js"></script>
+<script src="https://cdn.bootcss.com/sockjs-client/1.1.4/sockjs.js"></script>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">#connect</div><div class="line">var socket = new SockJS(&apos;/web-socket&apos;);</div><div class="line">var stompClient = Stomp.over(socket);</div><div class="line">stompClient.connect(&#123;&#125;, function (frame) &#123;</div><div class="line">    console.log(&apos;Connected:&apos; + frame);</div><div class="line">    stompClient.subscribe(&apos;/topic/hi&apos;, function (response) &#123;</div><div class="line">        console.log(&apos;response :&apos; + response.body);</div><div class="line">    &#125;)</div><div class="line">&#125;);</div><div class="line"></div><div class="line">#request（send message）</div><div class="line">stompClient.send(&quot;/app/greeting&quot;, &#123;&#125;, JSON.stringify(&#123;&apos;greeting&apos;: name&#125;));</div><div class="line"></div><div class="line">#disconnect</div><div class="line">stompClient.disconnect();</div></pre></td></tr></table></figure>
+<h3 id="结束"><a href="#结束" class="headerlink" title="结束"></a>结束</h3><pre><code>测试的时候，当你打开n个浏览器窗口，你会发现，订阅了&apos;/topic/hi&apos;的客户端窗口，都会收到信息。
+ ～：）～～～
+</code></pre>]]></content>
+    
+    <summary type="html">
+    
+      &lt;pre&gt;&lt;code&gt;websocket是一个持久化的协议，实现了浏览器与服务器的全双工通信。
+我们很轻松的就可以将服务器端的内容推送给浏览器。
+&lt;/code&gt;&lt;/pre&gt;
+    
+    </summary>
+    
+      <category term="Spring Boot" scheme="http://www.nealma.com/categories/Spring-Boot/"/>
+    
+    
+      <category term="Java" scheme="http://www.nealma.com/tags/Java/"/>
+    
+      <category term="Spring" scheme="http://www.nealma.com/tags/Spring/"/>
+    
+      <category term="Spring-Boot" scheme="http://www.nealma.com/tags/Spring-Boot/"/>
+    
+      <category term="WebSocket" scheme="http://www.nealma.com/tags/WebSocket/"/>
+    
+  </entry>
+  
+  <entry>
     <title>Spring Cloud | 服务注册与发现</title>
     <link href="http://www.nealma.com/2017/07/02/spring-cloud-2-euraka/"/>
     <id>http://www.nealma.com/2017/07/02/spring-cloud-2-euraka/</id>
@@ -301,7 +348,7 @@
     <link href="http://www.nealma.com/2017/06/04/spring-boot-15-pub-sub/"/>
     <id>http://www.nealma.com/2017/06/04/spring-boot-15-pub-sub/</id>
     <published>2017-06-04T01:46:45.000Z</published>
-    <updated>2017-09-12T06:36:47.000Z</updated>
+    <updated>2017-09-14T01:08:23.000Z</updated>
     
     <content type="html"><![CDATA[<pre><code>异构系统之间如何解偶和很好的连接呢？发布订阅模式是个很好的选择。
 </code></pre><a id="more"></a>
@@ -319,7 +366,7 @@ Spring Boot中，使用Redis很容易实现一个发布订阅系统，如果你�
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">@Bean</div><div class="line">RedisMessageListenerContainer redisContainer() &#123;</div><div class="line">    RedisMessageListenerContainer container </div><div class="line">      = new RedisMessageListenerContainer(); </div><div class="line">    container.setConnectionFactory(jedisConnectionFactory()); </div><div class="line">    container.addMessageListener(messageListener(), topic()); </div><div class="line">    return container; </div><div class="line">&#125;</div></pre></td></tr></table></figure>
 </li>
 <li><p>RedisMessagePublisher (redisTemplate and topic as constructor arguments)</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">@Bean</div><div class="line">MessagePublisher redisPublisher() &#123; </div><div class="line">    return new RedisMessagePublisher(redisTemplate(), topic());</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">@Bean</div><div class="line">RedisMessagePublisher redisPublisher() &#123; </div><div class="line">    return new RedisMessagePublisher(redisTemplate(), topic());</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 </li>
 <li><p>Set up Topic</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">@Bean</div><div class="line">ChannelTopic topic() &#123;</div><div class="line">    return new ChannelTopic(&quot;messageQueue&quot;);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
@@ -747,6 +794,38 @@ Springboot内部提供的事务管理器是根据autoconfigure来进行决定的
   </entry>
   
   <entry>
+    <title>【IDEA】cannot resolve syambol xxx</title>
+    <link href="http://www.nealma.com/2017/01/01/work-problerm-6-idea-cannot-resolve-syambol/"/>
+    <id>http://www.nealma.com/2017/01/01/work-problerm-6-idea-cannot-resolve-syambol/</id>
+    <published>2017-01-01T03:46:45.000Z</published>
+    <updated>2017-04-18T04:20:25.000Z</updated>
+    
+    <content type="html"><![CDATA[<pre><code>cannot resolve syambol xxx
+</code></pre><a id="more"></a>
+<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>解决方法如下：<br>点击菜单中的 “File” -&gt; “Invalidate Caches / Restart”，然后点击对话框中的 “Invalidate and Restart”，清空 cache 并且重启。语法就会正确的高亮了。</p>
+<h3 id="结束"><a href="#结束" class="headerlink" title="结束"></a>结束</h3><pre><code>还会陆续遇到各种坑，慢慢填吧...
+ :)~
+</code></pre>]]></content>
+    
+    <summary type="html">
+    
+      &lt;pre&gt;&lt;code&gt;cannot resolve syambol xxx
+&lt;/code&gt;&lt;/pre&gt;
+    
+    </summary>
+    
+      <category term="work" scheme="http://www.nealma.com/categories/work/"/>
+    
+    
+      <category term="MySQL" scheme="http://www.nealma.com/tags/MySQL/"/>
+    
+      <category term="大杂烩" scheme="http://www.nealma.com/tags/%E5%A4%A7%E6%9D%82%E7%83%A9/"/>
+    
+      <category term="sql" scheme="http://www.nealma.com/tags/sql/"/>
+    
+  </entry>
+  
+  <entry>
     <title>常用的sql操作</title>
     <link href="http://www.nealma.com/2017/01/01/work-problerm-5-mysql-common-operate/"/>
     <id>http://www.nealma.com/2017/01/01/work-problerm-5-mysql-common-operate/</id>
@@ -774,38 +853,6 @@ Springboot内部提供的事务管理器是根据autoconfigure来进行决定的
     <summary type="html">
     
       &lt;pre&gt;&lt;code&gt;频繁的sql操作，总结一些经常用的。
-&lt;/code&gt;&lt;/pre&gt;
-    
-    </summary>
-    
-      <category term="work" scheme="http://www.nealma.com/categories/work/"/>
-    
-    
-      <category term="MySQL" scheme="http://www.nealma.com/tags/MySQL/"/>
-    
-      <category term="大杂烩" scheme="http://www.nealma.com/tags/%E5%A4%A7%E6%9D%82%E7%83%A9/"/>
-    
-      <category term="sql" scheme="http://www.nealma.com/tags/sql/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>【IDEA】cannot resolve syambol xxx</title>
-    <link href="http://www.nealma.com/2017/01/01/work-problerm-6-idea-cannot-resolve-syambol/"/>
-    <id>http://www.nealma.com/2017/01/01/work-problerm-6-idea-cannot-resolve-syambol/</id>
-    <published>2017-01-01T03:46:45.000Z</published>
-    <updated>2017-04-18T04:20:25.000Z</updated>
-    
-    <content type="html"><![CDATA[<pre><code>cannot resolve syambol xxx
-</code></pre><a id="more"></a>
-<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>解决方法如下：<br>点击菜单中的 “File” -&gt; “Invalidate Caches / Restart”，然后点击对话框中的 “Invalidate and Restart”，清空 cache 并且重启。语法就会正确的高亮了。</p>
-<h3 id="结束"><a href="#结束" class="headerlink" title="结束"></a>结束</h3><pre><code>还会陆续遇到各种坑，慢慢填吧...
- :)~
-</code></pre>]]></content>
-    
-    <summary type="html">
-    
-      &lt;pre&gt;&lt;code&gt;cannot resolve syambol xxx
 &lt;/code&gt;&lt;/pre&gt;
     
     </summary>
@@ -904,72 +951,6 @@ Springboot内部提供的事务管理器是根据autoconfigure来进行决定的
       <category term="大杂烩" scheme="http://www.nealma.com/tags/%E5%A4%A7%E6%9D%82%E7%83%A9/"/>
     
       <category term="Maven" scheme="http://www.nealma.com/tags/Maven/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>工作中遇到的问题 (三) 微信支付</title>
-    <link href="http://www.nealma.com/2016/12/12/work-problerm-3-wxpay/"/>
-    <id>http://www.nealma.com/2016/12/12/work-problerm-3-wxpay/</id>
-    <published>2016-12-12T02:46:45.000Z</published>
-    <updated>2017-05-27T06:33:15.000Z</updated>
-    
-    <content type="html"><![CDATA[<pre><code>微信获取用户信息和微信H5支付
-</code></pre><a id="more"></a>
-<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><pre><code>微信获取用户、ticket信息和微信H5支付
-</code></pre><h3 id="微信获取ticket信息"><a href="#微信获取ticket信息" class="headerlink" title="微信获取ticket信息"></a>微信获取ticket信息</h3><ul>
-<li><p>获取access_token</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&amp;appid=appid&amp;secret=appsecret</div></pre></td></tr></table></figure>
-<p>  返回值</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">    &quot;access_token&quot;: &quot;xxxxx&quot;,</div><div class="line">    &quot;expires_in&quot;: 7200</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-</li>
-<li><p>获取jsapi_ticket</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">http://api.weixin.qq.com/cgi-bin/ticket/getticket?type=jsapi&amp;access_token=xxxxxx</div></pre></td></tr></table></figure>
-<p>  返回值</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">    &quot;errcode&quot;: 0,</div><div class="line">    &quot;errmsg&quot;: &quot;ok&quot;,</div><div class="line">    &quot;ticket&quot;: &quot;sM4AOVdWfPE4DxkXGEs8VDd_c-Q_htialcX-c6Dxm8PROfcj2rA58GClUKytzCXuUGbwQLPTgdG0dPciNIv70A&quot;,</div><div class="line">    &quot;expires_in&quot;: 7200</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-</li>
-</ul>
-<h3 id="微信H5支付流程"><a href="#微信H5支付流程" class="headerlink" title="微信H5支付流程"></a>微信H5支付流程</h3><ul>
-<li>获取code</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">https://open.weixin.qq.com/connect/oauth2/authorize?appid=xxx&amp;redirect_uri=http://test.ruitaowang.com/test&amp;response_type=code&amp;scope=snsapi_base</div><div class="line"></div><div class="line">https://open.weixin.qq.com/connect/oauth2/authorize?appid=xxx&amp;redirect_uri=http://test.ruitaowang.com/wap/index&amp;response_type=code&amp;scope=snsapi_base</div><div class="line"></div><div class="line"># SCOPE : snsapi_base ,  snsapi_userinfo</div><div class="line"></div><div class="line">#返回值：</div><div class="line"></div><div class="line">http://test.ruitaowang.com/test?code=041JgA1q0382ir1Z0p0q0OZh1q0JgA1F&amp;state=</div></pre></td></tr></table></figure>
-<ul>
-<li>获取openid<br>获取code后，请求以下链接获取access_token：</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line">https://api.weixin.qq.com/sns/oauth2/access_token?appid=xxx&amp;secret=xxx&amp;code=021IDZDZ1PpbNX0vkHFZ1GqpEZ1IDZD3&amp;grant_type=authorization_code</div><div class="line"></div><div class="line">#返回值：</div><div class="line">&#123;</div><div class="line">	&quot;access_token&quot;:&quot;xxx&quot;,</div><div class="line">	&quot;expires_in&quot;:7200,</div><div class="line">	&quot;refresh_token&quot;:&quot;xxxx&quot;,</div><div class="line">	&quot;openid&quot;:&quot;xxx&quot;,</div><div class="line">	&quot;scope&quot;:&quot;snsapi_base&quot;</div><div class="line">&#125;</div><div class="line"></div><div class="line">#如果获取code的时候，scope=snsapi_userinfo,这种是需要用户登陆确认的，此处返回的值相应的多一些</div><div class="line"> &#123;</div><div class="line">	 &quot;access_token&quot;:&quot;xxxx&quot;,</div><div class="line">	 &quot;expires_in&quot;:7200,</div><div class="line">	 &quot;refresh_token&quot;:&quot;xxxx&quot;,</div><div class="line">	 &quot;openid&quot;:&quot;xxxx&quot;,</div><div class="line">	 &quot;scope&quot;:&quot;snsapi_userinfo&quot;,</div><div class="line">	 &quot;unionid&quot;:&quot;xxx&quot;</div><div class="line"> &#125;</div></pre></td></tr></table></figure>
-<ul>
-<li><p>拉取用户信息(需scope为 snsapi_userinfo)</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">#http：GET（请使用https协议）</div><div class="line">#https://api.weixin.qq.com/sns/userinfo?access_token=EHtVZcvhD6x475HJ2ukUc0u3BqiMdjJ2gc9x-j2fil4i63M-aS9qHVmcHxVw19tLdalzo8VjxIJzMyuIJKIiis1h2JoZmy5wRp9IWwiHxRab3cDu-SxQHSm10h47bHyVRKYeAEALES&amp;openid=OPENID&amp;lang=zh_CN</div><div class="line"></div><div class="line">#返回值</div><div class="line"></div><div class="line">&#123;</div><div class="line">	&quot;openid&quot;:&quot;xxxx&quot;,</div><div class="line">	&quot;nickname&quot;:&quot;neal&quot;,</div><div class="line">	&quot;sex&quot;:1,</div><div class="line">	&quot;language&quot;:&quot;zh_CN&quot;,</div><div class="line">	&quot;city&quot;:&quot;朝阳&quot;,</div><div class="line">	&quot;province&quot;:&quot;北京&quot;,</div><div class="line">	&quot;country&quot;:&quot;中国&quot;,</div><div class="line">	&quot;headimgurl&quot;:&quot;http:\/\/wx.qlogo.cn\/mmopen\/Aqtvh6YDJ6TZnQs24nyymaKibaYMqLlj6X4zvQQwL0icn2GOUAPxPrx6iaePr30syO9zQsibKLCb8WIuLS0H879caA\/0&quot;,</div><div class="line">	&quot;privilege&quot;:[],</div><div class="line">	&quot;unionid&quot;:&quot;xxxx&quot;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-</li>
-<li><p>统一下单接口,获取prepay_id</p>
-</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div></pre></td><td class="code"><pre><div class="line">http://api.weixin.qq.com/cgi-bin/ticket/getticket?type=jsapi&amp;access_token=EHtVZcvhD6x475HJ2ukUc0u3BqiMdjJ2gc9x-j2fil4i63M-aS9qHVmcHxVw19tLdalzo8VjxIJzMyuIJKIiis1h2JoZmy5wRp9IWwiHxRab3cDu-SxQHSm10h47bHyVRKYeAEALES</div><div class="line"></div><div class="line">＃https://pay.weixin.qq.com/wiki/doc/api/jsapi.php?chapter=9_1</div><div class="line"></div><div class="line">＃这里在服务端接口返回值中文会出现乱码，主要是body字段。也是坑了我好长的时间，因为我在本地开发的时候都正常，</div><div class="line">  部署到服务器就不行了，body字段是非中文没啥问题，但是一旦是中文就会失败。一开始以为是tomcat的问题，可是server.conf已经</div><div class="line">  是utf8的了，那就是微信API的问题，考虑对传入的字符进行String编码，所有的转码都是过了，还是不幸。</div><div class="line"></div><div class="line">  到底是那里出问题了，于是检查了下服务器的系统字符设置，locale -a,</div><div class="line">  发现，有警告。</div><div class="line">  第一感觉是系统的字符设置除了问题</div><div class="line">  于是各种Google,都是说设置en_US.UTF-8,可是看到Centos7 里面都是xxx.utf8</div><div class="line">  我试着把修改vim /etc/locale.conf如下：</div><div class="line"></div><div class="line">  LANG=&quot;en_US.utf8&quot;</div><div class="line">  LC_CTYPE=&quot;en_US.utf8&quot;</div><div class="line"></div><div class="line">  source /etc/locale.conf</div><div class="line"></div><div class="line">  #这下真好了，哎人生处处是大坑啊,我填，我填，其实这个问题对乱码的问题没有半毛钱关系，后来才知道的。</div><div class="line"></div><div class="line">  ##后续 有个地方是要更改的 那就是Tomcat</div><div class="line">  #server.conf配置</div><div class="line">	&lt;Connector port=&quot;8080&quot; protocol=&quot;HTTP/1.1&quot;</div><div class="line">               connectionTimeout=&quot;20000&quot;</div><div class="line">               URIEncoding=&quot;UTF-8&quot;</div><div class="line">               redirectPort=&quot;8443&quot; /&gt;</div><div class="line"></div><div class="line">  #catalina.sh配置</div><div class="line">  JAVA_OPTS=&quot;$JAVA_OPTS -Dfile.encoding=utf-8&quot;</div></pre></td></tr></table></figure>
-<ul>
-<li>网页端调起支付API</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div></pre></td><td class="code"><pre><div class="line">#https://pay.weixin.qq.com/wiki/doc/api/jsapi.php?chapter=7_7&amp;index=6</div><div class="line"></div><div class="line">function onBridgeReady()&#123;</div><div class="line">   WeixinJSBridge.invoke(</div><div class="line">       &apos;getBrandWCPayRequest&apos;, &#123;</div><div class="line">           &quot;appId&quot; ： &quot;xxx&quot;,     //公众号名称，由商户传入     </div><div class="line">           &quot;timeStamp&quot;：&quot; 1395712654&quot;,         //时间戳，自1970年以来的秒数     </div><div class="line">           &quot;nonceStr&quot; ： &quot;e61463f8efa94090b1f366cccfbbb444&quot;, //随机串     </div><div class="line">           &quot;package&quot; ： &quot;prepay_id=u802345jgfjsdfgsdg888&quot;,     </div><div class="line">           &quot;signType&quot; ： &quot;MD5&quot;,         //微信签名方式：     </div><div class="line">           &quot;paySign&quot; ： &quot;70EA570631E4BB79628FBCA90534C63FF7FADD89&quot; //微信签名,注意key要追加到参数尾部</div><div class="line">       &#125;,</div><div class="line">       function(res)&#123;     </div><div class="line">           if(res.err_msg == &quot;get_brand_wcpay_request：ok&quot; ) &#123;&#125;     // 使用以上方式判断前端返回,微信团队郑重提示：res.err_msg将在用户支付成功后返回    ok，但并不保证它绝对可靠。 </div><div class="line">       &#125;</div><div class="line">   ); </div><div class="line">&#125;</div><div class="line">if (typeof WeixinJSBridge == &quot;undefined&quot;)&#123;</div><div class="line">   if( document.addEventListener )&#123;</div><div class="line">       document.addEventListener(&apos;WeixinJSBridgeReady&apos;, onBridgeReady, false);</div><div class="line">   &#125;else if (document.attachEvent)&#123;</div><div class="line">       document.attachEvent(&apos;WeixinJSBridgeReady&apos;, onBridgeReady); </div><div class="line">       document.attachEvent(&apos;onWeixinJSBridgeReady&apos;, onBridgeReady);</div><div class="line">   &#125;</div><div class="line">&#125;else&#123;</div><div class="line">   onBridgeReady();</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h3 id="通知接口"><a href="#通知接口" class="headerlink" title="通知接口"></a>通知接口</h3><p>首先设置notify_url,必须为公众号后台设置的授支付url.<br>你的notify_url的接受方法必须是POST,<br>返回值是xml结构</p>
-<h3 id="接口权限-网页授权"><a href="#接口权限-网页授权" class="headerlink" title="接口权限 网页授权"></a>接口权限 网页授权</h3><p>开发 -&gt; 开发者工具 -&gt; 绑定开发者微信账号</p>
-<h3 id="结束"><a href="#结束" class="headerlink" title="结束"></a>结束</h3><pre><code>在调试接口的时候，最耗费时间的是在网页端调起支付API,前前后后弄了两天，好狼狈啊！！！
-主要是折在了paySign上，看文档根本就没有key的事，可是签名的时候，
-还得在排序好的参数后架上key=xxx,然后在MD5，总算是让我可以好好睡一觉了
-
-
- :)~
-</code></pre>]]></content>
-    
-    <summary type="html">
-    
-      &lt;pre&gt;&lt;code&gt;微信获取用户信息和微信H5支付
-&lt;/code&gt;&lt;/pre&gt;
-    
-    </summary>
-    
-      <category term="work" scheme="http://www.nealma.com/categories/work/"/>
-    
-    
-      <category term="大杂烩" scheme="http://www.nealma.com/tags/%E5%A4%A7%E6%9D%82%E7%83%A9/"/>
     
   </entry>
   

@@ -92,7 +92,7 @@
 <meta property="og:url" content="http://www.nealma.com/2017/06/04/spring-boot-15-pub-sub/index.html">
 <meta property="og:site_name" content="nealma.com">
 <meta property="og:description" content="异构系统之间如何解偶和很好的连接呢？发布订阅模式是个很好的选择。">
-<meta property="og:updated_time" content="2017-09-12T06:36:47.000Z">
+<meta property="og:updated_time" content="2017-09-14T01:08:23.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Spring-Boot（十五) PubSub Messaging with Spring Data Redis">
 <meta name="twitter:description" content="异构系统之间如何解偶和很好的连接呢？发布订阅模式是个很好的选择。">
@@ -350,7 +350,7 @@ Spring Boot中，使用Redis很容易实现一个发布订阅系统，如果你�
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">@Bean</div><div class="line">RedisMessageListenerContainer redisContainer() &#123;</div><div class="line">    RedisMessageListenerContainer container </div><div class="line">      = new RedisMessageListenerContainer(); </div><div class="line">    container.setConnectionFactory(jedisConnectionFactory()); </div><div class="line">    container.addMessageListener(messageListener(), topic()); </div><div class="line">    return container; </div><div class="line">&#125;</div></pre></td></tr></table></figure>
 </li>
 <li><p>RedisMessagePublisher (redisTemplate and topic as constructor arguments)</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">@Bean</div><div class="line">MessagePublisher redisPublisher() &#123; </div><div class="line">    return new RedisMessagePublisher(redisTemplate(), topic());</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">@Bean</div><div class="line">RedisMessagePublisher redisPublisher() &#123; </div><div class="line">    return new RedisMessagePublisher(redisTemplate(), topic());</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 </li>
 <li><p>Set up Topic</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">@Bean</div><div class="line">ChannelTopic topic() &#123;</div><div class="line">    return new ChannelTopic(&quot;messageQueue&quot;);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
@@ -505,7 +505,7 @@ Spring Boot中，使用Redis很容易实现一个发布订阅系统，如果你�
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="../../../../archives">
-              <span class="site-state-item-count">79</span>
+              <span class="site-state-item-count">80</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -522,7 +522,7 @@ Spring Boot中，使用Redis很容易实现一个发布订阅系统，如果你�
           
             <div class="site-state-item site-state-tags">
               <a href="../../../../tags">
-                <span class="site-state-item-count">81</span>
+                <span class="site-state-item-count">82</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
