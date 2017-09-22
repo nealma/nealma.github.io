@@ -43,11 +43,82 @@
   </entry>
   
   <entry>
+    <title>Spring-Boot（十六) Async Of Spring Boot</title>
+    <link href="http://www.nealma.com/2017/07/05/spring-boot-17-async/"/>
+    <id>http://www.nealma.com/2017/07/05/spring-boot-17-async/</id>
+    <published>2017-07-05T02:56:45.000Z</published>
+    <updated>2017-09-22T04:14:25.000Z</updated>
+    
+    <content type="html"><![CDATA[<pre><code>同步、异步我们经常用到，在Java中我们大部分时间都是在做同步编程，因为Java天生就是同步的，
+然而我们在某些场景下是需要考虑吞吐量和延迟，也就是我们经常提起的性能问题，那异步避免不了会被提起，
+会给我们带来不一样的世界。
+</code></pre><a id="more"></a>
+<p>开发环境：<br>OS: Mac 10.11.6<br>IDE: IDEA<br>Build: Maven</p>
+<h3 id="同步方法使用"><a href="#同步方法使用" class="headerlink" title="同步方法使用"></a>同步方法使用</h3><p>什么都不用管，你只要写相关的Class和Method就可以了，我们以一个简单的例子开启我们的异步之旅</p>
+<ul>
+<li><p>首先我们定义一个AsyncBean类，里面写个普通方法</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">@Component</div><div class="line">public class AsyncBean &#123;</div><div class="line"></div><div class="line">    public void syncVoid(int i)&#123;</div><div class="line">        System.out.println(&quot; async void :&quot;+i);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+<li><p>测试</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">@RunWith(SpringJUnit4ClassRunner.class)</div><div class="line">@SpringBootTest(classes = Application.class)</div><div class="line">public class AsyncTest &#123;</div><div class="line"></div><div class="line">    @Autowired</div><div class="line">    private AsyncBean asyncBean;</div><div class="line"></div><div class="line">    @Test</div><div class="line">    public void testSync() throws Exception &#123;</div><div class="line">        asyncBean.syncVoid(1);</div><div class="line">        asyncBean.syncVoid(2);</div><div class="line">        asyncBean.syncVoid(3);</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">#测试结果 Result，很明显顺序执行</div><div class="line"> async void :1</div><div class="line"> async void :2</div><div class="line"> async void :3</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="无返回-void-值异步方法使用"><a href="#无返回-void-值异步方法使用" class="headerlink" title="无返回(void)值异步方法使用"></a>无返回(void)值异步方法使用</h3><p>如果我们使用Thread也很容易实现异步，然而Spring为我们提供了更方便的@Async注解，我们又可以偷懒啦<br>：）～<br>切记要激活异步支持，否则不起作用。<br><strong>@EnableAsync</strong><br>添加到你的start-class或者测试类上。</p>
+<ul>
+<li><p>在AsyncBean类中，增添一个异步方法，其实只要给方法添加@Async注解就行了</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">@Component</div><div class="line">public class AsyncBean &#123;</div><div class="line"></div><div class="line"> </div><div class="line">    //异步方法</div><div class="line">    @Async</div><div class="line">    public void asyncVoid(int i)&#123;</div><div class="line">        System.out.println(&quot; async void :&quot;+i);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+<li><p>测试</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">@RunWith(SpringJUnit4ClassRunner.class)</div><div class="line">@SpringBootTest(classes = Application.class)</div><div class="line">@EnableAsync</div><div class="line">public class AsyncTest &#123;</div><div class="line"></div><div class="line">    @Autowired</div><div class="line">    private AsyncBean asyncBean;</div><div class="line"></div><div class="line">    @Test</div><div class="line">    public void testAsyncVoid() throws Exception &#123;</div><div class="line">        asyncBean.asyncVoid(1);</div><div class="line">        asyncBean.asyncVoid(2);</div><div class="line">        asyncBean.asyncVoid(3);</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">#测试结果 Result，很明显顺序不定，你可以多执行几次，观察结果。</div><div class="line"> async void :1</div><div class="line"> async void :3</div><div class="line"> async void :2</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="有返回-return-值异步方法使用"><a href="#有返回-return-值异步方法使用" class="headerlink" title="有返回(return)值异步方法使用"></a>有返回(return)值异步方法使用</h3><ul>
+<li><p>在AsyncBean类中，增添一个异步方法，其实只要给方法添加@Async注解就行了</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">@Component</div><div class="line">public class AsyncBean &#123;</div><div class="line"></div><div class="line"></div><div class="line">    //异步方法 return</div><div class="line">    @Async</div><div class="line">    public String asyncReturn(int i)&#123;</div><div class="line">        System.out.println(&quot; async return :&quot;+i);</div><div class="line">        return &quot;async return&quot;;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+<li><p>测试</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">@RunWith(SpringJUnit4ClassRunner.class)</div><div class="line">@SpringBootTest(classes = Application.class)</div><div class="line">public class AsyncTest &#123;</div><div class="line"></div><div class="line">    @Autowired</div><div class="line">    private AsyncBean asyncBean;</div><div class="line"></div><div class="line">    @Test</div><div class="line">    public void testAsyncReturn() throws Exception &#123;</div><div class="line">        System.out.println(asyncBean.asyncReturn(1));</div><div class="line">        System.out.println(asyncBean.asyncReturn(2));</div><div class="line">        System.out.println(asyncBean.asyncReturn(3));</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">#测试结果 Result，很明显顺序不定。然而输出方法返回值的时候都是null，可以考虑下怎么接收返回值。</div><div class="line">null</div><div class="line">null</div><div class="line">null</div><div class="line"> async return :3</div><div class="line"> async return :1</div><div class="line"> async return :2</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="如何接收异步方法的返回值呢？使用Future和AsyncResult、CompleteFuture来接收。"><a href="#如何接收异步方法的返回值呢？使用Future和AsyncResult、CompleteFuture来接收。" class="headerlink" title="如何接收异步方法的返回值呢？使用Future和AsyncResult、CompleteFuture来接收。"></a>如何接收异步方法的返回值呢？使用Future和AsyncResult、CompleteFuture来接收。</h3><ul>
+<li><p>AsyncResult、CompleteFuture</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div></pre></td><td class="code"><pre><div class="line">@Component</div><div class="line">public class AsyncBean &#123;</div><div class="line"></div><div class="line">    @Async</div><div class="line">    public Future&lt;String&gt; asyncReturnFuture(int i)&#123;</div><div class="line">        try &#123;</div><div class="line">            i = i * 2;</div><div class="line">            Thread.sleep(1000);</div><div class="line">        &#125; catch (InterruptedException e) &#123;</div><div class="line">            e.printStackTrace();</div><div class="line">        &#125;</div><div class="line">        return new AsyncResult&lt;&gt;(&quot; async return :&quot;+i);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    @Async</div><div class="line">    public CompletableFuture&lt;String&gt; asyncReturnCompletableFuture(int i)&#123;</div><div class="line">        try &#123;</div><div class="line">            i = i * 2;</div><div class="line">            Thread.sleep(1000);</div><div class="line">        &#125; catch (InterruptedException e) &#123;</div><div class="line">            e.printStackTrace();</div><div class="line">        &#125;</div><div class="line">        return CompletableFuture.completedFuture(&quot;async return : &quot; + i);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+<li><p>测试</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">@RunWith(SpringJUnit4ClassRunner.class)</div><div class="line">@SpringBootTest(classes = Application.class)</div><div class="line">public class AsyncTest &#123;</div><div class="line"></div><div class="line">    @Autowired</div><div class="line">    private AsyncBean asyncBean;</div><div class="line">    </div><div class="line">    @Test</div><div class="line">    public void testAsyncReturnFuture() throws Exception &#123;</div><div class="line">        long start = System.currentTimeMillis();</div><div class="line">        Future&lt;String&gt; future1 = asyncBean.asyncReturnFuture(1);</div><div class="line">        Future&lt;String&gt; future2 = asyncBean.asyncReturnFuture(2);</div><div class="line">        Future&lt;String&gt; future3 = asyncBean.asyncReturnFuture(3);</div><div class="line">        System.out.println(&quot;Elapsed Time : &quot; + (System.currentTimeMillis() - start));</div><div class="line">        System.out.println(future2.get());//it block until future2 is done.</div><div class="line">        System.out.println(future1.get());</div><div class="line">        System.out.println(future3.get());</div><div class="line">        System.out.println(&quot;Elapsed Time : &quot; + (System.currentTimeMillis() - start));</div><div class="line">    &#125;</div><div class="line">    @Test</div><div class="line">    public void testAsyncReturnCompleteFuture() throws Exception &#123;</div><div class="line">        long start = System.currentTimeMillis();</div><div class="line">        CompletableFuture&lt;String&gt; future1 = asyncBean.asyncReturnCompletableFuture(1);</div><div class="line">        CompletableFuture&lt;String&gt; future2 = asyncBean.asyncReturnCompletableFuture(2);</div><div class="line">        CompletableFuture&lt;String&gt; future3 = asyncBean.asyncReturnCompletableFuture(3);</div><div class="line">        CompletableFuture.allOf(future1, future2, future3).join();//it block until all future is done.</div><div class="line">        System.out.println(&quot;Elapsed Time : &quot; + (System.currentTimeMillis() - start));</div><div class="line">        System.out.println(future2.get());</div><div class="line">        System.out.println(future1.get());</div><div class="line">        System.out.println(future3.get());</div><div class="line">        System.out.println(&quot;Elapsed Time : &quot; + (System.currentTimeMillis() - start));</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">#测试结果可以看出#1中三个task几乎没有消耗时间，</div><div class="line">#而#2中使用CompletableFuture.allOf(future1, future2, future3).join()，就是要等待所有task完成在往下运行。</div><div class="line"></div><div class="line">#1 testAsyncReturnFuture</div><div class="line">Elapsed Time : 6</div><div class="line"> async return :4</div><div class="line"> async return :2</div><div class="line"> async return :6</div><div class="line">Elapsed Time : 1014</div><div class="line"></div><div class="line">#2 testAsyncReturnCompleteFuture</div><div class="line">Elapsed Time : 1016</div><div class="line">async return : 4</div><div class="line">async return : 2</div><div class="line">async return : 6</div><div class="line">Elapsed Time : 1017</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="结束"><a href="#结束" class="headerlink" title="结束"></a>结束</h3><pre><code>～：）～～～
+</code></pre>]]></content>
+    
+    <summary type="html">
+    
+      &lt;pre&gt;&lt;code&gt;同步、异步我们经常用到，在Java中我们大部分时间都是在做同步编程，因为Java天生就是同步的，
+然而我们在某些场景下是需要考虑吞吐量和延迟，也就是我们经常提起的性能问题，那异步避免不了会被提起，
+会给我们带来不一样的世界。
+&lt;/code&gt;&lt;/pre&gt;
+    
+    </summary>
+    
+      <category term="Spring Boot" scheme="http://www.nealma.com/categories/Spring-Boot/"/>
+    
+    
+      <category term="Java" scheme="http://www.nealma.com/tags/Java/"/>
+    
+      <category term="Spring" scheme="http://www.nealma.com/tags/Spring/"/>
+    
+      <category term="Spring-Boot" scheme="http://www.nealma.com/tags/Spring-Boot/"/>
+    
+      <category term="Async" scheme="http://www.nealma.com/tags/Async/"/>
+    
+  </entry>
+  
+  <entry>
     <title>Spring-Boot（十六) WebSocket Base Of Spring Boot</title>
     <link href="http://www.nealma.com/2017/07/04/spring-boot-16-websocket/"/>
     <id>http://www.nealma.com/2017/07/04/spring-boot-16-websocket/</id>
     <published>2017-07-04T02:56:45.000Z</published>
-    <updated>2017-09-18T15:30:57.000Z</updated>
+    <updated>2017-09-19T06:12:03.000Z</updated>
     
     <content type="html"><![CDATA[<pre><code>websocket是一个持久化的协议，实现了浏览器与服务器的全双工通信。
 我们很轻松的就可以将服务器端的内容推送给浏览器。
@@ -63,7 +134,10 @@
 <script src="https://cdn.bootcss.com/stomp.js/2.3.3/stomp.min.js"></script>
 <script src="https://cdn.bootcss.com/sockjs-client/1.1.4/sockjs.js"></script>
 
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">#connect</div><div class="line">var socket = new SockJS(&apos;/web-socket&apos;);</div><div class="line">var stompClient = Stomp.over(socket);</div><div class="line">stompClient.connect(&#123;&#125;, function (frame) &#123;</div><div class="line">    console.log(&apos;Connected:&apos; + frame);</div><div class="line">    stompClient.subscribe(&apos;/topic/hi&apos;, function (response) &#123;</div><div class="line">        console.log(&apos;response :&apos; + response.body);</div><div class="line">    &#125;)</div><div class="line">&#125;);</div><div class="line"></div><div class="line">#request（send message）</div><div class="line">stompClient.send(&quot;/app/greeting&quot;, &#123;&#125;, JSON.stringify(&#123;&apos;greeting&apos;: name&#125;));</div><div class="line"></div><div class="line">#disconnect</div><div class="line">stompClient.disconnect();</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">#connect</div><div class="line">var socket = new SockJS(&apos;/web-socket&apos;);</div><div class="line">var stompClient = Stomp.over(socket);</div><div class="line">stompClient.connect(&#123;&#125;, function (frame) &#123;</div><div class="line">    console.log(&apos;Connected:&apos; + frame);</div><div class="line">    stompClient.subscribe(&apos;/topic/hi&apos;, function (message) &#123;</div><div class="line">        console.log(&apos;message :&apos; + message.body);</div><div class="line">        console.log(&apos;header : &apos; + message.headers[&apos;header1&apos;]);</div><div class="line">    &#125;)</div><div class="line">&#125;);</div><div class="line"></div><div class="line">#request（send message）</div><div class="line">stompClient.send(&quot;/app/greeting&quot;, &#123; header1: &apos;Header 1&apos; &#125;, JSON.stringify(&#123;&apos;greeting&apos;: name&#125;));</div><div class="line"></div><div class="line">#disconnect</div><div class="line">stompClient.disconnect();</div></pre></td></tr></table></figure>
+<h3 id="App-behind-Nnginx"><a href="#App-behind-Nnginx" class="headerlink" title="App behind Nnginx"></a>App behind Nnginx</h3><p>会发生如下这个问题<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Error during WebSocket handshake: Unexpected response code: 400 ／ 403</div></pre></td></tr></table></figure></p>
+<p>这个时候，你就要配置你的Nginx了<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">location / &#123;</div><div class="line">proxy_pass http://localhost:8080;</div><div class="line">proxy_http_version 1.1;</div><div class="line">proxy_set_header Upgrade $http_upgrade;</div><div class="line">proxy_set_header Connection &quot;upgrade&quot;;</div><div class="line">proxy_set_header Host $host;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h3 id="当你的应用变为HTTPs时，可能会报”wss-403”的异常，在原来基础上作如下变更"><a href="#当你的应用变为HTTPs时，可能会报”wss-403”的异常，在原来基础上作如下变更" class="headerlink" title="当你的应用变为HTTPs时，可能会报”wss 403”的异常，在原来基础上作如下变更"></a>当你的应用变为HTTPs时，可能会报”wss 403”的异常，在原来基础上作如下变更</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">#setAllowedOrigins(&quot;*&quot;)</div><div class="line">registry.addEndpoint(&quot;/web-socket&quot;).setAllowedOrigins(&quot;*&quot;).withSockJS();</div></pre></td></tr></table></figure>
 <h3 id="结束"><a href="#结束" class="headerlink" title="结束"></a>结束</h3><pre><code>测试的时候，当你打开n个浏览器窗口，你会发现，订阅了&apos;/topic/hi&apos;的客户端窗口，都会收到信息。
  ～：）～～～
 </code></pre>]]></content>
@@ -521,7 +595,7 @@ Springboot内部提供的事务管理器是根据autoconfigure来进行决定的
     <link href="http://www.nealma.com/2017/06/01/spring-boot-12-not-thread/"/>
     <id>http://www.nealma.com/2017/06/01/spring-boot-12-not-thread/</id>
     <published>2017-06-01T03:46:45.000Z</published>
-    <updated>2017-09-03T13:09:38.000Z</updated>
+    <updated>2017-09-21T06:08:41.000Z</updated>
     
     <content type="html"><![CDATA[<pre><code>Spring Boot中获取全局request，咩有controller中获取，而是在一个工具类中，
 这次也不知是为什么之前根本不需要配置的，但是就是会报一个错，看看神马影响的呢？
@@ -532,6 +606,7 @@ Springboot内部提供的事务管理器是根据autoconfigure来进行决定的
 <h3 id="获取request"><a href="#获取request" class="headerlink" title="获取request"></a>获取request</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">public static HttpServletRequest getRequest()&#123;</div><div class="line">    ServletRequestAttributes servletRequestAttributes = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();</div><div class="line">    return servletRequestAttributes.getRequest();</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <h3 id="可恶的异常来了"><a href="#可恶的异常来了" class="headerlink" title="可恶的异常来了"></a>可恶的异常来了</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">java spring——Getting a &apos;No thread bound request found&apos; error from spring in my web app.</div><div class="line">In this case, use RequestContextListener or RequestContextFilter to expose the current request.</div></pre></td></tr></table></figure>
 <h3 id="解决方案-在MvcConfig中注入RequestContextListener"><a href="#解决方案-在MvcConfig中注入RequestContextListener" class="headerlink" title="解决方案: 在MvcConfig中注入RequestContextListener"></a>解决方案: 在MvcConfig中注入RequestContextListener</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">@Bean</div><div class="line">public RequestContextListener requestContextListener() &#123;</div><div class="line">    return new RequestContextListener();</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="更新日志-1"><a href="#更新日志-1" class="headerlink" title="更新日志 1"></a>更新日志 1</h3><p><strong>发现是启用了@EnableWebMvc这个注解，这个注解默认做了很多事情。</strong></p>
 <h3 id="结束"><a href="#结束" class="headerlink" title="结束"></a>结束</h3><pre><code>慢慢趟，总有趟完的时候...
 </code></pre>]]></content>
     
@@ -914,43 +989,6 @@ Springboot内部提供的事务管理器是根据autoconfigure来进行决定的
       <category term="阿里云" scheme="http://www.nealma.com/tags/%E9%98%BF%E9%87%8C%E4%BA%91/"/>
     
       <category term="ECS" scheme="http://www.nealma.com/tags/ECS/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>工作中遇到的问题（四） Maven 国内镜像 阿里云</title>
-    <link href="http://www.nealma.com/2016/12/12/work-problerm-4-aliyun-maven-repo/"/>
-    <id>http://www.nealma.com/2016/12/12/work-problerm-4-aliyun-maven-repo/</id>
-    <published>2016-12-12T03:46:45.000Z</published>
-    <updated>2016-12-12T16:14:13.000Z</updated>
-    
-    <content type="html"><![CDATA[<pre><code>今天在服务器上使用maven部署服务，我尼玛快疯疯了，一个jar文件真是慢如蜗牛，于是想换成一个速度快点的，
-搜索之后，看到阿里云最近开放了Maven镜像库，那就试试吧，感谢啊，速度嗖嗖的.
-</code></pre><a id="more"></a>
-<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><pre><code>今天在服务器上使用maven部署服务，我尼玛快疯疯了，一个jar文件真是慢如蜗牛，于是想换成一个速度快点的，
-搜索之后，看到阿里云最近开放了Maven镜像库，那就试试吧，感谢啊，速度嗖嗖的.
-</code></pre><h3 id="阿里云公开的中央仓库，亲测好用到哭"><a href="#阿里云公开的中央仓库，亲测好用到哭" class="headerlink" title="阿里云公开的中央仓库，亲测好用到哭"></a>阿里云公开的中央仓库，亲测好用到哭</h3><pre><code>修改maven根目录下的conf文件夹中的setting.xml文件，在mirrorms内添加如下内容：
-</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">&lt;mirror&gt;</div><div class="line">   &lt;id&gt;alimaven&lt;/id&gt;</div><div class="line">   &lt;name&gt;aliyun maven&lt;/name&gt;</div><div class="line">   &lt;url&gt;http://maven.aliyun.com/nexus/content/groups/public/&lt;/url&gt;</div><div class="line">   &lt;mirrorOf&gt;central&lt;/mirrorOf&gt;        </div><div class="line"> &lt;/mirror&gt;</div></pre></td></tr></table></figure>
-<h3 id="结束"><a href="#结束" class="headerlink" title="结束"></a>结束</h3><pre><code>我只有感谢感谢在感谢啦...
- :)~
-</code></pre>]]></content>
-    
-    <summary type="html">
-    
-      &lt;pre&gt;&lt;code&gt;今天在服务器上使用maven部署服务，我尼玛快疯疯了，一个jar文件真是慢如蜗牛，于是想换成一个速度快点的，
-搜索之后，看到阿里云最近开放了Maven镜像库，那就试试吧，感谢啊，速度嗖嗖的.
-&lt;/code&gt;&lt;/pre&gt;
-    
-    </summary>
-    
-      <category term="work" scheme="http://www.nealma.com/categories/work/"/>
-    
-    
-      <category term="阿里云" scheme="http://www.nealma.com/tags/%E9%98%BF%E9%87%8C%E4%BA%91/"/>
-    
-      <category term="大杂烩" scheme="http://www.nealma.com/tags/%E5%A4%A7%E6%9D%82%E7%83%A9/"/>
-    
-      <category term="Maven" scheme="http://www.nealma.com/tags/Maven/"/>
     
   </entry>
   

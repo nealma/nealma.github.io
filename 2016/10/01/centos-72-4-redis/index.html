@@ -92,7 +92,7 @@
 <meta property="og:url" content="http://www.nealma.com/2016/10/01/centos-72-4-redis/index.html">
 <meta property="og:site_name" content="nealma.com">
 <meta property="og:description" content="今天在CentOS 7.2上安装Redis,记录一下">
-<meta property="og:updated_time" content="2017-05-07T22:58:43.000Z">
+<meta property="og:updated_time" content="2017-09-19T11:31:27.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="CentOS7（四）Install Redis">
 <meta name="twitter:description" content="今天在CentOS 7.2上安装Redis,记录一下">
@@ -340,9 +340,11 @@
 </code></pre><h3 id="Install-Redis"><a href="#Install-Redis" class="headerlink" title="Install Redis"></a>Install Redis</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">yum install -y redis</div><div class="line"></div><div class="line">#For Mac</div><div class="line">brew install redis</div></pre></td></tr></table></figure>
 <p>so easy!</p>
 <h3 id="Start-Redis"><a href="#Start-Redis" class="headerlink" title="Start Redis"></a>Start Redis</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">service redis start/stop/status/restart</div><div class="line"></div><div class="line"># For Mac</div><div class="line">brew services list</div><div class="line">brew services start/stop/restart redis</div></pre></td></tr></table></figure>
-<h3 id="服务器解除bind-允许远程访问"><a href="#服务器解除bind-允许远程访问" class="headerlink" title="服务器解除bind, 允许远程访问"></a>服务器解除bind, 允许远程访问</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">#vim /etc/redis.conf</div><div class="line">#注释掉这一行</div><div class="line">bind 127.0.0.1</div><div class="line"></div><div class="line"># change password on MAC</div></pre></td></tr></table></figure>
+<h3 id="服务器解除bind-允许远程访问，如果没有注释掉，在其他主机上会出现refused"><a href="#服务器解除bind-允许远程访问，如果没有注释掉，在其他主机上会出现refused" class="headerlink" title="服务器解除bind, 允许远程访问，如果没有注释掉，在其他主机上会出现refused"></a>服务器解除bind, 允许远程访问，如果没有注释掉，在其他主机上会出现refused</h3><p>telnet ip 6375</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">#vim /etc/redis.conf</div><div class="line">#注释掉这一行</div><div class="line">bind 127.0.0.1</div><div class="line"></div><div class="line"># change password on MAC</div></pre></td></tr></table></figure>
 <p>/usr/local/etc/redis.conf </p>
-<p> brew services restart redis<br>```</p>
+<p> brew services restart redis<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">### 更改密码</div><div class="line"></div><div class="line">Redis 更改密码很简单，直接修改配置文件即可</div></pre></td></tr></table></figure></p>
+<p>#/etc/redis.conf<br>requirepass ‘your passwd’<br>```</p>
 <h3 id="结束"><a href="#结束" class="headerlink" title="结束"></a>结束</h3><p>:)~</p>
 
       
@@ -488,7 +490,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="../../../../archives">
-              <span class="site-state-item-count">80</span>
+              <span class="site-state-item-count">81</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -505,7 +507,7 @@
           
             <div class="site-state-item site-state-tags">
               <a href="../../../../tags">
-                <span class="site-state-item-count">82</span>
+                <span class="site-state-item-count">83</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -559,7 +561,7 @@
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Install-Redis"><span class="nav-number">2.</span> <span class="nav-text">Install Redis</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Start-Redis"><span class="nav-number">3.</span> <span class="nav-text">Start Redis</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#服务器解除bind-允许远程访问"><span class="nav-number">4.</span> <span class="nav-text">服务器解除bind, 允许远程访问</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#结束"><span class="nav-number">5.</span> <span class="nav-text">结束</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Install-Redis"><span class="nav-number">2.</span> <span class="nav-text">Install Redis</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Start-Redis"><span class="nav-number">3.</span> <span class="nav-text">Start Redis</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#服务器解除bind-允许远程访问，如果没有注释掉，在其他主机上会出现refused"><span class="nav-number">4.</span> <span class="nav-text">服务器解除bind, 允许远程访问，如果没有注释掉，在其他主机上会出现refused</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#结束"><span class="nav-number">5.</span> <span class="nav-text">结束</span></a></li></ol></div>
             
           </div>
         </section>

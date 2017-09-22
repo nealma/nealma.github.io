@@ -94,7 +94,7 @@
 <meta property="og:site_name" content="nealma.com">
 <meta property="og:description" content="websocket是一个持久化的协议，实现了浏览器与服务器的全双工通信。
 我们很轻松的就可以将服务器端的内容推送给浏览器。">
-<meta property="og:updated_time" content="2017-09-18T15:30:57.000Z">
+<meta property="og:updated_time" content="2017-09-19T06:12:03.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Spring-Boot（十六) WebSocket Base Of Spring Boot">
 <meta name="twitter:description" content="websocket是一个持久化的协议，实现了浏览器与服务器的全双工通信。
@@ -351,7 +351,10 @@
 <script src="https://cdn.bootcss.com/stomp.js/2.3.3/stomp.min.js"></script>
 <script src="https://cdn.bootcss.com/sockjs-client/1.1.4/sockjs.js"></script>
 
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">#connect</div><div class="line">var socket = new SockJS(&apos;/web-socket&apos;);</div><div class="line">var stompClient = Stomp.over(socket);</div><div class="line">stompClient.connect(&#123;&#125;, function (frame) &#123;</div><div class="line">    console.log(&apos;Connected:&apos; + frame);</div><div class="line">    stompClient.subscribe(&apos;/topic/hi&apos;, function (response) &#123;</div><div class="line">        console.log(&apos;response :&apos; + response.body);</div><div class="line">    &#125;)</div><div class="line">&#125;);</div><div class="line"></div><div class="line">#request（send message）</div><div class="line">stompClient.send(&quot;/app/greeting&quot;, &#123;&#125;, JSON.stringify(&#123;&apos;greeting&apos;: name&#125;));</div><div class="line"></div><div class="line">#disconnect</div><div class="line">stompClient.disconnect();</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">#connect</div><div class="line">var socket = new SockJS(&apos;/web-socket&apos;);</div><div class="line">var stompClient = Stomp.over(socket);</div><div class="line">stompClient.connect(&#123;&#125;, function (frame) &#123;</div><div class="line">    console.log(&apos;Connected:&apos; + frame);</div><div class="line">    stompClient.subscribe(&apos;/topic/hi&apos;, function (message) &#123;</div><div class="line">        console.log(&apos;message :&apos; + message.body);</div><div class="line">        console.log(&apos;header : &apos; + message.headers[&apos;header1&apos;]);</div><div class="line">    &#125;)</div><div class="line">&#125;);</div><div class="line"></div><div class="line">#request（send message）</div><div class="line">stompClient.send(&quot;/app/greeting&quot;, &#123; header1: &apos;Header 1&apos; &#125;, JSON.stringify(&#123;&apos;greeting&apos;: name&#125;));</div><div class="line"></div><div class="line">#disconnect</div><div class="line">stompClient.disconnect();</div></pre></td></tr></table></figure>
+<h3 id="App-behind-Nnginx"><a href="#App-behind-Nnginx" class="headerlink" title="App behind Nnginx"></a>App behind Nnginx</h3><p>会发生如下这个问题<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Error during WebSocket handshake: Unexpected response code: 400 ／ 403</div></pre></td></tr></table></figure></p>
+<p>这个时候，你就要配置你的Nginx了<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">location / &#123;</div><div class="line">proxy_pass http://localhost:8080;</div><div class="line">proxy_http_version 1.1;</div><div class="line">proxy_set_header Upgrade $http_upgrade;</div><div class="line">proxy_set_header Connection &quot;upgrade&quot;;</div><div class="line">proxy_set_header Host $host;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h3 id="当你的应用变为HTTPs时，可能会报”wss-403”的异常，在原来基础上作如下变更"><a href="#当你的应用变为HTTPs时，可能会报”wss-403”的异常，在原来基础上作如下变更" class="headerlink" title="当你的应用变为HTTPs时，可能会报”wss 403”的异常，在原来基础上作如下变更"></a>当你的应用变为HTTPs时，可能会报”wss 403”的异常，在原来基础上作如下变更</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">#setAllowedOrigins(&quot;*&quot;)</div><div class="line">registry.addEndpoint(&quot;/web-socket&quot;).setAllowedOrigins(&quot;*&quot;).withSockJS();</div></pre></td></tr></table></figure>
 <h3 id="结束"><a href="#结束" class="headerlink" title="结束"></a>结束</h3><pre><code>测试的时候，当你打开n个浏览器窗口，你会发现，订阅了&apos;/topic/hi&apos;的客户端窗口，都会收到信息。
  ～：）～～～
 </code></pre>
@@ -421,8 +424,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="../../../08/05/nginx-example-work-4-centos7-nodejs/" rel="prev" title="Nginx | Can't install nodejs on centos7">
-                Nginx | Can't install nodejs on centos7 <i class="fa fa-chevron-right"></i>
+              <a href="../../05/spring-boot-17-async/" rel="prev" title="Spring-Boot（十六) Async Of Spring Boot">
+                Spring-Boot（十六) Async Of Spring Boot <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -500,7 +503,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="../../../../archives">
-              <span class="site-state-item-count">80</span>
+              <span class="site-state-item-count">81</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -517,7 +520,7 @@
           
             <div class="site-state-item site-state-tags">
               <a href="../../../../tags">
-                <span class="site-state-item-count">82</span>
+                <span class="site-state-item-count">83</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -571,7 +574,7 @@
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#加入依赖"><span class="nav-number">2.</span> <span class="nav-text">加入依赖</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#WebSocket-Configuration"><span class="nav-number">3.</span> <span class="nav-text">WebSocket Configuration</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Controller-对外输出接口"><span class="nav-number">4.</span> <span class="nav-text">Controller 对外输出接口</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#客户端（Browser）"><span class="nav-number">5.</span> <span class="nav-text">客户端（Browser）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#结束"><span class="nav-number">6.</span> <span class="nav-text">结束</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#加入依赖"><span class="nav-number">2.</span> <span class="nav-text">加入依赖</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#WebSocket-Configuration"><span class="nav-number">3.</span> <span class="nav-text">WebSocket Configuration</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Controller-对外输出接口"><span class="nav-number">4.</span> <span class="nav-text">Controller 对外输出接口</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#客户端（Browser）"><span class="nav-number">5.</span> <span class="nav-text">客户端（Browser）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#App-behind-Nnginx"><span class="nav-number">6.</span> <span class="nav-text">App behind Nnginx</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#当你的应用变为HTTPs时，可能会报”wss-403”的异常，在原来基础上作如下变更"><span class="nav-number">7.</span> <span class="nav-text">当你的应用变为HTTPs时，可能会报”wss 403”的异常，在原来基础上作如下变更</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#结束"><span class="nav-number">8.</span> <span class="nav-text">结束</span></a></li></ol></div>
             
           </div>
         </section>
