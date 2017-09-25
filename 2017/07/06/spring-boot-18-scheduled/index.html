@@ -1,0 +1,716 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="../../../../lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="../../../../lib/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="../../../../css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Java,Spring,Spring-Boot,Scheduled," />
+
+
+
+
+
+  <link rel="alternate" href="../../../../atom.xml" title="nealma.com" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="../../../../favicon.png?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="工作中，我们经常会定时导出报表，或者定期检测数据库中某些状态，亦或者是提前编辑好文章做个定时发布，and so on.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Spring-Boot（十八) 任务计划 Scheduled">
+<meta property="og:url" content="http://www.nealma.com/2017/07/06/spring-boot-18-scheduled/index.html">
+<meta property="og:site_name" content="nealma.com">
+<meta property="og:description" content="工作中，我们经常会定时导出报表，或者定期检测数据库中某些状态，亦或者是提前编辑好文章做个定时发布，and so on.">
+<meta property="og:updated_time" content="2017-09-25T02:25:37.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Spring-Boot（十八) 任务计划 Scheduled">
+<meta name="twitter:description" content="工作中，我们经常会定时导出报表，或者定期检测数据库中某些状态，亦或者是提前编辑好文章做个定时发布，and so on.">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Mist',
+    sidebar: {"position":"right","display":"always"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="http://www.nealma.com/2017/07/06/spring-boot-18-scheduled/"/>
+
+  <title> Spring-Boot（十八) 任务计划 Scheduled | nealma.com </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?14f8b7b0ed1beacee64703963cbeab10";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-right page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta custom-logo">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">nealma.com</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                Spring-Boot（十八) 任务计划 Scheduled
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2017-07-06T15:56:45+08:00" content="2017-07-06">
+              2017-07-06
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="../../../../categories/Spring-Boot/" itemprop="url" rel="index">
+                    <span itemprop="name">Spring Boot</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2017/07/06/spring-boot-18-scheduled/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <pre><code>工作中，我们经常会定时导出报表，或者定期检测数据库中某些状态，亦或者是提前编辑好文章做个定时发布，and so on.
+</code></pre><a id="more"></a>
+<h3 id="激活定时任务支持-EnableScheduling"><a href="#激活定时任务支持-EnableScheduling" class="headerlink" title="激活定时任务支持 @EnableScheduling"></a>激活定时任务支持 @EnableScheduling</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">@SpringBootApplication</div><div class="line">@EnableScheduling</div><div class="line">public class Application extends SpringBootServletInitializer&#123;</div><div class="line">    public static void main(String[] args) &#123;</div><div class="line"></div><div class="line">        SpringApplication.run(Application.class, args);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="自定义一个Job类，每个任务计划使用-Scheduled注解"><a href="#自定义一个Job类，每个任务计划使用-Scheduled注解" class="headerlink" title="自定义一个Job类，每个任务计划使用@Scheduled注解"></a>自定义一个Job类，每个任务计划使用@Scheduled注解</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div></pre></td><td class="code"><pre><div class="line">@Component</div><div class="line">public class AIJobs &#123;</div><div class="line"></div><div class="line">    private static final Logger LOGGER = LoggerFactory.getLogger(AIJobs.class);</div><div class="line">    private static final SimpleDateFormat dateFormat = new SimpleDateFormat(&quot;HH:mm:ss&quot;);</div><div class="line">    private static final int STIME = 1000;</div><div class="line">    private static  int DELAY_COUNT = 1;</div><div class="line">    private static  int RATE_COUNT = 1;</div><div class="line">    private static  int CRON_COUNT = 1;</div><div class="line"></div><div class="line">    @Scheduled(fixedDelay = STIME*5) //task执行结束后延迟STIME秒再执行下一次，每次总计用时: task执行时间(3)+延后时间(5)=8秒</div><div class="line">    public void fixedDelay() throws InterruptedException &#123;</div><div class="line">        Thread.sleep(3*1000);</div><div class="line">       LOGGER.debug(&quot;count &#123;&#125;, delay &#123;&#125;&quot;, DELAY_COUNT++, dateFormat.format(new Date()));</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    @Scheduled(fixedRate = STIME*2)//每隔STIME秒就执行一次，每次总计用时: 延后时间(5)=2秒（即不考虑task执行时间）</div><div class="line">    public void fixedRate() throws InterruptedException &#123;</div><div class="line">        Thread.sleep(2*1000);</div><div class="line">        LOGGER.debug(&quot;count &#123;&#125;, rate &#123;&#125;&quot;, RATE_COUNT++, dateFormat.format(new Date()));</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    //     cron 用过Linux的crontab都知道怎么回事，他们是一样的</div><div class="line">    //     第一位，表示秒，取值[0-59]</div><div class="line">    //     第二位，表示分，取值[0-59]</div><div class="line">    //     第三位，表示小时，取值[0-23]</div><div class="line">    //     第四位，日期天/日，取值[1-31]</div><div class="line">    //     第五位，日期月份，取值[1-12]</div><div class="line">    //     第六位，周几，1:周一, 2:周二, 3:周三, 4:周四, 5:周五, 6:周六 7:周日, 1/3 周一到周三; 1#1 第一周的周一;</div><div class="line">    //     第7位，年份, 但是在这里我们只能使用前六位，Spring只支持6位字段</div><div class="line"></div><div class="line">    //    (*)星号：每秒，每分，每天，每月，每年...</div><div class="line">    //    (?)问号：问号只能出现在日期和周这两个位置，表示这个位置的值不确定。</div><div class="line">    //    (-)减号：一个范围，如“1-3”，即1,2,3</div><div class="line">    //    (,)逗号：一个散列值，如第一位“1,2,4”，则表示1s,2s,3s执行task</div><div class="line">    //    (/)斜杠：如：x/y，x是开始值，y是步长，比如在第一位（秒） 1/30就是，从1秒开始，每隔30秒，最后就是每分钟的1，31，  另：*/y，等同于0/y</div><div class="line">    //    (#) 出现在周的位置，1#1，Spring中不支持</div><div class="line"></div><div class="line">    //  0 0 3 * * ?      每天3点执行</div><div class="line">    //  0 5 3 * * ?      每天3点5分执行</div><div class="line">    //  0 5 3 ? * *      每天3点5分执行，与上面作用相同</div><div class="line">    //  0 5/10 3 * * ?   每天3点的 5分，15分，25分，35分，45分，55分这几个时间点执行</div><div class="line">    //  */1 * * * * 7    星期日的每秒，也可以 1 * * * * 7</div><div class="line">    //  0 10 3 ? * 1 #3  每个月的第三个周，周天 执行，#号只能出现在周的位置</div><div class="line">    @Scheduled(cron = &quot;0/1 * * * * 1&quot;)</div><div class="line">    public void cron()&#123;</div><div class="line">        LOGGER.debug(&quot;count &#123;&#125;, cron &#123;&#125;&quot;, CRON_COUNT++, dateFormat.format(new Date()));</div><div class="line">    &#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p><strong>cron表达式 <a href="http://cron.qqe2.com/" target="_blank" rel="external">在线生成</a></strong></p>
+<h3 id="结束"><a href="#结束" class="headerlink" title="结束"></a>结束</h3><pre><code>～：）～～～
+</code></pre>
+      
+
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+    <div>打赏我的人，运气都不会太差~</div>
+    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+      <span>赏</span>
+    </button>
+    <div id="QR" style="display: none;">
+      
+        <div id="wechat" style="display: inline-block">
+          <img id="wechat_qr" src="/images/wechatpay.jpeg" alt="马英乘Neal WeChat Pay"/>
+          <p>微信打赏</p>
+        </div>
+      
+      
+        <div id="alipay" style="display: inline-block">
+          <img id="alipay_qr" src="/images/alipay.jpeg" alt="马英乘Neal Alipay"/>
+          <p>支付宝打赏</p>
+        </div>
+      
+    </div>
+  </div>
+
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="../../../../tags/Java/" rel="tag">#Java</a>
+          
+            <a href="../../../../tags/Spring/" rel="tag">#Spring</a>
+          
+            <a href="../../../../tags/Spring-Boot/" rel="tag">#Spring-Boot</a>
+          
+            <a href="../../../../tags/Scheduled/" rel="tag">#Scheduled</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="../../05/spring-boot-17-async/" rel="next" title="Spring-Boot（十七) Async Of Spring Boot">
+                <i class="fa fa-chevron-left"></i> Spring-Boot（十七) Async Of Spring Boot
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="../../../08/05/nginx-example-work-4-centos7-nodejs/" rel="prev" title="Nginx | Can't install nodejs on centos7">
+                Nginx | Can't install nodejs on centos7 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    
+
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="http://upload.jianshu.io/users/upload_avatars/2649507/df92b5ff1a68.jpeg"
+               alt="马英乘Neal" />
+          <p class="site-author-name" itemprop="name">马英乘Neal</p>
+          <p class="site-description motion-element" itemprop="description">Follow your heart, just do it.</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="../../../../archives">
+              <span class="site-state-item-count">82</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="../../../../categories">
+                <span class="site-state-item-count">21</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="../../../../tags">
+                <span class="site-state-item-count">84</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="../../../../atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              Links
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://github.com/nealma" title="GitHub" target="_blank">GitHub</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.jianshu.com/users/9772bc8f9aa0/latest_articles" title="简书" target="_blank">简书</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#激活定时任务支持-EnableScheduling"><span class="nav-number">1.</span> <span class="nav-text">激活定时任务支持 @EnableScheduling</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#自定义一个Job类，每个任务计划使用-Scheduled注解"><span class="nav-number">2.</span> <span class="nav-text">自定义一个Job类，每个任务计划使用@Scheduled注解</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#结束"><span class="nav-number">3.</span> <span class="nav-text">结束</span></a></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">马英乘Neal</span>
+</div>
+
+<div class="powered-by">
+  <span id="busuanzi_container_site_pv">
+      本站总访问量<span id="busuanzi_value_site_pv"></span>次
+  </span>
+</div>
+
+<div class="theme-info">
+  <span id="busuanzi_container_site_uv">
+    本站访客数
+    <span id="busuanzi_value_site_uv"></span>人次
+  </span>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="../../../../lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="../../../../lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="../../../../lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="../../../../lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="../../../../lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="../../../../lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="../../../../js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="../../../../js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="../../../../js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="../../../../js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="../../../../js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+
+
+  
+
+    <script type="text/javascript">
+      var disqus_shortname = 'nealma';
+      var disqus_identifier = '2017/07/06/spring-boot-18-scheduled/';
+      var disqus_title = "Spring-Boot（十八) 任务计划 Scheduled";
+      var disqus_url = 'http://www.nealma.com/2017/07/06/spring-boot-18-scheduled/';
+
+      function run_disqus_script(disqus_script){
+        var dsq = document.createElement('script');
+        dsq.type = 'text/javascript';
+        dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      }
+
+      run_disqus_script('count.js');
+      
+        run_disqus_script('embed.js');
+      
+    </script>
+  
+
+
+
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

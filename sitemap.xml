@@ -2,9 +2,16 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://www.nealma.com/2017/07/06/spring-boot-18-scheduled/</loc>
+    
+    <lastmod>2017-09-25T02:25:37.000Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://www.nealma.com/2017/07/05/spring-boot-17-async/</loc>
     
-    <lastmod>2017-09-22T04:16:37.000Z</lastmod>
+    <lastmod>2017-09-23T04:01:57.000Z</lastmod>
     
   </url>
   
