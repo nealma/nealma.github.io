@@ -691,9 +691,9 @@ Springboot内部提供的事务管理器是根据autoconfigure来进行决定的
       <category term="work" scheme="http://www.nealma.com/categories/work/"/>
     
     
-      <category term="java" scheme="http://www.nealma.com/tags/java/"/>
-    
       <category term="maven" scheme="http://www.nealma.com/tags/maven/"/>
+    
+      <category term="java" scheme="http://www.nealma.com/tags/java/"/>
     
   </entry>
   
@@ -893,13 +893,13 @@ Springboot内部提供的事务管理器是根据autoconfigure来进行决定的
     
       <category term="大杂烩" scheme="http://www.nealma.com/tags/%E5%A4%A7%E6%9D%82%E7%83%A9/"/>
     
+      <category term="java" scheme="http://www.nealma.com/tags/java/"/>
+    
       <category term="微信" scheme="http://www.nealma.com/tags/%E5%BE%AE%E4%BF%A1/"/>
     
       <category term="公众号" scheme="http://www.nealma.com/tags/%E5%85%AC%E4%BC%97%E5%8F%B7/"/>
     
       <category term="机器人" scheme="http://www.nealma.com/tags/%E6%9C%BA%E5%99%A8%E4%BA%BA/"/>
-    
-      <category term="java" scheme="http://www.nealma.com/tags/java/"/>
     
   </entry>
   
