@@ -1,0 +1,846 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="../../../../lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="../../../../lib/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="../../../../css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="ansible," />
+
+
+
+
+
+  <link rel="alternate" href="../../../../atom.xml" title="nealma.com" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="../../../../favicon.png?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="服务器实例少的时候我们直接ssh，然后通过shell脚本就可以日常维护了。
+随着实例的增加，后期需要一个高度自动化的工具来完成日常运维。ansible就是干这个的。
+可以：程序包安装、配置、服务启动；对主机批量操作；程序版本更新；监控；">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Ansible（二) 日常使用和模块">
+<meta property="og:url" content="http://www.nealma.com/2017/11/29/ansible-2-setup-linux-main/index.html">
+<meta property="og:site_name" content="nealma.com">
+<meta property="og:description" content="服务器实例少的时候我们直接ssh，然后通过shell脚本就可以日常维护了。
+随着实例的增加，后期需要一个高度自动化的工具来完成日常运维。ansible就是干这个的。
+可以：程序包安装、配置、服务启动；对主机批量操作；程序版本更新；监控；">
+<meta property="og:updated_time" content="2017-11-30T10:22:37.422Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Ansible（二) 日常使用和模块">
+<meta name="twitter:description" content="服务器实例少的时候我们直接ssh，然后通过shell脚本就可以日常维护了。
+随着实例的增加，后期需要一个高度自动化的工具来完成日常运维。ansible就是干这个的。
+可以：程序包安装、配置、服务启动；对主机批量操作；程序版本更新；监控；">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Mist',
+    sidebar: {"position":"right","display":"always"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="http://www.nealma.com/2017/11/29/ansible-2-setup-linux-main/"/>
+
+  <title> Ansible（二) 日常使用和模块 | nealma.com </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?14f8b7b0ed1beacee64703963cbeab10";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-right page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta custom-logo">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">nealma.com</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                Ansible（二) 日常使用和模块
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2017-11-29T11:46:45+08:00" content="2017-11-29">
+              2017-11-29
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="../../../../categories/Ansible/" itemprop="url" rel="index">
+                    <span itemprop="name">Ansible</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2017/11/29/ansible-2-setup-linux-main/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <pre><code>服务器实例少的时候我们直接ssh，然后通过shell脚本就可以日常维护了。
+随着实例的增加，后期需要一个高度自动化的工具来完成日常运维。ansible就是干这个的。
+可以：程序包安装、配置、服务启动；对主机批量操作；程序版本更新；监控；
+</code></pre><a id="more"></a>
+<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><pre><code>服务器实例少的时候我们直接ssh，然后通过shell脚本就可以日常维护了。
+随着实例的增加，后期需要一个高度自动化的工具来完成日常运维。ansible就是干这个的。
+可以：程序包安装、配置、服务启动；对主机批量操作；程序版本更新；监控；
+</code></pre><h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo yum install -y ansible</div></pre></td></tr></table></figure>
+<pre><code>配置文件：/etc/ansible/ansible.cfg
+
+被控主机或组清单：/etc/ansible/hosts 
+</code></pre><p><strong>ansible是基于ssh的，可以设置免密码登录</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ssh-copy-id  root@hostname</div></pre></td></tr></table></figure>
+<p><strong>hello world</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ansible 10.27.143.116 -m command -a &apos;echo hello world&apos;</div></pre></td></tr></table></figure></p>
+<pre><code>看到很简单的hello world，松了一口气吧，来看看每个字端的意思。
+
+ansible用法：ansible  [-f forks] [-m module_name] [-a args]
+</code></pre><h3 id="日常模块"><a href="#日常模块" class="headerlink" title="日常模块"></a>日常模块</h3><ul>
+<li>user模块：</li>
+</ul>
+<p>例：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ansible group_name -m user -a &apos;name=neal state=present system=yes&apos;</div></pre></td></tr></table></figure></p>
+<pre><code>在group_name组包含的被控端上创建用户，name为neal；
+
+state=present表示创建用户，
+
+state=absent时表示删除用户；
+
+system=yes表示创建系统用户；
+</code></pre><ul>
+<li>group模块：</li>
+</ul>
+<p>例：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ansible group_name -m group -a &apos;name=group_namegroup gid=111 state=present system=yes&apos;</div></pre></td></tr></table></figure></p>
+<p>在group_name组包含的被控端上创建组group_namegroup；</p>
+<p>组id为111；</p>
+<p>state=present表示创建组，state=absent时表示删除组；</p>
+<p>syste=yes表示创建系统组，system=no表示创建的不是系统组；</p>
+<ul>
+<li>cron模块：</li>
+</ul>
+<p>例：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ansible group_name -m cron -a &apos;name=&quot;neal crontab list&quot; minute=&quot;*/10&quot; job=&quot;/sbin/ntpdate 10.27.143.116 &amp;&gt;/dev/null&quot;&apos;</div></pre></td></tr></table></figure>
+<p>在group_name组包含的被控端添加任务计划，每20分钟向10.27.143.116同步时间，并把输出丢进/dev/null；</p>
+<p>name：计划任务的描述信息；</p>
+<p>minute：分钟；</p>
+<p>job：要进行的操作；</p>
+<p>day：日（1-31，<em>，</em>/2,……）；</p>
+<p>hour：小时（0-23，<em>，</em>/2，……）；</p>
+<p>month：月（1-12，<em>，</em>/2，……）；</p>
+<p>weekday：周（0-7，*，……）；</p>
+<p>user：以哪个用户的身份执行；</p>
+<p>若要删除之前在被控端部署的计划任务，只需指定name和state=absent即可；</p>
+<p>例：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ansible group_name -m cron -a &apos;name=&quot;neal crontab list&quot; state=absent&apos;</div></pre></td></tr></table></figure>
+<ul>
+<li>copy模块：</li>
+</ul>
+<p>例：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ansible group_name -m copy -a &apos;src=/data/from.txt dest=/tmp/to.txt mode=600&apos;</div></pre></td></tr></table></figure>
+<p>复制ansible控制端的wyf.txt文件到group_name组所指定的被控端的主机的/tmp目录下</p>
+<p>src：源路径</p>
+<p>dest：目标路径</p>
+<p>mode：文件权限</p>
+<ul>
+<li>file模块：</li>
+</ul>
+<p>专门用来设定文件属性；</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ansible group_name -m file -a &apos;path=/tmp/www state=directory&apos;</div></pre></td></tr></table></figure>
+<p>在group_name组定义的被控端的/tmp/下创建www目录，state指定文件属性为目录</p>
+<p>group：定义文件/目录的属组</p>
+<p>mode：定义文件/目录的权限</p>
+<p>owner：定义文件/目录的属主</p>
+<p>path：必选项，定义文件/目录的路径</p>
+<p>recurse：递归的设置文件的属性，只对目录有效</p>
+<p>src：要被链接的源文件的路径，只应用于state=link的情况</p>
+<p>dest：被链接到的路径，只应用于state=link的情况</p>
+<p>state：</p>
+<p>=directory：如果目录不存在，创建目录</p>
+<p>=file：即使文件不存在，也不会被创建</p>
+<p>=link：创建软链接</p>
+<p>=hard：创建硬链接</p>
+<p>=touch：如果文件不存在，则会创建一个新的文件，如果文件或目录已存在，则更新其最后修改时间</p>
+<p>=absent：删除目录、文件或者取消链接文件</p>
+<ul>
+<li>ping模块：</li>
+</ul>
+<p>用于确认和对象机器之间是否能够ping通，正常情况会返回pong；</p>
+<p>例：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ansible group_name -m ping</div></pre></td></tr></table></figure>
+<p>ping group_name组定义的被控端；如果是可以通的则返回pong；</p>
+<ul>
+<li>yum模块：</li>
+</ul>
+<p>例：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ansible group_name -m yum -a &apos;name=httpd  state=present&apos;</div></pre></td></tr></table></figure>
+<p>在group_name组的被控端yum安装httpd；</p>
+<p>config_file：yum的配置文件</p>
+<p>disable_gpg_check：关闭gpg_check</p>
+<p>disablerepo：不启用某个源</p>
+<p>enablerepo：启用某个源</p>
+<p>name：要进行操作的软件包的名字，也可以传递一个url或者一个本地的rpm包的路径</p>
+<p>state：状态（present安装，absent卸载，lagroup_name最新的）</p>
+<ul>
+<li>service模块：</li>
+</ul>
+<p>例：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ansible group_name -m service -a &apos;name=httpd state=started enabled=yes&apos;</div></pre></td></tr></table></figure>
+<p>group_name组的所有被控端，启动httpd服务，开机启动（enabled）</p>
+<p>enabled：[yes/no] 启动os后启动对应service的选项;是否开机启动</p>
+<p>name:需要进行操作的service名字</p>
+<p>state:[stared/stoped/restarted/reloaded] 服务最终操作后的状态。</p>
+<ul>
+<li>shell模块：</li>
+</ul>
+<p>例：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ansible group_name -m shell -a &apos;sh /data/1.sh chdir=/data/www creates=/data/www/1.txt&apos;</div></pre></td></tr></table></figure>
+<p>执行group_name组所有被控端，先切换到/data/www目录，如果/data/www/1.txt不存在，则执行/data/1.sh，</p>
+<p>chdir：command一样的，运行shell之前cd到某个目录；</p>
+<p>creates：跟command一样的，如果某个文件存在则不运行shell；</p>
+<p>removes：跟command一样的，如果某个文件不存在则不运行shell；</p>
+<ul>
+<li>script模块：</li>
+</ul>
+<p>可以实现被控端上可以执行ansible控制端的脚本。</p>
+<p>例：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ansible group_name -m script -a &apos;/data/www/2.sh&apos;</div></pre></td></tr></table></figure>
+<p>在group_name组所有被控端执行ansible控制端中/data/www/目录下的2.sh</p>
+<ul>
+<li>setup模块：</li>
+</ul>
+<p>用于收集远程主机的一些基本信息。</p>
+<p>例：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ansible group_name -m setup</div></pre></td></tr></table></figure>
+<p>收集group_name组所有主机的基本信息</p>
+<h3 id="Playbooks"><a href="#Playbooks" class="headerlink" title="Playbooks"></a>Playbooks</h3><p><strong>核心元素</strong></p>
+<p>Tasks:任务</p>
+<p>Variables：变量</p>
+<p>Templates：模板</p>
+<p>Handlers:处理器</p>
+<p>Roles:角色</p>
+<h3 id="结束"><a href="#结束" class="headerlink" title="结束"></a>结束</h3><pre><code>：）～
+</code></pre>
+      
+
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+    <div>打赏我的人，运气都不会太差~</div>
+    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+      <span>赏</span>
+    </button>
+    <div id="QR" style="display: none;">
+      
+        <div id="wechat" style="display: inline-block">
+          <img id="wechat_qr" src="/images/wechatpay.jpeg" alt="马英乘Neal WeChat Pay"/>
+          <p>微信打赏</p>
+        </div>
+      
+      
+        <div id="alipay" style="display: inline-block">
+          <img id="alipay_qr" src="/images/alipay.jpeg" alt="马英乘Neal Alipay"/>
+          <p>支付宝打赏</p>
+        </div>
+      
+    </div>
+  </div>
+
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="../../../../tags/ansible/" rel="tag">#ansible</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="../../27/ansible-1-setup-macos/" rel="next" title="Ansible（一) Setup On MacOS">
+                <i class="fa fa-chevron-left"></i> Ansible（一) Setup On MacOS
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    
+
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="http://upload.jianshu.io/users/upload_avatars/2649507/df92b5ff1a68.jpeg"
+               alt="马英乘Neal" />
+          <p class="site-author-name" itemprop="name">马英乘Neal</p>
+          <p class="site-description motion-element" itemprop="description">Follow your heart, just do it.</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="../../../../archives">
+              <span class="site-state-item-count">86</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="../../../../categories">
+                <span class="site-state-item-count">22</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="../../../../tags">
+                <span class="site-state-item-count">86</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="../../../../atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              Links
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://github.com/nealma" title="GitHub" target="_blank">GitHub</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.jianshu.com/users/9772bc8f9aa0/latest_articles" title="简书" target="_blank">简书</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#安装"><span class="nav-number">2.</span> <span class="nav-text">安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#日常模块"><span class="nav-number">3.</span> <span class="nav-text">日常模块</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Playbooks"><span class="nav-number">4.</span> <span class="nav-text">Playbooks</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#结束"><span class="nav-number">5.</span> <span class="nav-text">结束</span></a></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">马英乘Neal</span>
+</div>
+
+<div class="powered-by">
+  <span id="busuanzi_container_site_pv">
+      本站总访问量<span id="busuanzi_value_site_pv"></span>次
+  </span>
+</div>
+
+<div class="theme-info">
+  <span id="busuanzi_container_site_uv">
+    本站访客数
+    <span id="busuanzi_value_site_uv"></span>人次
+  </span>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="../../../../lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="../../../../lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="../../../../lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="../../../../lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="../../../../lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="../../../../lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="../../../../js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="../../../../js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="../../../../js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="../../../../js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="../../../../js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+
+
+  
+
+    <script type="text/javascript">
+      var disqus_shortname = 'nealma';
+      var disqus_identifier = '2017/11/29/ansible-2-setup-linux-main/';
+      var disqus_title = "Ansible（二) 日常使用和模块";
+      var disqus_url = 'http://www.nealma.com/2017/11/29/ansible-2-setup-linux-main/';
+
+      function run_disqus_script(disqus_script){
+        var dsq = document.createElement('script');
+        dsq.type = 'text/javascript';
+        dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      }
+
+      run_disqus_script('count.js');
+      
+        run_disqus_script('embed.js');
+      
+    </script>
+  
+
+
+
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

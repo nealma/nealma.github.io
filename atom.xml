@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://www.nealma.com/"/>
-  <updated>2017-08-30T01:43:10.000Z</updated>
+  <updated>2017-11-30T10:22:37.422Z</updated>
   <id>http://www.nealma.com/</id>
   
   <author>
@@ -14,6 +14,204 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Ansible（二) 日常使用和模块</title>
+    <link href="http://www.nealma.com/2017/11/29/ansible-2-setup-linux-main/"/>
+    <id>http://www.nealma.com/2017/11/29/ansible-2-setup-linux-main/</id>
+    <published>2017-11-29T03:46:45.000Z</published>
+    <updated>2017-11-30T10:22:37.422Z</updated>
+    
+    <content type="html"><![CDATA[<pre><code>服务器实例少的时候我们直接ssh，然后通过shell脚本就可以日常维护了。
+随着实例的增加，后期需要一个高度自动化的工具来完成日常运维。ansible就是干这个的。
+可以：程序包安装、配置、服务启动；对主机批量操作；程序版本更新；监控；
+</code></pre><a id="more"></a>
+<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><pre><code>服务器实例少的时候我们直接ssh，然后通过shell脚本就可以日常维护了。
+随着实例的增加，后期需要一个高度自动化的工具来完成日常运维。ansible就是干这个的。
+可以：程序包安装、配置、服务启动；对主机批量操作；程序版本更新；监控；
+</code></pre><h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo yum install -y ansible</div></pre></td></tr></table></figure>
+<pre><code>配置文件：/etc/ansible/ansible.cfg
+
+被控主机或组清单：/etc/ansible/hosts 
+</code></pre><p><strong>ansible是基于ssh的，可以设置免密码登录</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ssh-copy-id  root@hostname</div></pre></td></tr></table></figure>
+<p><strong>hello world</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ansible 10.27.143.116 -m command -a &apos;echo hello world&apos;</div></pre></td></tr></table></figure></p>
+<pre><code>看到很简单的hello world，松了一口气吧，来看看每个字端的意思。
+
+ansible用法：ansible  [-f forks] [-m module_name] [-a args]
+</code></pre><h3 id="日常模块"><a href="#日常模块" class="headerlink" title="日常模块"></a>日常模块</h3><ul>
+<li>user模块：</li>
+</ul>
+<p>例：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ansible group_name -m user -a &apos;name=neal state=present system=yes&apos;</div></pre></td></tr></table></figure></p>
+<pre><code>在group_name组包含的被控端上创建用户，name为neal；
+
+state=present表示创建用户，
+
+state=absent时表示删除用户；
+
+system=yes表示创建系统用户；
+</code></pre><ul>
+<li>group模块：</li>
+</ul>
+<p>例：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ansible group_name -m group -a &apos;name=group_namegroup gid=111 state=present system=yes&apos;</div></pre></td></tr></table></figure></p>
+<p>在group_name组包含的被控端上创建组group_namegroup；</p>
+<p>组id为111；</p>
+<p>state=present表示创建组，state=absent时表示删除组；</p>
+<p>syste=yes表示创建系统组，system=no表示创建的不是系统组；</p>
+<ul>
+<li>cron模块：</li>
+</ul>
+<p>例：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ansible group_name -m cron -a &apos;name=&quot;neal crontab list&quot; minute=&quot;*/10&quot; job=&quot;/sbin/ntpdate 10.27.143.116 &amp;&gt;/dev/null&quot;&apos;</div></pre></td></tr></table></figure>
+<p>在group_name组包含的被控端添加任务计划，每20分钟向10.27.143.116同步时间，并把输出丢进/dev/null；</p>
+<p>name：计划任务的描述信息；</p>
+<p>minute：分钟；</p>
+<p>job：要进行的操作；</p>
+<p>day：日（1-31，<em>，</em>/2,……）；</p>
+<p>hour：小时（0-23，<em>，</em>/2，……）；</p>
+<p>month：月（1-12，<em>，</em>/2，……）；</p>
+<p>weekday：周（0-7，*，……）；</p>
+<p>user：以哪个用户的身份执行；</p>
+<p>若要删除之前在被控端部署的计划任务，只需指定name和state=absent即可；</p>
+<p>例：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ansible group_name -m cron -a &apos;name=&quot;neal crontab list&quot; state=absent&apos;</div></pre></td></tr></table></figure>
+<ul>
+<li>copy模块：</li>
+</ul>
+<p>例：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ansible group_name -m copy -a &apos;src=/data/from.txt dest=/tmp/to.txt mode=600&apos;</div></pre></td></tr></table></figure>
+<p>复制ansible控制端的wyf.txt文件到group_name组所指定的被控端的主机的/tmp目录下</p>
+<p>src：源路径</p>
+<p>dest：目标路径</p>
+<p>mode：文件权限</p>
+<ul>
+<li>file模块：</li>
+</ul>
+<p>专门用来设定文件属性；</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ansible group_name -m file -a &apos;path=/tmp/www state=directory&apos;</div></pre></td></tr></table></figure>
+<p>在group_name组定义的被控端的/tmp/下创建www目录，state指定文件属性为目录</p>
+<p>group：定义文件/目录的属组</p>
+<p>mode：定义文件/目录的权限</p>
+<p>owner：定义文件/目录的属主</p>
+<p>path：必选项，定义文件/目录的路径</p>
+<p>recurse：递归的设置文件的属性，只对目录有效</p>
+<p>src：要被链接的源文件的路径，只应用于state=link的情况</p>
+<p>dest：被链接到的路径，只应用于state=link的情况</p>
+<p>state：</p>
+<p>=directory：如果目录不存在，创建目录</p>
+<p>=file：即使文件不存在，也不会被创建</p>
+<p>=link：创建软链接</p>
+<p>=hard：创建硬链接</p>
+<p>=touch：如果文件不存在，则会创建一个新的文件，如果文件或目录已存在，则更新其最后修改时间</p>
+<p>=absent：删除目录、文件或者取消链接文件</p>
+<ul>
+<li>ping模块：</li>
+</ul>
+<p>用于确认和对象机器之间是否能够ping通，正常情况会返回pong；</p>
+<p>例：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ansible group_name -m ping</div></pre></td></tr></table></figure>
+<p>ping group_name组定义的被控端；如果是可以通的则返回pong；</p>
+<ul>
+<li>yum模块：</li>
+</ul>
+<p>例：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ansible group_name -m yum -a &apos;name=httpd  state=present&apos;</div></pre></td></tr></table></figure>
+<p>在group_name组的被控端yum安装httpd；</p>
+<p>config_file：yum的配置文件</p>
+<p>disable_gpg_check：关闭gpg_check</p>
+<p>disablerepo：不启用某个源</p>
+<p>enablerepo：启用某个源</p>
+<p>name：要进行操作的软件包的名字，也可以传递一个url或者一个本地的rpm包的路径</p>
+<p>state：状态（present安装，absent卸载，lagroup_name最新的）</p>
+<ul>
+<li>service模块：</li>
+</ul>
+<p>例：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ansible group_name -m service -a &apos;name=httpd state=started enabled=yes&apos;</div></pre></td></tr></table></figure>
+<p>group_name组的所有被控端，启动httpd服务，开机启动（enabled）</p>
+<p>enabled：[yes/no] 启动os后启动对应service的选项;是否开机启动</p>
+<p>name:需要进行操作的service名字</p>
+<p>state:[stared/stoped/restarted/reloaded] 服务最终操作后的状态。</p>
+<ul>
+<li>shell模块：</li>
+</ul>
+<p>例：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ansible group_name -m shell -a &apos;sh /data/1.sh chdir=/data/www creates=/data/www/1.txt&apos;</div></pre></td></tr></table></figure>
+<p>执行group_name组所有被控端，先切换到/data/www目录，如果/data/www/1.txt不存在，则执行/data/1.sh，</p>
+<p>chdir：command一样的，运行shell之前cd到某个目录；</p>
+<p>creates：跟command一样的，如果某个文件存在则不运行shell；</p>
+<p>removes：跟command一样的，如果某个文件不存在则不运行shell；</p>
+<ul>
+<li>script模块：</li>
+</ul>
+<p>可以实现被控端上可以执行ansible控制端的脚本。</p>
+<p>例：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ansible group_name -m script -a &apos;/data/www/2.sh&apos;</div></pre></td></tr></table></figure>
+<p>在group_name组所有被控端执行ansible控制端中/data/www/目录下的2.sh</p>
+<ul>
+<li>setup模块：</li>
+</ul>
+<p>用于收集远程主机的一些基本信息。</p>
+<p>例：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ansible group_name -m setup</div></pre></td></tr></table></figure>
+<p>收集group_name组所有主机的基本信息</p>
+<h3 id="Playbooks"><a href="#Playbooks" class="headerlink" title="Playbooks"></a>Playbooks</h3><p><strong>核心元素</strong></p>
+<p>Tasks:任务</p>
+<p>Variables：变量</p>
+<p>Templates：模板</p>
+<p>Handlers:处理器</p>
+<p>Roles:角色</p>
+<h3 id="结束"><a href="#结束" class="headerlink" title="结束"></a>结束</h3><pre><code>：）～
+</code></pre>]]></content>
+    
+    <summary type="html">
+    
+      &lt;pre&gt;&lt;code&gt;服务器实例少的时候我们直接ssh，然后通过shell脚本就可以日常维护了。
+随着实例的增加，后期需要一个高度自动化的工具来完成日常运维。ansible就是干这个的。
+可以：程序包安装、配置、服务启动；对主机批量操作；程序版本更新；监控；
+&lt;/code&gt;&lt;/pre&gt;
+    
+    </summary>
+    
+      <category term="Ansible" scheme="http://www.nealma.com/categories/Ansible/"/>
+    
+    
+      <category term="ansible" scheme="http://www.nealma.com/tags/ansible/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Ansible（一) Setup On MacOS</title>
+    <link href="http://www.nealma.com/2017/11/27/ansible-1-setup-macos/"/>
+    <id>http://www.nealma.com/2017/11/27/ansible-1-setup-macos/</id>
+    <published>2017-11-27T03:46:45.000Z</published>
+    <updated>2017-11-30T07:56:58.451Z</updated>
+    
+    <content type="html"><![CDATA[<pre><code>以前没有用过Ansible，根据官网的文档折腾了一下，在MacOS上还是有点小曲折的。
+</code></pre><a id="more"></a>
+<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><pre><code>以前没有用过Ansible，根据官网的文档折腾了一下，在MacOS上还是有点小曲折的。
+</code></pre><h3 id="macOS-安装"><a href="#macOS-安装" class="headerlink" title="macOS 安装"></a>macOS 安装</h3><pre><code>一开始根据官网的文档，在centos上使用git源码安装，没成功；
+算了，还是在自己的macOS上玩吧，之前已经安装了pip，那就用**pip install ansible**安装吧
+得，装是安装好了，但是hosts文件却没有，本人不想手动创建该文件，故找到使用brew安装的方法。
+谁知，得到的结果一样，还是乖乖的手动创建这个文件吧:(
+</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line">#1 install ansible</div><div class="line">brew install ansible</div><div class="line"></div><div class="line">#2 create the hosts </div><div class="line">mkdir -p /usr/local/etc/ansible</div><div class="line"></div><div class="line">#hosts文件内容： a.com</div><div class="line">vim /usr/local/etc/ansible/hosts</div><div class="line"></div><div class="line"></div><div class="line">#3 test</div><div class="line">ansible all -m ping</div><div class="line"></div><div class="line">#真不幸，找不到 [WARNING]: Unable to parse /etc/ansible/hosts as an inventory source</div><div class="line">#那就继续找怎么才能让ansible发现hosts文件呢？</div><div class="line"></div><div class="line">#4 ansible.cfg配置文件，1.5之后的读取顺序</div><div class="line"></div><div class="line">* ANSIBLE_CONFIG (一个环境变量)</div><div class="line">* ansible.cfg (位于当前目录中)</div><div class="line">* .ansible.cfg (位于家目录中)</div><div class="line">* /etc/ansible/ansible.cfg</div><div class="line"></div><div class="line"># 无语了，又出现了python的3770问题，还是算了吧，回归CentOS吧</div></pre></td></tr></table></figure>
+<h3 id="CentOS-安装"><a href="#CentOS-安装" class="headerlink" title="CentOS 安装"></a>CentOS 安装</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">#1</div><div class="line">sudo yum install ansible</div><div class="line"></div><div class="line">#2 hosts文件内容增加你的主机名，可以说域名、ip、或者你自己映射的别名</div><div class="line">#这里我增加一个ip，10.27.143.116</div><div class="line">vim /etc/ansible/hosts </div><div class="line"></div><div class="line">#3 test</div><div class="line">ansible all -m ping</div><div class="line"></div><div class="line">#10.27.143.116 | SUCCESS =&gt; &#123;</div><div class="line">#    &quot;changed&quot;: false, </div><div class="line">#    &quot;failed&quot;: false, </div><div class="line">#    &quot;ping&quot;: &quot;pong&quot;</div><div class="line">#&#125;</div></pre></td></tr></table></figure>
+<h3 id="结束"><a href="#结束" class="headerlink" title="结束"></a>结束</h3><pre><code>：）～
+</code></pre>]]></content>
+    
+    <summary type="html">
+    
+      &lt;pre&gt;&lt;code&gt;以前没有用过Ansible，根据官网的文档折腾了一下，在MacOS上还是有点小曲折的。
+&lt;/code&gt;&lt;/pre&gt;
+    
+    </summary>
+    
+      <category term="Ansible" scheme="http://www.nealma.com/categories/Ansible/"/>
+    
+    
+      <category term="ansible" scheme="http://www.nealma.com/tags/ansible/"/>
+    
+  </entry>
   
   <entry>
     <title>Nginx | Can&#39;t install nodejs on centos7</title>
@@ -149,11 +347,53 @@
   </entry>
   
   <entry>
-    <title>Spring-Boot（十六) WebSocket Base Of Spring Boot</title>
+    <title>Spring-Boot（十六) WebSocket Base Of Spring Boot 鉴权 2</title>
+    <link href="http://www.nealma.com/2017/07/04/spring-boot-16-websocket2/"/>
+    <id>http://www.nealma.com/2017/07/04/spring-boot-16-websocket2/</id>
+    <published>2017-07-04T03:56:45.000Z</published>
+    <updated>2017-11-20T02:50:46.000Z</updated>
+    
+    <content type="html"><![CDATA[<pre><code>普通用户在发送消息和互动的过程中，大部分情况下是需要授权和认证的，
+也就是需要使用用户名和密码进行登录，验证成功才可以发送消息。那如何给websocket做鉴权呢？
+</code></pre><a id="more"></a>
+<p>—-主要是重写ChannelInterceptorAdapter—-</p>
+<h3 id="继承上一篇文章，这里我们只要给websocket加个拦截器就可以了"><a href="#继承上一篇文章，这里我们只要给websocket加个拦截器就可以了" class="headerlink" title="继承上一篇文章，这里我们只要给websocket加个拦截器就可以了"></a>继承上一篇文章，这里我们只要给websocket加个拦截器就可以了</h3><p>在WebSocketConfig.java文件里增加配置，即增加拦截器</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">@Override</div><div class="line">    public void configureClientInboundChannel(final ChannelRegistration registration) &#123;</div><div class="line">        registration.setInterceptors(new AuthChannelInterceptorAdapter());</div><div class="line">    &#125;</div></pre></td></tr></table></figure>
+<h3 id="拦截器的内容"><a href="#拦截器的内容" class="headerlink" title="拦截器的内容"></a>拦截器的内容</h3><p>AuthChannelInterceptorAdapter.java</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div></pre></td><td class="code"><pre><div class="line">public class AuthChannelInterceptorAdapter extends ChannelInterceptorAdapter &#123;</div><div class="line">    private static final Logger LOGGER = LoggerFactory.getLogger(AuthChannelInterceptorAdapter.class);</div><div class="line">    private static final String USERNAME_HEADER = &quot;login&quot;;</div><div class="line">    private static final String PASSWORD_HEADER = &quot;passcode&quot;;</div><div class="line"></div><div class="line">    @Override</div><div class="line">    public Message&lt;?&gt; preSend(final Message&lt;?&gt; message, final MessageChannel channel) throws AuthenticationException &#123;</div><div class="line">        final StompHeaderAccessor accessor = MessageHeaderAccessor.getAccessor(message, StompHeaderAccessor.class);</div><div class="line">        LOGGER.debug(&quot;preSend : message &#123;&#125;, channel &#123;&#125;&quot;, message, channel);</div><div class="line">        if (StompCommand.CONNECT == accessor.getCommand()) &#123;</div><div class="line">            final String username = accessor.getFirstNativeHeader(USERNAME_HEADER);</div><div class="line">            final String password = accessor.getFirstNativeHeader(PASSWORD_HEADER);</div><div class="line">            LOGGER.debug(&quot;username : &#123;&#125;&quot;, username);</div><div class="line">            LOGGER.debug(&quot;password : &#123;&#125;&quot;, password);</div><div class="line"></div><div class="line">            final UsernamePasswordAuthenticationToken user = this.getAuthenticatedOrFail(username, password);</div><div class="line"></div><div class="line">            accessor.setUser(user);</div><div class="line">        &#125;</div><div class="line">        return message;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    public UsernamePasswordAuthenticationToken getAuthenticatedOrFail(final String  username, final String password) throws AuthenticationException &#123;</div><div class="line">        if (username == null || username.trim().length() == 0) &#123;</div><div class="line">            throw new AuthenticationCredentialsNotFoundException(&quot;Username was null or empty.&quot;);</div><div class="line">        &#125;</div><div class="line">        if (password == null || password.trim().length() == 0) &#123;</div><div class="line">            throw new AuthenticationCredentialsNotFoundException(&quot;Password was null or empty.&quot;);</div><div class="line">        &#125;</div><div class="line">        // Add your own logic for retrieving user in fetchUserFromDb()</div><div class="line">        if (fetchUserFromDb(username, password) == null) &#123;</div><div class="line">            throw new BadCredentialsException(&quot;Bad credentials for user &quot; + username);</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        // null credentials, we do not pass the password along to prevent security flaw</div><div class="line">        return new UsernamePasswordAuthenticationToken(</div><div class="line">                username,</div><div class="line">                null,</div><div class="line">                Collections.singleton((GrantedAuthority) () -&gt; &quot;USER&quot;)</div><div class="line">        );</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    private Object fetchUserFromDb(String username, String password) &#123;</div><div class="line">        return new Object();</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="重要方法-preSend"><a href="#重要方法-preSend" class="headerlink" title="重要方法 preSend"></a>重要方法 preSend</h3><p>  在这里可以根据header的内容，做用户验证<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">final String username = accessor.getFirstNativeHeader(USERNAME_HEADER);</div><div class="line">final String password = accessor.getFirstNativeHeader(PASSWORD_HEADER);</div></pre></td></tr></table></figure></p>
+<p>客户端(js)增加header的参数<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">stompClient.connect(&#123; login: &apos;nealma&apos;, passcode: &apos;passcode&apos; &#125;, function (frame) &#123;    </div><div class="line">&#125;);</div></pre></td></tr></table></figure></p>
+<h3 id="结束"><a href="#结束" class="headerlink" title="结束"></a>结束</h3><pre><code>。
+ ～：）～～～
+</code></pre>]]></content>
+    
+    <summary type="html">
+    
+      &lt;pre&gt;&lt;code&gt;普通用户在发送消息和互动的过程中，大部分情况下是需要授权和认证的，
+也就是需要使用用户名和密码进行登录，验证成功才可以发送消息。那如何给websocket做鉴权呢？
+&lt;/code&gt;&lt;/pre&gt;
+    
+    </summary>
+    
+      <category term="Spring Boot" scheme="http://www.nealma.com/categories/Spring-Boot/"/>
+    
+    
+      <category term="Java" scheme="http://www.nealma.com/tags/Java/"/>
+    
+      <category term="Spring" scheme="http://www.nealma.com/tags/Spring/"/>
+    
+      <category term="Spring-Boot" scheme="http://www.nealma.com/tags/Spring-Boot/"/>
+    
+      <category term="WebSocket" scheme="http://www.nealma.com/tags/WebSocket/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Spring-Boot（十六) WebSocket Base Of Spring Boot 1</title>
     <link href="http://www.nealma.com/2017/07/04/spring-boot-16-websocket/"/>
     <id>http://www.nealma.com/2017/07/04/spring-boot-16-websocket/</id>
     <published>2017-07-04T02:56:45.000Z</published>
-    <updated>2017-09-19T06:12:03.000Z</updated>
+    <updated>2017-10-23T07:24:09.000Z</updated>
     
     <content type="html"><![CDATA[<pre><code>websocket是一个持久化的协议，实现了浏览器与服务器的全双工通信。
 我们很轻松的就可以将服务器端的内容推送给浏览器。
@@ -173,6 +413,10 @@
 <h3 id="App-behind-Nnginx"><a href="#App-behind-Nnginx" class="headerlink" title="App behind Nnginx"></a>App behind Nnginx</h3><p>会发生如下这个问题<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Error during WebSocket handshake: Unexpected response code: 400 ／ 403</div></pre></td></tr></table></figure></p>
 <p>这个时候，你就要配置你的Nginx了<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">location / &#123;</div><div class="line">proxy_pass http://localhost:8080;</div><div class="line">proxy_http_version 1.1;</div><div class="line">proxy_set_header Upgrade $http_upgrade;</div><div class="line">proxy_set_header Connection &quot;upgrade&quot;;</div><div class="line">proxy_set_header Host $host;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
 <h3 id="当你的应用变为HTTPs时，可能会报”wss-403”的异常，在原来基础上作如下变更"><a href="#当你的应用变为HTTPs时，可能会报”wss-403”的异常，在原来基础上作如下变更" class="headerlink" title="当你的应用变为HTTPs时，可能会报”wss 403”的异常，在原来基础上作如下变更"></a>当你的应用变为HTTPs时，可能会报”wss 403”的异常，在原来基础上作如下变更</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">#setAllowedOrigins(&quot;*&quot;)</div><div class="line">registry.addEndpoint(&quot;/web-socket&quot;).setAllowedOrigins(&quot;*&quot;).withSockJS();</div></pre></td></tr></table></figure>
+<h3 id="如果有需要指定发送消息的需求，可以使用如下方式"><a href="#如果有需要指定发送消息的需求，可以使用如下方式" class="headerlink" title="如果有需要指定发送消息的需求，可以使用如下方式"></a>如果有需要指定发送消息的需求，可以使用如下方式</h3><ul>
+<li>org.springframework.messaging.simp.SimpMessagingTemplate里面有好多方法，最常用的<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">messagingTemplate.convertAndSend(&quot;/topic/notify/&quot;+roomId, message);</div></pre></td></tr></table></figure>
+</li>
+</ul>
 <h3 id="结束"><a href="#结束" class="headerlink" title="结束"></a>结束</h3><pre><code>测试的时候，当你打开n个浏览器窗口，你会发现，订阅了&apos;/topic/hi&apos;的客户端窗口，都会收到信息。
  ～：）～～～
 </code></pre>]]></content>
@@ -203,7 +447,7 @@
     <link href="http://www.nealma.com/2017/07/02/spring-cloud-2-euraka/"/>
     <id>http://www.nealma.com/2017/07/02/spring-cloud-2-euraka/</id>
     <published>2017-07-02T03:46:45.000Z</published>
-    <updated>2017-09-12T06:37:22.000Z</updated>
+    <updated>2017-11-30T10:08:22.413Z</updated>
     
     <content type="html"><![CDATA[<p>Spring Cloud为我构建分布式微服务系统提供了一站式的解决方案，其中服务注册与发现只是整个系统的一个模块，<br>是由eureka来承担，下面我们来看看如何使用吧</p>
 <a id="more"></a>
@@ -220,7 +464,7 @@
 <p>1，@EnableDiscoveryClient注解是基于spring-cloud-commons依赖<br>2，@EnableEurekaClient注解是基于spring-cloud-netflix依赖，只能为eureka作用；</p>
 <p>如果你添加了eureka，则它们的作用是一样的。</p>
 <h3 id="客户端查看已注册的instance"><a href="#客户端查看已注册的instance" class="headerlink" title="客户端查看已注册的instance"></a>客户端查看已注册的instance</h3><p>在客户段创建如下</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line">@RestController</div><div class="line">public class EurekaClientController &#123;</div><div class="line"></div><div class="line">    @Autowired</div><div class="line">    private DiscoveryClient discoveryClient;</div><div class="line"></div><div class="line">    @RequestMapping(value = &quot;/admin/eureka/client/test1&quot;)</div><div class="line">    public String hi()&#123;</div><div class="line"></div><div class="line">        for( String s :  discoveryClient.getServices())&#123;</div><div class="line">            System.out.println(&quot;services &quot; + s);</div><div class="line">            List&lt;ServiceInstance&gt; serviceInstances =  discoveryClient.getInstances(s);</div><div class="line">            for(ServiceInstance si : serviceInstances)&#123;</div><div class="line">                System.out.println(&quot;    services:&quot; + s + &quot;:getHost()=&quot; + si.getHost());</div><div class="line">                System.out.println(&quot;    services:&quot; + s + &quot;:getPort()=&quot; + si.getPort());</div><div class="line">                System.out.println(&quot;    services:&quot; + s + &quot;:getServiceId()=&quot; + si.getServiceId());</div><div class="line">                System.out.println(&quot;    services:&quot; + s + &quot;:getUri()=&quot; + si.getUri());</div><div class="line">                System.out.println(&quot;    services:&quot; + s + &quot;:getMetadata()=&quot; + si.getMetadata());</div><div class="line">            &#125;</div><div class="line"></div><div class="line">        &#125;</div><div class="line">        return &quot;hi, :)~&quot;;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line">@RestController</div><div class="line">public class EurekaClientController &#123;</div><div class="line"></div><div class="line">    @Autowired</div><div class="line">    private DiscoveryClient discoveryClient;</div><div class="line"></div><div class="line">    @RequestMapping(value = &quot;/admin/eureka/client/group_name1&quot;)</div><div class="line">    public String hi()&#123;</div><div class="line"></div><div class="line">        for( String s :  discoveryClient.getServices())&#123;</div><div class="line">            System.out.println(&quot;services &quot; + s);</div><div class="line">            List&lt;ServiceInstance&gt; serviceInstances =  discoveryClient.getInstances(s);</div><div class="line">            for(ServiceInstance si : serviceInstances)&#123;</div><div class="line">                System.out.println(&quot;    services:&quot; + s + &quot;:getHost()=&quot; + si.getHost());</div><div class="line">                System.out.println(&quot;    services:&quot; + s + &quot;:getPort()=&quot; + si.getPort());</div><div class="line">                System.out.println(&quot;    services:&quot; + s + &quot;:getServiceId()=&quot; + si.getServiceId());</div><div class="line">                System.out.println(&quot;    services:&quot; + s + &quot;:getUri()=&quot; + si.getUri());</div><div class="line">                System.out.println(&quot;    services:&quot; + s + &quot;:getMetadata()=&quot; + si.getMetadata());</div><div class="line">            &#125;</div><div class="line"></div><div class="line">        &#125;</div><div class="line">        return &quot;hi, :)~&quot;;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <h3 id="ip、主机名问题"><a href="#ip、主机名问题" class="headerlink" title="ip、主机名问题"></a>ip、主机名问题</h3><pre><code>在实际工作中，我们需要发现的服务实例为http[s]://ip:port的形式，但是eureka服务端默认
 使用的是主机域名：port的格式，那是不是有办法变更呢？
 那当然可以了，so easy.
@@ -252,7 +496,7 @@
     <link href="http://www.nealma.com/2017/07/01/spring-cloud-1-config2/"/>
     <id>http://www.nealma.com/2017/07/01/spring-cloud-1-config2/</id>
     <published>2017-07-01T03:46:45.000Z</published>
-    <updated>2017-09-12T06:37:16.000Z</updated>
+    <updated>2017-11-20T07:48:08.412Z</updated>
     
     <content type="html"><![CDATA[<p>上文我们了解了Config Server的基本使用，以及手动更新具体的服务，<br>但是现在的应用都是分布式，微服务会随着App的增多，管理会更难，更辛苦。怎么解放我们<br>的运维伙伴呢，我们慢慢来探索吧。</p>
 <a id="more"></a>
@@ -262,8 +506,7 @@
 <p>开发环境：<br>OS: Mac 10.11.6<br>IDE: IDEA 2016.2<br>Build: Maven</p>
 <h3 id="安装rabbitMQ"><a href="#安装rabbitMQ" class="headerlink" title="安装rabbitMQ"></a>安装rabbitMQ</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">brew install rabbitmq</div><div class="line"></div><div class="line">#run</div><div class="line">brew services start rebbitmq</div><div class="line"></div><div class="line">#通过浏览器查看信息</div><div class="line">http://localhost:15672</div><div class="line"></div><div class="line">#初始化时只有guest用户，可以在操控台创建一个新用户，切记点击新用户，为他授权，否则访问不了</div></pre></td></tr></table></figure>
 <p>注意浏览器里和配置文件里使用的是不同的端口，分别是：15672、5672</p>
-<p>###继前文，ConfigServer端我们需要增加依赖和配置信息</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&lt;dependency&gt;</div><div class="line">  &lt;groupId&gt;org.springframework.cloud&lt;/groupId&gt;</div><div class="line">  &lt;artifactId&gt;spring-cloud-starter-bus-amqp&lt;/artifactId&gt;</div><div class="line">&lt;/dependency&gt;</div></pre></td></tr></table></figure>
+<h3 id="继前文，ConfigServer端我们需要增加依赖和配置信息"><a href="#继前文，ConfigServer端我们需要增加依赖和配置信息" class="headerlink" title="继前文，ConfigServer端我们需要增加依赖和配置信息"></a>继前文，ConfigServer端我们需要增加依赖和配置信息</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&lt;dependency&gt;</div><div class="line">  &lt;groupId&gt;org.springframework.cloud&lt;/groupId&gt;</div><div class="line">  &lt;artifactId&gt;spring-cloud-starter-bus-amqp&lt;/artifactId&gt;</div><div class="line">&lt;/dependency&gt;</div></pre></td></tr></table></figure>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">spring:</div><div class="line">  rabbitmq:</div><div class="line">    host: localhost</div><div class="line">    port: 5672</div><div class="line">    username: neal</div><div class="line">    password: neal</div></pre></td></tr></table></figure>
 <h3 id="根据上一篇文章，改造client端"><a href="#根据上一篇文章，改造client端" class="headerlink" title="根据上一篇文章，改造client端"></a>根据上一篇文章，改造client端</h3><ul>
 <li>首先引入依赖</li>
@@ -691,9 +934,9 @@ Springboot内部提供的事务管理器是根据autoconfigure来进行决定的
       <category term="work" scheme="http://www.nealma.com/categories/work/"/>
     
     
-      <category term="maven" scheme="http://www.nealma.com/tags/maven/"/>
-    
       <category term="java" scheme="http://www.nealma.com/tags/java/"/>
+    
+      <category term="maven" scheme="http://www.nealma.com/tags/maven/"/>
     
   </entry>
   
@@ -849,132 +1092,6 @@ Springboot内部提供的事务管理器是根据autoconfigure来进行决定的
       <category term="Hibernate" scheme="http://www.nealma.com/tags/Hibernate/"/>
     
       <category term="JPA" scheme="http://www.nealma.com/tags/JPA/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>【微信公众平台】自动回复机器人</title>
-    <link href="http://www.nealma.com/2017/03/01/work-problerm-7-wx-mp-robot/"/>
-    <id>http://www.nealma.com/2017/03/01/work-problerm-7-wx-mp-robot/</id>
-    <published>2017-03-01T03:46:45.000Z</published>
-    <updated>2017-07-08T13:14:36.000Z</updated>
-    
-    <content type="html"><![CDATA[<pre><code>微信公众号后台java开发实现自动回复机器人
-</code></pre><a id="more"></a>
-<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><pre><code>很早之前写过微信公众平台消息自动接收的项目，现在重新捡起来，还有点忘了，故此写一篇记录，防止老年痴呆。
-</code></pre><h3 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h3><ul>
-<li><p>注册微信公众号。</p>
-</li>
-<li><p>注册百度图灵机器人。（<a href="http://www.tuling123.com/）" target="_blank" rel="external">http://www.tuling123.com/）</a></p>
-</li>
-<li><p>配置微信公众号服务器验证，注意验证的接口方法是GET</p>
-</li>
-</ul>
-<p>1）在开发的基本配置下，填写控制器servlet访问的路径。</p>
-<p>2）token随意写，不过要和后台一致</p>
-<p>3）选择明文</p>
-<p>4）随机选个字符串</p>
-<p>5) token验证和消息处理是同一个接口URI的不同的METHOD，valid是GET方法，handle是POST</p>
-<h3 id="结束"><a href="#结束" class="headerlink" title="结束"></a>结束</h3><pre><code>百度图灵机器人可以直接选择微信公众号机器人，只要授权就可以了。
-过成功遇到： 启用后台服务器接口消息的功能后，公众号的菜单没有了，还不知道怎么能两者兼得
-
- :)~
-</code></pre>]]></content>
-    
-    <summary type="html">
-    
-      &lt;pre&gt;&lt;code&gt;微信公众号后台java开发实现自动回复机器人
-&lt;/code&gt;&lt;/pre&gt;
-    
-    </summary>
-    
-      <category term="work" scheme="http://www.nealma.com/categories/work/"/>
-    
-    
-      <category term="大杂烩" scheme="http://www.nealma.com/tags/%E5%A4%A7%E6%9D%82%E7%83%A9/"/>
-    
-      <category term="java" scheme="http://www.nealma.com/tags/java/"/>
-    
-      <category term="微信" scheme="http://www.nealma.com/tags/%E5%BE%AE%E4%BF%A1/"/>
-    
-      <category term="公众号" scheme="http://www.nealma.com/tags/%E5%85%AC%E4%BC%97%E5%8F%B7/"/>
-    
-      <category term="机器人" scheme="http://www.nealma.com/tags/%E6%9C%BA%E5%99%A8%E4%BA%BA/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>常用的sql操作</title>
-    <link href="http://www.nealma.com/2017/01/01/work-problerm-5-mysql-common-operate/"/>
-    <id>http://www.nealma.com/2017/01/01/work-problerm-5-mysql-common-operate/</id>
-    <published>2017-01-01T03:46:45.000Z</published>
-    <updated>2017-03-09T01:51:58.000Z</updated>
-    
-    <content type="html"><![CDATA[<pre><code>频繁的sql操作，总结一些经常用的。
-</code></pre><a id="more"></a>
-<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><pre><code>频繁的sql操作，总结一些经常用的。
-</code></pre><h3 id="删除表中某个唯一约束"><a href="#删除表中某个唯一约束" class="headerlink" title="删除表中某个唯一约束"></a>删除表中某个唯一约束</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">DROP INDEX index_name ON tbl_name</div><div class="line"></div><div class="line">OR</div><div class="line"></div><div class="line">ALTER TABLE tbl_name DROP INDEX index_name</div></pre></td></tr></table></figure>
-<h3 id="MySQL-查找所有的父级或子集"><a href="#MySQL-查找所有的父级或子集" class="headerlink" title="MySQL 查找所有的父级或子集"></a>MySQL 查找所有的父级或子集</h3><p>表结构及Demo数据<br>user_id  pid</p>
-<p>  B</p>
-<ul>
-<li>查找所有的父级（包含本身）</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">SELECT T2.user_id</div><div class="line">            FROM (</div><div class="line">                  SELECT</div><div class="line">                    @r AS _id,</div><div class="line">                    (SELECT @r := pid FROM relations WHERE user_id = _id) AS pid,</div><div class="line">                    @l := @l + 1 AS lvl FROM (SELECT @r := 5, @l := 0) vars,</div><div class="line">                    relations h WHERE @r &lt;&gt; 0 AND pid &gt; 0</div><div class="line">                 ) T1 JOIN relations T2 ON T1._id = T2.user_id ORDER BY T1.lvl DESC</div></pre></td></tr></table></figure>
-<ul>
-<li>查找所有的子类（不包含本身）</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">SELECT uesr_id FROM</div><div class="line">  (</div><div class="line">    SELECT * FROM relations where pid &gt; 0 ORDER BY pid, uesr_id DESC</div><div class="line">  ) realname_sorted,</div><div class="line">  (SELECT @pv := 1) initialisation</div><div class="line">  WHERE (FIND_IN_SET(pid,@pv)&gt;0 And @pv := concat(@pv, &apos;,&apos;, uesr_id))</div></pre></td></tr></table></figure>
-<h3 id="结束"><a href="#结束" class="headerlink" title="结束"></a>结束</h3><pre><code>还会陆续遇到各种坑，慢慢填吧...
- :)~
-</code></pre>]]></content>
-    
-    <summary type="html">
-    
-      &lt;pre&gt;&lt;code&gt;频繁的sql操作，总结一些经常用的。
-&lt;/code&gt;&lt;/pre&gt;
-    
-    </summary>
-    
-      <category term="work" scheme="http://www.nealma.com/categories/work/"/>
-    
-    
-      <category term="MySQL" scheme="http://www.nealma.com/tags/MySQL/"/>
-    
-      <category term="大杂烩" scheme="http://www.nealma.com/tags/%E5%A4%A7%E6%9D%82%E7%83%A9/"/>
-    
-      <category term="sql" scheme="http://www.nealma.com/tags/sql/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>【IDEA】cannot resolve syambol xxx</title>
-    <link href="http://www.nealma.com/2017/01/01/work-problerm-6-idea-cannot-resolve-syambol/"/>
-    <id>http://www.nealma.com/2017/01/01/work-problerm-6-idea-cannot-resolve-syambol/</id>
-    <published>2017-01-01T03:46:45.000Z</published>
-    <updated>2017-04-18T04:20:25.000Z</updated>
-    
-    <content type="html"><![CDATA[<pre><code>cannot resolve syambol xxx
-</code></pre><a id="more"></a>
-<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>解决方法如下：<br>点击菜单中的 “File” -&gt; “Invalidate Caches / Restart”，然后点击对话框中的 “Invalidate and Restart”，清空 cache 并且重启。语法就会正确的高亮了。</p>
-<h3 id="结束"><a href="#结束" class="headerlink" title="结束"></a>结束</h3><pre><code>还会陆续遇到各种坑，慢慢填吧...
- :)~
-</code></pre>]]></content>
-    
-    <summary type="html">
-    
-      &lt;pre&gt;&lt;code&gt;cannot resolve syambol xxx
-&lt;/code&gt;&lt;/pre&gt;
-    
-    </summary>
-    
-      <category term="work" scheme="http://www.nealma.com/categories/work/"/>
-    
-    
-      <category term="MySQL" scheme="http://www.nealma.com/tags/MySQL/"/>
-    
-      <category term="大杂烩" scheme="http://www.nealma.com/tags/%E5%A4%A7%E6%9D%82%E7%83%A9/"/>
-    
-      <category term="sql" scheme="http://www.nealma.com/tags/sql/"/>
     
   </entry>
   

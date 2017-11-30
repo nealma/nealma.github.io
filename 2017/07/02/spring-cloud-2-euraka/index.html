@@ -92,7 +92,7 @@
 <meta property="og:url" content="http://www.nealma.com/2017/07/02/spring-cloud-2-euraka/index.html">
 <meta property="og:site_name" content="nealma.com">
 <meta property="og:description" content="Spring Cloud为我构建分布式微服务系统提供了一站式的解决方案，其中服务注册与发现只是整个系统的一个模块，是由eureka来承担，下面我们来看看如何使用吧">
-<meta property="og:updated_time" content="2017-09-12T06:37:22.000Z">
+<meta property="og:updated_time" content="2017-11-30T10:08:22.413Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Spring Cloud | 服务注册与发现">
 <meta name="twitter:description" content="Spring Cloud为我构建分布式微服务系统提供了一站式的解决方案，其中服务注册与发现只是整个系统的一个模块，是由eureka来承担，下面我们来看看如何使用吧">
@@ -349,7 +349,7 @@
 <p>1，@EnableDiscoveryClient注解是基于spring-cloud-commons依赖<br>2，@EnableEurekaClient注解是基于spring-cloud-netflix依赖，只能为eureka作用；</p>
 <p>如果你添加了eureka，则它们的作用是一样的。</p>
 <h3 id="客户端查看已注册的instance"><a href="#客户端查看已注册的instance" class="headerlink" title="客户端查看已注册的instance"></a>客户端查看已注册的instance</h3><p>在客户段创建如下</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line">@RestController</div><div class="line">public class EurekaClientController &#123;</div><div class="line"></div><div class="line">    @Autowired</div><div class="line">    private DiscoveryClient discoveryClient;</div><div class="line"></div><div class="line">    @RequestMapping(value = &quot;/admin/eureka/client/test1&quot;)</div><div class="line">    public String hi()&#123;</div><div class="line"></div><div class="line">        for( String s :  discoveryClient.getServices())&#123;</div><div class="line">            System.out.println(&quot;services &quot; + s);</div><div class="line">            List&lt;ServiceInstance&gt; serviceInstances =  discoveryClient.getInstances(s);</div><div class="line">            for(ServiceInstance si : serviceInstances)&#123;</div><div class="line">                System.out.println(&quot;    services:&quot; + s + &quot;:getHost()=&quot; + si.getHost());</div><div class="line">                System.out.println(&quot;    services:&quot; + s + &quot;:getPort()=&quot; + si.getPort());</div><div class="line">                System.out.println(&quot;    services:&quot; + s + &quot;:getServiceId()=&quot; + si.getServiceId());</div><div class="line">                System.out.println(&quot;    services:&quot; + s + &quot;:getUri()=&quot; + si.getUri());</div><div class="line">                System.out.println(&quot;    services:&quot; + s + &quot;:getMetadata()=&quot; + si.getMetadata());</div><div class="line">            &#125;</div><div class="line"></div><div class="line">        &#125;</div><div class="line">        return &quot;hi, :)~&quot;;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line">@RestController</div><div class="line">public class EurekaClientController &#123;</div><div class="line"></div><div class="line">    @Autowired</div><div class="line">    private DiscoveryClient discoveryClient;</div><div class="line"></div><div class="line">    @RequestMapping(value = &quot;/admin/eureka/client/group_name1&quot;)</div><div class="line">    public String hi()&#123;</div><div class="line"></div><div class="line">        for( String s :  discoveryClient.getServices())&#123;</div><div class="line">            System.out.println(&quot;services &quot; + s);</div><div class="line">            List&lt;ServiceInstance&gt; serviceInstances =  discoveryClient.getInstances(s);</div><div class="line">            for(ServiceInstance si : serviceInstances)&#123;</div><div class="line">                System.out.println(&quot;    services:&quot; + s + &quot;:getHost()=&quot; + si.getHost());</div><div class="line">                System.out.println(&quot;    services:&quot; + s + &quot;:getPort()=&quot; + si.getPort());</div><div class="line">                System.out.println(&quot;    services:&quot; + s + &quot;:getServiceId()=&quot; + si.getServiceId());</div><div class="line">                System.out.println(&quot;    services:&quot; + s + &quot;:getUri()=&quot; + si.getUri());</div><div class="line">                System.out.println(&quot;    services:&quot; + s + &quot;:getMetadata()=&quot; + si.getMetadata());</div><div class="line">            &#125;</div><div class="line"></div><div class="line">        &#125;</div><div class="line">        return &quot;hi, :)~&quot;;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <h3 id="ip、主机名问题"><a href="#ip、主机名问题" class="headerlink" title="ip、主机名问题"></a>ip、主机名问题</h3><pre><code>在实际工作中，我们需要发现的服务实例为http[s]://ip:port的形式，但是eureka服务端默认
 使用的是主机域名：port的格式，那是不是有办法变更呢？
 那当然可以了，so easy.
@@ -422,8 +422,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="../../04/spring-boot-16-websocket/" rel="prev" title="Spring-Boot（十六) WebSocket Base Of Spring Boot">
-                Spring-Boot（十六) WebSocket Base Of Spring Boot <i class="fa fa-chevron-right"></i>
+              <a href="../../04/spring-boot-16-websocket/" rel="prev" title="Spring-Boot（十六) WebSocket Base Of Spring Boot 1">
+                Spring-Boot（十六) WebSocket Base Of Spring Boot 1 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -501,7 +501,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="../../../../archives">
-              <span class="site-state-item-count">83</span>
+              <span class="site-state-item-count">86</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -509,7 +509,7 @@
           
             <div class="site-state-item site-state-categories">
               <a href="../../../../categories">
-                <span class="site-state-item-count">21</span>
+                <span class="site-state-item-count">22</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -518,7 +518,7 @@
           
             <div class="site-state-item site-state-tags">
               <a href="../../../../tags">
-                <span class="site-state-item-count">85</span>
+                <span class="site-state-item-count">86</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>

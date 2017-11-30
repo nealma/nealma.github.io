@@ -92,7 +92,7 @@
 <meta property="og:url" content="http://www.nealma.com/2016/10/26/shadowsocks/index.html">
 <meta property="og:site_name" content="nealma.com">
 <meta property="og:description" content="自己的VPN到期了，感觉还是自己搭建一个靠谱。">
-<meta property="og:updated_time" content="2017-10-13T11:14:09.000Z">
+<meta property="og:updated_time" content="2017-11-21T07:11:52.338Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="ubuntu 搭建 shadowsocks">
 <meta name="twitter:description" content="自己的VPN到期了，感觉还是自己搭建一个靠谱。">
@@ -339,7 +339,7 @@
 <h3 id="选择VPS"><a href="#选择VPS" class="headerlink" title="选择VPS"></a>选择VPS</h3><p><a href="digitalocean.com">DigitalOcean</a></p>
 <p>自己买一个吧，linode也可以。我选择的是ubuntu系统</p>
 <h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">#1 upgrade</div><div class="line">sudo apt-get update</div><div class="line"></div><div class="line">#2 pip</div><div class="line">sudo apt-get install python-pip</div><div class="line"></div><div class="line">#3 shadowsocks</div><div class="line">sudo pip install shadowsocks</div><div class="line"></div><div class="line">$4 run ss server</div><div class="line">sudo ssserver 8388 -k password -m aes-256-cfb -d start</div><div class="line"></div><div class="line">#5 stop ss server</div><div class="line">sudo ssserver -d stop</div><div class="line"></div><div class="line">#6 可能你的pip版本过低，进行升级</div><div class="line">pip install --upgrade pip</div></pre></td></tr></table></figure>
-<h3 id="推荐使用配置文件来操作ss-shadowsocks-json"><a href="#推荐使用配置文件来操作ss-shadowsocks-json" class="headerlink" title="推荐使用配置文件来操作ss shadowsocks.json"></a>推荐使用配置文件来操作ss shadowsocks.json</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">    &quot;server&quot;:&quot;your_server_ip&quot;,</div><div class="line">    &quot;server_port&quot;:8388,</div><div class="line">    &quot;local_port&quot;:1080,</div><div class="line">    &quot;password&quot;:&quot;your_password&quot;,</div><div class="line">    &quot;timeout&quot;:300,</div><div class="line">    &quot;method&quot;:&quot;aes-256-cfb&quot;</div><div class="line">&#125;</div><div class="line"></div><div class="line"># 多用户配置</div><div class="line">&#123;</div><div class="line">    &quot;server&quot;:&quot;your_server_ip&quot;,</div><div class="line">    &quot;port_password&quot;:&#123;</div><div class="line">        &quot;8388&quot;:&quot;pwd001&quot;,</div><div class="line">        &quot;8488&quot;:&quot;pwd002&quot;,</div><div class="line">        &quot;8588&quot;:&quot;pwd003&quot;</div><div class="line">    &#125;,</div><div class="line">    &quot;local_port&quot;:1080,</div><div class="line">    &quot;timeout&quot;:300,</div><div class="line">    &quot;method&quot;:&quot;aes-256-cfb&quot;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="推荐使用配置文件来操作ss-shadowsocks-json"><a href="#推荐使用配置文件来操作ss-shadowsocks-json" class="headerlink" title="推荐使用配置文件来操作ss shadowsocks.json"></a>推荐使用配置文件来操作ss shadowsocks.json</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">    &quot;server&quot;:&quot;your_server_ip&quot;,</div><div class="line">    &quot;server_port&quot;:8388,</div><div class="line">    &quot;local_port&quot;:1080,</div><div class="line">    &quot;password&quot;:&quot;your_password&quot;,</div><div class="line">    &quot;timeout&quot;:300,</div><div class="line">    &quot;method&quot;:&quot;aes-256-cfb&quot;</div><div class="line">&#125;</div><div class="line"></div><div class="line"># 多用户配置</div><div class="line">&#123;</div><div class="line">    &quot;server&quot;:&quot;your_server_ip&quot;,</div><div class="line">    &quot;port_password&quot;:&#123;</div><div class="line">        &quot;8388&quot;:&quot;c1d9d281ba331775eb11b32f3d158b4a&quot;,</div><div class="line">        &quot;8488&quot;:&quot;d7e0d85c95ca71c59bd724d7c25896fe&quot;,</div><div class="line">        &quot;8588&quot;:&quot;291d2766e3b0e5ff52d1f50ca94792e8&quot;</div><div class="line">    &#125;,</div><div class="line">    &quot;local_port&quot;:1080,</div><div class="line">    &quot;timeout&quot;:300,</div><div class="line">    &quot;method&quot;:&quot;aes-256-cfb&quot;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <ul>
 <li>server：服务器的ip</li>
 <li>server_port：服务器端口</li>
@@ -350,6 +350,11 @@
 </ul>
 <h3 id="支持更多的加密方式-需要安装"><a href="#支持更多的加密方式-需要安装" class="headerlink" title="支持更多的加密方式,需要安装"></a>支持更多的加密方式,需要安装</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo apt-get install python-m2crypto</div></pre></td></tr></table></figure>
 <h3 id="使用配置文件启动-停止"><a href="#使用配置文件启动-停止" class="headerlink" title="使用配置文件启动/停止"></a>使用配置文件启动/停止</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">ssserver -c /etc/shadowsocks.json -d start</div><div class="line">ssserver -c /etc/shadowsocks.json -d stop</div></pre></td></tr></table></figure>
+<h3 id="CentOS-SS"><a href="#CentOS-SS" class="headerlink" title="CentOS SS"></a>CentOS SS</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">$ wget --no-check-certificate https://raw.githubusercontent.com/teddysun/shadowsocks_install/master/shadowsocks.sh</div><div class="line">$ chmod +x shadowsocks.sh</div><div class="line">$ ./shadowsocks.sh 2&gt;&amp;1 | tee shadowsocks.log</div></pre></td></tr></table></figure>
+<ul>
+<li>TCP Fast Open</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">nano /etc/rc.local</div></pre></td></tr></table></figure>
 <h3 id="结束"><a href="#结束" class="headerlink" title="结束"></a>结束</h3><pre><code>享受更大更自由的网络吧。
  :)~
 </code></pre>
@@ -492,7 +497,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="../../../../archives">
-              <span class="site-state-item-count">83</span>
+              <span class="site-state-item-count">86</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -500,7 +505,7 @@
           
             <div class="site-state-item site-state-categories">
               <a href="../../../../categories">
-                <span class="site-state-item-count">21</span>
+                <span class="site-state-item-count">22</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -509,7 +514,7 @@
           
             <div class="site-state-item site-state-tags">
               <a href="../../../../tags">
-                <span class="site-state-item-count">85</span>
+                <span class="site-state-item-count">86</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -563,7 +568,7 @@
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#选择VPS"><span class="nav-number">1.</span> <span class="nav-text">选择VPS</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#安装"><span class="nav-number">2.</span> <span class="nav-text">安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#推荐使用配置文件来操作ss-shadowsocks-json"><span class="nav-number">3.</span> <span class="nav-text">推荐使用配置文件来操作ss shadowsocks.json</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#支持更多的加密方式-需要安装"><span class="nav-number">4.</span> <span class="nav-text">支持更多的加密方式,需要安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用配置文件启动-停止"><span class="nav-number">5.</span> <span class="nav-text">使用配置文件启动/停止</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#结束"><span class="nav-number">6.</span> <span class="nav-text">结束</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#选择VPS"><span class="nav-number">1.</span> <span class="nav-text">选择VPS</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#安装"><span class="nav-number">2.</span> <span class="nav-text">安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#推荐使用配置文件来操作ss-shadowsocks-json"><span class="nav-number">3.</span> <span class="nav-text">推荐使用配置文件来操作ss shadowsocks.json</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#支持更多的加密方式-需要安装"><span class="nav-number">4.</span> <span class="nav-text">支持更多的加密方式,需要安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用配置文件启动-停止"><span class="nav-number">5.</span> <span class="nav-text">使用配置文件启动/停止</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CentOS-SS"><span class="nav-number">6.</span> <span class="nav-text">CentOS SS</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#结束"><span class="nav-number">7.</span> <span class="nav-text">结束</span></a></li></ol></div>
             
           </div>
         </section>

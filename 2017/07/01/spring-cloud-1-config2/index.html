@@ -92,7 +92,7 @@
 <meta property="og:url" content="http://www.nealma.com/2017/07/01/spring-cloud-1-config2/index.html">
 <meta property="og:site_name" content="nealma.com">
 <meta property="og:description" content="上文我们了解了Config Server的基本使用，以及手动更新具体的服务，但是现在的应用都是分布式，微服务会随着App的增多，管理会更难，更辛苦。怎么解放我们的运维伙伴呢，我们慢慢来探索吧。">
-<meta property="og:updated_time" content="2017-09-12T06:37:16.000Z">
+<meta property="og:updated_time" content="2017-11-20T07:48:08.412Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Spring Cloud | 配置服务 2">
 <meta name="twitter:description" content="上文我们了解了Config Server的基本使用，以及手动更新具体的服务，但是现在的应用都是分布式，微服务会随着App的增多，管理会更难，更辛苦。怎么解放我们的运维伙伴呢，我们慢慢来探索吧。">
@@ -342,8 +342,7 @@
 <p>开发环境：<br>OS: Mac 10.11.6<br>IDE: IDEA 2016.2<br>Build: Maven</p>
 <h3 id="安装rabbitMQ"><a href="#安装rabbitMQ" class="headerlink" title="安装rabbitMQ"></a>安装rabbitMQ</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">brew install rabbitmq</div><div class="line"></div><div class="line">#run</div><div class="line">brew services start rebbitmq</div><div class="line"></div><div class="line">#通过浏览器查看信息</div><div class="line">http://localhost:15672</div><div class="line"></div><div class="line">#初始化时只有guest用户，可以在操控台创建一个新用户，切记点击新用户，为他授权，否则访问不了</div></pre></td></tr></table></figure>
 <p>注意浏览器里和配置文件里使用的是不同的端口，分别是：15672、5672</p>
-<p>###继前文，ConfigServer端我们需要增加依赖和配置信息</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&lt;dependency&gt;</div><div class="line">  &lt;groupId&gt;org.springframework.cloud&lt;/groupId&gt;</div><div class="line">  &lt;artifactId&gt;spring-cloud-starter-bus-amqp&lt;/artifactId&gt;</div><div class="line">&lt;/dependency&gt;</div></pre></td></tr></table></figure>
+<h3 id="继前文，ConfigServer端我们需要增加依赖和配置信息"><a href="#继前文，ConfigServer端我们需要增加依赖和配置信息" class="headerlink" title="继前文，ConfigServer端我们需要增加依赖和配置信息"></a>继前文，ConfigServer端我们需要增加依赖和配置信息</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&lt;dependency&gt;</div><div class="line">  &lt;groupId&gt;org.springframework.cloud&lt;/groupId&gt;</div><div class="line">  &lt;artifactId&gt;spring-cloud-starter-bus-amqp&lt;/artifactId&gt;</div><div class="line">&lt;/dependency&gt;</div></pre></td></tr></table></figure>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">spring:</div><div class="line">  rabbitmq:</div><div class="line">    host: localhost</div><div class="line">    port: 5672</div><div class="line">    username: neal</div><div class="line">    password: neal</div></pre></td></tr></table></figure>
 <h3 id="根据上一篇文章，改造client端"><a href="#根据上一篇文章，改造client端" class="headerlink" title="根据上一篇文章，改造client端"></a>根据上一篇文章，改造client端</h3><ul>
 <li>首先引入依赖</li>
@@ -507,7 +506,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="../../../../archives">
-              <span class="site-state-item-count">83</span>
+              <span class="site-state-item-count">86</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -515,7 +514,7 @@
           
             <div class="site-state-item site-state-categories">
               <a href="../../../../categories">
-                <span class="site-state-item-count">21</span>
+                <span class="site-state-item-count">22</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -524,7 +523,7 @@
           
             <div class="site-state-item site-state-tags">
               <a href="../../../../tags">
-                <span class="site-state-item-count">85</span>
+                <span class="site-state-item-count">86</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -578,7 +577,7 @@
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#安装rabbitMQ"><span class="nav-number">2.</span> <span class="nav-text">安装rabbitMQ</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#根据上一篇文章，改造client端"><span class="nav-number">3.</span> <span class="nav-text">根据上一篇文章，改造client端</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#手动更新ConfigServer服务器（刷新方式）"><span class="nav-number">4.</span> <span class="nav-text">手动更新ConfigServer服务器（刷新方式）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#结束"><span class="nav-number">5.</span> <span class="nav-text">结束</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#安装rabbitMQ"><span class="nav-number">2.</span> <span class="nav-text">安装rabbitMQ</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#继前文，ConfigServer端我们需要增加依赖和配置信息"><span class="nav-number">3.</span> <span class="nav-text">继前文，ConfigServer端我们需要增加依赖和配置信息</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#根据上一篇文章，改造client端"><span class="nav-number">4.</span> <span class="nav-text">根据上一篇文章，改造client端</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#手动更新ConfigServer服务器（刷新方式）"><span class="nav-number">5.</span> <span class="nav-text">手动更新ConfigServer服务器（刷新方式）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#结束"><span class="nav-number">6.</span> <span class="nav-text">结束</span></a></li></ol></div>
             
           </div>
         </section>
