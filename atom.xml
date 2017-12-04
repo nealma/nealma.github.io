@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://www.nealma.com/"/>
-  <updated>2017-11-30T10:22:37.422Z</updated>
+  <updated>2017-12-04T04:18:06.192Z</updated>
   <id>http://www.nealma.com/</id>
   
   <author>
@@ -14,6 +14,44 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Ansible（三) Ansible Tower</title>
+    <link href="http://www.nealma.com/2017/11/30/ansible-3-tower/"/>
+    <id>http://www.nealma.com/2017/11/30/ansible-3-tower/</id>
+    <published>2017-11-30T03:46:45.000Z</published>
+    <updated>2017-12-04T04:18:06.192Z</updated>
+    
+    <content type="html"><![CDATA[<pre><code>总是在命令行里面操作不是长久之计，还是有个web控制台来控制好些。
+Ansible Tower给我们提供了便利，还是挺方便的。
+</code></pre><a id="more"></a>
+<h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3><pre><code>[下载地址](http://releases.ansible.com/ansible-tower/setup/)
+</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div></pre></td><td class="code"><pre><div class="line">wget http://releases.ansible.com/ansible-tower/setup/ansible-tower-setup-latest.tar.gz</div><div class="line">tar xvf ansible-tower-setup-latest.tar.gz </div><div class="line">cd ansible-tower-setup-3.2.1/</div><div class="line"></div><div class="line"># 修改配置信息 </div><div class="line">sed -i &quot;s#password=&apos;&apos;#password=&apos;admin&apos;#g&quot; inventory</div><div class="line">sed -i &quot;s#host=&apos;&apos;#host=&apos;127.0.0.1&apos;#g&quot; inventory </div><div class="line">sed -i &quot;s#port=&apos;&apos;#port=&apos;5432&apos;#g&quot; inventory</div><div class="line"></div><div class="line"># 安装postgresql数据库，查看我的另一篇关于postgesql的文章</div><div class="line"></div><div class="line"># 创建用户</div><div class="line">su - postgres</div><div class="line">psql</div><div class="line">CREATE ROLE awx CREATEDB PASSWORD &apos;admin&apos; LOGIN; </div><div class="line">\q</div><div class="line">sed -i &apos;s#peer#md5#g&apos; /var/lib/pgsql/9.5/data/pg_hba.conf</div><div class="line">sed -i &apos;s#ident#md5#g&apos; /var/lib/pgsql/9.5/data/pg_hba.conf</div><div class="line"></div><div class="line"># 创建awx数据库</div><div class="line">psql -U awx -d postgres -h 127.0.0.1</div><div class="line">create database awx;</div><div class="line">\q</div><div class="line"></div><div class="line"></div><div class="line"># 正式安装</div><div class="line"></div><div class="line">./setup.py</div></pre></td></tr></table></figure>
+<h3 id="登录tower"><a href="#登录tower" class="headerlink" title="登录tower"></a>登录tower</h3><ul>
+<li><p>账号密码: admin/admin</p>
+</li>
+<li><p>导入license 没有的话，点击REQUEST LICENSE，去官方申请免费试用。</p>
+</li>
+<li><p>随便点点，熟悉下内容</p>
+</li>
+</ul>
+<h3 id="结束"><a href="#结束" class="headerlink" title="结束"></a>结束</h3><pre><code>：）～
+</code></pre>]]></content>
+    
+    <summary type="html">
+    
+      &lt;pre&gt;&lt;code&gt;总是在命令行里面操作不是长久之计，还是有个web控制台来控制好些。
+Ansible Tower给我们提供了便利，还是挺方便的。
+&lt;/code&gt;&lt;/pre&gt;
+    
+    </summary>
+    
+      <category term="Ansible" scheme="http://www.nealma.com/categories/Ansible/"/>
+    
+    
+      <category term="ansible" scheme="http://www.nealma.com/tags/ansible/"/>
+    
+  </entry>
   
   <entry>
     <title>Ansible（二) 日常使用和模块</title>
@@ -1021,77 +1059,6 @@ Springboot内部提供的事务管理器是根据autoconfigure来进行决定的
       <category term="Spring-Boot" scheme="http://www.nealma.com/tags/Spring-Boot/"/>
     
       <category term="module" scheme="http://www.nealma.com/tags/module/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Spring-Boot（十) JPA Hibernate</title>
-    <link href="http://www.nealma.com/2017/04/18/spring-boot-10-jpa-hibernate/"/>
-    <id>http://www.nealma.com/2017/04/18/spring-boot-10-jpa-hibernate/</id>
-    <published>2017-04-18T03:46:45.000Z</published>
-    <updated>2017-09-06T07:24:40.000Z</updated>
-    
-    <content type="html"><![CDATA[<pre><code>一直都在用MyBatis，感觉很好用，自己也熟悉。考虑到Spring Boot天生支持JPA，而且Hibernate也支持
-分布式事务，有成熟的解决方案，值得研究一下
-</code></pre><a id="more"></a>
-<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><pre><code>一直都在用MyBatis，感觉很好用，自己也熟悉。考虑到Spring Boot天生支持JPA，而且Hibernate也支持
-分布式事务，有成熟的解决方案，值得研究一下
-</code></pre><p>开发环境：<br>OS: Mac 10.11.6<br>IDE: IDEA<br>Build: Maven</p>
-<h3 id="引入依赖"><a href="#引入依赖" class="headerlink" title="引入依赖"></a>引入依赖</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">&lt;dependency&gt;</div><div class="line">	&lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;</div><div class="line">	&lt;artifactId&gt;spring-boot-starter-data-jpa&lt;/artifactId&gt;</div><div class="line">&lt;/dependency&gt;</div><div class="line"></div><div class="line">&lt;dependency&gt;</div><div class="line">	&lt;groupId&gt;mysql&lt;/groupId&gt;</div><div class="line">	&lt;artifactId&gt;mysql-connector-java&lt;/artifactId&gt;</div><div class="line">	&lt;scope&gt;runtime&lt;/scope&gt;</div><div class="line">&lt;/dependency&gt;</div></pre></td></tr></table></figure>
-<h3 id="JPA-Config"><a href="#JPA-Config" class="headerlink" title="JPA Config"></a>JPA Config</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">@Order(Ordered.HIGHEST_PRECEDENCE)</div><div class="line">@Configuration</div><div class="line">@EnableTransactionManagement(proxyTargetClass = true)</div><div class="line">@EnableJpaRepositories(basePackages = &quot;tech.lingyi.**.dao&quot;)</div><div class="line">@EntityScan(basePackages = &quot;tech.lingyi.**.entity&quot;)</div><div class="line">public class JpaConfiguration &#123;</div><div class="line"></div><div class="line">    @Bean</div><div class="line">    PersistenceExceptionTranslationPostProcessor persistenceExceptionTranslationPostProcessor()&#123;</div><div class="line">        return new PersistenceExceptionTranslationPostProcessor();</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h3 id="业务接口"><a href="#业务接口" class="headerlink" title="业务接口"></a>业务接口</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">@Repository</div><div class="line">public interface UserRepository extends JpaRepository&lt;User, Long&gt; &#123;</div><div class="line">    Page&lt;User&gt; findAll(Specification&lt;User&gt; s, Pageable pageRequest);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<pre><code>JPA 实现了几乎我们所用的所有方法，你需要继承就可以了，提高了生产效率，解放了广大码农，可以去约妹子了。
-</code></pre><h3 id="JPA-CRUD-和-联合条件、分页查询"><a href="#JPA-CRUD-和-联合条件、分页查询" class="headerlink" title="JPA CRUD 和 联合条件、分页查询"></a>JPA CRUD 和 联合条件、分页查询</h3><ul>
-<li><p>insert</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">public User insert()&#123;</div><div class="line">	User user = new User();</div><div class="line">	user.setNickname(&quot;neal&quot;);</div><div class="line">	return userRepository.save(user);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-</li>
-<li><p>updateByPK</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">public User updateByPK()&#123;</div><div class="line">	User user = new User();</div><div class="line">    user.setId(31L);</div><div class="line">	user.setNickname(&quot;lingyi&quot;);</div><div class="line">	return userRepository.save(user);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-</li>
-<li><p>deleteByPK</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">public void deleteByPK(Long id)&#123;</div><div class="line">	userRepository.delete(id);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-</li>
-<li><p>selectByPK</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">public User selectByPK(Long id)&#123;</div><div class="line">	return userRepository.findOne(id);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-</li>
-<li><p>findPage 只分页 没有条件</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">public void  findPage()&#123;</div><div class="line">	Pageable pageable = new PageRequest(0,10, new Sort(</div><div class="line">									new Sort.Order(Sort.Direction.ASC, &quot;username&quot;),</div><div class="line">									new Sort.Order(Sort.Direction.DESC, &quot;id&quot;))</div><div class="line">	);</div><div class="line">	Page&lt;User&gt; page = userRepository.findAll(pageable);</div><div class="line">	Assert.notNull(page);</div><div class="line">	for (User user : page.getContent())&#123;</div><div class="line">		LOGGER.info(&quot;id=&#123;&#125;, name=&#123;&#125;, department=&#123;&#125;, role=&#123;&#125;&quot;, user.getId(), user.getNickname(), user.getUsername(),&quot;&quot;);</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-</li>
-<li><p>findPage 只分页 没有条件</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">public void  findPage()&#123;</div><div class="line">	Pageable pageable = new PageRequest(0,10, new Sort(</div><div class="line">									new Sort.Order(Sort.Direction.ASC, &quot;username&quot;),</div><div class="line">									new Sort.Order(Sort.Direction.DESC, &quot;id&quot;))</div><div class="line">	);</div><div class="line">	Page&lt;User&gt; page = userRepository.findAll(pageable);</div><div class="line">	Assert.notNull(page);</div><div class="line">	for (User user : page.getContent())&#123;</div><div class="line">		LOGGER.info(&quot;id=&#123;&#125;, name=&#123;&#125;, department=&#123;&#125;, role=&#123;&#125;&quot;, user.getId(), user.getNickname(), user.getUsername(),&quot;&quot;);</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-</li>
-<li><p>findCriteria, findCriteriaV2 两种方式 关联条件分页查询</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">public Page&lt;User&gt; findCriteria(final User user, int page, int pageSize) throws Exception &#123;</div><div class="line">	Sort sort = new Sort(Sort.Direction.DESC, &quot;id&quot;);</div><div class="line">	Pageable pageable  =  new PageRequest(page, pageSize, sort);</div><div class="line"></div><div class="line">	return userRepository.findAll((root, query, builder) -&gt; &#123;</div><div class="line">        List&lt;Predicate&gt; predicates = new ArrayList&lt;&gt;();</div><div class="line">        if(null != user.getUsername())&#123;</div><div class="line">            predicates.add(builder.equal(root.get(&quot;username&quot;).as(Long.class), user.getUsername()));</div><div class="line">        &#125;</div><div class="line">        if(null != user.getNickname())&#123;</div><div class="line">            predicates.add(builder.equal(root.get(&quot;nickname&quot;).as(String.class), user.getNickname()));</div><div class="line">        &#125;</div><div class="line">        query.where(predicates.toArray(new Predicate[predicates.size()]));</div><div class="line">        return query.getRestriction();</div><div class="line">    &#125;, pageable);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-</li>
-</ul>
-<p>OR<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">public Page&lt;User&gt; findCriteriaV2(final User user, int page, int pageSize) throws Exception &#123;</div><div class="line">	Sort sort = new Sort(Sort.Direction.DESC, &quot;id&quot;);</div><div class="line">	Pageable pageable  =  new PageRequest(page, pageSize, sort);</div><div class="line"></div><div class="line">	return userRepository.findAll((root, query, builder) -&gt; &#123;</div><div class="line">		Predicate p1 = builder.equal(root.get(&quot;username&quot;).as(String.class), user.getUsername());</div><div class="line">		Predicate p2 = builder.equal(root.get(&quot;nickname&quot;).as(Long.class), user.getNickname());</div><div class="line"></div><div class="line">		query.where(builder.and(p1, p2));</div><div class="line">		return query.getRestriction();</div><div class="line">	&#125;, pageable);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<h3 id="客户端控制排序"><a href="#客户端控制排序" class="headerlink" title="客户端控制排序"></a>客户端控制排序</h3><p><em>**Server-Side</em><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">public MsgOut list(Article article, Pageable pageable, Integer rows)&#123;</div><div class="line">    return articleService.select(article, ServiceUtils.updatePageable(pageable, rows));</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p><em>**Client-Side</em><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">http://a.b.com/api/list?sort=id,desc&amp;sort=ctime,desc&amp;sort=mtime</div></pre></td></tr></table></figure></p>
-<p>具体的关键字，使用方法和生产成SQL如下表所示<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line">Keyword				Sample									JPQL snippet</div><div class="line">And					findByLastnameAndFirstname				… where x.lastname = ?1 and x.firstname = ?2</div><div class="line">Or					findByLastnameOrFirstname				… where x.lastname = ?1 or x.firstname = ?2</div><div class="line">Is,Equals			findByFirstnameIs,findByFirstnameEquals	… where x.firstname = ?1</div><div class="line">Between				findByStartDateBetween					… where x.startDate between ?1 and ?2</div><div class="line">LessThan			findByAgeLessThan						… where x.age &lt; ?1</div><div class="line">LessThanEqual		findByAgeLessThanEqual					… where x.age ⇐ ?1</div><div class="line">GreaterThan			findByAgeGreaterThan					… where x.age &gt; ?1</div><div class="line">GreaterThanEqual	findByAgeGreaterThanEqual				… where x.age &gt;= ?1</div><div class="line">After				findByStartDateAfter					… where x.startDate &gt; ?1</div><div class="line">Before				findByStartDateBefore					… where x.startDate &lt; ?1</div><div class="line">IsNull				findByAgeIsNull							… where x.age is null</div><div class="line">IsNotNull,NotNull	findByAge(Is)NotNull					… where x.age not null</div><div class="line">Like				findByFirstnameLike						… where x.firstname like ?1</div><div class="line">NotLike				findByFirstnameNotLike					… where x.firstname not like ?1</div><div class="line">StartingWith		findByFirstnameStartingWith				… where x.firstname like ?1 (parameter bound with appended %)</div><div class="line">EndingWith			findByFirstnameEndingWith			… where x.firstname like ?1 (parameter bound with prepended %)</div><div class="line">Containing			findByFirstnameContaining				… where x.firstname like ?1 (parameter bound wrapped in %)</div><div class="line">OrderBy				findByAgeOrderByLastnameDesc			… where x.age = ?1 order by x.lastname desc</div><div class="line">Not					findByLastnameNot						… where x.lastname &lt;&gt; ?1</div><div class="line">In					findByAgeIn(Collection ages)			… where x.age in ?1</div><div class="line">NotIn				findByAgeNotIn(Collection age)			… where x.age not in ?1</div><div class="line">TRUE				findByActiveTrue()						… where x.active = true</div><div class="line">FALSE				findByActiveFalse()						… where x.active = false</div><div class="line">IgnoreCase			findByFirstnameIgnoreCase				… where UPPER(x.firstame) = UPPER(?1)</div></pre></td></tr></table></figure></p>
-<h3 id="结束"><a href="#结束" class="headerlink" title="结束"></a>结束</h3><pre><code>使用频率最多的都列举出来了，够我们用了。
-但是程序员就像偷懒，不想每个domain都要写个XxxRepository,写个基础BaseRepository岂不是节省好多事呢，有空在写吧...
-</code></pre>]]></content>
-    
-    <summary type="html">
-    
-      &lt;pre&gt;&lt;code&gt;一直都在用MyBatis，感觉很好用，自己也熟悉。考虑到Spring Boot天生支持JPA，而且Hibernate也支持
-分布式事务，有成熟的解决方案，值得研究一下
-&lt;/code&gt;&lt;/pre&gt;
-    
-    </summary>
-    
-      <category term="Spring Boot" scheme="http://www.nealma.com/categories/Spring-Boot/"/>
-    
-    
-      <category term="Java" scheme="http://www.nealma.com/tags/Java/"/>
-    
-      <category term="Spring" scheme="http://www.nealma.com/tags/Spring/"/>
-    
-      <category term="Spring-Boot" scheme="http://www.nealma.com/tags/Spring-Boot/"/>
-    
-      <category term="Hibernate" scheme="http://www.nealma.com/tags/Hibernate/"/>
-    
-      <category term="JPA" scheme="http://www.nealma.com/tags/JPA/"/>
     
   </entry>
   
