@@ -2,16 +2,30 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>http://www.nealma.com/2017/11/30/ansible-3-tower/</loc>
+    <loc>http://www.nealma.com/2017/01/26/work-problerm-2-ueditor/</loc>
     
-    <lastmod>2017-12-04T04:18:06.192Z</lastmod>
+    <lastmod>2017-12-19T03:13:47.913Z</lastmod>
     
   </url>
   
   <url>
     <loc>http://www.nealma.com/2016/10/10/centos-72-8-posgresql/</loc>
     
-    <lastmod>2017-12-01T14:31:02.394Z</lastmod>
+    <lastmod>2017-12-04T04:19:53.902Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://www.nealma.com/2016/10/10/centos-72-9-gitlab/</loc>
+    
+    <lastmod>2017-12-04T04:19:53.902Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://www.nealma.com/2017/11/30/ansible-3-tower/</loc>
+    
+    <lastmod>2017-12-04T04:18:06.192Z</lastmod>
     
   </url>
   
@@ -44,7 +58,7 @@
   </url>
   
   <url>
-    <loc>http://www.nealma.com/2017/11/27/ansible-1-setup-macos/</loc>
+    <loc>http://www.nealma.com/2017/11/27/kafka-1-setup/</loc>
     
     <lastmod>2017-11-30T07:56:58.451Z</lastmod>
     
@@ -432,13 +446,6 @@
     <loc>http://www.nealma.com/2016/11/26/work-problerm-2/</loc>
     
     <lastmod>2016-12-11T08:47:03.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://www.nealma.com/2016/01/26/work-problerm-2-ueditor/</loc>
-    
-    <lastmod>2016-12-03T03:19:27.000Z</lastmod>
     
   </url>
   
