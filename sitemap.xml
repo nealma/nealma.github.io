@@ -2,6 +2,27 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://www.nealma.com/2017/11/11/centos-72-10-unreachable/</loc>
+    
+    <lastmod>2017-12-25T04:48:33.925Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://www.nealma.com/2017/11/10/centos-72-9-gitlab/</loc>
+    
+    <lastmod>2017-12-25T04:37:50.553Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://www.nealma.com/2017/11/27/kafka-1-setup/</loc>
+    
+    <lastmod>2017-12-19T03:34:08.354Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://www.nealma.com/2017/01/26/work-problerm-2-ueditor/</loc>
     
     <lastmod>2017-12-19T03:13:47.913Z</lastmod>
@@ -10,13 +31,6 @@
   
   <url>
     <loc>http://www.nealma.com/2016/10/10/centos-72-8-posgresql/</loc>
-    
-    <lastmod>2017-12-04T04:19:53.902Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://www.nealma.com/2016/10/10/centos-72-9-gitlab/</loc>
     
     <lastmod>2017-12-04T04:19:53.902Z</lastmod>
     
@@ -54,13 +68,6 @@
     <loc>http://www.nealma.com/2016/12/12/work-problerm-3-wxpay/</loc>
     
     <lastmod>2017-11-30T10:08:09.682Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://www.nealma.com/2017/11/27/kafka-1-setup/</loc>
-    
-    <lastmod>2017-11-30T07:56:58.451Z</lastmod>
     
   </url>
   

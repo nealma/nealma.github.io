@@ -68,7 +68,7 @@
 <link href="../../../../css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="ansible," />
+  <meta name="keywords" content="Kafka," />
 
 
 
@@ -86,16 +86,16 @@
 
 
 
-<meta name="description" content="以前没有用过Ansible，根据官网的文档折腾了一下，在MacOS上还是有点小曲折的。">
+<meta name="description" content="Kafka问题列表">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Ansible（一) Setup On MacOS">
+<meta property="og:title" content="Kafka（一) 基本常用">
 <meta property="og:url" content="http://www.nealma.com/2017/11/27/kafka-1-setup/index.html">
 <meta property="og:site_name" content="nealma.com">
-<meta property="og:description" content="以前没有用过Ansible，根据官网的文档折腾了一下，在MacOS上还是有点小曲折的。">
-<meta property="og:updated_time" content="2017-11-30T07:56:58.451Z">
+<meta property="og:description" content="Kafka问题列表">
+<meta property="og:updated_time" content="2017-12-19T03:34:08.354Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Ansible（一) Setup On MacOS">
-<meta name="twitter:description" content="以前没有用过Ansible，根据官网的文档折腾了一下，在MacOS上还是有点小曲折的。">
+<meta name="twitter:title" content="Kafka（一) 基本常用">
+<meta name="twitter:description" content="Kafka问题列表">
 
 
 
@@ -118,7 +118,7 @@
 
   <link rel="canonical" href="http://www.nealma.com/2017/11/27/kafka-1-setup/"/>
 
-  <title> Ansible（一) Setup On MacOS | nealma.com </title>
+  <title> Kafka（一) 基本常用 | nealma.com </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -268,7 +268,7 @@
             
             
               
-                Ansible（一) Setup On MacOS
+                Kafka（一) 基本常用
               
             
           </h1>
@@ -294,8 +294,8 @@
               <span class="post-meta-item-text">分类于</span>
               
                 <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="../../../../categories/Ansible/" itemprop="url" rel="index">
-                    <span itemprop="name">Ansible</span>
+                  <a href="../../../../categories/Kafka/" itemprop="url" rel="index">
+                    <span itemprop="name">Kafka</span>
                   </a>
                 </span>
 
@@ -334,16 +334,10 @@
       
 
       
-        <pre><code>以前没有用过Ansible，根据官网的文档折腾了一下，在MacOS上还是有点小曲折的。
+        <pre><code>Kafka问题列表
 </code></pre><a id="more"></a>
-<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><pre><code>以前没有用过Ansible，根据官网的文档折腾了一下，在MacOS上还是有点小曲折的。
-</code></pre><h3 id="macOS-安装"><a href="#macOS-安装" class="headerlink" title="macOS 安装"></a>macOS 安装</h3><pre><code>一开始根据官网的文档，在centos上使用git源码安装，没成功；
-算了，还是在自己的macOS上玩吧，之前已经安装了pip，那就用**pip install ansible**安装吧
-得，装是安装好了，但是hosts文件却没有，本人不想手动创建该文件，故找到使用brew安装的方法。
-谁知，得到的结果一样，还是乖乖的手动创建这个文件吧:(
-</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line">#1 install ansible</div><div class="line">brew install ansible</div><div class="line"></div><div class="line">#2 create the hosts </div><div class="line">mkdir -p /usr/local/etc/ansible</div><div class="line"></div><div class="line">#hosts文件内容： a.com</div><div class="line">vim /usr/local/etc/ansible/hosts</div><div class="line"></div><div class="line"></div><div class="line">#3 test</div><div class="line">ansible all -m ping</div><div class="line"></div><div class="line">#真不幸，找不到 [WARNING]: Unable to parse /etc/ansible/hosts as an inventory source</div><div class="line">#那就继续找怎么才能让ansible发现hosts文件呢？</div><div class="line"></div><div class="line">#4 ansible.cfg配置文件，1.5之后的读取顺序</div><div class="line"></div><div class="line">* ANSIBLE_CONFIG (一个环境变量)</div><div class="line">* ansible.cfg (位于当前目录中)</div><div class="line">* .ansible.cfg (位于家目录中)</div><div class="line">* /etc/ansible/ansible.cfg</div><div class="line"></div><div class="line"># 无语了，又出现了python的3770问题，还是算了吧，回归CentOS吧</div></pre></td></tr></table></figure>
-<h3 id="CentOS-安装"><a href="#CentOS-安装" class="headerlink" title="CentOS 安装"></a>CentOS 安装</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">#1</div><div class="line">sudo yum install ansible</div><div class="line"></div><div class="line">#2 hosts文件内容增加你的主机名，可以说域名、ip、或者你自己映射的别名</div><div class="line">#这里我增加一个ip，10.27.143.116</div><div class="line">vim /etc/ansible/hosts </div><div class="line"></div><div class="line">#3 test</div><div class="line">ansible all -m ping</div><div class="line"></div><div class="line">#10.27.143.116 | SUCCESS =&gt; &#123;</div><div class="line">#    &quot;changed&quot;: false, </div><div class="line">#    &quot;failed&quot;: false, </div><div class="line">#    &quot;ping&quot;: &quot;pong&quot;</div><div class="line">#&#125;</div></pre></td></tr></table></figure>
-<h3 id="结束"><a href="#结束" class="headerlink" title="结束"></a>结束</h3><pre><code>：）～
+<h3 id="Kafka"><a href="#Kafka" class="headerlink" title="Kafka"></a>Kafka</h3><pre><code>官网操作很详细了
+</code></pre><h3 id="结束"><a href="#结束" class="headerlink" title="结束"></a>结束</h3><pre><code>：）～
 </code></pre>
       
 
@@ -388,7 +382,7 @@
       
         <div class="post-tags">
           
-            <a href="../../../../tags/ansible/" rel="tag">#ansible</a>
+            <a href="../../../../tags/Kafka/" rel="tag">#Kafka</a>
           
         </div>
       
@@ -397,8 +391,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="../../../08/05/nginx-example-work-4-centos7-nodejs/" rel="next" title="Nginx | Can't install nodejs on centos7">
-                <i class="fa fa-chevron-left"></i> Nginx | Can't install nodejs on centos7
+              <a href="../../11/centos-72-10-unreachable/" rel="next" title="CentOS7（10）新建虚拟机网络不通问题">
+                <i class="fa fa-chevron-left"></i> CentOS7（10）新建虚拟机网络不通问题
               </a>
             
           </div>
@@ -484,7 +478,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="../../../../archives">
-              <span class="site-state-item-count">89</span>
+              <span class="site-state-item-count">90</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -492,7 +486,7 @@
           
             <div class="site-state-item site-state-categories">
               <a href="../../../../categories">
-                <span class="site-state-item-count">22</span>
+                <span class="site-state-item-count">23</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -501,7 +495,7 @@
           
             <div class="site-state-item site-state-tags">
               <a href="../../../../tags">
-                <span class="site-state-item-count">89</span>
+                <span class="site-state-item-count">91</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -555,7 +549,7 @@
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#macOS-安装"><span class="nav-number">2.</span> <span class="nav-text">macOS 安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CentOS-安装"><span class="nav-number">3.</span> <span class="nav-text">CentOS 安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#结束"><span class="nav-number">4.</span> <span class="nav-text">结束</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Kafka"><span class="nav-number">1.</span> <span class="nav-text">Kafka</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#结束"><span class="nav-number">2.</span> <span class="nav-text">结束</span></a></li></ol></div>
             
           </div>
         </section>
@@ -680,7 +674,7 @@
     <script type="text/javascript">
       var disqus_shortname = 'nealma';
       var disqus_identifier = '2017/11/27/kafka-1-setup/';
-      var disqus_title = "Ansible（一) Setup On MacOS";
+      var disqus_title = "Kafka（一) 基本常用";
       var disqus_url = 'http://www.nealma.com/2017/11/27/kafka-1-setup/';
 
       function run_disqus_script(disqus_script){
