@@ -2,6 +2,41 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://www.nealma.com/2018/01/01/tools-detect-image-color/</loc>
+    
+    <lastmod>2018-04-30T18:24:01.855Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://www.nealma.com/html/tools/color-key.html</loc>
+    
+    <lastmod>2018-04-30T18:18:58.348Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://www.nealma.com/tools/index.html</loc>
+    
+    <lastmod>2018-04-29T23:28:00.790Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://www.nealma.com/2016/05/30/curl-1-how-to-use/</loc>
+    
+    <lastmod>2017-12-26T03:07:01.426Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://www.nealma.com/2017/11/27/kafka-1-setup/</loc>
+    
+    <lastmod>2017-12-25T04:50:38.830Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://www.nealma.com/2017/11/11/centos-72-10-unreachable/</loc>
     
     <lastmod>2017-12-25T04:48:33.925Z</lastmod>
@@ -11,21 +46,14 @@
   <url>
     <loc>http://www.nealma.com/2017/11/10/centos-72-9-gitlab/</loc>
     
-    <lastmod>2017-12-25T04:37:50.553Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://www.nealma.com/2017/11/27/kafka-1-setup/</loc>
-    
-    <lastmod>2017-12-19T03:34:08.354Z</lastmod>
+    <lastmod>2017-12-25T04:37:50.554Z</lastmod>
     
   </url>
   
   <url>
     <loc>http://www.nealma.com/2017/01/26/work-problerm-2-ueditor/</loc>
     
-    <lastmod>2017-12-19T03:13:47.913Z</lastmod>
+    <lastmod>2017-12-19T03:36:13.161Z</lastmod>
     
   </url>
   
@@ -39,7 +67,7 @@
   <url>
     <loc>http://www.nealma.com/2017/11/30/ansible-3-tower/</loc>
     
-    <lastmod>2017-12-04T04:18:06.192Z</lastmod>
+    <lastmod>2017-12-04T04:18:06.193Z</lastmod>
     
   </url>
   
@@ -53,14 +81,14 @@
   <url>
     <loc>http://www.nealma.com/2017/07/02/spring-cloud-2-euraka/</loc>
     
-    <lastmod>2017-11-30T10:08:22.413Z</lastmod>
+    <lastmod>2017-11-30T10:08:22.414Z</lastmod>
     
   </url>
   
   <url>
     <loc>http://www.nealma.com/2016/11/26/work-problerm-1/</loc>
     
-    <lastmod>2017-11-30T10:08:13.341Z</lastmod>
+    <lastmod>2017-11-30T10:08:13.342Z</lastmod>
     
   </url>
   
@@ -74,7 +102,7 @@
   <url>
     <loc>http://www.nealma.com/2016/10/26/shadowsocks/</loc>
     
-    <lastmod>2017-11-21T07:11:52.338Z</lastmod>
+    <lastmod>2017-11-21T07:11:52.339Z</lastmod>
     
   </url>
   
@@ -215,13 +243,6 @@
     <loc>http://www.nealma.com/2016/01/05/java-interview-2-hibernate-ddl/</loc>
     
     <lastmod>2017-08-14T01:22:31.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://www.nealma.com/2016/05/30/curl-1-how-to-use/</loc>
-    
-    <lastmod>2017-07-08T13:14:44.000Z</lastmod>
     
   </url>
   

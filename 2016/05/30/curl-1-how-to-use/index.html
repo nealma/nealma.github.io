@@ -94,7 +94,7 @@
 <meta property="og:site_name" content="nealma.com">
 <meta property="og:description" content="curl在我们的开发过程中经常被用到，脑子记不住啊，总是过段时间就记不清楚了
 记录之，以备所用之需">
-<meta property="og:updated_time" content="2017-07-08T13:14:44.000Z">
+<meta property="og:updated_time" content="2017-12-26T03:07:01.426Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="curl（一) 常用命令">
 <meta name="twitter:description" content="curl在我们的开发过程中经常被用到，脑子记不住啊，总是过段时间就记不清楚了
@@ -346,6 +346,7 @@
 <h3 id="POST请求"><a href="#POST请求" class="headerlink" title="POST请求"></a>POST请求</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">curl -i -v -X POST http://localhost:8080/admin/login -d &quot;user=user&amp;password=user&quot;</div></pre></td></tr></table></figure>
 <h3 id="POST请求-JSON格式"><a href="#POST请求-JSON格式" class="headerlink" title="POST请求,JSON格式"></a>POST请求,JSON格式</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">curl -l -H &quot;Content-type: application/json&quot; -X POST -d &apos;&#123;&quot;user&quot;:&quot;user&quot;,&quot;password&quot;:&quot;user&quot;&#125;&apos;  http://localhost/login</div></pre></td></tr></table></figure>
 <h3 id="接口需要鉴权"><a href="#接口需要鉴权" class="headerlink" title="接口需要鉴权"></a>接口需要鉴权</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">curl -X POST -d &apos;&#123;&quot;user&quot;:&quot;user&quot;,&quot;password&quot;:&quot;user&quot;&#125;&apos;  http://localhost/auth -u username:password</div></pre></td></tr></table></figure>
+<h3 id="上传文件"><a href="#上传文件" class="headerlink" title="上传文件"></a>上传文件</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">curl -vX POST http://localhost:8080/upload \</div><div class="line">    -H &quot;Content-Type: multipart/form-data&quot; \</div><div class="line">    -H &quot;Accept:application/json&quot; \</div><div class="line">    -F &quot;groupId=1&quot;</div><div class="line">    -F &quot;file=@/Users/neal/avatar.jpg&quot;</div></pre></td></tr></table></figure>
 <h3 id="结束"><a href="#结束" class="headerlink" title="结束"></a>结束</h3><pre><code>：）～
 </code></pre>
       
@@ -400,8 +401,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="../../20/redis-2-set/" rel="next" title="Redis (二) set操作">
-                <i class="fa fa-chevron-left"></i> Redis (二) set操作
+              <a href="../spring-boot-5-exception/" rel="next" title="Spring-Boot（五) 全局异常处理">
+                <i class="fa fa-chevron-left"></i> Spring-Boot（五) 全局异常处理
               </a>
             
           </div>
@@ -487,7 +488,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="../../../../archives">
-              <span class="site-state-item-count">90</span>
+              <span class="site-state-item-count">91</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -495,7 +496,7 @@
           
             <div class="site-state-item site-state-categories">
               <a href="../../../../categories">
-                <span class="site-state-item-count">23</span>
+                <span class="site-state-item-count">24</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -504,7 +505,7 @@
           
             <div class="site-state-item site-state-tags">
               <a href="../../../../tags">
-                <span class="site-state-item-count">91</span>
+                <span class="site-state-item-count">93</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -558,7 +559,7 @@
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#GET请求"><span class="nav-number">2.</span> <span class="nav-text">GET请求</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#POST请求"><span class="nav-number">3.</span> <span class="nav-text">POST请求</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#POST请求-JSON格式"><span class="nav-number">4.</span> <span class="nav-text">POST请求,JSON格式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#接口需要鉴权"><span class="nav-number">5.</span> <span class="nav-text">接口需要鉴权</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#结束"><span class="nav-number">6.</span> <span class="nav-text">结束</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#GET请求"><span class="nav-number">2.</span> <span class="nav-text">GET请求</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#POST请求"><span class="nav-number">3.</span> <span class="nav-text">POST请求</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#POST请求-JSON格式"><span class="nav-number">4.</span> <span class="nav-text">POST请求,JSON格式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#接口需要鉴权"><span class="nav-number">5.</span> <span class="nav-text">接口需要鉴权</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#上传文件"><span class="nav-number">6.</span> <span class="nav-text">上传文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#结束"><span class="nav-number">7.</span> <span class="nav-text">结束</span></a></li></ol></div>
             
           </div>
         </section>
@@ -579,7 +580,7 @@
 <div class="copyright" >
   
   &copy; 
-  <span itemprop="copyrightYear">2017</span>
+  <span itemprop="copyrightYear">2018</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
