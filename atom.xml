@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://www.nealma.com/"/>
-  <updated>2018-04-30T18:27:10.613Z</updated>
+  <updated>2018-05-02T07:47:42.391Z</updated>
   <id>http://www.nealma.com/</id>
   
   <author>
@@ -20,13 +20,13 @@
     <link href="http://www.nealma.com/2018/01/01/tools-detect-image-color/"/>
     <id>http://www.nealma.com/2018/01/01/tools-detect-image-color/</id>
     <published>2018-01-01T04:46:45.000Z</published>
-    <updated>2018-04-30T18:27:10.613Z</updated>
+    <updated>2018-05-02T07:47:42.391Z</updated>
     
     <content type="html"><![CDATA[<pre><code>一键识别图片配色方案
 </code></pre><a id="more"></a>
 <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><pre><code>作为非设计出身的我们，总想自己设计一个让用户眼前一亮的产品。可是绞尽脑汁还是弄的不伦不类，
 还好有这个配色方案大师，让你轻轻松松设计一套不错的UI色调。
-</code></pre><h3 id="一键取色"><a href="#一键取色" class="headerlink" title="一键取色"></a>一键取色</h3><p><img src="/html/tools/color-key.html" alt="一键取色"></p>
+</code></pre><h3 id="一键取色"><a href="#一键取色" class="headerlink" title="一键取色"></a>一键取色</h3><p><a href="http://nealma.com/html/tools/color-key.html" target="_blank" rel="external">一键取色</a></p>
 <h3 id="结束"><a href="#结束" class="headerlink" title="结束"></a>结束</h3><pre><code>:)~
 </code></pre>]]></content>
     
