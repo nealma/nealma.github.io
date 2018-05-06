@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://www.nealma.com/"/>
-  <updated>2018-05-05T07:19:34.229Z</updated>
+  <updated>2018-05-06T02:56:28.856Z</updated>
   <id>http://www.nealma.com/</id>
   
   <author>
@@ -20,7 +20,7 @@
     <link href="http://www.nealma.com/2018/05/04/work-problerm-10-website-mail/"/>
     <id>http://www.nealma.com/2018/05/04/work-problerm-10-website-mail/</id>
     <published>2018-05-04T04:46:45.000Z</published>
-    <updated>2018-05-05T07:19:34.229Z</updated>
+    <updated>2018-05-06T02:56:28.856Z</updated>
     
     <content type="html"><![CDATA[<pre><code>目前官网和静态网站都迁移到阿里云OSS，节省了ECS的费用，但是也遇到了一些小问题
 </code></pre><a id="more"></a>
@@ -29,7 +29,8 @@
 2，同域名的邮箱DNS单独开一个A记录，指向一个新的SLB的公网IP；
 3，通过App的301永久跳转转向官网。
 </code></pre><h3 id="静态页面缓存严重"><a href="#静态页面缓存严重" class="headerlink" title="静态页面缓存严重"></a>静态页面缓存严重</h3><pre><code>也可以通过阿里云的CDN的刷新功能，只是显得比较繁琐。
-</code></pre><h3 id="结束"><a href="#结束" class="headerlink" title="结束"></a>结束</h3><pre><code>:)~
+</code></pre><h3 id="Spring-MVC-301跳转"><a href="#Spring-MVC-301跳转" class="headerlink" title="Spring MVC 301跳转"></a>Spring MVC 301跳转</h3><p><em>show me your code</em><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">@RestController</div><div class="line">public class WebsiteController &#123;</div><div class="line"></div><div class="line">    @Resource</div><div class="line">    private HttpServletRequest request;</div><div class="line"></div><div class="line">    // GET /</div><div class="line">    @RequestMapping(path = &#123;&quot;&quot;, &quot;/&quot;&#125;, method = RequestMethod.GET)</div><div class="line">    public RedirectView gotoWebsite() &#123;</div><div class="line"></div><div class="line">        RedirectView redirectView = new RedirectView();</div><div class="line">        redirectView.setStatusCode(HttpStatus.MOVED_PERMANENTLY);</div><div class="line"></div><div class="line">        // 注意：绝对地址，必须要写好https或者http，否则是站内重定向。</div><div class="line">        redirectView.setUrl(&quot;https://www.&quot;+request.getHeader(&quot;host&quot;));</div><div class="line"></div><div class="line">        return redirectView;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h3 id="结束"><a href="#结束" class="headerlink" title="结束"></a>结束</h3><pre><code>:)~
 </code></pre>]]></content>
     
     <summary type="html">
