@@ -2,6 +2,20 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://www.nealma.com/2015/03/18/github-one-mac-two-github-account/</loc>
+    
+    <lastmod>2018-05-07T06:27:56.348Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://www.nealma.com/2018/05/05/work-problerm-11-git-unrelated-histories/</loc>
+    
+    <lastmod>2018-05-07T06:25:35.410Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://www.nealma.com/2018/05/04/work-problerm-10-website-mail/</loc>
     
     <lastmod>2018-05-06T02:56:28.856Z</lastmod>
@@ -649,13 +663,6 @@
     <loc>http://www.nealma.com/2016/03/18/hexo-how-to-use/</loc>
     
     <lastmod>2016-11-17T01:48:46.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://www.nealma.com/2015/03/18/github-one-mac-two-github-account/</loc>
-    
-    <lastmod>2016-11-17T01:48:30.000Z</lastmod>
     
   </url>
   

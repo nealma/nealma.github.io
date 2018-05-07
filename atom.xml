@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://www.nealma.com/"/>
-  <updated>2018-05-06T02:56:28.856Z</updated>
+  <updated>2018-05-07T06:25:35.410Z</updated>
   <id>http://www.nealma.com/</id>
   
   <author>
@@ -14,6 +14,43 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>git pull 出现 refusing to merge unrelated histories</title>
+    <link href="http://www.nealma.com/2018/05/05/work-problerm-11-git-unrelated-histories/"/>
+    <id>http://www.nealma.com/2018/05/05/work-problerm-11-git-unrelated-histories/</id>
+    <published>2018-05-05T04:46:45.000Z</published>
+    <updated>2018-05-07T06:25:35.410Z</updated>
+    
+    <content type="html"><![CDATA[<pre><code>git pull 出现 refusing to merge unrelated histories
+</code></pre><a id="more"></a>
+<h3 id="复现问题场景"><a href="#复现问题场景" class="headerlink" title="复现问题场景"></a>复现问题场景</h3><pre><code>1，首先，我在GitHub上创建了一个新项目A，然后，clone到我的电脑上；
+2，此时发现创建的项目目录不是我想要的，随手把GitHub上的项目删除了，又重新创建了项目B；
+3，项目A中添加了些文件，把git相关的目录.git和.gitignore也一并删除了
+4，在我的电脑中创建新目录C，并且把A项目的目录迁移到C下面
+5，此时C还不是git项目，添加远程仓库: git remote add origin remote_origin_url
+6, 拉取远程仓库内容: git pull
+7，出现了题目中的问题
+</code></pre><h3 id="分析原因"><a href="#分析原因" class="headerlink" title="分析原因"></a>分析原因</h3><pre><code>我本地目录中出现了没有关联的文件，而且滞后于远程仓空的内容。
+git默认是不允许这样。
+</code></pre><h3 id="解决办法"><a href="#解决办法" class="headerlink" title="解决办法"></a>解决办法</h3><pre><code>**git pull的时候加上allow-unrelated-histories这个参数**
+</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git pull origin master --allow-unrelated-histories</div></pre></td></tr></table></figure>
+<h3 id="结束"><a href="#结束" class="headerlink" title="结束"></a>结束</h3><pre><code>:)~
+</code></pre>]]></content>
+    
+    <summary type="html">
+    
+      &lt;pre&gt;&lt;code&gt;git pull 出现 refusing to merge unrelated histories
+&lt;/code&gt;&lt;/pre&gt;
+    
+    </summary>
+    
+      <category term="work" scheme="http://www.nealma.com/categories/work/"/>
+    
+    
+      <category term="Git" scheme="http://www.nealma.com/tags/Git/"/>
+    
+  </entry>
   
   <entry>
     <title>解决官网和邮箱的DNS解析冲突问题</title>
@@ -983,70 +1020,6 @@ Spring Boot中，使用Redis很容易实现一个发布订阅系统，如果你�
       <category term="Spring-Boot" scheme="http://www.nealma.com/tags/Spring-Boot/"/>
     
       <category term="Cache" scheme="http://www.nealma.com/tags/Cache/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Spring-Boot（十三) 事物处理 Transaction</title>
-    <link href="http://www.nealma.com/2017/06/02/spring-boot-13-transaction/"/>
-    <id>http://www.nealma.com/2017/06/02/spring-boot-13-transaction/</id>
-    <published>2017-06-02T02:46:45.000Z</published>
-    <updated>2017-08-23T06:20:35.000Z</updated>
-    
-    <content type="html"><![CDATA[<pre><code>SpringBoot的事务管理（jdbc、jpa、mybatis）
-</code></pre><a id="more"></a>
-<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><pre><code>SpringBoot的事务管理（jdbc、jpa、mybatis）
-Springboot内部提供的事务管理器是根据autoconfigure来进行决定的。
-</code></pre><p>开发环境：<br>OS: Mac 10.11.6<br>IDE: IDEA<br>Build: Maven</p>
-<h3 id="触发不同的事物管理器"><a href="#触发不同的事物管理器" class="headerlink" title="触发不同的事物管理器"></a>触发不同的事物管理器</h3><ul>
-<li>当使用jpa（pom中加入了spring-boot-starter-data-jpa），Springboot会构造一个JpaTransactionManager事务管理器；</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">#触发HibernateJpaAutoConfiguration（该类继承了JpaBaseConfiguration类）自动配置</div><div class="line">@Bean</div><div class="line">@ConditionalOnMissingBean(PlatformTransactionManager.class)</div><div class="line">public PlatformTransactionManager transactionManager() &#123;</div><div class="line">    return new JpaTransactionManager();</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<ul>
-<li>当我们使用jdbc(pom中加入了spring-boot-starter-jdbc），Springboot会构造一个DataSourceTransactionManager事物管理器；</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">#触发DataSourceTransactionManagerAutoConfiguration这个自动化配置</div><div class="line">@Bean</div><div class="line">@ConditionalOnMissingBean(&#123;PlatformTransactionManager.class&#125;)</div><div class="line">public DataSourceTransactionManager transactionManager(DataSourceProperties properties) &#123;</div><div class="line">    DataSourceTransactionManager transactionManager = new DataSourceTransactionManager(this.dataSource);</div><div class="line">    if(this.transactionManagerCustomizers != null) &#123;</div><div class="line">        this.transactionManagerCustomizers.customize(transactionManager);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    return transactionManager;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>这两个接口都实现了PlatformTransactionManager这个接口，PlatformTransactionManager是spring事物管理的核心接口。</p>
-<h3 id="手动配置事物管理器"><a href="#手动配置事物管理器" class="headerlink" title="手动配置事物管理器"></a>手动配置事物管理器</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">@ConditionalOnMissingBean(&#123;PlatformTransactionManager.class&#125;)</div></pre></td></tr></table></figure>
-<p>在自动配置类中，我们发现@ConditionalOnMissingBean({PlatformTransactionManager.class})这个注解，什么意思呢？<br>就是如果我们手动配置了事物管理器，spring将不会再为我们构造事物管理器了。</p>
-<h3 id="那如果我们使用的是mybatis，如何处理事物呢"><a href="#那如果我们使用的是mybatis，如何处理事物呢" class="headerlink" title="那如果我们使用的是mybatis，如何处理事物呢"></a>那如果我们使用的是mybatis，如何处理事物呢</h3><p>MyBatis 中有两种类型的事务管理器（也就是 type=”[JDBC|MANAGED]”）</p>
-<ul>
-<li><p>JDBC - 直接使用了 JDBC 的提交和回滚设置，它依赖于从数据源得到的连接来管理事务范围。</p>
-</li>
-<li><p>MANAGED - 让容器来管理事务的整个生命周期（比如 JEE 应用服务器的上下文）。</p>
-</li>
-<li><p>SqlSessionFactory mybatis通过这个核心类来管理session，session进行提交和回滚。</p>
-</li>
-</ul>
-<h3 id="使用Spring-MyBatis"><a href="#使用Spring-MyBatis" class="headerlink" title="使用Spring+MyBatis"></a>使用Spring+MyBatis</h3><p>大部分情况下，我们不会单独使用MyBatis，都会结合Spring来使用。这个时候，事物处理统统有Spring来管理</p>
-<p>在与Spring、SpringBoot集成时，注意SqlSessionFactory和DataSourceTransactionManager必须给予同一个dataSource,<br>否则不能进行事物管理。</p>
-<h3 id="举个列子"><a href="#举个列子" class="headerlink" title="举个列子"></a>举个列子</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div></pre></td><td class="code"><pre><div class="line">@Configuration</div><div class="line">@MapperScan(DataSourceConfig.PACKAGE)</div><div class="line">public class DataSourceConfig &#123;</div><div class="line"></div><div class="line">    // 精确到 master 目录，以便跟其他数据源隔离</div><div class="line">    static final String PACKAGE = &quot;com.x.*.dao&quot;;</div><div class="line">    static final String MAPPER_LOCATION = &quot;classpath*:**/mappers/*.xml&quot;;</div><div class="line"></div><div class="line">    @Value(&quot;$&#123;spring.datasource.url&#125;&quot;)</div><div class="line">    private String url;</div><div class="line">    @Value(&quot;$&#123;spring.datasource.username&#125;&quot;)</div><div class="line">    private String username;</div><div class="line">    @Value(&quot;$&#123;spring.datasource.password&#125;&quot;)</div><div class="line">    private String password;</div><div class="line">    @Value(&quot;$&#123;spring.datasource.driver-class-name&#125;&quot;)</div><div class="line">    private String driver;</div><div class="line"></div><div class="line"></div><div class="line">    @Bean(name = &quot;dataSource&quot;)</div><div class="line">    public DataSource dataSource() &#123;</div><div class="line">        //DruidDataSource dataSource = new DruidDataSource();//alibaba druid datasource</div><div class="line">        DriverManagerDataSource dataSource = new DriverManagerDataSource();</div><div class="line">        dataSource.setDriverClassName(driver);</div><div class="line">        dataSource.setUrl(url);</div><div class="line">        dataSource.setUsername(username);</div><div class="line">        dataSource.setPassword(password);</div><div class="line">        return dataSource;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    @Bean(name = &quot;transactionManager&quot;)</div><div class="line">    public DataSourceTransactionManager transactionManager() &#123;</div><div class="line">        return new DataSourceTransactionManager(dataSource());</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    @Bean(name = &quot;sqlSessionFactory&quot;)</div><div class="line">    public SqlSessionFactory sqlSessionFactory(@Qualifier(&quot;dataSource&quot;) DataSource dataSource)</div><div class="line">            throws Exception &#123;</div><div class="line">        final SqlSessionFactoryBean sessionFactory = new SqlSessionFactoryBean();</div><div class="line">        sessionFactory.setDataSource(dataSource);</div><div class="line">        sessionFactory.setMapperLocations(new PathMatchingResourcePatternResolver()</div><div class="line">                .getResources(DataSourceConfig.MAPPER_LOCATION));</div><div class="line">        return sessionFactory.getObject();</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h3 id="可以使用多个事物处理器"><a href="#可以使用多个事物处理器" class="headerlink" title="可以使用多个事物处理器()"></a>可以使用多个事物处理器()</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">@Configuration</div><div class="line">public class DatabaseConfiguration &#123;</div><div class="line"> </div><div class="line">    @Bean</div><div class="line">    public PlatformTransactionManager transactionManager1(EntityManagerFactory entityManagerFactory) &#123;</div><div class="line">        return new JpaTransactionManager(entityManagerFactory);</div><div class="line">    &#125;</div><div class="line"> </div><div class="line">    @Bean</div><div class="line">    public PlatformTransactionManager transactionManager2(DataSource dataSource) &#123;</div><div class="line">        return new DataSourceTransactionManager(dataSource);</div><div class="line">    &#125;</div><div class="line"> </div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h3 id="在具体使用-Transactional时需要制定处理器的名字"><a href="#在具体使用-Transactional时需要制定处理器的名字" class="headerlink" title="在具体使用@Transactional时需要制定处理器的名字"></a>在具体使用@Transactional时需要制定处理器的名字</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"># @Transactional(value=&quot;transactionManager&quot;, rollbackFor = Exception.class)</div><div class="line"># @Transactional</div><div class="line"></div><div class="line">@Transactional(value=&quot;transactionManager1&quot;)</div><div class="line">public void insert() &#123;</div><div class="line">    insert();</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h3 id="继承TransactionManagementConfigurer类，覆盖默认事物处理器方法"><a href="#继承TransactionManagementConfigurer类，覆盖默认事物处理器方法" class="headerlink" title="继承TransactionManagementConfigurer类，覆盖默认事物处理器方法"></a>继承TransactionManagementConfigurer类，覆盖默认事物处理器方法</h3><p><strong>在Spring容器中，我们手工注解@Bean 将被优先加载，框架不会重新实例化其他的 PlatformTransactionManager 实现类。</strong></p>
-<p><strong>然后在Service中，被 @Transactional 注解的方法，将支持事务。如果注解在类上，则整个类的所有方法都默认支持事务。</strong></p>
-<p><strong>对于同一个工程中存在多个事务管理器要怎么处理，请看下面的实例，具体说明请看代码中的注释。</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">// 实现接口 TransactionManagementConfigurer 方法，其返回值代表在拥有多个事务管理器的情况下默认使用的事务管理器</div><div class="line">    @Override</div><div class="line">    public PlatformTransactionManager annotationDrivenTransactionManager() &#123;</div><div class="line">        return txManager2;</div><div class="line">    &#125;</div></pre></td></tr></table></figure>
-<p><strong>如果Spring容器中存在多个 PlatformTransactionManager 实例，并且没有实现接口 TransactionManagementConfigurer 指定默认值，在我们在方法上使用注解 @Transactional 的时候，就必须要用value指定，如果不指定，则会抛出异常。</strong></p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;pre&gt;&lt;code&gt;SpringBoot的事务管理（jdbc、jpa、mybatis）
-&lt;/code&gt;&lt;/pre&gt;
-    
-    </summary>
-    
-      <category term="Spring Boot" scheme="http://www.nealma.com/categories/Spring-Boot/"/>
-    
-    
-      <category term="Java" scheme="http://www.nealma.com/tags/Java/"/>
-    
-      <category term="Spring" scheme="http://www.nealma.com/tags/Spring/"/>
-    
-      <category term="Spring-Boot" scheme="http://www.nealma.com/tags/Spring-Boot/"/>
-    
-      <category term="Transaction" scheme="http://www.nealma.com/tags/Transaction/"/>
     
   </entry>
   
