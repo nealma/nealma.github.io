@@ -2,9 +2,16 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://www.nealma.com/2017/05/18/java-commons-1-auto-restart-as-service/</loc>
+    
+    <lastmod>2018-05-19T06:21:05.524Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://www.nealma.com/2017/05/19/java-commons-3-retain-dot/</loc>
     
-    <lastmod>2018-05-19T06:15:59.136Z</lastmod>
+    <lastmod>2018-05-19T06:18:53.249Z</lastmod>
     
   </url>
   
@@ -12,13 +19,6 @@
     <loc>http://www.nealma.com/2017/05/19/java-commons-2-create-file-and-dir/</loc>
     
     <lastmod>2018-05-19T06:03:24.018Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://www.nealma.com/2017/05/18/java-commons-1-auto-restart-as-service/</loc>
-    
-    <lastmod>2018-05-19T06:03:18.474Z</lastmod>
     
   </url>
   
