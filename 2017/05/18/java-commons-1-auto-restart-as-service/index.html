@@ -92,7 +92,7 @@
 <meta property="og:url" content="http://www.nealma.com/2017/05/18/java-commons-1-auto-restart-as-service/index.html">
 <meta property="og:site_name" content="nealma.com">
 <meta property="og:description" content="自动启动Java进程或者在终端命令行以及RestAPI控制Java进程">
-<meta property="og:updated_time" content="2018-05-19T06:23:09.009Z">
+<meta property="og:updated_time" content="2018-05-19T12:17:52.716Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Java基础-1-Linux系统下启动Java进程">
 <meta name="twitter:description" content="自动启动Java进程或者在终端命令行以及RestAPI控制Java进程">
@@ -338,7 +338,7 @@
 </code></pre><a id="more"></a>
 <h3 id="使用场景"><a href="#使用场景" class="headerlink" title="使用场景"></a>使用场景</h3><pre><code>从事Java开发的童鞋都熟悉，Tomcat可以运行Java应用，从最早的Web服务，到现在REST API都是在平常不过了。
 那除了依赖Tomcat这种容器，我们还可以使用命令行控制Java进程，在我们的自动化脚本中经常见到。
-下面主要介绍Java以jar包形式在后台运行，即使异常终端或服务器重启，Java都能死而复生。
+下面主要介绍Java以jar包形式在后台运行，即使服务器重启，Java都能死而复生。
 </code></pre><h3 id="小白时期"><a href="#小白时期" class="headerlink" title="小白时期"></a>小白时期</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">java -jar /path/to/java.jar</div></pre></td></tr></table></figure>
 <h3 id="进阶时期"><a href="#进阶时期" class="headerlink" title="进阶时期"></a>进阶时期</h3><ul>
 <li>SystemD service unit 文件存放在/etc/systemd/system目录</li>
@@ -351,7 +351,7 @@
 <ul>
 <li>命令行控制Java进程</li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"># unit文件变更，重新加载</div><div class="line">sytemctl daemon-reload</div><div class="line"></div><div class="line"># start</div><div class="line">systemctl start app.service</div><div class="line"></div><div class="line"># status</div><div class="line">systemctl status app.service</div><div class="line"></div><div class="line"># auto start as system or terminated</div><div class="line">systemctl enabled app.service</div><div class="line"></div><div class="line"># check enabled</div><div class="line">systemctl is-enabled app.service</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"># unit文件变更，重新加载</div><div class="line">sytemctl daemon-reload</div><div class="line"></div><div class="line"># start|stop|restart|reload</div><div class="line">systemctl [start|stop|restart|reload] app.service</div><div class="line"></div><div class="line"># status</div><div class="line">systemctl status app.service</div><div class="line"></div><div class="line"># auto start as system</div><div class="line">systemctl enable app.service</div><div class="line"></div><div class="line"># check enabled</div><div class="line">systemctl is-enabled app.service</div></pre></td></tr></table></figure>
 <h3 id="结束"><a href="#结束" class="headerlink" title="结束"></a>结束</h3><pre><code>～：）～～～
 </code></pre>
       
@@ -493,7 +493,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="../../../../archives">
-              <span class="site-state-item-count">96</span>
+              <span class="site-state-item-count">97</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -510,7 +510,7 @@
           
             <div class="site-state-item site-state-tags">
               <a href="../../../../tags">
-                <span class="site-state-item-count">93</span>
+                <span class="site-state-item-count">94</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
