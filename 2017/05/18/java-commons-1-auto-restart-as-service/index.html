@@ -92,7 +92,7 @@
 <meta property="og:url" content="http://www.nealma.com/2017/05/18/java-commons-1-auto-restart-as-service/index.html">
 <meta property="og:site_name" content="nealma.com">
 <meta property="og:description" content="自动启动Java进程或者在终端命令行以及RestAPI控制Java进程">
-<meta property="og:updated_time" content="2018-05-19T06:21:05.524Z">
+<meta property="og:updated_time" content="2018-05-19T06:23:09.009Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Java基础-1-Linux系统下启动Java进程">
 <meta name="twitter:description" content="自动启动Java进程或者在终端命令行以及RestAPI控制Java进程">
@@ -343,15 +343,15 @@
 <h3 id="进阶时期"><a href="#进阶时期" class="headerlink" title="进阶时期"></a>进阶时期</h3><ul>
 <li>SystemD service unit 文件存放在/etc/systemd/system目录</li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">cd /etc/systemd/system</div><div class="line">```    </div><div class="line">* 创建SystemD service unit文件app.service,名字根据具体业务进行命名，比如log.service</div></pre></td></tr></table></figure>
-<p>[Unit]<br>Description=xxx service<br>After=syslog.target</p>
-<p>[Service]<br>User=root<br>ExecStart=/usr/bin/java -jar /service/app.jar –spring.profiles.active=dev<br>SuccessExitStatus=143</p>
-<p>[Install]<br>WantedBy=multi-user.target<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">* 命令行控制Java进程</div></pre></td></tr></table></figure></p>
-<h1 id="unit文件变更，重新加载"><a href="#unit文件变更，重新加载" class="headerlink" title="unit文件变更，重新加载"></a>unit文件变更，重新加载</h1><p>sytemctl daemon-reload</p>
-<h1 id="start"><a href="#start" class="headerlink" title="start"></a>start</h1><p>systemctl start app.service</p>
-<h1 id="status"><a href="#status" class="headerlink" title="status"></a>status</h1><p>systemctl status app.service</p>
-<h1 id="auto-start-as-system-or-terminated"><a href="#auto-start-as-system-or-terminated" class="headerlink" title="auto start as system or terminated"></a>auto start as system or terminated</h1><p>systemctl enabled app.service</p>
-<h1 id="check-enabled"><a href="#check-enabled" class="headerlink" title="check enabled"></a>check enabled</h1><p>systemctl is-enabled app.service<br>```</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">cd /etc/systemd/system</div></pre></td></tr></table></figure>
+<ul>
+<li>创建SystemD service unit文件app.service,名字根据具体业务进行命名，比如log.service</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">[Unit]</div><div class="line">Description=xxx service</div><div class="line">After=syslog.target</div><div class="line"></div><div class="line">[Service]</div><div class="line">User=root</div><div class="line">ExecStart=/usr/bin/java -jar /service/app.jar --spring.profiles.active=dev</div><div class="line">SuccessExitStatus=143</div><div class="line"></div><div class="line">[Install]</div><div class="line">WantedBy=multi-user.target</div></pre></td></tr></table></figure>
+<ul>
+<li>命令行控制Java进程</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"># unit文件变更，重新加载</div><div class="line">sytemctl daemon-reload</div><div class="line"></div><div class="line"># start</div><div class="line">systemctl start app.service</div><div class="line"></div><div class="line"># status</div><div class="line">systemctl status app.service</div><div class="line"></div><div class="line"># auto start as system or terminated</div><div class="line">systemctl enabled app.service</div><div class="line"></div><div class="line"># check enabled</div><div class="line">systemctl is-enabled app.service</div></pre></td></tr></table></figure>
 <h3 id="结束"><a href="#结束" class="headerlink" title="结束"></a>结束</h3><pre><code>～：）～～～
 </code></pre>
       
@@ -564,7 +564,7 @@
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#使用场景"><span class="nav-number">1.</span> <span class="nav-text">使用场景</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#小白时期"><span class="nav-number">2.</span> <span class="nav-text">小白时期</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#进阶时期"><span class="nav-number">3.</span> <span class="nav-text">进阶时期</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#unit文件变更，重新加载"><span class="nav-number"></span> <span class="nav-text">unit文件变更，重新加载</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#start"><span class="nav-number"></span> <span class="nav-text">start</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#status"><span class="nav-number"></span> <span class="nav-text">status</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#auto-start-as-system-or-terminated"><span class="nav-number"></span> <span class="nav-text">auto start as system or terminated</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#check-enabled"><span class="nav-number"></span> <span class="nav-text">check enabled</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#结束"><span class="nav-number">1.</span> <span class="nav-text">结束</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#使用场景"><span class="nav-number">1.</span> <span class="nav-text">使用场景</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#小白时期"><span class="nav-number">2.</span> <span class="nav-text">小白时期</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#进阶时期"><span class="nav-number">3.</span> <span class="nav-text">进阶时期</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#结束"><span class="nav-number">4.</span> <span class="nav-text">结束</span></a></li></ol></div>
             
           </div>
         </section>
