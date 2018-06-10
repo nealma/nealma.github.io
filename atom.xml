@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://www.nealma.com/"/>
-  <updated>2018-05-07T06:25:35.410Z</updated>
+  <updated>2018-06-07T23:13:32.153Z</updated>
   <id>http://www.nealma.com/</id>
   
   <author>
@@ -14,6 +14,116 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Spring Boot 文件上传路径无效问题</title>
+    <link href="http://www.nealma.com/2018/06/08/work-problerm-12-springboot-multiple-upload-file-temp-file/"/>
+    <id>http://www.nealma.com/2018/06/08/work-problerm-12-springboot-multiple-upload-file-temp-file/</id>
+    <published>2018-06-08T04:46:45.000Z</published>
+    <updated>2018-06-07T23:13:32.153Z</updated>
+    
+    <content type="html"><![CDATA[<pre><code>data : &quot;The temporary upload location [/tmp/tomcat.2577057866774457886.80/work/Tomcat/localhost/ROOT] is not valid&quot;
+</code></pre><a id="more"></a>
+<h3 id="复现问题场景"><a href="#复现问题场景" class="headerlink" title="复现问题场景"></a>复现问题场景</h3><pre><code>删除/tmp/tomcat.*目录
+</code></pre><h3 id="分析原因"><a href="#分析原因" class="headerlink" title="分析原因"></a>分析原因</h3><pre><code>/tmp目录是系统存放临时文件的地方，里面的文件有可能会被系统清除。
+我们的项目使用了Spring-Boot上传文件功能，会在/tmp下产生缓存文件，如果目录不存在就会出现该异常。
+</code></pre><h3 id="解决办法"><a href="#解决办法" class="headerlink" title="解决办法"></a>解决办法</h3><pre><code>**更改缓存目录**
+</code></pre><ul>
+<li><p>固定一个目录</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">@Configuration</div><div class="line">public class MultipartConfig &#123;</div><div class="line"></div><div class="line">    @Bean</div><div class="line">    MultipartConfigElement multipartConfigElement() &#123;</div><div class="line">        MultipartConfigFactory factory = new MultipartConfigFactory();</div><div class="line">        String location = &quot;/data/tomcat/tmp&quot;;</div><div class="line">        factory.setLocation(location);</div><div class="line">        return factory.createMultipartConfig();</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+<li><p>在项目路径下,因为是jar包运行，可以增加额外参数</p>
+</li>
+</ul>
+<p>例如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">/usr/bin/java -jar /service/upload-service.jar --spring.profiles.active=dev</div><div class="line"></div><div class="line">#在application.yml中添加变量</div><div class="line">porject:</div><div class="line">    home: /service/upload</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">@Configuration</div><div class="line">public class MultipartConfig &#123;</div><div class="line"></div><div class="line">    @Value(&quot;$&#123;project.home&#125;&quot;)</div><div class="line">    private String projectHome;</div><div class="line"></div><div class="line">    @Bean</div><div class="line">    MultipartConfigElement multipartConfigElement() &#123;</div><div class="line">        MultipartConfigFactory factory = new MultipartConfigFactory();</div><div class="line">        String location = StringUtils.isEmpty(projectHome) ? &quot;/data/tmp&quot; : projectHome + &quot;/data/tmp&quot;;</div><div class="line">        factory.setLocation(location);</div><div class="line">        return factory.createMultipartConfig();</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="结束"><a href="#结束" class="headerlink" title="结束"></a>结束</h3><pre><code>:)~
+</code></pre>]]></content>
+    
+    <summary type="html">
+    
+      &lt;pre&gt;&lt;code&gt;data : &amp;quot;The temporary upload location [/tmp/tomcat.2577057866774457886.80/work/Tomcat/localhost/ROOT] is not valid&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+    
+    </summary>
+    
+      <category term="work" scheme="http://www.nealma.com/categories/work/"/>
+    
+    
+      <category term="Spring-Boot" scheme="http://www.nealma.com/tags/Spring-Boot/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>利用Safari调试手机上的网页</title>
+    <link href="http://www.nealma.com/2018/06/06/mac-used-3-safari/"/>
+    <id>http://www.nealma.com/2018/06/06/mac-used-3-safari/</id>
+    <published>2018-06-06T03:46:45.000Z</published>
+    <updated>2018-06-06T03:10:24.965Z</updated>
+    
+    <content type="html"><![CDATA[<pre><code>好记性不如坏笔头
+</code></pre><a id="more"></a>
+<h3 id="iOS浏览器调试"><a href="#iOS浏览器调试" class="headerlink" title="iOS浏览器调试"></a>iOS浏览器调试</h3><ul>
+<li>插线，dashboard左侧</li>
+<li>develop（偏好-&gt;高级-&gt;在工具栏显示）</li>
+<li>develop下拉列表里面可以看到</li>
+</ul>
+<h3 id="结束"><a href="#结束" class="headerlink" title="结束"></a>结束</h3><pre><code>:)~
+</code></pre>]]></content>
+    
+    <summary type="html">
+    
+      &lt;pre&gt;&lt;code&gt;好记性不如坏笔头
+&lt;/code&gt;&lt;/pre&gt;
+    
+    </summary>
+    
+      <category term="Mac" scheme="http://www.nealma.com/categories/Mac/"/>
+    
+    
+      <category term="Mac OS" scheme="http://www.nealma.com/tags/Mac-OS/"/>
+    
+      <category term="Safari" scheme="http://www.nealma.com/tags/Safari/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>微信内浏览器jsApi分享</title>
+    <link href="http://www.nealma.com/2018/06/06/work-problerm-3-wx-1-share/"/>
+    <id>http://www.nealma.com/2018/06/06/work-problerm-3-wx-1-share/</id>
+    <published>2018-06-06T02:46:45.000Z</published>
+    <updated>2018-06-06T04:03:16.455Z</updated>
+    
+    <content type="html"><![CDATA[<pre><code>微信内浏览器jsApi分享
+</code></pre><a id="more"></a>
+<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><pre><code>微信内链接分享，默认情况下是没有缩略图的，用户体验差
+</code></pre><p>  但是可以通过jsAPI做自定义分享</p>
+<h3 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h3><ul>
+<li>ip白名单（多个换行）</li>
+<li>URL与实际location.href一致，URL编码escape</li>
+<li>ajax获取不到url值（参数接收）</li>
+<li>js安全域名（一级域名、二级域名）</li>
+<li>微信公众号授权</li>
+<li>自动化，做到服务器端</li>
+<li>授权验证文件（.txt）（OSS 配置静态网站）</li>
+</ul>
+<h3 id="结束"><a href="#结束" class="headerlink" title="结束"></a>结束</h3><pre><code>:)~
+</code></pre>]]></content>
+    
+    <summary type="html">
+    
+      &lt;pre&gt;&lt;code&gt;微信内浏览器jsApi分享
+&lt;/code&gt;&lt;/pre&gt;
+    
+    </summary>
+    
+      <category term="work" scheme="http://www.nealma.com/categories/work/"/>
+    
+    
+      <category term="大杂烩" scheme="http://www.nealma.com/tags/%E5%A4%A7%E6%9D%82%E7%83%A9/"/>
+    
+  </entry>
   
   <entry>
     <title>git pull 出现 refusing to merge unrelated histories</title>
@@ -853,155 +963,6 @@ system=yes表示创建系统用户；
       <category term="Spring Cloud" scheme="http://www.nealma.com/tags/Spring-Cloud/"/>
     
       <category term="Spring-Cloud" scheme="http://www.nealma.com/tags/Spring-Cloud/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>JavaScript | jQuery 自定义插件</title>
-    <link href="http://www.nealma.com/2017/06/24/js-1-jquery-extend/"/>
-    <id>http://www.nealma.com/2017/06/24/js-1-jquery-extend/</id>
-    <published>2017-06-24T03:46:45.000Z</published>
-    <updated>2017-07-01T04:02:31.000Z</updated>
-    
-    <content type="html"><![CDATA[<pre><code>以前写过javascript，但都是临时更改，没怎么太研究怎么去写好，怎么去封装，还有jQuery，都是拿来即用，
-根本就没想过去写插件，主要吧，都是作后端的内容，很少写前端代码。其实写写前端挺有意思的，顺便心血来潮，
-整个jQuery插件玩玩：）～
-</code></pre><a id="more"></a>
-<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><pre><code>以前写过javascript，但都是临时更改，没怎么太研究怎么去写好，怎么去封装，还有JQuery，都是拿来即用，
-根本就没想过去写插件，主要吧，都是做后端的内容，很少写前端代码。其实写写前端挺有意思的，顺便心血来潮，
-整个JQuery插件玩玩：）～
-
-* $.fn.extend 当然这种方式只适用实例范围, 例如：$([class name | tag | et..]).hi(),可以调用
-</code></pre><h3 id="无参插件"><a href="#无参插件" class="headerlink" title="无参插件"></a>无参插件</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">$.fn.extend(&#123;</div><div class="line">	hi: function () &#123;</div><div class="line">	  alert(&quot;hello world.&quot;);</div><div class="line">	&#125;</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
-<p>切记：为了不和其他插件对共享$这个符号的冲突，尽量用下面这个包起来，妥妥的</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">(function($)&#123;</div><div class="line">	</div><div class="line">&#125;)(jQuery);</div></pre></td></tr></table></figure>
-<p>调用<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$(&quot;#id&quot;).hi();</div></pre></td></tr></table></figure></p>
-<h3 id="有残参插件，当然这种方式只适用实例范围-例如：-class-name-tag-et-hi-可以调用"><a href="#有残参插件，当然这种方式只适用实例范围-例如：-class-name-tag-et-hi-可以调用" class="headerlink" title="有残参插件，当然这种方式只适用实例范围, 例如：$([class name | tag | et..]).hi(),可以调用"></a>有残参插件，当然这种方式只适用实例范围, 例如：$([class name | tag | et..]).hi(),可以调用</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">$.fn.extend(&#123;</div><div class="line">	hi: function (options) &#123;</div><div class="line">	  var defaults=&#123;</div><div class="line">	      background:&apos;red&apos;</div><div class="line">	  &#125;;</div><div class="line">	  var opts = $.extend(defaults,options);//合并两个对象为一个，类似于java的copyProperties(original, target)</div><div class="line">	  $(this).css(&quot;background-color&quot;,opts.background);</div><div class="line">	&#125;</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
-<p>切记：为了不和其他插件对共享$这个符号的冲突，尽量用下面这个包起来，妥妥的</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">(function($)&#123;</div><div class="line">	</div><div class="line">&#125;)(jQuery);</div></pre></td></tr></table></figure>
-<p>调用</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$(&quot;#id&quot;).hi(&#123;&quot;background&quot;: &quot;red&quot;&#125;);</div></pre></td></tr></table></figure>
-<h3 id="jQuery的链式调用"><a href="#jQuery的链式调用" class="headerlink" title="jQuery的链式调用"></a>jQuery的链式调用</h3><pre><code>大家都知道，也都在使用jQuery的链式调用，很优雅，那我们自己的插件可以这样调用吗？
-能不能，我们来做个实验,直接执行如下：
-</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$(&quot;#id&quot;).hi(&#123;&quot;background&quot;: &quot;red&quot;&#125;).html();</div></pre></td></tr></table></figure>
-<pre><code>不好意思，你会看到令人厌烦的异常
-</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Uncaught TypeError: Cannot read property &apos;html&apos; of undefined at &lt;anonymous&gt;:1:46</div></pre></td></tr></table></figure>
-<pre><code>也就是说，我们自己的插件打破了jQuery的链式传递，怎么办呢？其实很简单，在函数最后添加如下：
-</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">return this.each(function() &#123;</div><div class="line">  // Using return allows for chainability</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
-<h3 id="最后完整代码"><a href="#最后完整代码" class="headerlink" title="最后完整代码"></a>最后完整代码</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">(function($)&#123;</div><div class="line">  $.fn.extend(&#123;</div><div class="line">    hi: function (options) &#123;</div><div class="line">      var defaults=&#123;&#125;;</div><div class="line">      var opts = $.extend(defaults,options);</div><div class="line">      console.log(opts);</div><div class="line">      $(this).css(&quot;background-color&quot;, opts.background);</div><div class="line">      return this.each(function() &#123;</div><div class="line">        // Using return allows for chainability</div><div class="line">      &#125;);</div><div class="line">    &#125;</div><div class="line">  &#125;);</div><div class="line">&#125;)(jQuery);</div></pre></td></tr></table></figure>
-<h3 id="注意：如果你直接-hi-来调用，会抛出异常"><a href="#注意：如果你直接-hi-来调用，会抛出异常" class="headerlink" title="注意：如果你直接 $.hi() 来调用，会抛出异常"></a>注意：如果你直接 $.hi() 来调用，会抛出异常</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Uncaught TypeError: $.hi is not a functionx at &lt;anonymous&gt;:1:3</div></pre></td></tr></table></figure>
-<p>这也证实了hi方法只是赋予了选择器的实例上，那么我们想给$(jQuery)对象赋予自定义功能，该如何实现呢？</p>
-<p>###jQuery类级别的自定义插件,也可以理解为静态方法，工具类。</p>
-<pre><code>跟之前比较类似，如下：
-</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">(function($)&#123;</div><div class="line">  $.extend(&#123;</div><div class="line">    hiDate: function () &#123;</div><div class="line">      return new Date().toJSON().slice(0,10)</div><div class="line">    &#125;</div><div class="line">  &#125;);</div><div class="line">&#125;)(jQuery);</div></pre></td></tr></table></figure>
-<pre><code>调用方式
-</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$.hiDate();</div></pre></td></tr></table></figure>
-<h3 id="结束"><a href="#结束" class="headerlink" title="结束"></a>结束</h3><pre><code>没事写写代码，写写后端，写写前端，哦，js已经不仅限于前端啦：）～
- :)~
-</code></pre>]]></content>
-    
-    <summary type="html">
-    
-      &lt;pre&gt;&lt;code&gt;以前写过javascript，但都是临时更改，没怎么太研究怎么去写好，怎么去封装，还有jQuery，都是拿来即用，
-根本就没想过去写插件，主要吧，都是作后端的内容，很少写前端代码。其实写写前端挺有意思的，顺便心血来潮，
-整个jQuery插件玩玩：）～
-&lt;/code&gt;&lt;/pre&gt;
-    
-    </summary>
-    
-      <category term="Frontend" scheme="http://www.nealma.com/categories/Frontend/"/>
-    
-    
-      <category term="JavaScript" scheme="http://www.nealma.com/tags/JavaScript/"/>
-    
-      <category term="jQuery" scheme="http://www.nealma.com/tags/jQuery/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Nginx | ERR_CONTENT_LENGTH_MISMATCH</title>
-    <link href="http://www.nealma.com/2017/06/04/nginx-example-work-3-temp-proxy/"/>
-    <id>http://www.nealma.com/2017/06/04/nginx-example-work-3-temp-proxy/</id>
-    <published>2017-06-04T03:46:45.000Z</published>
-    <updated>2017-07-01T03:58:15.000Z</updated>
-    
-    <content type="html"><![CDATA[<pre><code>访问网页的时候，经常出现 net::ERR_CONTENT_LENGTH_MISMATCH这个问题，一开始也为是某些文件过大导致的，
-还特意把大的资源文件放在CDN上，肯定不行了。
-可是后来发现不管文件大小，都会偶尔报这个错，后来经过Google，才知道是nginx的问题，学无止境。
-</code></pre><a id="more"></a>
-<h3 id="原因"><a href="#原因" class="headerlink" title="原因"></a>原因</h3><pre><code>nginx的工作进程对大文件做了缓存，存储在/var/lib/nginx/tmp/proxy下，通过查看error.log文件可以看到，
-</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">2017/06/04 15:30:29 [crit] 24446#0: *21029 open() &quot;/var/lib/nginx/tmp/proxy/1/14/0000000141&quot; failed (13: Permission denied) while reading upstream,</div></pre></td></tr></table></figure>
-<p>也即是nginx的启动进程用户没有权限访问proxy的目录，导致读取文件失败，可以变更nginx.conf中的user为nginx，若果<br>想使用自定义用户xxx，那需要给xxx授权，<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">chown -R xxx /var/lib/nginx/tmp/proxy</div></pre></td></tr></table></figure></p>
-<p>重新启动nginx, 问题解决。</p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;pre&gt;&lt;code&gt;访问网页的时候，经常出现 net::ERR_CONTENT_LENGTH_MISMATCH这个问题，一开始也为是某些文件过大导致的，
-还特意把大的资源文件放在CDN上，肯定不行了。
-可是后来发现不管文件大小，都会偶尔报这个错，后来经过Google，才知道是nginx的问题，学无止境。
-&lt;/code&gt;&lt;/pre&gt;
-    
-    </summary>
-    
-      <category term="Nginx" scheme="http://www.nealma.com/categories/Nginx/"/>
-    
-    
-      <category term="Nginx" scheme="http://www.nealma.com/tags/Nginx/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Spring-Boot（十五) PubSub Messaging with Spring Data Redis</title>
-    <link href="http://www.nealma.com/2017/06/04/spring-boot-15-pub-sub/"/>
-    <id>http://www.nealma.com/2017/06/04/spring-boot-15-pub-sub/</id>
-    <published>2017-06-04T01:46:45.000Z</published>
-    <updated>2017-09-14T01:08:23.000Z</updated>
-    
-    <content type="html"><![CDATA[<pre><code>异构系统之间如何解偶和很好的连接呢？发布订阅模式是个很好的选择。
-</code></pre><a id="more"></a>
-<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><pre><code>发布订阅是一种典型的异步通信模型，可以让消息的发布者和订阅者充分解耦。
-Spring Boot中，使用Redis很容易实现一个发布订阅系统，如果你想用，看这一篇就够了。
-</code></pre><p><a href="http://www.baeldung.com/spring-data-redis-pub-sub" target="_blank" rel="external">参考文章</a></p>
-<p>开发环境：<br>OS: Mac 10.11.6<br>IDE: IDEA<br>Build: Maven</p>
-<p><strong>本文依赖前文的CacheConfig.java文件</strong></p>
-<h3 id="加入依赖"><a href="#加入依赖" class="headerlink" title="加入依赖"></a>加入依赖</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&lt;dependency&gt;</div><div class="line">    &lt;groupId&gt;org.springframework.data&lt;/groupId&gt;</div><div class="line">    &lt;artifactId&gt;spring-data-redis&lt;/artifactId&gt;</div><div class="line">&lt;/dependency&gt;</div></pre></td></tr></table></figure>
-<h3 id="Redis-Configuration"><a href="#Redis-Configuration" class="headerlink" title="Redis Configuration"></a>Redis Configuration</h3><ul>
-<li><p>MessageListenerAdapter/MessageListener/RedisMessageSubscriber</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">@Bean</div><div class="line">MessageListenerAdapter messageListener() &#123; </div><div class="line">    return new MessageListenerAdapter(new RedisMessageSubscriber());</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-</li>
-<li><p>RedisMessageListenerContainer<br>– “handles the low level details of listening, converting and message dispatching.”–</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">@Bean</div><div class="line">RedisMessageListenerContainer redisContainer() &#123;</div><div class="line">    RedisMessageListenerContainer container </div><div class="line">      = new RedisMessageListenerContainer(); </div><div class="line">    container.setConnectionFactory(jedisConnectionFactory()); </div><div class="line">    container.addMessageListener(messageListener(), topic()); </div><div class="line">    return container; </div><div class="line">&#125;</div></pre></td></tr></table></figure>
-</li>
-<li><p>RedisMessagePublisher (redisTemplate and topic as constructor arguments)</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">@Bean</div><div class="line">RedisMessagePublisher redisPublisher() &#123; </div><div class="line">    return new RedisMessagePublisher(redisTemplate(), topic());</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-</li>
-<li><p>Set up Topic</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">@Bean</div><div class="line">ChannelTopic topic() &#123;</div><div class="line">    return new ChannelTopic(&quot;messageQueue&quot;);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-</li>
-</ul>
-<h3 id="用到的一些类"><a href="#用到的一些类" class="headerlink" title="用到的一些类"></a>用到的一些类</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div></pre></td><td class="code"><pre><div class="line">#MessagePublisher.java</div><div class="line">public interface MessagePublisher &#123;</div><div class="line">    void publish(final String message);</div><div class="line">&#125;</div><div class="line"></div><div class="line">#RedisMessagePublisher.java</div><div class="line">@Service</div><div class="line">public class RedisMessagePublisher implements MessagePublisher &#123;</div><div class="line">    @Autowired</div><div class="line">    private RedisTemplate&lt;Object, Object&gt; redisTemplate;</div><div class="line">    @Autowired</div><div class="line">    private ChannelTopic topic;</div><div class="line"></div><div class="line">    public RedisMessagePublisher(final RedisTemplate&lt;Object, Object&gt; redisTemplate, final ChannelTopic topic) &#123;</div><div class="line">        this.redisTemplate = redisTemplate;</div><div class="line">        this.topic = topic;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    public void publish(final String message) &#123;</div><div class="line">        redisTemplate.convertAndSend(topic.getTopic(), message);</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">#RedisMessageSubscriber.java</div><div class="line">@Service</div><div class="line">public class RedisMessageSubscriber implements MessageListener&#123;</div><div class="line">    public static List&lt;String&gt; messageList = new ArrayList();</div><div class="line"></div><div class="line">    public void onMessage(final Message message, final byte[] pattern) &#123;</div><div class="line">        messageList.add(message.toString());</div><div class="line">        System.out.println(&quot;Message received: &quot; + new String(message.getBody()));</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h3 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">@RunWith(SpringJUnit4ClassRunner.class)</div><div class="line">@SpringBootTest(classes = Application.class)</div><div class="line">public class RedisMessageListenerIntegrationTest &#123;</div><div class="line"></div><div class="line">    @Autowired</div><div class="line">    private RedisMessagePublisher redisMessagePublisher;</div><div class="line"></div><div class="line">    @Test</div><div class="line">    public void testOnMessage() throws Exception &#123;</div><div class="line">        String message = &quot;Message &quot; + UUID.randomUUID();</div><div class="line">        redisMessagePublisher.publish(message);</div><div class="line">        Thread.sleep(100);</div><div class="line">        assertTrue(RedisMessageSubscriber.messageList.get(0).contains(message));</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h3 id="结束"><a href="#结束" class="headerlink" title="结束"></a>结束</h3><pre><code>～：）～～～
-</code></pre>]]></content>
-    
-    <summary type="html">
-    
-      &lt;pre&gt;&lt;code&gt;异构系统之间如何解偶和很好的连接呢？发布订阅模式是个很好的选择。
-&lt;/code&gt;&lt;/pre&gt;
-    
-    </summary>
-    
-      <category term="Spring Boot" scheme="http://www.nealma.com/categories/Spring-Boot/"/>
-    
-    
-      <category term="Java" scheme="http://www.nealma.com/tags/Java/"/>
-    
-      <category term="Spring" scheme="http://www.nealma.com/tags/Spring/"/>
-    
-      <category term="Spring-Boot" scheme="http://www.nealma.com/tags/Spring-Boot/"/>
-    
-      <category term="PubSub" scheme="http://www.nealma.com/tags/PubSub/"/>
     
   </entry>
   
